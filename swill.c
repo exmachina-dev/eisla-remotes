@@ -1,16 +1,25 @@
-#include <swill.h>
 #include <Arduino.h>
-#include <EEPROM.h>
+#include <eisla.h>
+#include <swill.h>
+
 #include "digitalWriteFast.h"
 
 volatile bool _EncoderPinASet;
 volatile bool _EncoderPinBSet;
 
 volatile long _EncoderTicks = 0;
+long lastEncoderTicks = 0;
+
+static unsigned int statusLedState = LOW;
+static unsigned long statusLedTime = 0;
+
+static unsigned long speedResolveTime = 0;
+float speed;
+
 
 int deviceId;
 
-SerialCmd inputCmd;
+eislaCmd inputCmd;
 bool newCmdEvent = false;
 
 void setup() {
@@ -31,41 +40,55 @@ void setup() {
     // Serial port
     Serial.begin(SwillSerialBaud);
 
-    deviceId = EEPROM.read(SwillIdAddress);
-    if(deviceId == 255)
-        deviceId = 0;
-    SerialCmd r;
-    r.command = 'R';
-    r.data[0] = ProductId;
-    r.data[1] = deviceId;
-    r.data_lenght = 2;
-    send(r);
+    get_device_infos(&swill);
+    if(swill.deviceId == 0)
+    {
+        set_device_id(&swill, 1);
+        save_device_infos(&swill);
+    }
+
     digitalWrite(StatusLed, LOW);
 }
 
 void loop() {
-    static unsigned int statusLedState = LOW;
-    static unsigned long statusLedTime = 0;
+    if((micros()-speedResolveTime) >= (long)0)
+    {
+        long deltaTime = micros() - speedResolveTime;
+        long deltaTicks = lastEncoderTicks - _EncoderTicks;
+        speed = deltaTime / deltaTicks;
+
+        lastEncoderTicks = _EncoderTicks;
+        speedResolveTime = micros() + SpeedResolveDelay;
+    }
+
 
     if(newCmdEvent)
     {
         switch(inputCmd.command) {
+            eislaCmd _cmd;
             case 'R':
-                if(0 <= inputCmd.data[1] < 255)
+                if(0 <= inputCmd.data.toInt.int0 < 255)
                 {
-                    deviceId = int(inputCmd.data[1]);
-                    EEPROM.write(SwillIdAddress, deviceId);
+                    set_device_id(&swill, inputCmd.data.toInt.int0);
+                    save_device_infos(&swill);
+                }
+                else
+                {
+                    send_device_infos(&swill);
                 }
                 break;
-            case 'G':
-                SerialCmd r = {'T', _EncoderTicks};
-                send(r);
+            case 'T':
+                send_ticks();
+                break;
+            case 'S':
+                send_speed();
+                break;
         }
 
         newCmdEvent = false;
     }
 
-    if((long)(millis()-statusLedTime) >=0)
+    if((long)(millis()-statusLedTime) >= 0)
     {
         statusLedState =  (statusLedState==HIGH ? LOW : HIGH);
         digitalWriteFast(StatusLed, statusLedState);
@@ -75,35 +98,39 @@ void loop() {
 
 void serialEvent()
 {
-    if(Serial.available() >= 2)
+    if(Serial.available() > 0)
     {
         inputCmd.command = Serial.read();
-        if(Serial.readBytesUntil('\n', (char*)inputCmd.data, SwillDataLenght))
+        #ifdef EISLA_DEBUG
+        if(Serial.readBytes((char*)inputCmd.data.toBytes, 4))
         {
             Serial.print("CMD: ");
             Serial.print(inputCmd.command);
             Serial.print(" DAT: ");
-            #ifndef SERIAL_PRINT_MODE
-            Serial.println((char*)inputCmd.data);
-            #else
-            Serial.println(inputCmd.data);
-            #endif // SERIAL_PRINT_MODE
+            Serial.println((char*)inputCmd.data.toBytes);
         }
+        #else
+        Serial.readBytes((char*)inputCmd.data.toBytes, 4);
+        #endif // EISLA_DEBUG
         newCmdEvent = true;
     }
 }
 
-void send(SerialCmd cmd)
+void send_ticks()
 {
-    #ifndef SERIAL_PRINT_MODE
-    Serial.write(cmd.command);
-    Serial.write(cmd.data, cmd.data_lenght);
-    Serial.write('\n');
-    #else
-    Serial.print(cmd.command);
-    Serial.print(cmd.data);
-    Serial.print('\n');
-    #endif // SERIAL_PRINT_MODE
+    eislaCmd _c;
+    _c.command = 'T';
+    _c.data.toLong = _EncoderTicks;
+    digitalWrite(StatusLed, HIGH);
+    send(_c);
+}
+
+void send_speed()
+{
+    eislaCmd _c;
+    _c.command = 'S';
+    _c.data.toFloat = speed;
+    send(_c);
 }
 
 void handleEncoderPinA()

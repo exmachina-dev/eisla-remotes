@@ -1,7 +1,11 @@
+#ifndef SWILL_H_INCLUDED
+#define SWILL_H_INCLUDED
 #include <Arduino.h>
 
 #define StatusLed 13
-#define StatusBlinkDelay 100
+#define StatusBlinkDelay 500        // in milliseconds
+
+#define SpeedResolveDelay 10000     // in microseconds ( 10000µs = 10ms )
 #define EncoderPinAInterrupt 0
 #define EncoderPinBInterrupt 1
 #define EncoderPinA 2
@@ -12,22 +16,12 @@
 #define SwillSerialBaud 57600
 #define SwillDataLenght 4
 
-#define ProductId 0x1
-#define SwillIdAddress 0x0
+eislaDevice swill = {SWILL};
 
-#define SERIAL_PRINT_MODE
+void send_ticks();
+void send_speed();
 
-struct SerialCmd
-{
-    char command;
-    #ifndef SERIAL_PRINT_MODE
-    uint8_t data[SwillDataLenght];
-    #else
-    char data[SwillDataLenght];
-    #endif // SERIAL_PRINT_MODE
-    int data_lenght;
-};
-
-void send(SerialCmd);
 void handleEncoderPinA();
 void handleEncoderPinB();
+
+#endif
