@@ -8,7 +8,8 @@
 #define EislaIdAddress 0x0      // EEPROM address
 
 enum ProductIds {
-    SWILL=1
+    SWILL = 1,
+    VERIT = 2,
 };
 
 typedef struct {

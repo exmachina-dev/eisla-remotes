@@ -1,6 +1,7 @@
 #ifndef VERIT_H_INCLUDED
 #define VERIT_H_INCLUDED
 #include <Arduino.h>
+#include <eisla.h>
 
 #define StatusLed 13
 #define StatusBlinkDelay 400        // in milliseconds
