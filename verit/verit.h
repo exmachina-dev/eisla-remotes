@@ -6,15 +6,24 @@
 #define StatusLed 13
 #define StatusBlinkDelay 400        // in milliseconds
 
-#define SpeedResolveDelay 10000     // in microseconds ( 10000µs = 10ms )
-#define EncoderPinAInterrupt 0
-#define EncoderPinBInterrupt 1
-#define EncoderPinA 2
-#define EncoderPinB 3
+#define MainLedR 9
+#define MainLedG 8
+#define MainLedB 7
 
-#define TicksPerRevolution 4096
-
+#define ResolveDelay 100            // in microseconds ( 100µs = 0.10ms )
+#define SwitchPinInterrupt 0
+#define SwitchPin 2
+#define TxPin 12
 
 eislaDevice verit = {VERIT};
+
+typedef struct {
+    uint8_t r_pin;
+    uint8_t g_pin;
+    uint8_t b_pin;
+} rgbLed;
+
+void handleSwitchChange();
+void set_main_led(uint8_t color);
 
 #endif
