@@ -31,9 +31,9 @@ void send_device_infos(eislaDevice* _dev)
     send(_cmd);
 }
 
-void send(eislaCmd cmd)
+void send(eislaCmd* cmd)
 {
-    Serial.write(cmd.command);
-    Serial.write(cmd.data.toBytes, 4);
+    Serial.write(cmd->command);
+    Serial.write(cmd->data.toBytes, 4);
     Serial.write('\n');
 }

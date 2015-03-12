@@ -39,6 +39,6 @@ void set_device_id(eislaDevice*, int);
 void get_device_infos(eislaDevice*);
 void save_device_infos(eislaDevice*);
 void send_device_infos(eislaDevice*);
-void send(eislaCmd);
+void send(eislaCmd*);
 
 #endif // EISLA_H_INCLUDED
