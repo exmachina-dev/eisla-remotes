@@ -2,7 +2,7 @@
 #include <eisla.h>
 #include <swill.h>
 
-#include "digitalWriteFast.h"
+#include <digitalWriteFast.h>
 
 volatile bool _EncoderPinASet;
 volatile bool _EncoderPinBSet;
