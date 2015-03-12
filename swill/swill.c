@@ -122,7 +122,7 @@ void send_ticks()
     _c.command = 'T';
     _c.data.toLong = _EncoderTicks;
     digitalWrite(StatusLed, HIGH);
-    send(_c);
+    send(&_c);
 }
 
 void send_speed()
@@ -130,7 +130,7 @@ void send_speed()
     eislaCmd _c;
     _c.command = 'S';
     _c.data.toFloat = speed;
-    send(_c);
+    send(&_c);
 }
 
 void handleEncoderPinA()
