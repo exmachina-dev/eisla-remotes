@@ -28,7 +28,7 @@ void send_device_infos(eislaDevice* _dev)
     _cmd.command = 'R';
     _cmd.data.toInt.int0 = _dev->productId;
     _cmd.data.toInt.int1 = _dev->deviceId;
-    send(_cmd);
+    send(&_cmd);
 }
 
 void send(eislaCmd* cmd)
