@@ -9,7 +9,8 @@
 
 enum ProductIds {
     SWILL = 1,
-    VERIT = 2,
+    VERIT_TX = 2,
+    VERIT_RX = 3,
 };
 
 typedef struct {
