@@ -1,9 +1,9 @@
 #ifndef EISLA_H_INCLUDED
 #define EISLA_H_INCLUDED
 
-#define EISLA_DEBUG
-
 #include <Arduino.h>
+
+#define EISLA_DEBUG
 
 #define EislaIdAddress 0x0      // EEPROM address
 
