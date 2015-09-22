@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <eisla.h>
-#include <verit.tx.h>
+#include "teedi.h"
 
 #define RH_ASK_ARDUINO_USE_TIMER2
 

@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <eisla.h>
-#include <verit.rx.h>
+#include "swiip.h"
 
 #include <digitalWriteFast.h>
 #include <RH_ASK.h>

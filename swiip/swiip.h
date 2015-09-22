@@ -1,5 +1,5 @@
-#ifndef VERIT_RX_H_INCLUDED
-#define VERIT_RX_H_INCLUDED
+#ifndef SWIIP_H_INCLUDED
+#define SWIIP_H_INCLUDED
 #include <Arduino.h>
 #include <eisla.h>
 
@@ -18,7 +18,7 @@
 
 #define DEBUG
 
-eislaDevice verit_rx = {VERIT_RX};
+eislaDevice swiip = {SWIIP};
 
 void handleSwitchChange();
 void set_main_led(uint8_t color);

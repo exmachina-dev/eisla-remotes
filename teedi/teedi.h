@@ -1,5 +1,5 @@
-#ifndef VERIT_TX_H_INCLUDED
-#define VERIT_TX_H_INCLUDED
+#ifndef TEEDI_H_INCLUDED
+#define TEEDI_H_INCLUDED
 #include <Arduino.h>
 #include <eisla.h>
 
@@ -17,7 +17,7 @@
 
 //#define DEBUG
 
-eislaDevice verit = {VERIT_TX};
+eislaDevice teedi = {TEEDI};
 
 typedef struct {
     uint8_t r_pin;
