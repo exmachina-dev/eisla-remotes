@@ -8,8 +8,8 @@
 #define TurnLed 7
 
 #define StatusBlinkDelay 500        // in milliseconds
-#define TurnBlinkDelay 10     // in microseconds ( 10000µs = 10ms )
-#define LoopBlinkDelay 250        // in milliseconds
+#define LoopBlinkDelay 250        	// in milliseconds
+#define TurnBlinkDelay 50     		// in milliseconds
 
 void setup();
 void loop();
