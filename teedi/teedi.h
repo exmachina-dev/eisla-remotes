@@ -6,26 +6,27 @@
 #define StatusLed 13
 #define StatusBlinkDelay 400        // in milliseconds
 
-#define MainLedR 9
-#define MainLedG 7
-#define MainLedB 8
+#define MainLedR 7
+#define MainLedG 8
+#define MainLedB 9
 
-#define ResolveDelay 100000            // in microseconds ( 100µs = 0.10ms )
+#define ChanPin1 A0
+#define ChanPin2 A1
+#define ChanPin4 A2
+#define ChanPin8 A3
+#define ChanDelay 1000					// in milliseconds
+
+#define ResolveDelay 100000				// in microseconds ( 100us = 0.10ms )
 #define SwitchPinInterrupt 0
 #define SwitchPin 2
 #define TxPin 12
 
-//#define DEBUG
+// #define DEBUG
 
 eislaDevice teedi = {TEEDI};
 
-typedef struct {
-    uint8_t r_pin;
-    uint8_t g_pin;
-    uint8_t b_pin;
-} rgbLed;
+rgbLed mainLed = {MainLedR, MainLedG, MainLedB};
 
 void handleSwitchChange();
-void set_main_led(uint8_t color);
 
-#endif
+#endif  // TEEDI_H_INCLUDED

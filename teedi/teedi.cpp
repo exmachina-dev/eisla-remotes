@@ -17,7 +17,6 @@ static unsigned long statusLedTime = 0;
 static unsigned int rfPinState = LOW;
 static unsigned long rfResolveTime = 0;
 
-rgbLed mainLed = {MainLedR, MainLedG, MainLedB};
 
 
 void setup() {
@@ -31,10 +30,10 @@ void setup() {
     #endif // DEBUG
 
     // Main led
-    pinMode(mainLed.r_pin, OUTPUT);
-    pinMode(mainLed.g_pin, OUTPUT);
-    pinMode(mainLed.b_pin, OUTPUT);
-    set_main_led(3);
+    pinMode(mainLed.r, OUTPUT);
+    pinMode(mainLed.g, OUTPUT);
+    pinMode(mainLed.b, OUTPUT);
+    setLed(&mainLed, 3);
 
     // Switch pin
     pinMode(SwitchPin, INPUT);      // sets pin Switch as input
@@ -46,7 +45,7 @@ void setup() {
     } else {
         #ifdef DEBUG
         Serial.println("init failed");
-        #endif // DEBUG
+        #endif  // DEBUG
         delay(2000);
     }
 }
@@ -55,7 +54,7 @@ void loop() {
     if((micros()-rfResolveTime) >= (long)0)
     {
         if (_SwitchState == HIGH) {
-            const char *msg = "OK";
+            const char *msg = " OK";
 
             #ifdef DEBUG
             Serial.println("sending OK");
@@ -63,10 +62,10 @@ void loop() {
             rfDriver.send((uint8_t *)msg, strlen(msg));
             rfDriver.waitPacketSent();
 
-            set_main_led(2);
+            setLed(&mainLed, 2);
         }
         else {
-            set_main_led(1);
+            setLed(&mainLed, 1);
             #ifdef DEBUG
             Serial.println("not sending OK");
             #endif // DEBUG
@@ -86,28 +85,4 @@ void loop() {
 void handleSwitchChange()
 {
     _SwitchState = digitalReadFast(SwitchPin);
-}
-
-void set_main_led(uint8_t color)
-{
-    if (color == 1) {
-        digitalWrite(mainLed.r_pin, HIGH);
-        digitalWrite(mainLed.g_pin, LOW);
-        digitalWrite(mainLed.b_pin, LOW);
-    }
-    else if (color == 2) {
-        digitalWrite(mainLed.r_pin, LOW);
-        digitalWrite(mainLed.g_pin, HIGH);
-        digitalWrite(mainLed.b_pin, LOW);
-    }
-    else if (color == 3) {
-        digitalWrite(mainLed.r_pin, LOW);
-        digitalWrite(mainLed.g_pin, LOW);
-        digitalWrite(mainLed.b_pin, HIGH);
-    }
-    else {
-        digitalWrite(mainLed.r_pin, LOW);
-        digitalWrite(mainLed.g_pin, LOW);
-        digitalWrite(mainLed.b_pin, LOW);
-    }
 }
