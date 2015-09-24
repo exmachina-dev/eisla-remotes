@@ -1,7 +1,5 @@
-BOARD_TAG = eislaremotes
-BOARD_SUB = 8MHzatmega328
-USER_LIB_PATH = ../lib
-ARDUINO_LIBS = eisla EEPROM
+include ../hardware/default.mk
+
 ARDUINO_LIBS += digitalWriteFast
 
 include ../../Arduino-Makefile/Arduino.mk
