@@ -1,13 +1,16 @@
 #ifndef SWILL_H_INCLUDED
 #define SWILL_H_INCLUDED
 #include <Arduino.h>
+#include <eisla.h>
 
-#define StatusLed 13
+#define StatusLed 5
+#define LoopLed 6
+#define TurnLed 7
+
 #define StatusBlinkDelay 500        // in milliseconds
-
 #define SpeedResolveDelay 10000     // in microseconds ( 10000µs = 10ms )
-#define EncoderPinAInterrupt 0
-#define EncoderPinBInterrupt 1
+#define ContinuousModeDelay 250        // in milliseconds
+
 #define EncoderPinA 2
 #define EncoderPinB 3
 
@@ -18,10 +21,11 @@
 
 eislaDevice swill = {SWILL};
 
-void send_ticks();
-void send_speed();
+void setup();
+void loop();
 
-void handleEncoderPinA();
-void handleEncoderPinB();
+void sendTicks();
+void sendSpeed();
+void sendTurns();
 
-#endif
+#endif // SWILL_H_INCLUDED

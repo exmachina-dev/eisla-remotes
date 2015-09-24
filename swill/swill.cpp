@@ -1,109 +1,109 @@
+// Copyright 2015 Benoit Rapidel
+
 #include <Arduino.h>
 #include <eisla.h>
-#include "swill.h"
+#include "./swill.h"
 
 #include <digitalWriteFast.h>
+//#define ENCODER_OPTIMIZE_INTERRUPTS
+#include <Encoder.h>
 
-volatile bool _EncoderPinASet;
-volatile bool _EncoderPinBSet;
+long encoderTicks;
+long lastEncoderTicks;
+long encoderTurns;
+float encoderSpeed;
 
-volatile long _EncoderTicks = 0;
-long lastEncoderTicks = 0;
+static unsigned long statusLedState = LOW;
 
-static unsigned int statusLedState = LOW;
-static unsigned long statusLedTime = 0;
+unsigned long statusLedTime = 0;
+unsigned long speedResolveTime = 0;
+unsigned long continuousModeTime = 0;
 
-static unsigned long speedResolveTime = 0;
-float speed;
-
+bool continuousMode = true;
 
 int deviceId;
 
 eislaCmd inputCmd;
 bool newCmdEvent = false;
 
+Encoder swillEnc(EncoderPinA, EncoderPinB);
+
 void setup() {
-    // declare status led as output
+    // declare status leds as output
     pinMode(StatusLed, OUTPUT);
+    pinMode(LoopLed, OUTPUT);
+    pinMode(TurnLed, OUTPUT);
     digitalWrite(StatusLed, HIGH);
-
-    // Encoder pin A
-    pinMode(EncoderPinA, INPUT);      // sets pin A as input
-    digitalWrite(EncoderPinA, LOW);   // turn on pullup resistors
-    attachInterrupt(EncoderPinAInterrupt, handleEncoderPinA, RISING);
-
-    // Encoder pin B
-    pinMode(EncoderPinB, INPUT);      // sets pin A as input
-    digitalWrite(EncoderPinB, LOW);   // turn on pullup resistors
-    attachInterrupt(EncoderPinBInterrupt, handleEncoderPinB, RISING);
+    digitalWrite(LoopLed, HIGH);
+    digitalWrite(TurnLed, HIGH);
 
     // Serial port
-    Serial.begin(SwillSerialBaud);
+    //Serial.begin(SwillSerialBaud);
 
-    get_device_infos(&swill);
-    if(swill.deviceId == 0)
-    {
-        set_device_id(&swill, 1);
-        save_device_infos(&swill);
+    getDeviceInfos(&swill);
+    if (swill.deviceId == 0) {
+        setDeviceId(&swill, 1);
+        saveDeviceInfos(&swill);
     }
 
     digitalWrite(StatusLed, LOW);
 }
 
 void loop() {
-    if((micros()-speedResolveTime) >= (long)0)
-    {
-        long deltaTime = micros() - speedResolveTime;
-        long deltaTicks = lastEncoderTicks - _EncoderTicks;
-        speed = deltaTime / deltaTicks;
+    encoderTicks = swillEnc.read();
+    //encoderTurns = encoderTicks / TicksPerRevolution;
 
-        lastEncoderTicks = _EncoderTicks;
+    if (((long)micros()-speedResolveTime) >= 0) {
+        long deltaTime = micros() - speedResolveTime;
+        long deltaTicks = lastEncoderTicks - encoderTicks;
+        encoderSpeed = deltaTime / deltaTicks;
+
+        lastEncoderTicks = encoderTicks;
         speedResolveTime = micros() + SpeedResolveDelay;
     }
 
+    if ((long)(millis()-statusLedTime) >= 0) {
+        statusLedState = (statusLedState == HIGH ? LOW : HIGH);
+        digitalWriteFast(StatusLed, statusLedState);
+        statusLedTime = millis() + StatusBlinkDelay;
+    }
 
-    if(newCmdEvent)
-    {
-        switch(inputCmd.command) {
-            eislaCmd _cmd;
+    if (continuousMode && (long)(millis()-continuousModeTime) >= 0) {
+        sendTicks();
+        sendSpeed();
+        sendTurns();
+        statusLedTime = millis() + ContinuousModeDelay;
+    }
+
+    if (newCmdEvent) {
+        switch (inputCmd.command) {
             case 'R':
-                if(0 <= inputCmd.data.toInt.int0 < 255)
-                {
-                    set_device_id(&swill, inputCmd.data.toInt.int0);
-                    save_device_infos(&swill);
+                if (0 <= inputCmd.data.toInt.int0 && \
+                    inputCmd.data.toInt.int0 < 255) {
+                    setDeviceId(&swill, inputCmd.data.toInt.int0);
+                    saveDeviceInfos(&swill);
                 }
-                else
-                {
-                    send_device_infos(&swill);
+                else {
+                    sendDeviceInfos(&swill);
                 }
                 break;
             case 'T':
-                send_ticks();
+                sendTicks();
                 break;
             case 'S':
-                send_speed();
+                sendSpeed();
                 break;
         }
 
         newCmdEvent = false;
     }
-
-    if((long)(millis()-statusLedTime) >= 0)
-    {
-        statusLedState =  (statusLedState==HIGH ? LOW : HIGH);
-        digitalWriteFast(StatusLed, statusLedState);
-        statusLedTime = millis()+StatusBlinkDelay;
-    }
 }
 
-void serialEvent()
-{
-    if(Serial.available() > 0)
-    {
+void serialEvent() {
+    if (Serial.available() > 0) {
         inputCmd.command = Serial.read();
         #ifdef EISLA_DEBUG
-        if(Serial.readBytes((char*)inputCmd.data.toBytes, 4))
-        {
+        if (Serial.readBytes((char*)inputCmd.data.toBytes, 4)) {
             Serial.print("CMD: ");
             Serial.print(inputCmd.command);
             Serial.print(" DAT: ");
@@ -116,33 +116,26 @@ void serialEvent()
     }
 }
 
-void send_ticks()
-{
+void sendTicks() {
     eislaCmd _c;
     _c.command = 'T';
-    _c.data.toLong = _EncoderTicks;
+    _c.data.toLong = encoderTicks;
     digitalWrite(StatusLed, HIGH);
     send(&_c);
 }
 
-void send_speed()
+void sendSpeed()
 {
     eislaCmd _c;
     _c.command = 'S';
-    _c.data.toFloat = speed;
+    _c.data.toFloat = encoderSpeed;
     send(&_c);
 }
 
-void handleEncoderPinA()
+void sendTurns()
 {
-    _EncoderPinBSet = digitalReadFast(EncoderPinB);
-
-    _EncoderTicks -= _EncoderPinBSet ? -1 : +1;
-}
-
-void handleEncoderPinB()
-{
-    _EncoderPinASet = digitalReadFast(EncoderPinA);
-
-    _EncoderTicks -= _EncoderPinASet ? -1 : +1;
+    eislaCmd _c;
+    _c.command = 'U';
+    _c.data.toFloat = encoderTurns;
+    send(&_c);
 }
