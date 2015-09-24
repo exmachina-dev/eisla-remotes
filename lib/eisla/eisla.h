@@ -36,10 +36,18 @@ typedef struct {
     binaryRepr data;
 } eislaCmd;
 
-void set_device_id(eislaDevice*, int);
-void get_device_infos(eislaDevice*);
-void save_device_infos(eislaDevice*);
-void send_device_infos(eislaDevice*);
+void setDeviceId(eislaDevice*, int);
+void getDeviceInfos(eislaDevice*);
+void saveDeviceInfos(eislaDevice*);
+void sendDeviceInfos(eislaDevice*);
 void send(eislaCmd*);
+
+typedef struct {
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+} rgbLed;
+
+void setLed(rgbLed*, uint8_t);
 
 #endif // EISLA_H_INCLUDED
