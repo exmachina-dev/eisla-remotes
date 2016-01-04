@@ -3,11 +3,13 @@
 #include <Arduino.h>
 #include "ST7036.h"
 #include <Wire.h>
-#include <eisla.h>
+#include <protocol.h>
 
-eislaDevice varmo = {VARMO};
+//eislaDevice varmo = {VARMO};
 
 ST7036 lcd = ST7036 ( 2, 16, 0x78 );
+
+#define _VARMO_VERSION       "0.4"
 
 /*ENCODER*/
 #define encoder0PinA 2
@@ -19,6 +21,10 @@ ST7036 lcd = ST7036 ( 2, 16, 0x78 );
 
 /*SEND_BUTTON*/
 #define SEND_BUTTON 10
+
+/*LED*/
+#define LED_1
+#define LED_2
 
 
 /*FONCTION*/

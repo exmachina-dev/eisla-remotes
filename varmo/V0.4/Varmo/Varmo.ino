@@ -1,11 +1,13 @@
 #include <Arduino.h>
 #include "ST7036.h"
 #include <Wire.h>
-#include <eisla.h>
+#include <protocol.h>
 #include "./Varmo.h"
 
-int deviceId;
-eislaCmd inputCmd;
+
+String SerialNumber = "012016001VARMO";
+
+Device Varmo = Device(SerialNumber);
 
 /*ENCODER*/
 float encoder0Pos = 0;
@@ -40,7 +42,7 @@ float RESOLUTION_old = 1;
 
 /*SERIAL SEND*/
 String Protocol = "ExmEisla";
-String SerialNumber = "012016001VARMO";
+//String SerialNumber = "012016001VARMO";
 
 String Set_Speed = "Set_Speed_Target";
 String Set_Torque = "Set_Torque_Target";
@@ -71,7 +73,7 @@ void setup() {
   lcd.clear ();
   lcd.print("ExMachima");
   lcd.setCursor(1, 0);
-  lcd.print("Varmo Rev 0.3");
+  lcd.print("Varmo Rev 0.4");
   delay(1000);
 
   // Load Custom Character
@@ -81,19 +83,11 @@ void setup() {
    {
       lcd.load_custom_character ( i, (uint8_t *)charBitmap[i] );
    }
-  Serial.begin(115200);
-  
-  getDeviceInfos(&varmo);
-  if (varmo.deviceId == 0) {
-      setDeviceId(&varmo, 1);
-      saveDeviceInfos(&varmo);
-  }
 
-  
   /*SERIAL INITIALISATION*/
-  
-  sendDeviceInfos(&varmo);
-  
+  Serial.begin(115200);
+
+  Varmo.sendDeviceInfo();
 }
 
 void loop()
@@ -180,7 +174,6 @@ void loop()
       torque_convert(&TORQUE, &encoder0Pos, RESOLUTION);
       if (TORQUE != TORQUE_OLD) {
         lcd_print_float_value(TORQUE);
-        sendTorque();
         TORQUE_OLD = TORQUE;
       }
       break;
@@ -193,24 +186,21 @@ void loop()
       break;
   }
 
-  
-
-  /*
   int send_button_push = digitalRead(SEND_BUTTON);
   
   if (send_button_push == LOW) {
     switch(MODE)  {
       case 1 :
-        send_data(Set_Position, POSITION);        
+        Varmo.sendData(Set_Position, String(POSITION));        
         break;
       case 2 :
-        send_data(Set_Torque, TORQUE);  
+        Varmo.sendData(Set_Torque, String(TORQUE));  
         break;
       case 3 :
-        send_data(Set_Speed, SPEED);
+        Varmo.sendData(Set_Speed, String(SPEED));
         break;
       }
-  }*/
+  }
 }
 
 /*###########ENCODER##########*/
@@ -458,21 +448,4 @@ void torque_convert(float *TORQUE, float *encoder0Pos, float resolution)  {
   else if (value < -4400) {
     *encoder0Pos = -4400 / resolution;
   }
-}
-
-
-
-/*##########UART#############*/
-void send_data(String parameter, float value) {
-  String to_send = Protocol + SerialNumber + parameter + ":" + String(value) + "\r\n";
-  Serial.print(to_send);
-}
-
-
-void sendTorque() {
-    eislaCmd _c;
-    //-c protocol = "ExmEisla";
-    _c.command = 'T';
-    _c.data.toFloat = TORQUE;
-    send(&_c);
 }
