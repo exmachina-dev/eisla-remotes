@@ -23,9 +23,12 @@ ST7036 lcd = ST7036 ( 2, 16, 0x78 );
 #define SEND_BUTTON 10
 
 /*LED*/
-#define LED_1
-#define LED_2
+#define LED_1 A0
+#define LED_2 A1
 
+/*DIRECTION*/
+#define DIRECTION_1 8
+#define DIRECTION_2 9
 
 /*FONCTION*/
 void setup();
