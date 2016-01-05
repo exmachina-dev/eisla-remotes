@@ -5,10 +5,6 @@
 #include "./Varmo.h"
 
 
-String SerialNumber = "012016001VARMO";
-
-Device Varmo = Device(SerialNumber);
-
 /*ENCODER*/
 float encoder0Pos = 0;
 float encoder0Pos_old = 0;
@@ -41,9 +37,6 @@ float RESOLUTION = 1;
 float RESOLUTION_old = 1;
 
 /*SERIAL SEND*/
-String Protocol = "ExmEisla";
-//String SerialNumber = "012016001VARMO";
-
 String Set_Speed = "Set_Speed_Target";
 String Set_Torque = "Set_Torque_Target";
 String Set_Position = "Set_Position_Target";
@@ -68,12 +61,21 @@ void setup() {
 
   pinMode(encoderE, INPUT);
 
+  pinMode(SEND_BUTTON, INPUT);
+  
+  pinMode(LED_1, OUTPUT);
+  pinMode(LED_2, OUTPUT);
+  
+  pinMode(DIRECTION_1, INPUT);
+  pinMode(DIRECTION_2, INPUT);  
+
+  
   /*LCD INITIALISATION*/
   lcd.init ();
   lcd.clear ();
   lcd.print("ExMachima");
   lcd.setCursor(1, 0);
-  lcd.print("Varmo Rev 0.4");
+  lcd.print(VARMO_VERSION);
   delay(1000);
 
   // Load Custom Character
@@ -426,14 +428,25 @@ void contraste_convert(int *CONTRASTE, int *F_contraste, float *encoder0Pos) {
 
 void speed_convert(float *SPEED, float *encoder0Pos, float resolution)  {
   float value = *encoder0Pos * resolution;
-  if (value >= 0 && value <= 4400) {
+
+  bool sens1 = digitalRead(DIRECTION_1);
+  bool sens2 = digitalRead(DIRECTION_2);
+  
+  if ((sens1 == LOW) && (sens2 == HIGH))	{
+	float value = *encoder0Pos * resolution;
+  }
+  else if ((sens1 == HIGH) && (sens2 == LOW))	{
+	float value = *encoder0Pos * resolution * (-1);
+  }
+  
+  if (value >= -4400 && value <= 4400) {
     *SPEED = value;
   }
   else if (value > 4400)  {
     *encoder0Pos = 4400 / resolution;
   }
-  else if (value < 0) {
-    *encoder0Pos = 0;
+  else if (value < -4400) {
+    *encoder0Pos = 4400;
   }
 }
 

@@ -5,11 +5,11 @@
 #include <Wire.h>
 #include <protocol.h>
 
-//eislaDevice varmo = {VARMO};
-
 ST7036 lcd = ST7036 ( 2, 16, 0x78 );
+Device Varmo = Device(SerialNumber);
 
-#define _VARMO_VERSION       "0.4"
+#define VARMO_VERSION   "Varmo Version 0.4"
+#define SerialNumber    "012016001VARMO"
 
 /*ENCODER*/
 #define encoder0PinA 2
