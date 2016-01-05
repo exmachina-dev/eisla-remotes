@@ -25,9 +25,9 @@ void Device::sendData(String data1, String data2)
 {
 	Serial.print(_Protocol);
 	Serial.print(_SerialNumber);
-	Serial.print(_End);
 	Serial.print(data1);
 	Serial.print(_delimitateur);
 	Serial.print(data2);
+	Serial.print(_End);
 
 }

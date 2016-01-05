@@ -48,6 +48,13 @@ const uint8_t charBitmap[][8] = {
 
 unsigned long time_push = 0;
 
+
+bool send_button_push_old = HIGH;
+bool send_state = HIGH;
+long lastDebounceTime = 0;  // the last time the output pin was toggled
+long debounceDelay = 50;    // the debounce time; increase if the output flickers
+bool SEND = HIGH;
+
 void setup() {
   
   /*ENCODER INITIALISATION*/
@@ -68,7 +75,6 @@ void setup() {
   
   pinMode(DIRECTION_1, INPUT);
   pinMode(DIRECTION_2, INPUT);  
-
   
   /*LCD INITIALISATION*/
   lcd.init ();
@@ -88,7 +94,6 @@ void setup() {
 
   /*SERIAL INITIALISATION*/
   Serial.begin(115200);
-
   Varmo.sendDeviceInfo();
 }
 
@@ -188,9 +193,24 @@ void loop()
       break;
   }
 
-  int send_button_push = digitalRead(SEND_BUTTON);
+
+  bool send_button_push = digitalRead(SEND_BUTTON);
+  if (send_button_push != send_button_push_old) {
+    lastDebounceTime = millis();
+  }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (send_button_push != send_state) {
+      send_state = send_button_push;
+      if (send_button_push == LOW)  {
+        SEND = HIGH;
+      }
+    }
+  }
+  send_button_push_old = send_button_push;
   
-  if (send_button_push == LOW) {
+  if (SEND == HIGH) {
+    SEND = LOW;
     switch(MODE)  {
       case 1 :
         Varmo.sendData(Set_Position, String(POSITION));        
@@ -427,27 +447,35 @@ void contraste_convert(int *CONTRASTE, int *F_contraste, float *encoder0Pos) {
 }
 
 void speed_convert(float *SPEED, float *encoder0Pos, float resolution)  {
+  bool SENS;
   float value = *encoder0Pos * resolution;
 
   bool sens1 = digitalRead(DIRECTION_1);
   bool sens2 = digitalRead(DIRECTION_2);
+
   
   if ((sens1 == LOW) && (sens2 == HIGH))	{
-	float value = *encoder0Pos * resolution;
+	  SENS = HIGH;
   }
   else if ((sens1 == HIGH) && (sens2 == LOW))	{
-	float value = *encoder0Pos * resolution * (-1);
+	  SENS = LOW;
   }
-  
-  if (value >= -4400 && value <= 4400) {
-    *SPEED = value;
+  if (value >= 0 && value <= 4400) {
+    if (SENS == HIGH)  {
+      *SPEED = value;
+    }
+    else if (SENS == LOW)  {
+      *SPEED = (-1) * value;
+    }
   }
   else if (value > 4400)  {
     *encoder0Pos = 4400 / resolution;
   }
-  else if (value < -4400) {
-    *encoder0Pos = 4400;
+  else if (value < 0) {
+    *encoder0Pos = 0;
   }
+
+  
 }
 
 void torque_convert(float *TORQUE, float *encoder0Pos, float resolution)  {
