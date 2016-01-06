@@ -24,12 +24,14 @@ class Device
 	
 	void sendData(String data1, String data2);
 	
+	void getData(String data);
+	
 	private:
 	
 	String _Protocol;
 	String _SerialNumber;
 	String _End;
-	String _delimitateur;
+	String _delimitator;
 
 };
 

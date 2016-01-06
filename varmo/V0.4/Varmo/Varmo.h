@@ -5,8 +5,8 @@
 #include <Wire.h>
 #include <protocol.h>
 
-#define VARMO_VERSION   "Varmo Version 0.4"
-#define SerialNumber    "012016001VARMO"
+#define VARMO_VERSION   "Varmo V0.4"
+#define SerialNumber    "0116VARM0001"
 
 ST7036 lcd = ST7036 ( 2, 16, 0x78 );
 Device Varmo = Device(SerialNumber);
@@ -17,7 +17,7 @@ Device Varmo = Device(SerialNumber);
 #define encoderE 4
 
 /*CONTRASTE*/
-#define CONTRASTE_PWM 5
+#define CONTRAST_PWM 5
 
 /*SEND_BUTTON*/
 #define SEND_BUTTON 10
@@ -39,8 +39,8 @@ void doEncoderB();
 
 int menu_set(int MENU);
 float resolution_set(float RESOLUTION); 
-int menu_init(int MODE, int *CONTRASTE, int *POSITION, float *TORQUE, float *SPEED, float *encoder0Pos);
-int lcd_print_menu(int MODE, int *CONTRASTE, int *POSITION, float *TORQUE, float *SPEED, float *encoder0Pos);
+void menu_init(int MODE, int *CONTRAST, int *POSITION, float *TORQUE, float *SPEED, float *encoder0Pos);
+void lcd_print_menu(int MODE, int CONTRAST, int POSITION, float TORQUE, float SPEED,float torque_get, float speed_get, float encoder0Pos);
 
 void lcd_print_contraste_value(int CONTRASTE);
 void lcd_print_float_value(float value);

@@ -11,7 +11,7 @@ Device::Device(String Serial)
 	_Protocol = "ExmEisla";
 	_SerialNumber = Serial;
 	_End = "\t\n";
-	_delimitateur = ':';
+	_delimitator = ':';
 }
 
 void Device::sendDeviceInfo()
@@ -30,4 +30,12 @@ void Device::sendData(String data1, String data2)
 	Serial.print(data2);
 	Serial.print(_End);
 
+}
+
+void Device::getData(String data)
+{
+	Serial.print(_Protocol);
+	Serial.print(_SerialNumber);
+	Serial.print(data);
+	Serial.print(_End);
 }
