@@ -82,6 +82,13 @@ float actual_speed;
 bool LED_1_STATUS;
 bool LED_2_STATUS;
 
+/*TIME OUT*/
+bool Serial_OK = 1;
+long time_out = 500;
+long time_ping;
+
+bool flag = false;
+
 void setup() {
 
   pinMode(13, OUTPUT);
@@ -127,288 +134,344 @@ void setup() {
 
 void loop()
 {
-  bool flag = false;
-  encoder0Pos_old = encoder0Pos;
-  /*###############################MENU###############################*/
-  int encoder_push = digitalRead(encoderE);
-  if (encoder_push == LOW)  {
-    encoder_push = digitalRead(encoderE);
-    time_push = millis();
-    while (encoder_push != HIGH)  {
+
+  
+  if (Serial_OK == false) {
+    Varmo.sendDeviceInfo();
+    flag = false;
+    Serial_OK = true;
+  }
+
+
+  while (Serial_OK) {
+    encoder0Pos_old = encoder0Pos;
+    /*###############################MENU###############################*/
+    int encoder_push = digitalRead(encoderE);
+    if (encoder_push == LOW)  {
       encoder_push = digitalRead(encoderE);
-    }
-
-    if (((millis() - time_push)  > 250 ) || (MODE == 0) || (MODE == 1) )   {
-      Mode_chosen = 0;
-      while (Mode_chosen == 0) {
-        MODE = menu_set(MODE);
+      time_push = millis();
+      while (encoder_push != HIGH)  {
         encoder_push = digitalRead(encoderE);
-        if (encoder_push == LOW)  {
+      }
+
+      if (((millis() - time_push)  > 250 ) || (MODE == 0) || (MODE == 1) )   {
+        Mode_chosen = 0;
+        while (Mode_chosen == 0) {
+          MODE = menu_set(MODE);
           encoder_push = digitalRead(encoderE);
-          while (encoder_push != HIGH)  {
+          if (encoder_push == LOW)  {
             encoder_push = digitalRead(encoderE);
-          }
-          FLAG_MENU = 1;
-          Mode_chosen = 1;
-        }
-      }
-    }
-    else  {
-      resolution_chosen = 0;
-      RESOLUTION_old = RESOLUTION;
-      while (resolution_chosen == 0)  {
-        RESOLUTION = resolution_set(RESOLUTION);
-        encoder_push = digitalRead(encoderE);
-        if (encoder_push == LOW)  {
-          encoder_push = digitalRead(encoderE);
-          while (encoder_push != HIGH)  {
-            encoder_push = digitalRead(encoderE);
-          }
-          FLAG_RESOLUTION = 1;
-          resolution_chosen = 1;
-        }
-      }
-    }
-  }
-  /*###############################MENU###############################*/
-  if (FLAG_MENU == 1)  {
-    lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, TORQUE_GET, SPEED_GET, POSITION_GET, encoder0Pos);
-    if (MODE_OLD != MODE)    {
-      menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &encoder0Pos);
-      MODE_OLD = MODE;
-    }
-    else    {
-      encoder0Pos = encoder0Pos_old;
-    }
-    FLAG_MENU = 0;
-  }
-
-  if (FLAG_RESOLUTION == 1) {
-    encoder0Pos = encoder0Pos_old * (RESOLUTION_old / RESOLUTION);
-    FLAG_RESOLUTION = 0;
-    lcd.cursor_off();
-  }
-  /*###############################MENU###############################*/
-  switch (MODE)  {
-    case 0 :
-      contrast_convert(&CONTRAST, &F_contrast, &encoder0Pos);
-      if (CONTRAST != CONTRAST_OLD) {
-        CONTRAST_OLD = CONTRAST;
-        lcd_print_contrast_value(CONTRAST);
-        analogWrite(CONTRAST_PWM, F_contrast);
-      }
-      break;
-    case 1 :
-      POSITION_TARGET = encoder0Pos;
-      if (POSITION_TARGET != POSITION_TARGET_OLD) {
-        lcd_print_int_value(POSITION_GET, POSITION_TARGET);
-        POSITION_TARGET_OLD = POSITION_TARGET;
-      }
-      break;
-    case 2 :
-      torque_convert(&TORQUE_TARGET, &encoder0Pos, RESOLUTION);
-      if (TORQUE_TARGET != TORQUE_TARGET_OLD) {
-        lcd_print_float_value(TORQUE_GET, TORQUE_TARGET);
-        TORQUE_TARGET_OLD = TORQUE_TARGET;
-      }
-      break;
-    case 3 :
-      speed_convert(&SPEED_TARGET, &encoder0Pos, RESOLUTION);
-      if (SPEED_TARGET != SPEED_TARGET_OLD) {
-        lcd_print_float_value(SPEED_GET, SPEED_TARGET);
-        SPEED_TARGET_OLD = SPEED_TARGET;
-      }
-      break;
-  }
-
-  /*###########################SET TARGET###########################*/
-  bool send_button_push = digitalRead(SEND_BUTTON);
-  if (send_button_push != send_button_push_old) {
-    lastDebounceTime = millis();
-  }
-
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    if (send_button_push != send_state) {
-      send_state = send_button_push;
-      if (send_button_push == LOW)  {
-        SEND = HIGH;
-      }
-    }
-  }
-  send_button_push_old = send_button_push;
-
-  if (SEND == HIGH) {
-
-    SEND = LOW;
-    switch (MODE)  {
-      case 1 :
-        Varmo.sendData(Set_Position, String(POSITION_TARGET));
-        while (flag == false) {
-          serialEvent();
-          if (stringComplete == true) {
-            serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
-            if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-              if ((data1 == Set_Position) && (data2_string == "OK")) {
-                flag = true;
-              }
+            while (encoder_push != HIGH)  {
+              encoder_push = digitalRead(encoderE);
             }
-            inputString = "";
-            stringComplete = false;
+            FLAG_MENU = 1;
+            Mode_chosen = 1;
           }
+        }
+      }
+      else  {
+        resolution_chosen = 0;
+        RESOLUTION_old = RESOLUTION;
+        while (resolution_chosen == 0)  {
+          RESOLUTION = resolution_set(RESOLUTION);
+          encoder_push = digitalRead(encoderE);
+          if (encoder_push == LOW)  {
+            encoder_push = digitalRead(encoderE);
+            while (encoder_push != HIGH)  {
+              encoder_push = digitalRead(encoderE);
+            }
+            FLAG_RESOLUTION = 1;
+            resolution_chosen = 1;
+          }
+        }
+      }
+    }
+    /*###############################MENU###############################*/
+    if (FLAG_MENU == 1)  {
+      lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, TORQUE_GET, SPEED_GET, POSITION_GET, encoder0Pos);
+      if (MODE_OLD != MODE)    {
+        menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &encoder0Pos);
+        MODE_OLD = MODE;
+      }
+      else    {
+        encoder0Pos = encoder0Pos_old;
+      }
+      FLAG_MENU = 0;
+    }
+
+    if (FLAG_RESOLUTION == 1) {
+      encoder0Pos = encoder0Pos_old * (RESOLUTION_old / RESOLUTION);
+      FLAG_RESOLUTION = 0;
+      lcd.cursor_off();
+    }
+    /*###############################MENU###############################*/
+    switch (MODE)  {
+      case 0 :
+        contrast_convert(&CONTRAST, &F_contrast, &encoder0Pos);
+        if (CONTRAST != CONTRAST_OLD) {
+          CONTRAST_OLD = CONTRAST;
+          lcd_print_contrast_value(CONTRAST);
+          analogWrite(CONTRAST_PWM, F_contrast);
+        }
+        break;
+      case 1 :
+        POSITION_TARGET = encoder0Pos;
+        if (POSITION_TARGET != POSITION_TARGET_OLD) {
+          lcd_print_int_value(POSITION_GET, POSITION_TARGET);
+          POSITION_TARGET_OLD = POSITION_TARGET;
         }
         break;
       case 2 :
-        Varmo.sendData(Set_Torque, String(TORQUE_TARGET));
-        while (flag == false) {
-          serialEvent();
-          if (stringComplete == true) {
-            serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
-            if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-              if ((data1 == Set_Torque) && (data2_string == "OK")) {
-                flag = true;
-              }
-            }
-            inputString = "";
-            stringComplete = false;
-          }
+        torque_convert(&TORQUE_TARGET, &encoder0Pos, RESOLUTION);
+        if (TORQUE_TARGET != TORQUE_TARGET_OLD) {
+          lcd_print_float_value(TORQUE_GET, TORQUE_TARGET);
+          TORQUE_TARGET_OLD = TORQUE_TARGET;
         }
         break;
       case 3 :
-        Varmo.sendData(Set_Speed, String(SPEED_TARGET));
-        while (flag == false) {
-          serialEvent();
-          if (stringComplete == true) {
-            serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
+        speed_convert(&SPEED_TARGET, &encoder0Pos, RESOLUTION);
+        if (SPEED_TARGET != SPEED_TARGET_OLD) {
+          lcd_print_float_value(SPEED_GET, SPEED_TARGET);
+          SPEED_TARGET_OLD = SPEED_TARGET;
+        }
+        break;
+    }
 
-            if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-              if ((data1 == Set_Speed) && (data2_string == "OK")) {
+    /*###########################SET TARGET###########################*/
+    bool send_button_push = digitalRead(SEND_BUTTON);
+    if (send_button_push != send_button_push_old) {
+      lastDebounceTime = millis();
+    }
+
+    if ((millis() - lastDebounceTime) > debounceDelay) {
+      if (send_button_push != send_state) {
+        send_state = send_button_push;
+        if (send_button_push == LOW)  {
+          SEND = HIGH;
+        }
+      }
+    }
+    send_button_push_old = send_button_push;
+
+    if (SEND == HIGH) {
+      SEND = LOW;
+      switch (MODE)  {
+        case 1 :
+          Varmo.sendData(Set_Position, String(POSITION_TARGET));
+          time_ping = millis();
+          while (flag == false) {
+            serialEvent();
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
+              flag = true;
+            }
+            if (stringComplete == true) {
+              serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
+              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+                if ((data1 == Set_Position) && (data2_string == "OK")) {
+                  flag = true;
+                }
+              }
+              inputString = "";
+              stringComplete = false;
+            }
+          }
+          break;
+        case 2 :
+          Varmo.sendData(Set_Torque, String(TORQUE_TARGET));
+          time_ping = millis();
+          while (flag == false) {
+            serialEvent();
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
+              flag = true;
+            }
+            serialEvent();
+            if (stringComplete == true) {
+              serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
+              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+                if ((data1 == Set_Torque) && (data2_string == "OK")) {
+                  flag = true;
+                }
+              }
+              inputString = "";
+              stringComplete = false;
+            }
+          }
+          break;
+        case 3 :
+          Varmo.sendData(Set_Speed, String(SPEED_TARGET));
+          time_ping = millis();
+          while (flag == false) {
+            serialEvent();
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
+              flag = true;
+            }
+            serialEvent();
+            if (stringComplete == true) {
+              serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
+
+              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+                if ((data1 == Set_Speed) && (data2_string == "OK")) {
+                  flag = true;
+                  Serial.println(data2_string);
+                }
+              }
+              inputString = "";
+              stringComplete = false;
+            }
+          }
+          break;
+      }
+
+    }
+
+    /*###########################GET VALUE###########################*/
+
+    if ( (millis() - last_refresh) > refresh ) {
+      last_refresh = millis();
+
+      switch (MODE)  {
+        case 1 :
+          Varmo.getData(Get_Position);
+          time_ping = millis();
+          while (flag == false) {
+            serialEvent();
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
+              flag = true;
+            }
+            serialEvent();
+            if (stringComplete == true) {
+              serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
+              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+                if (data1 == Get_Position) {
+                  POSITION_GET = (int) data2_float;
+                }
                 flag = true;
-                Serial.println(data2_string);
               }
+              inputString = "";
+              stringComplete = false;
             }
-            inputString = "";
-            stringComplete = false;
           }
-        }
-        break;
-    }
-
-  }
-
-  /*###########################GET VALUE###########################*/
-
-  if ( (millis() - last_refresh) > refresh ) {
-    last_refresh = millis();
-
-    switch (MODE)  {
-      case 1 :
-        Varmo.getData(Get_Position);
-        while (flag == false) {
-          serialEvent();
-          if (stringComplete == true) {
-            serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
-            if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-              if (data1 == Get_Position) {
-                POSITION_GET = (int) data2_float;
-              }
+          break;
+        case 2 :
+          Varmo.getData(Get_Torque);
+          time_ping = millis();
+          while (flag == false) {
+            serialEvent();
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
               flag = true;
             }
-            inputString = "";
-            stringComplete = false;
-          }
-        }
-        break;
-      case 2 :
-        Varmo.getData(Get_Torque);
-        while (flag == false) {
-          serialEvent();
-          if (stringComplete == true) {
-            serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
-            if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-              if (data1 == Get_Torque) {
-                TORQUE_GET = data2_float;
+            serialEvent();
+            if (stringComplete == true) {
+              serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
+              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+                if (data1 == Get_Torque) {
+                  TORQUE_GET = data2_float;
+                }
+                flag = true;
               }
+              inputString = "";
+              stringComplete = false;
+            }
+          }
+          break;
+        case 3 :
+          Varmo.getData(Get_Speed);
+          time_ping = millis();
+          while (flag == false) {
+            serialEvent();
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
               flag = true;
             }
-            inputString = "";
-            stringComplete = false;
-          }
-        }
-        break;
-      case 3 :
-        Varmo.getData(Get_Speed);
-        while (flag == false) {
-          serialEvent();
-          if (stringComplete == true) {
-            serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
-            if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-              if (data1 == Get_Speed) {
-                SPEED_GET = data2_float;
+            serialEvent();
+            if (stringComplete == true) {
+              serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
+              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+                if (data1 == Get_Speed) {
+                  SPEED_GET = data2_float;
+                }
+                flag = true;
               }
-              flag = true;
+              inputString = "";
+              stringComplete = false;
             }
-            inputString = "";
-            stringComplete = false;
           }
-        }
-        break;
-    }
+          break;
+      }
 
-    Varmo.getData(Get_Drive_Enable);
-    while (flag == false) {
-      serialEvent();
-      if (stringComplete == true) {
-        serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
-        if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-          if (data1 == Get_Drive_Enable) {
-            if (data2_string == "HIGH") {
-              LED_1_STATUS = HIGH;
-            }
-            else if (data2_string == "LOW") {
-              LED_1_STATUS = LOW;
-            }
-          }
+      Varmo.getData(Get_Drive_Enable);
+      time_ping = millis();
+      while (flag == false) {
+        serialEvent();
+        if ((millis() - time_ping) > time_out) {
+          Serial_OK = false;
           flag = true;
         }
-        inputString = "";
-        stringComplete = false;
-      }
-    }
-    Varmo.getData(Get_Motor);
-    while (flag == false) {
-      serialEvent();
-      if (stringComplete == true) {
-        serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
-        if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-          if (data1 == Get_Motor) {
-            if (data2_string == "HIGH") {
-              LED_2_STATUS = HIGH;
+        serialEvent();
+        if (stringComplete == true) {
+          serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
+          if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+            if (data1 == Get_Drive_Enable) {
+              if (data2_string == "HIGH") {
+                LED_1_STATUS = HIGH;
+              }
+              else if (data2_string == "LOW") {
+                LED_1_STATUS = LOW;
+              }
             }
-            else if (data2_string == "LOW") {
-              LED_2_STATUS = LOW;
-            }
+            flag = true;
           }
+          inputString = "";
+          stringComplete = false;
+        }
+      }
+      Varmo.getData(Get_Motor);
+      time_ping = millis();
+      while (flag == false) {
+        serialEvent();
+        if ((millis() - time_ping) > time_out) {
+          Serial_OK = false;
           flag = true;
         }
-        inputString = "";
-        stringComplete = false;
+        serialEvent();
+        if (stringComplete == true) {
+          serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
+          if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+            if (data1 == Get_Motor) {
+              if (data2_string == "HIGH") {
+                LED_2_STATUS = HIGH;
+              }
+              else if (data2_string == "LOW") {
+                LED_2_STATUS = LOW;
+              }
+            }
+            flag = true;
+          }
+          inputString = "";
+          stringComplete = false;
+        }
       }
     }
-  }
 
-  /*###########################LED STATUS###########################*/
+    /*###########################LED STATUS###########################*/
 
-  if (LED_1_STATUS == 1) {
-    digitalWrite(LED_1, HIGH);
-  }
-  else {
-    digitalWrite(LED_1, LOW);
-  }
-  if (LED_2_STATUS == 1) {
-    digitalWrite(LED_2, HIGH);
-  }
-  else {
-    digitalWrite(LED_2, LOW);
+    if (LED_1_STATUS == 1) {
+      digitalWrite(LED_1, HIGH);
+    }
+    else {
+      digitalWrite(LED_1, LOW);
+    }
+    if (LED_2_STATUS == 1) {
+      digitalWrite(LED_2, HIGH);
+    }
+    else {
+      digitalWrite(LED_2, LOW);
+    }
   }
 
 }
