@@ -299,8 +299,8 @@ void loop()
 
   if ( (millis() - last_refresh) > refresh ) {
     last_refresh = millis();
-    
-      switch (MODE)  {
+
+    switch (MODE)  {
       case 1 :
         Varmo.getData(Get_Position);
         while (flag == false) {
@@ -352,8 +352,8 @@ void loop()
           }
         }
         break;
-      }
-    
+    }
+
     Varmo.getData(Get_Drive_Enable);
     while (flag == false) {
       serialEvent();
@@ -374,7 +374,6 @@ void loop()
         stringComplete = false;
       }
     }
-
     Varmo.getData(Get_Motor);
     while (flag == false) {
       serialEvent();
@@ -397,8 +396,23 @@ void loop()
     }
   }
 
+  /*###########################LED STATUS###########################*/
+
+  if (LED_1_STATUS == 1) {
+    digitalWrite(LED_1, HIGH);
+  }
+  else {
+    digitalWrite(LED_1, LOW);
+  }
+  if (LED_2_STATUS == 1) {
+    digitalWrite(LED_2, HIGH);
+  }
+  else {
+    digitalWrite(LED_2, LOW);
+  }
 
 }
+
 /*##################SERIAL##################*/
 void serialEvent() {
   while (Serial.available()) {
@@ -520,7 +534,7 @@ int menu_set(int MENU)  {
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
   if (MENU_SELECTOR <  (RESOLUTION / 4))  {
-    lcd.print("Contrast        ");
+    lcd.print("Contrast       ");
     MENU = 0;
   }
   else if (MENU_SELECTOR < (RESOLUTION / 3))  {
@@ -532,7 +546,7 @@ int menu_set(int MENU)  {
     MENU = 2;
   }
   else if (MENU_SELECTOR < RESOLUTION)  {
-    lcd.print("Speed         ");
+    lcd.print("Speed           ");
     MENU = 3;
   }
   return MENU;
