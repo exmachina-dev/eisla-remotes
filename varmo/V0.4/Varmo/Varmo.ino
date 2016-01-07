@@ -513,7 +513,7 @@ void loop()
 
 /*##################SERIAL##################*/
 void serialEvent() {
-  //inputString = "";
+  char inChar_old;
   while (Serial.available()) {
     // get the new byte:
     char inChar = (char)Serial.read();
@@ -521,10 +521,10 @@ void serialEvent() {
     inputString += inChar;
     // if the incoming character is a newline, set a flag
     // so the main loop can do something about it:
-
-    if (inChar == '\n') {
+    if (inChar_old == '\r' && inChar == '\n') {
       stringComplete = true;
     }
+    inChar_old = inChar;
   }
 }
 
@@ -544,7 +544,7 @@ void serial_analyse_float(String inputString, String *protocol, String *serial_n
   if (chara != '\r')  {
     i += 1;
     chara = inputString[i];
-    while (chara != '\n')  {
+    while (chara != '\r')  {
       temp += chara;
       i += 1;
       chara = inputString[i];
@@ -568,7 +568,6 @@ void serial_analyse_string(String inputString, String *protocol, String *serial_
   *data1 = "";
   int i = 20;
   chara = inputString[20];
-  Serial.println(inputString[0]);
   while (!(chara == ':' || chara == '\r')) {
     *data1 += chara;
     i += 1;
@@ -587,9 +586,6 @@ void serial_analyse_string(String inputString, String *protocol, String *serial_
   else {
     *data2_string = "";
   }
-  Serial.println(*data1);
-  Serial.println(*data2_string);
-
 }
 
 /*##################ENCODER##################*/
