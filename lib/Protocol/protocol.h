@@ -20,7 +20,9 @@ class Device
     */
 	Device(String Serial);
 	
-	void sendDeviceInfo();
+	void getAlivePing();
+	
+	void sendAlivePing();
 	
 	void sendData(String data1, String data2);
 	
@@ -32,6 +34,8 @@ class Device
 	String _SerialNumber;
 	String _End;
 	String _delimitator;
+	String _Alive;
+	String _Confirm;
 
 };
 
