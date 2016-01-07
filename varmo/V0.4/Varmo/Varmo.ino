@@ -41,22 +41,25 @@ float RESOLUTION = 1;
 float RESOLUTION_old = 1;
 
 /*SERIAL*/
-String Set_Speed = "Set_Speed_Target";
-String Set_Torque = "Set_Torque_Target";
-String Set_Position = "Set_Position_Target";
+String Set_Speed = "set_speed_target";
+String Set_Torque = "set_torque_target";
+String Set_Position = "set_position_target";
 
-String Get_Speed = "Get_Speed";
-String Get_Torque = "Get_Torque";
-String Get_Position = "Get_Position";
+String Get_Speed = "get_speed";
+String Get_Torque = "get_torque";
+String Get_Position = "get_position";
 
-String Get_Drive_Enable = "Get_Status_Drive_Enable";
-String Get_Motor = "Get_Status_Motor";
+String Get_Drive_Enable = "get_status_drive_enable";
+String Get_Motor = "get_status_motor";
+
+String Alive = "alive";
 
 /*CUSTOM CHARACTER*/
 const uint8_t charBitmap[][8] = {
   { 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F },
 };
-/*Timer*/
+
+/*TIMER*/
 unsigned long time_push = 0;
 unsigned long refresh = 500;
 unsigned long last_refresh = 0;
@@ -135,7 +138,7 @@ void setup() {
 void loop()
 {
 
-  
+
   if (Serial_OK == false) {
     Varmo.sendDeviceInfo();
     flag = false;
@@ -267,8 +270,8 @@ void loop()
             }
             if (stringComplete == true) {
               serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
-              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-                if ((data1 == Set_Position) && (data2_string == "OK")) {
+              if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
+                if ((data1 == Set_Position) && (data2_string == "ok")) {
                   flag = true;
                 }
               }
@@ -289,8 +292,8 @@ void loop()
             serialEvent();
             if (stringComplete == true) {
               serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
-              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-                if ((data1 == Set_Torque) && (data2_string == "OK")) {
+              if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
+                if ((data1 == Set_Torque) && (data2_string == "ok")) {
                   flag = true;
                 }
               }
@@ -312,8 +315,8 @@ void loop()
             if (stringComplete == true) {
               serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
 
-              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
-                if ((data1 == Set_Speed) && (data2_string == "OK")) {
+              if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
+                if ((data1 == Set_Speed) && (data2_string == "ok")) {
                   flag = true;
                   Serial.println(data2_string);
                 }
@@ -345,7 +348,7 @@ void loop()
             serialEvent();
             if (stringComplete == true) {
               serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
-              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+              if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
                 if (data1 == Get_Position) {
                   POSITION_GET = (int) data2_float;
                 }
@@ -368,7 +371,7 @@ void loop()
             serialEvent();
             if (stringComplete == true) {
               serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
-              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+              if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
                 if (data1 == Get_Torque) {
                   TORQUE_GET = data2_float;
                 }
@@ -391,7 +394,7 @@ void loop()
             serialEvent();
             if (stringComplete == true) {
               serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
-              if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+              if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
                 if (data1 == Get_Speed) {
                   SPEED_GET = data2_float;
                 }
@@ -415,7 +418,7 @@ void loop()
         serialEvent();
         if (stringComplete == true) {
           serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
-          if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+          if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
             if (data1 == Get_Drive_Enable) {
               if (data2_string == "HIGH") {
                 LED_1_STATUS = HIGH;
@@ -441,7 +444,7 @@ void loop()
         serialEvent();
         if (stringComplete == true) {
           serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
-          if ((protocol_receipt == "ExmEisla") && (SerialNumber_receipt.substring(4, 8) == "AMCP")) {
+          if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
             if (data1 == Get_Motor) {
               if (data2_string == "HIGH") {
                 LED_2_STATUS = HIGH;
@@ -489,16 +492,14 @@ void serialEvent() {
     if (inChar == '\n') {
       stringComplete = true;
     }
-
   }
 }
 
-void serial_analyse_float(String inputString, String * Protocol, String * Serial_num, String * data1, float * data2) {
+void serial_analyse_float(String inputString, String *protocol, String *serial_num, String *data1, float *data2) {
   char chara;
   String temp = "";
-  *Protocol = inputString.substring(0, 8);
-  *Serial_num = inputString.substring(8, 20);
-
+  *protocol = inputString.substring(0, 8);
+  *serial_num = inputString.substring(8, 20);
   *data1 = "";
   chara = inputString[20];
   int i = 20;
@@ -517,11 +518,11 @@ void serial_analyse_float(String inputString, String * Protocol, String * Serial
   *data2 = temp.toFloat();
 }
 
-void serial_analyse_string(String inputString, String * Protocol, String * Serial_num, String * data1, String * data2_string) {
+void serial_analyse_string(String inputString, String *protocol, String *serial_num, String *data1, String *data2_string) {
   char chara;
   String temp = "";
-  *Protocol = inputString.substring(0, 8);
-  *Serial_num = inputString.substring(8, 20);
+  *protocol = inputString.substring(0, 8);
+  *serial_num = inputString.substring(8, 20);
   *data1 = "";
   chara = inputString[20];
   int i = 20;

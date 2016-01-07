@@ -6,10 +6,13 @@
 #include <protocol.h>
 
 #define VARMO_VERSION   "Varmo V0.4"
-#define SerialNumber    "0116VARM0001"
+#define SERIAL_NUMBER   "0116VARM0001"
+#define PROTOCOL        "exmeisla"
+#define ARMAZ_ID        "amcp"
+
 
 ST7036 lcd = ST7036 ( 2, 16, 0x78 );
-Device Varmo = Device(SerialNumber);
+Device Varmo = Device(SERIAL_NUMBER);
 
 /*ENCODER*/
 #define encoder0PinA 2
