@@ -5,14 +5,7 @@
 #include <Wire.h>
 #include <protocol.h>
 
-#define VARMO_VERSION   "Varmo V0.4"
-#define SERIAL_NUMBER   "0116VARM0001"
-#define PROTOCOL        "exmeisla"
-#define ARMAZ_ID        "amcp"
-
-
-ST7036 lcd = ST7036 ( 2, 16, 0x78 );
-Device Varmo = Device(SERIAL_NUMBER);
+/*####################PIN ASIGNMENTS####################*/
 
 /*ENCODER*/
 #define encoder0PinA 2
@@ -33,7 +26,33 @@ Device Varmo = Device(SERIAL_NUMBER);
 #define DIRECTION_1 8
 #define DIRECTION_2 9
 
-/*FONCTION*/
+/*####################PROTCOL KEYS WORDS####################*/
+
+#define VARMO_VERSION     "Varmo V0.4"
+#define SERIAL_NUMBER     "0116VARM0001"
+#define PROTOCOL          "ExmEisla"
+#define ARMAZ_ID          "ARCP"
+
+#define CONFIRM_KEY_WORD  "ok"
+#define ALIVE             "alive"
+
+String Set_Speed = "set.speed_target";
+String Set_Torque = "set.torque_target";
+String Set_Position = "set_position_target";
+
+String Get_Speed = "get.speed";
+String Get_Torque = "get.torque";
+String Get_Position = "get.position";
+
+String Get_Drive_Enable = "get.status.drive_enable";
+String Get_Motor = "get.status.motor";
+
+/*####################OBJECT####################*/
+
+ST7036 lcd = ST7036 ( 2, 16, 0x78 );
+Device Varmo = Device(SERIAL_NUMBER);
+
+/*####################FUNCTION####################*/
 void setup();
 void loop();
 
