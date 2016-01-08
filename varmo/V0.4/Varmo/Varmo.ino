@@ -32,7 +32,7 @@ float TORQUE_TARGET_OLD = 0;
 signed int CONTRAST_OLD = 0;
 signed int POSITION_TARGET_OLD = 0;
 
-float SPEED_GET = 0;
+float SPEED_GET = 1000;
 float TORQUE_GET = 0;
 signed int POSITION_GET = 0;
 
@@ -77,6 +77,8 @@ long time_out = 500;
 long time_ping;
 
 bool flag = false;
+
+char inChar_old;
 
 void setup() {
 
@@ -125,14 +127,17 @@ void setup() {
     serialEvent();
     if (stringComplete == true) {
       serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
+      Serial.print(data1);
       if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
+
         if (data1 == ALIVE) {
+
           flag = true;
         }
       }
       inputString = "";
       stringComplete = false;
-      Serial.println("CCC");
+
     }
   }
   flag = false;
@@ -236,24 +241,15 @@ void loop()
         break;
       case 1 :
         POSITION_TARGET = encoder0Pos;
-        if (POSITION_TARGET != POSITION_TARGET_OLD) {
-          lcd_print_int_value(POSITION_GET, POSITION_TARGET);
-          POSITION_TARGET_OLD = POSITION_TARGET;
-        }
+        lcd_print_int_value(POSITION_GET, POSITION_TARGET);
         break;
       case 2 :
         torque_convert(&TORQUE_TARGET, &encoder0Pos, RESOLUTION);
-        if (TORQUE_TARGET != TORQUE_TARGET_OLD) {
-          lcd_print_float_value(TORQUE_GET, TORQUE_TARGET);
-          TORQUE_TARGET_OLD = TORQUE_TARGET;
-        }
+        lcd_print_float_value(TORQUE_GET, TORQUE_TARGET);
         break;
       case 3 :
         speed_convert(&SPEED_TARGET, &encoder0Pos, RESOLUTION);
-        if (SPEED_TARGET != SPEED_TARGET_OLD) {
-          lcd_print_float_value(SPEED_GET, SPEED_TARGET);
-          SPEED_TARGET_OLD = SPEED_TARGET;
-        }
+        lcd_print_float_value(SPEED_GET, SPEED_TARGET);
         break;
     }
 
@@ -411,19 +407,18 @@ void loop()
           time_ping = millis();
           while (flag == false) {
             serialEvent();
-            /*if ((millis() - time_ping) > time_out) {
+            if ((millis() - time_ping) > time_out) {
               Serial_OK = false;
               flag = true;
-              }*/
+            }
 
             serialEvent();
             if (stringComplete == true) {
               serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
               if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
-                Serial.print(data2_float);
-                Serial.println(data1);
                 if (data1 == Get_Speed) {
                   SPEED_GET = data2_float;
+                  Serial.println(SPEED_GET);
                 }
                 flag = true;
               }
@@ -513,7 +508,7 @@ void loop()
 
 /*##################SERIAL##################*/
 void serialEvent() {
-  char inChar_old;
+
   while (Serial.available()) {
     // get the new byte:
     char inChar = (char)Serial.read();
@@ -521,14 +516,15 @@ void serialEvent() {
     inputString += inChar;
     // if the incoming character is a newline, set a flag
     // so the main loop can do something about it:
-    if (inChar_old == '\r' && inChar == '\n') {
+    if ((inChar_old == '\r') && (inChar == '\n')) {
       stringComplete = true;
     }
+
     inChar_old = inChar;
   }
 }
 
-void serial_analyse_float(String inputString, String *protocol, String *serial_num, String *data1, float *data2) {
+void serial_analyse_float(String inputString, String * protocol, String * serial_num, String * data1, float * data2) {
   char chara;
   String temp = "";
   *protocol = inputString.substring(0, 8);
@@ -560,7 +556,7 @@ void serial_analyse_float(String inputString, String *protocol, String *serial_n
   ExmEisla0116ARCP0001get.speed:595
 
 */
-void serial_analyse_string(String inputString, String *protocol, String *serial_num, String *data1, String *data2_string) {
+void serial_analyse_string(String inputString, String * protocol, String * serial_num, String * data1, String * data2_string) {
   char chara;
   String temp = "";
   *protocol = inputString.substring(0, 8);
@@ -645,7 +641,7 @@ int menu_set(int MENU)  {
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
   if (MENU_SELECTOR <  (RESOLUTION / 4))  {
-    lcd.print("Contrast       ");
+    lcd.print("Contrast        ");
     MENU = 0;
   }
   else if (MENU_SELECTOR < (RESOLUTION / 3))  {
@@ -800,7 +796,6 @@ void lcd_print_float_value(float value1, float value2) {
   lcd_print_float_align_right(value1);
 
   lcd.setCursor(1, 0);
-  lcd.print("                ");
   lcd.setCursor(1, 0);
   lcd.print("Target: ");
   lcd_print_sign(value2);
@@ -814,7 +809,6 @@ void lcd_print_int_value(int value1, int value2) {
   lcd_print_int_align_right(value1);
 
   lcd.setCursor(1, 0);
-  lcd.print("                ");
   lcd.setCursor(1, 0);
   lcd.print("Target: ");
   lcd.setCursor(1, 11);
