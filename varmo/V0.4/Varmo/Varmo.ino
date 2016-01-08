@@ -27,12 +27,9 @@ float TORQUE_TARGET = 0;
 signed int POSITION_TARGET = 0;
 int CONTRAST = 0;
 
-float SPEED_TARGET_OLD = 0;
-float TORQUE_TARGET_OLD = 0;
 signed int CONTRAST_OLD = 0;
-signed int POSITION_TARGET_OLD = 0;
 
-float SPEED_GET = 1000;
+float SPEED_GET = 0;
 float TORQUE_GET = 0;
 signed int POSITION_GET = 0;
 
@@ -229,7 +226,7 @@ void loop()
       FLAG_RESOLUTION = 0;
       lcd.cursor_off();
     }
-    /*###############################MENU###############################*/
+
     switch (MODE)  {
       case 0 :
         contrast_convert(&CONTRAST, &F_contrast, &encoder0Pos);

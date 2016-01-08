@@ -1,3 +1,11 @@
+/*
+
+  ExmEisla0116ARCP0001alive
+  ExmEisla0116ARCP0001alive:ok
+  ExmEisla0116ARCP0001get.speed:595
+
+*/
+
 #ifndef VARMO_H_INCLUDED
 #define VARMO_H_INCLUDED
 #include <Arduino.h>
@@ -36,11 +44,11 @@
 #define CONFIRM_KEY_WORD  "ok"
 #define ALIVE             "alive"
 
-String Set_Speed = "set.speed_target";
-String Set_Torque = "set.torque_target";
-String Set_Position = "set_position_target";
+String Set_Speed = "set.velocity_ref";
+String Set_Torque = "set.torque_ref";
+String Set_Position = "set.position_ref";
 
-String Get_Speed = "get.speed";
+String Get_Speed = "get.velocity";
 String Get_Torque = "get.torque";
 String Get_Position = "get.position";
 
