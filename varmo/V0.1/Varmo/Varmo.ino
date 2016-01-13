@@ -15,7 +15,8 @@ int encoder0Pos_old = 0;
 #define encoderE 4
 
 /*CONTRASTE*/
-#define CONTRASTE_PWM 5
+#define CONTRAST_PWM 5
+#define LED_1 17
 
 int F_contraste = 0;
 
@@ -36,7 +37,7 @@ signed int CONTRASTE_OLD = 0;
 int POSITION_OLD = 0;
 
 /*Serial Send*/
-String Protocol= "ExmEisla";
+String Protocol = "ExmEisla";
 String SerialNumber = "012016001VARMO";
 
 String Speed_Par = "Set_Speed_Target";
@@ -48,6 +49,8 @@ void setup() {
   pinMode(encoder0PinA, INPUT);
   pinMode(encoder0PinB, INPUT);
 
+  pinMode(LED_1, OUTPUT);
+  pinMode(CONTRAST_PWM, OUTPUT);
   // encoder pin on interrupt 0 (pin 2)
   attachInterrupt(0, doEncoderA, CHANGE);
   // encoder pin on interrupt 1 (pin 3)
@@ -55,14 +58,29 @@ void setup() {
 
   pinMode(encoderE, INPUT);
 
+  digitalWrite(LED_1, HIGH);
+  delay(500);
+  digitalWrite(LED_1, LOW);
+  delay(500);
+  digitalWrite(LED_1, HIGH);
+  delay(500);
+  digitalWrite(LED_1, LOW);
+  delay(500);
+  digitalWrite(LED_1, HIGH);
+
   lcd.init ();
   lcd.clear ();
   lcd.print("ExMachima");
-  lcd.setCursor(1,0);
+  lcd.setCursor(1, 0);
   lcd.print("Varmo Rev 0.1");
-  delay(1000);
+  for (int i = 0; i <= 255; i++)
+  {
+    analogWrite(CONTRAST_PWM, i);
+    delay(100);
+  }
 
   Serial.begin(115200);
+  Serial.println("cou");
 
 }
 
@@ -95,10 +113,10 @@ void loop()
       if (CONTRASTE != CONTRASTE_OLD) {
         CONTRASTE_OLD = CONTRASTE;
         lcd_print_int_value(CONTRASTE);
-        analogWrite(CONTRASTE_PWM, F_contraste);
+        analogWrite(CONTRAST_PWM, F_contraste);
       }
       break;
-      
+
     case 1 :
       POSITION = encoder0Pos;
       if (POSITION != POSITION_OLD) {
@@ -179,16 +197,16 @@ int menu(int MENU)  {
   int MENU_SELECTOR = encoder0Pos % resolution;
   lcd.setCursor(0, 0);
   lcd.print("Menu           ");
-  lcd.setCursor(1,0);
-  if (MENU_SELECTOR <  (resolution/4))  {
+  lcd.setCursor(1, 0);
+  if (MENU_SELECTOR <  (resolution / 4))  {
     lcd.print("Contraste       ");
     MENU = 0;
   }
-  else if (MENU_SELECTOR < (resolution/3))  {
+  else if (MENU_SELECTOR < (resolution / 3))  {
     lcd.print("Position        ");
     MENU = 1;
   }
-  else if (MENU_SELECTOR < (resolution/2))  {
+  else if (MENU_SELECTOR < (resolution / 2))  {
     lcd.print("Couple          ");
     MENU = 2;
   }
@@ -200,7 +218,7 @@ int menu(int MENU)  {
 }
 
 int lcd_print_menu(int MODE, int *CONTRASTE, int *POSITION, float *TORQUE, float *SPEED)  {
-    switch (MODE) {
+  switch (MODE) {
     case 0:
       lcd.print("Contraste Mode");
       *CONTRASTE = 0;
@@ -221,21 +239,21 @@ int lcd_print_menu(int MODE, int *CONTRASTE, int *POSITION, float *TORQUE, float
 }
 
 void lcd_print_float_value(float value) {
-    lcd.setCursor(1, 0);
-    lcd.print("                ");
-    lcd.setCursor(1, 0);
-    lcd.print(value);
+  lcd.setCursor(1, 0);
+  lcd.print("                ");
+  lcd.setCursor(1, 0);
+  lcd.print(value);
 }
 
 void lcd_print_int_value(int value) {
-    lcd.setCursor(1, 0);
-    lcd.print("                ");
-    lcd.setCursor(1, 0);
-    lcd.print(value);
+  lcd.setCursor(1, 0);
+  lcd.print("                ");
+  lcd.setCursor(1, 0);
+  lcd.print(value);
 }
 
 void contraste_convert(int *CONTRASTE, int *F_contraste, int *encoder0Pos) {
-  int resolution =10;
+  int resolution = 10;
   int sensibility = 4;
   int  value = *CONTRASTE;
   value = int(*encoder0Pos / sensibility );
@@ -257,7 +275,7 @@ void speed_convert(float *SPEED, int *encoder0Pos)  {
   if (value > -4400 && value < 4400) {
     *SPEED = value;
   }
-  else if (value >4400)  {
+  else if (value > 4400)  {
     *encoder0Pos = 4400 / resolution;
   }
   else if (value < -4400) {
@@ -272,7 +290,7 @@ void torque_convert(float *TORQUE, int *encoder0Pos)  {
   if (value > -4400 && value < 4400) {
     *TORQUE = value;
   }
-  else if (value >4400)  {
+  else if (value > 4400)  {
     *encoder0Pos = 4400 / resolution;
   }
   else if (value < -4400) {
@@ -280,7 +298,7 @@ void torque_convert(float *TORQUE, int *encoder0Pos)  {
   }
 }
 
-void send_data(String parameter,float value)
+void send_data(String parameter, float value)
 {
   String to_send = Protocol + SerialNumber + parameter + ":" + String(value) + "\r\n";
   Serial.print(to_send);

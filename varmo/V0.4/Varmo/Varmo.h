@@ -39,21 +39,29 @@
 #define VARMO_VERSION     "Varmo V0.4"
 #define SERIAL_NUMBER     "0116VARM0001"
 #define PROTOCOL          "ExmEisla"
-#define ARMAZ_ID          "ARCP"
+#define ARMAZ_ID          "0000"
 
 #define CONFIRM_KEY_WORD  "ok"
 #define ALIVE             "alive"
+/*
+String "machine.alive";
+String "machme.alive:ok";
+ */
 
-String Set_Speed = "set.velocity_ref";
-String Set_Torque = "set.torque_ref";
-String Set_Position = "set.position_ref";
 
-String Get_Speed = "get.velocity";
-String Get_Torque = "get.torque";
-String Get_Position = "get.position";
+String Get = "machine.get";
+String Set = "machime.set";
 
-String Get_Drive_Enable = "get.status.drive_enable";
-String Get_Motor = "get.status.motor";
+String Set_Speed = "machine.set:velocity_ref";
+String Set_Torque = "machine.set:torque_ref";
+String Set_Position = "machine.set:position_ref";
+
+String Get_Speed = "machine.get:velocity";
+String Get_Torque = "machine.get:torque";
+String Get_Position = "machine.get:position";
+
+String Get_Drive_Enable = "machine.get:status.drive_enable";
+String Get_Motor = "machine.get:status.motor";
 
 /*####################OBJECT####################*/
 
@@ -80,4 +88,4 @@ void contraste_convert(int *CONTRASTE, int *F_contraste, float *encoder0Pos);
 void speed_convert(float *SPEED, float *encoder0Pos, float resolution);
 void torque_convert(float *TORQUE, float *encoder0Pos, float resolution);
 
-#endif // SWILL_H_INCLUDED
+#endif // VARMO_H_INCLUDED

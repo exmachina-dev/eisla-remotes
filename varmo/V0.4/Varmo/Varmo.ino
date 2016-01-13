@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "ST7036.h"
+#include <ST7036.h>
 #include <Wire.h>
 #include <protocol.h>
 #include "./Varmo.h"
@@ -44,7 +44,7 @@ const uint8_t charBitmap[][8] = {
 
 /*TIMER*/
 unsigned long time_push = 0;
-unsigned long refresh = 500;
+unsigned long refresh = 100;
 unsigned long last_refresh = 0;
 
 /*SEND*/
@@ -104,6 +104,7 @@ void setup() {
   pinMode(DIRECTION_1, INPUT);
   pinMode(DIRECTION_2, INPUT);
 
+  analogWrite(CONTRAST_PWM, 0);
   /*LCD INITIALISATION*/
   lcd.init ();
   lcd.clear ();
@@ -125,7 +126,7 @@ void setup() {
   lcd.clear ();
   lcd.print("Initialisation");
   time_ping = millis();
-  
+  /*
     while (flag == false) {
     serialEvent();
     if (stringComplete == true) {
@@ -143,7 +144,7 @@ void setup() {
 
     }
     }
-    flag = false;
+    flag = false;*/
   Varmo.sendAlivePing();
 }
 
@@ -573,17 +574,15 @@ void serial_analyse_float(String inputString, String * protocol, String * serial
       temp += chara;
       i += 1;
       chara = inputString[i];
-    }
+    } 
     *data2 = temp.toFloat();
   }
 }
 
 /*
-
-  ExmEisla0116ARCP0001alive
-  ExmEisla0116ARCP0001alive:ok
-  ExmEisla0116ARCP0001get.speed:595
-
+  ExmEisla0116ARCP0001machine.alive
+  ExmEisla0116ARCP0001machine.alive:ok
+  ExmEisla0116ARCP0001machine.get:speed:595
 */
 void serial_analyse_string(String inputString, String * protocol, String * serial_num, String * data1, String * data2_string) {
   char chara;
@@ -601,7 +600,7 @@ void serial_analyse_string(String inputString, String * protocol, String * seria
   if (chara != '\r')  {
     i += 1;
     chara = inputString[i];
-    while (chara != '\r')  {
+    while (!(chara == ':' || chara == '\r'))  {
       temp += chara;
       i += 1;
       chara = inputString[i];
