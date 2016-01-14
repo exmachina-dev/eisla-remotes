@@ -34,15 +34,26 @@ void Device::sendAlivePing()
 	Serial.print(_End);
 }
 
-void Device::sendData(String data1, String data2) 
+void Device::sendData(String data1, String command) 
 {
-	Serial.print(_Protocol);
-	Serial.print(_SerialNumber);
-	Serial.print(data1);
-	Serial.print(_delimitator);
-	Serial.print(data2);
-	Serial.print(_End);
+	String data;
 
+	if(data1 == "machine.get"){
+		data = _Protocol + _SerialNumber + data1 + _delimitator + command + _End;
+		data = InsertLengthdata(data);
+	}
+
+	Serial.print(data);
+}
+
+void Device::sendData(String data1, String command, String value= "") 
+{
+	String data;
+	if (data1 == "machine.set"){
+		data = _Protocol + _SerialNumber + data1 + _delimitator + command + _delimitator + value + _End;
+		data = InsertLengthdata(data);
+	}
+	Serial.print(data);
 }
 
 void Device::getData(String data)
@@ -52,3 +63,9 @@ void Device::getData(String data)
 	Serial.print(data);
 	Serial.print(_End);
 }
+
+String InsertLengthdata(String data){
+	int data_size = data.length() + 2;
+	return data = data.substring(0,8) + data_size + data.substring(8, data_size);
+}
+
