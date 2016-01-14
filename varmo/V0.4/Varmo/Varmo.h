@@ -50,18 +50,18 @@ String "machme.alive:ok";
 
 
 String Get = "machine.get";
-String Set = "machime.set";
+String Set = "machine.set";
 
-String Set_Speed = "machine.set:velocity_ref";
-String Set_Torque = "machine.set:torque_ref";
-String Set_Position = "machine.set:position_ref";
+String Speed_ref = "velocity_ref";
+String Torque_ref = "torque_ref";
+String Position_ref = "position_ref";
 
-String Get_Speed = "machine.get:velocity";
-String Get_Torque = "machine.get:torque";
-String Get_Position = "machine.get:position";
+String Speed = "velocity";
+String Torque = "torque";
+String Position = "position";
 
-String Get_Drive_Enable = "machine.get:status.drive_enable";
-String Get_Motor = "machine.get:status.motor";
+String Drive_Enable = "status.drive_enable";
+
 
 /*####################OBJECT####################*/
 

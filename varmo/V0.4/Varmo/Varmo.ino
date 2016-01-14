@@ -22,7 +22,7 @@ bool Mode_chosen = 0;
 bool resolution_chosen = 0;
 
 /*PARAMETERS*/
-float SPEED_TARGET = 0;
+float SPEED_TARGET = 1000;
 float TORQUE_TARGET = 0;
 signed int POSITION_TARGET = 0;
 int CONTRAST = 0;
@@ -85,7 +85,7 @@ bool SENS = 1;
 void setup() {
 
   pinMode(13, OUTPUT);
-  /*ENCODER INITIALISATION*/
+  //ENCODER INITIALISATION
   pinMode(encoder0PinA, INPUT);
   pinMode(encoder0PinB, INPUT);
 
@@ -96,7 +96,7 @@ void setup() {
 
   pinMode(encoderE, INPUT);
 
-  pinMode(SEND_BUTTON, INPUT);
+  pinMode(SEND_BUTTON, INPUT_PULLUP);
 
   pinMode(LED_1, OUTPUT);
   pinMode(LED_2, OUTPUT);
@@ -105,7 +105,7 @@ void setup() {
   pinMode(DIRECTION_2, INPUT);
 
   analogWrite(CONTRAST_PWM, 0);
-  /*LCD INITIALISATION*/
+  //LCD INITIALISATION
   lcd.init ();
   lcd.clear ();
   lcd.print("ExMachina");
@@ -120,7 +120,7 @@ void setup() {
     lcd.load_custom_character ( i, (uint8_t *)charBitmap[i] );
   }
 
-  /*SERIAL INITIALISATION*/
+  //SERIAL INITIALISATION
   Serial.begin(115200);
 
   lcd.clear ();
@@ -146,11 +146,12 @@ void setup() {
     }
     flag = false;*/
   Varmo.sendAlivePing();
+
 }
 
 void loop()
 {
-
+/*
   
     if (Serial_OK == false) {
       Varmo.getAlivePing();
@@ -172,59 +173,141 @@ void loop()
       Serial_OK = true;
     }
   
+*/
   while (Serial_OK) {
+    delay(100);
     encoder0Pos_old = encoder0Pos;
 
     /*###############################MENU###############################*/
-    int encoder_push = digitalRead(encoderE);
-    if (encoder_push == LOW)  {
-      encoder_push = digitalRead(encoderE);
-      time_push = millis();
-      while (encoder_push != HIGH)  {
-        encoder_push = digitalRead(encoderE);
+     /* int encoder_push = digitalRead(encoderE);
+      if (encoder_push == LOW)  {
+
+       encoder_push = digitalRead(encoderE);
+       time_push = millis();
+       while (encoder_push != HIGH)  {
+         encoder_push = digitalRead(encoderE);
+       }
+
+       if (((millis() - time_push)  > 250 ) || (MODE == 0) || (MODE == 1) )   {
+         Mode_chosen = 0;
+         while (Mode_chosen == 0) {
+           MODE = menu_set(MODE);
+           encoder_push = digitalRead(encoderE);
+           if (encoder_push == LOW)  {
+             encoder_push = digitalRead(encoderE);
+             while (encoder_push != HIGH)  {
+               encoder_push = digitalRead(encoderE);
+             }
+             FLAG_MENU = 1;
+             Mode_chosen = 1;
+           }
+         }
+       }
+       else  {
+         resolution_chosen = 0;
+         RESOLUTION_old = RESOLUTION;
+         while (resolution_chosen == 0)  {
+           RESOLUTION = resolution_set(RESOLUTION);
+           encoder_push = digitalRead(encoderE);
+           if (encoder_push == LOW)  {
+             encoder_push = digitalRead(encoderE);
+             while (encoder_push != HIGH)  {
+               encoder_push = digitalRead(encoderE);
+             }
+             FLAG_RESOLUTION = 1;
+             resolution_chosen = 1;
+           }
+         }
+       }
       }
 
-      if (((millis() - time_push)  > 250 ) || (MODE == 0) || (MODE == 1) )   {
-        Mode_chosen = 0;
-        while (Mode_chosen == 0) {
-          MODE = menu_set(MODE);
-          encoder_push = digitalRead(encoderE);
-          if (encoder_push == LOW)  {
-            encoder_push = digitalRead(encoderE);
-            while (encoder_push != HIGH)  {
-              encoder_push = digitalRead(encoderE);
-            }
-            FLAG_MENU = 1;
-            Mode_chosen = 1;
-          }
-        }
-      }
-      else  {
-        resolution_chosen = 0;
-        RESOLUTION_old = RESOLUTION;
-        while (resolution_chosen == 0)  {
-          RESOLUTION = resolution_set(RESOLUTION);
-          encoder_push = digitalRead(encoderE);
-          if (encoder_push == LOW)  {
-            encoder_push = digitalRead(encoderE);
-            while (encoder_push != HIGH)  {
-              encoder_push = digitalRead(encoderE);
-            }
-            FLAG_RESOLUTION = 1;
-            resolution_chosen = 1;
-          }
-        }
-      }
-    }
-
+    */
     /*###########################GET VALUE###########################*/
+    /*
+        if ( (millis() - last_refresh) > refresh ) {
+          last_refresh = millis();
 
-    if ( (millis() - last_refresh) > refresh ) {
-      last_refresh = millis();
-      
-            switch (MODE)  {
-              case 1 :
-                Varmo.getData(Get_Position);
+                switch (MODE)  {
+                  case 1 :
+                    Varmo.sendData(Get, Position);
+                    time_ping = millis();
+                    while (flag == false) {
+                      serialEvent();
+                      if ((millis() - time_ping) > time_out) {
+                        Serial_OK = false;
+                        flag = true;
+                      }
+
+                      serialEvent();
+                      if (stringComplete == true) {
+                        serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
+                        if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
+                          if (data1 == Position) {
+                            POSITION_GET = (int) data2_float;
+                          }
+                          flag = true;
+                        }
+                        inputString = "";
+                        stringComplete = false;
+                      }
+                    }
+                    flag = false;
+                    break;
+                  case 2 :
+                    Varmo.sendData(Get, Torque);
+                    time_ping = millis();
+                    while (flag == false) {
+                      serialEvent();
+                      if ((millis() - time_ping) > time_out) {
+                        Serial_OK = false;
+                        flag = true;
+                      }
+
+                      serialEvent();
+                      if (stringComplete == true) {
+                        serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
+                        if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
+                          if (data1 == Torque) {
+                            TORQUE_GET = data2_float;
+                          }
+                          flag = true;
+                        }
+                        inputString = "";
+                        stringComplete = false;
+                      }
+                    }
+                    flag = false;
+                    break;
+                  case 3 :
+                    Varmo.sendData(Get, Speed);
+                    time_ping = millis();
+                    while (flag == false) {
+                      serialEvent();
+                      if ((millis() - time_ping) > time_out) {
+                        Serial_OK = false;
+                        flag = true;
+                      }
+
+                      serialEvent();
+                      if (stringComplete == true) {
+                        serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
+                        if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
+                          if (data1 == Speed) {
+                            SPEED_GET = data2_float;
+                            Serial.println(SPEED_GET);
+                          }
+                          flag = true;
+                        }
+                        inputString = "";
+                        stringComplete = false;
+                      }
+                    }
+                    flag = false;
+                    break;
+                }
+
+
+                Varmo.sendData(Get, Drive_Enable);
                 time_ping = millis();
                 while (flag == false) {
                   serialEvent();
@@ -235,10 +318,15 @@ void loop()
 
                   serialEvent();
                   if (stringComplete == true) {
-                    serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
+                    serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
                     if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
-                      if (data1 == Get_Position) {
-                        POSITION_GET = (int) data2_float;
+                      if (data1 == Drive_Enable) {
+                        if (data2_string == "HIGH") {
+                          LED_1_STATUS = HIGH;
+                        }
+                        else if (data2_string == "LOW") {
+                          LED_1_STATUS = LOW;
+                        }
                       }
                       flag = true;
                     }
@@ -247,118 +335,35 @@ void loop()
                   }
                 }
                 flag = false;
-                break;
-              case 2 :
-                Varmo.getData(Get_Torque);
-                time_ping = millis();
-                while (flag == false) {
-                  serialEvent();
-                  if ((millis() - time_ping) > time_out) {
-                    Serial_OK = false;
-                    flag = true;
-                  }
+          Varmo.sendData(Get, Torque);
+          time_ping = millis();
+          while (flag == false) {
 
-                  serialEvent();
-                  if (stringComplete == true) {
-                    serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
-                    if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
-                      if (data1 == Get_Torque) {
-                        TORQUE_GET = data2_float;
-                      }
-                      flag = true;
-                    }
-                    inputString = "";
-                    stringComplete = false;
-                  }
-                }
-                flag = false;
-                break;
-              case 3 :
-                Varmo.getData(Get_Speed);
-                time_ping = millis();
-                while (flag == false) {
-                  serialEvent();
-                  if ((millis() - time_ping) > time_out) {
-                    Serial_OK = false;
-                    flag = true;
-                  }
-
-                  serialEvent();
-                  if (stringComplete == true) {
-                    serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
-                    if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
-                      if (data1 == Get_Speed) {
-                        SPEED_GET = data2_float;
-                        Serial.println(SPEED_GET);
-                      }
-                      flag = true;
-                    }
-                    inputString = "";
-                    stringComplete = false;
-                  }
-                }
-                flag = false;
-                break;
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
+              flag = true;
             }
-
-
-            Varmo.getData(Get_Drive_Enable);
-            time_ping = millis();
-            while (flag == false) {
-              serialEvent();
-              if ((millis() - time_ping) > time_out) {
-                Serial_OK = false;
+            serialEvent();
+            if (stringComplete == true) {
+              serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
+              if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
+                if (data1 == Torque) {
+                  if (data2_float > 0) {
+                    LED_2_STATUS = HIGH;
+                  }
+                  else {
+                    LED_2_STATUS = LOW;
+                  }
+                }
                 flag = true;
               }
-
-              serialEvent();
-              if (stringComplete == true) {
-                serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
-                if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
-                  if (data1 == Get_Drive_Enable) {
-                    if (data2_string == "HIGH") {
-                      LED_1_STATUS = HIGH;
-                    }
-                    else if (data2_string == "LOW") {
-                      LED_1_STATUS = LOW;
-                    }
-                  }
-                  flag = true;
-                }
-                inputString = "";
-                stringComplete = false;
-              }
+              inputString = "";
+              stringComplete = false;
             }
-            flag = false;
-      Varmo.getData(Get_Torque);
-      time_ping = millis();
-      while (flag == false) {
-
-        if ((millis() - time_ping) > time_out) {
-          Serial_OK = false;
-          flag = true;
-        }
-        serialEvent();
-        if (stringComplete == true) {
-          serial_analyse_float(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_float);
-          if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
-            if (data1 == Get_Torque) {
-              if (data2_float > 0) {
-                LED_2_STATUS = HIGH;
-              }
-              else {
-                LED_2_STATUS = LOW;
-              }
-            }
-            flag = true;
           }
-          inputString = "";
-          stringComplete = false;
-        }
-      }
-      flag = false;
-    }
-
+          flag = false;
+        }*/
+    
     /*###########################GET DIRECTION###########################*/
     bool sens1 = digitalRead(DIRECTION_1);
     bool sens2 = digitalRead(DIRECTION_2);
@@ -370,7 +375,7 @@ void loop()
     if (millis() - timer_motor_off > 150) {
       MOTOR_OFF = 1;
       POSITION_TARGET = 0;
-      SPEED_TARGET = 0;
+      SPEED_TARGET = 1000;
       TORQUE_TARGET = 0;
     }
     else if ((sens1 == LOW) && (sens2 == HIGH)) {
@@ -399,12 +404,12 @@ void loop()
     }
     send_button_push_old = send_button_push;
 
-    if (SEND == HIGH || MOTOR_OFF == 1) {
-      SEND = LOW;
-      switch (MODE)  {
-        case 1 :
-          Varmo.sendData(Set_Position, String(POSITION_TARGET));
-          time_ping = millis();
+    //if (SEND == HIGH || MOTOR_OFF == 1) {
+    SEND = LOW;
+    switch (MODE)  {
+      case 1 :
+        Varmo.sendData(Set, Position_ref, String(POSITION_TARGET));/*
+        time_ping = millis();
           while (flag == false) {
             serialEvent();
             if ((millis() - time_ping) > time_out) {
@@ -415,7 +420,7 @@ void loop()
             if (stringComplete == true) {
               serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
               if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
-                if ((data1 == Set_Position) && (data2_string == CONFIRM_KEY_WORD)) {
+                if ((data1 == Position_ref) && (data2_string == CONFIRM_KEY_WORD)) {
                   flag = true;
                 }
               }
@@ -423,11 +428,11 @@ void loop()
               stringComplete = false;
             }
           }
-          flag = false;
-          break;
-        case 2 :
-          Varmo.sendData(Set_Torque, String(TORQUE_TARGET));
-          time_ping = millis();
+        flag = false;*/
+        break;
+      case 2 :
+        Varmo.sendData(Set, Torque_ref, String(TORQUE_TARGET));/*
+        time_ping = millis();
           while (flag == false) {
             serialEvent();
             if ((millis() - time_ping) > time_out) {
@@ -439,7 +444,7 @@ void loop()
             if (stringComplete == true) {
               serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
               if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
-                if ((data1 == Set_Torque) && (data2_string == CONFIRM_KEY_WORD)) {
+                if ((data1 == Torque_ref) && (data2_string == CONFIRM_KEY_WORD)) {
                   flag = true;
                 }
               }
@@ -447,10 +452,11 @@ void loop()
               stringComplete = false;
             }
           }
-          flag = false;
-          break;
-        case 3 :
-          Varmo.sendData(Set_Speed, String(SPEED_TARGET));
+
+        flag = false;*/
+        break;
+      case 3 :
+        Varmo.sendData(Set, Speed_ref, String(SPEED_TARGET));/*
           time_ping = millis();
           while (flag == false) {
             serialEvent();
@@ -463,7 +469,7 @@ void loop()
               serial_analyse_string(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2_string);
 
               if ((protocol_receipt == PROTOCOL) && (SerialNumber_receipt.substring(4, 8) == ARMAZ_ID)) {
-                if ((data1 == Set_Speed) && (data2_string == CONFIRM_KEY_WORD)) {
+                if ((data1 == Speed_ref) && (data2_string == CONFIRM_KEY_WORD)) {
                   flag = true;
                 }
               }
@@ -471,10 +477,10 @@ void loop()
               stringComplete = false;
             }
           }
-          flag = false;
-          break;
-      }
+        flag = false;*/
+        break;
     }
+    //}
 
     /*###############################REFRESH MENU###############################*/
     if (FLAG_MENU == 1)  {
@@ -574,7 +580,7 @@ void serial_analyse_float(String inputString, String * protocol, String * serial
       temp += chara;
       i += 1;
       chara = inputString[i];
-    } 
+    }
     *data2 = temp.toFloat();
   }
 }
