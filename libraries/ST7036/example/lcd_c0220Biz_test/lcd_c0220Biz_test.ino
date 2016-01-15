@@ -161,7 +161,7 @@ void setup ()
    analogReference ( INTERNAL );
    pinMode ( LDR_PIN, INPUT );
    lcd.init ();
-   lcd.setContrast(10);
+   //lcd.setContrast(10);
   
    // Load custom character set into CGRAM
    for ( i = 0; i < charBitmapSize; i++ )
