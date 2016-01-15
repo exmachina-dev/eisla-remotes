@@ -43,4 +43,8 @@ class Device
 
 String InsertLengthdata(String data);
 
+void serial_analyse(String inputString, String *protocol, String *serial_num, String *data1, String *data2, String *data3);
+
+String get_confirm_key(String data);
+
 #endif
