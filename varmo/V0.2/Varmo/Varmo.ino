@@ -67,7 +67,7 @@ void setup() {
 
   lcd.init ();
   lcd.clear ();
-  lcd.print("ExMachima");
+  lcd.print("ExMachina");
   lcd.setCursor(1, 0);
   lcd.print("Varmo Rev 0.2");
   delay(1000);
