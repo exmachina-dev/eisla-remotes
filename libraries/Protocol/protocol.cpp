@@ -16,24 +16,6 @@ Device::Device(String Serial)
 	_Confirm = "ok";
 }
 
-void Device::getAlivePing()
-{
-	Serial.print(_Protocol);
-	Serial.print(_SerialNumber);
-	Serial.print(_Alive);
-	Serial.print(_End);
-}
-
-void Device::sendAlivePing()
-{
-	Serial.print(_Protocol);
-	Serial.print(_SerialNumber);
-	Serial.print(_Alive);
-	Serial.print(_delimitator);
-	Serial.print(_Confirm);
-	Serial.print(_End);
-}
-
 void Device::sendData(String data1, String command) 
 {
 	String data;
@@ -54,14 +36,6 @@ void Device::sendData(String data1, String command, String value= "")
 		data = InsertLengthdata(data);
 	}
 	Serial.print(data);
-}
-
-void Device::getData(String data)
-{
-	Serial.print(_Protocol);
-	Serial.print(_SerialNumber);
-	Serial.print(data);
-	Serial.print(_End);
 }
 
 String InsertLengthdata(String data){

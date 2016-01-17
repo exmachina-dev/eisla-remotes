@@ -19,17 +19,12 @@ class Device
     DEVICE(String SerialNumber);
     */
 	Device(String Serial);
-	
-	void getAlivePing();
-	
-	void sendAlivePing();
-	
+
 	void sendData(String data1, String command);
 
 	void sendData(String data1, String command, String value);
 	
-	void getData(String data);
-	
+
 	private:
 	
 	String _Protocol;
