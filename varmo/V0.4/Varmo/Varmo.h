@@ -41,16 +41,14 @@
 #define PROTOCOL          "ExmEisla"
 #define ARMAZ_ID          "0000"
 
-#define CONFIRM_KEY_WORD  "ok"
-#define ALIVE             "alive"
 /*
 String "machine.alive";
 String "machme.alive:ok";
  */
 
-
 String Get = "machine.get";
 String Set = "machine.set";
+String Alive = "machine.alive";
 
 String Speed_ref = "velocity_ref";
 String Torque_ref = "torque_ref";
@@ -60,6 +58,7 @@ String Speed = "velocity";
 String Torque = "torque";
 String Position = "position";
 
+String Device_serial_num = "serial_number";
 String Drive_Enable = "status.drive_enable";
 
 
@@ -72,20 +71,28 @@ Device Varmo = Device(SERIAL_NUMBER);
 void setup();
 void loop();
 
+void serialEvent();
+
 void doEncoderA();
 void doEncoderB();
 
 int menu_set(int MENU);
 float resolution_set(float RESOLUTION); 
 void menu_init(int MODE, int *CONTRAST, int *POSITION, float *TORQUE, float *SPEED, float *encoder0Pos);
-void lcd_print_menu(int MODE, int CONTRAST, int POSITION, float TORQUE, float SPEED,float torque_get, float speed_get, float encoder0Pos);
 
-void lcd_print_contraste_value(int CONTRASTE);
-void lcd_print_float_value(float value);
-void lcd_print_int_value(int value);
+void lcd_print_menu(int MODE, int CONTRAST, int POSITION, float TORQUE, float SPEED, float torque_get,
+					float speed_get, float position_get, float encoder0Pos);
+void lcd_print_contrast_value(int CONTRAST);
+void lcd_print_sign(float value);
+void lcd_print_int_align_right(int value);
+void lcd_print_float_align_right(float value);
+void lcd_print_float_value(float value1, float value2);
+void lcd_print_int_value(int value1, int value2);
 
-void contraste_convert(int *CONTRASTE, int *F_contraste, float *encoder0Pos);
-void speed_convert(float *SPEED, float *encoder0Pos, float resolution);
-void torque_convert(float *TORQUE, float *encoder0Pos, float resolution);
+void contrast_convert(int *CONTRAST, int *F_contrast, float *encoder0Pos);
+void speed_convert(float * SPEED, float * encoder0Pos, float resolution);
+void torque_convert(float * TORQUE, float * encoder0Pos, float resolution);
 
 #endif // VARMO_H_INCLUDED
+
+;
