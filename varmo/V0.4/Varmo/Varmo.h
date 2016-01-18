@@ -50,15 +50,15 @@ String Get = "machine.get";
 String Set = "machine.set";
 String Alive = "machine.alive";
 
-String Speed_ref = "velocity_ref";
-String Torque_ref = "torque_ref";
-String Position_ref = "position_ref";
+String Speed_ref = "machine.velocity_ref";
+String Torque_ref = "machine.torque_ref";
+String Position_ref = "machine.position_ref";
 
-String Speed = "velocity";
-String Torque = "torque";
-String Position = "position";
+String Speed = "machine.velocity";
+String Torque = "machine.torque";
+String Position = "machine.position";
 
-String Device_serial_num = "serial_number";
+String Device_serial_num = "machine.serial_number";
 String Drive_Enable = "status.drive_enable";
 
 
