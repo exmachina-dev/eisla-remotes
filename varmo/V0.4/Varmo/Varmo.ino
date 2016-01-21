@@ -33,12 +33,12 @@ int CONTRAST = 5;
 
 signed int CONTRAST_OLD = 5;
 
-float SPEED_GET = 10;
-float TORQUE_GET = 20;
-float  POSITION_GET = 30;
-float HOME_POSITION_GET = 40;
-float ACCELERATION_GET = 50;
-float DECELERATION_GET = 60;
+float SPEED_GET = 0;
+float TORQUE_GET = 0;
+float  POSITION_GET = 0;
+float HOME_POSITION_GET = 0;
+float ACCELERATION_GET = 0;
+float DECELERATION_GET = 0;
 
 /*RESOLUTION*/
 float RESOLUTION = 1;
@@ -388,7 +388,7 @@ void loop()
     }
     send_button_push_old = send_button_push;
 
-    if (SEND == HIGH || MOTOR_OFF == 1) {
+    if (SEND == HIGH && MOTOR_OFF == 0) {
       SEND = LOW;
       switch (MODE)  {
         case 1 :
@@ -483,7 +483,7 @@ void loop()
         }
         break;
       case 1 :
-        POSITION_TARGET = encoder0Pos;
+        converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
         lcd_print_float_value(POSITION_GET, POSITION_TARGET);
         break;
       case 2 :
@@ -495,15 +495,15 @@ void loop()
         lcd_print_float_value(SPEED_GET, SPEED_TARGET);
         break;
       case 4 :
-        converter(&HOME_POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 5000);
+        converter(&HOME_POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999);
         lcd_print_float_value(HOME_POSITION_GET, HOME_POSITION_TARGET);
         break;
       case 5 :
-        converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 5000);
+        converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
         lcd_print_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
         break;
       case 6 :
-        converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 5000);
+        converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
         lcd_print_float_value(DECELERATION_GET, DECELERATION_TARGET);
         break;
     }
@@ -672,12 +672,72 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       break;
     case 1:
       *encoder0Pos = *POSITION;
+      Varmo.sendData(Set, Control_Mode, String(3));
+      /*while (flag == false) {
+        if ((millis() - time_ping) > time_out) {
+          Serial_OK = false;
+          flag = true;
+        }
+        if (stringComplete == true) {
+          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+          get_confirm_key(&data1, &confirm_key);
+          if (confirm_key = "ok") {
+            flag = true;
+          }
+          else if (confirm_key = "error") {
+            lcd.print(data3);
+          }
+          inputString = "";
+          stringComplete = false;
+        }
+      }
+      flag = false;*/
       break;
     case 2:
       *encoder0Pos = *TORQUE / resolution;
+      Varmo.sendData(Set, Control_Mode, String(1));
+      /*while (flag == false) {
+        if ((millis() - time_ping) > time_out) {
+          Serial_OK = false;
+          flag = true;
+        }
+        if (stringComplete == true) {
+          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+          get_confirm_key(&data1, &confirm_key);
+          if (confirm_key = "ok") {
+            flag = true;
+          }
+          else if (confirm_key = "error") {
+            lcd.print(data3);
+          }
+          inputString = "";
+          stringComplete = false;
+        }
+      }
+      flag = false;*/
       break;
     case 3:
       *encoder0Pos = *SPEED / resolution;
+      Varmo.sendData(Set, Control_Mode, String(2));
+      /*while (flag == false) {
+        if ((millis() - time_ping) > time_out) {
+          Serial_OK = false;
+          flag = true;
+        }
+        if (stringComplete == true) {
+          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+          get_confirm_key(&data1, &confirm_key);
+          if (confirm_key = "ok") {
+            flag = true;
+          }
+          else if (confirm_key = "error") {
+            lcd.print(data3);
+          }
+          inputString = "";
+          stringComplete = false;
+        }
+      }
+      flag = false;*/
       break;
     case 4:
       *encoder0Pos = *HOME_POSITION / resolution;

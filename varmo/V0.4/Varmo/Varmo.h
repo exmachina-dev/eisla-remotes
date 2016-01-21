@@ -64,6 +64,8 @@ String Pos_Home = "machine.possition_home";
 String Acceleration = "machine.acceleration";
 String Deceleration = "machine.decelaration";
 
+String Control_Mode = "machine.command.control_mode";
+
 String Device_serial_num = "machine.serialnumber";
 String Drive_Enable = "status.drive_enable";
 
