@@ -24,14 +24,21 @@ bool resolution_chosen = 0;
 /*PARAMETERS*/
 float SPEED_TARGET = 0;
 float TORQUE_TARGET = 0;
-signed int POSITION_TARGET = 0;
-int CONTRAST = 0;
+float POSITION_TARGET = 0;
+float HOME_POSITION_TARGET = 0;
+float ACCELERATION_TARGET = 0;
+float DECELERATION_TARGET = 0;
 
-signed int CONTRAST_OLD = 0;
+int CONTRAST = 5;
 
-float SPEED_GET = 0;
-float TORQUE_GET = 0;
-signed int POSITION_GET = 0;
+signed int CONTRAST_OLD = 5;
+
+float SPEED_GET = 10;
+float TORQUE_GET = 20;
+float  POSITION_GET = 30;
+float HOME_POSITION_GET = 40;
+float ACCELERATION_GET = 50;
+float DECELERATION_GET = 60;
 
 /*RESOLUTION*/
 float RESOLUTION = 1;
@@ -241,79 +248,52 @@ void loop()
 
       switch (MODE)  {
         case 1 :
-          Varmo.sendData(Get, Position);/*
-          time_ping = millis();
-          while (flag == false) {
-            if ((millis() - time_ping) > time_out) {
-              Serial_OK = false;
-              flag = true;
-            }
-            if (stringComplete == true) {
-              serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-              get_confirm_key(&data1, &confirm_key);
-              if (confirm_key = "ok") {
-                POSITION_GET = data3.toInt();
-                flag = true;
-              }
-              else if (confirm_key = "error") {
-                lcd.print(data3);
-              }
-              inputString = "";
-              stringComplete = false;
-            }
-          }*/
+          Varmo.sendData(Get, Position);
           flag = false;
           break;
         case 2 :
-          Varmo.sendData(Get, Torque);/*
-          time_ping = millis();
-          while (flag == false) {
-            if ((millis() - time_ping) > time_out) {
-              Serial_OK = false;
-              flag = true;
-            }
-            if (stringComplete == true) {
-              serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-              get_confirm_key(&data1, &confirm_key);
-              if (confirm_key = "ok") {
-                TORQUE_GET = data3.toFloat();
-                flag = true;
-              }
-              else if (confirm_key = "error") {
-                lcd.print(data3);
-              }
-              inputString = "";
-              stringComplete = false;
-            }
-          }*/
+          Varmo.sendData(Get, Torque);
           flag = false;
           break;
         case 3 :
-          Varmo.sendData(Get, Speed);/*
-          time_ping = millis();
-          while (flag == false) {
-            if ((millis() - time_ping) > time_out) {
-              Serial_OK = false;
-              flag = true;
-            }
-            if (stringComplete == true) {
-              serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-              get_confirm_key(&data1, &confirm_key);
-              if (confirm_key = "ok") {
-                SPEED_GET = data3.toFloat();
-                flag = true;
-              }
-              else if (confirm_key = "error") {
-                lcd.print(data3);
-              }
-              inputString = "";
-              stringComplete = false;
-            }
-          }*/
+          Varmo.sendData(Get, Speed);
+          flag = false;
+          break;
+        case 4 :
+          Varmo.sendData(Get, Pos_Home);
+          flag = false;
+          break;
+        case 5 :
+          Varmo.sendData(Get, Acceleration);
+          flag = false;
+          break;
+        case 6 :
+          Varmo.sendData(Get, Deceleration);
           flag = false;
           break;
       }
-      Varmo.sendData(Get, Drive_Enable);/*
+      /*
+      time_ping = millis();
+      while (flag == false) {
+        if ((millis() - time_ping) > time_out) {
+          Serial_OK = false;
+          flag = true;
+        }
+        if (stringComplete == true) {
+          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+          get_confirm_key(&data1, &confirm_key);
+          if (confirm_key = "ok") {
+            POSITION_GET = data3.toInt();
+            flag = true;
+          }
+          else if (confirm_key = "error") {
+            lcd.print(data3);
+          }
+          inputString = "";
+          stringComplete = false;
+        }
+      }
+      Varmo.sendData(Get, Drive_Enable);
       time_ping = millis();
       while (flag == false) {
         if ((millis() - time_ping) > time_out) {
@@ -338,11 +318,11 @@ void loop()
           inputString = "";
           stringComplete = false;
         }
-      }*/
+      }
       flag = false;
 
 
-      Varmo.sendData(Get, Torque);/*
+      Varmo.sendData(Get, Torque);
       time_ping = millis();
       while (flag == false) {
         if ((millis() - time_ping) > time_out) {
@@ -367,8 +347,8 @@ void loop()
           inputString = "";
           stringComplete = false;
         }
-      }*/
-      flag = false;
+      }
+      flag = false;*/
     }
 
     /*###########################GET DIRECTION###########################*/
@@ -379,19 +359,17 @@ void loop()
       timer_motor_off = millis();
     }
 
-    if ((sens1 == LOW) && (sens2 == HIGH)) {
+    if ((sens1 == HIGH) && (sens2 == LOW)) {
       SENS = HIGH;
       MOTOR_OFF = LOW;
     }
-    else if ((sens1 == HIGH) && (sens2 == LOW)) {
+    else if ((sens1 == LOW) && (sens2 == HIGH)) {
       SENS = LOW;
       MOTOR_OFF = LOW;
     }
     else if (millis() - timer_motor_off > 50) {
       MOTOR_OFF = HIGH;
     }
-
-
 
     /*###########################SET TARGET###########################*/
     bool send_button_push = digitalRead(SEND_BUTTON);
@@ -412,8 +390,6 @@ void loop()
 
     if (SEND == HIGH || MOTOR_OFF == 1) {
       SEND = LOW;
-      lcd.setCursor(0,0);
-      lcd.print("envoie");
       switch (MODE)  {
         case 1 :
           Varmo.sendData(Set, Position_ref, String(POSITION_TARGET));/*
@@ -436,60 +412,53 @@ void loop()
             }
           }
           flag = false;*/
+          Varmo.sendData(Set, Pos_go, String(HIGH));
           break;
         case 2 :
-          Varmo.sendData(Set, Torque_ref, String(TORQUE_TARGET));/*
-          while (flag == false) {
-            if ((millis() - time_ping) > time_out) {
-              Serial_OK = false;
-              flag = true;
-            }
-            if (stringComplete == true) {
-              serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-              get_confirm_key(&data1, &confirm_key);
-              if (confirm_key = "ok") {
-                flag = true;
-              }
-              else if (confirm_key = "error") {
-                lcd.print(data3);
-              }
-              inputString = "";
-              stringComplete = false;
-            }
-          }
-          flag = false;*/
+          Varmo.sendData(Set, Torque_ref, String(TORQUE_TARGET));
           break;
         case 3 :
-          Varmo.sendData(Set, Speed_ref, String(SPEED_TARGET));/*
-          while (flag == false) {
-            if ((millis() - time_ping) > time_out) {
-              Serial_OK = false;
-              flag = true;
-            }
-            if (stringComplete == true) {
-              serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-              get_confirm_key(&data1, &confirm_key);
-              if (confirm_key = "ok") {
-                flag = true;
-              }
-              else if (confirm_key = "error") {
-                lcd.print(data3);
-              }
-              inputString = "";
-              stringComplete = false;
-            }
-          }
-          flag = false;*/
+          Varmo.sendData(Set, Speed_ref, String(SPEED_TARGET));
           break;
-      }
-  }
+        case 4 :
+          Varmo.sendData(Set, Pos_Home, String(HOME_POSITION_TARGET));
+          break;
+        case 5 :
+          Varmo.sendData(Set, Acceleration, String(ACCELERATION_TARGET));
+          break;
+        case 6 :
+          Varmo.sendData(Set, Deceleration, String(DECELERATION_TARGET));
+          break;
 
+      }
+      /*
+      while (flag == false) {
+        if ((millis() - time_ping) > time_out) {
+          Serial_OK = false;
+          flag = true;
+        }
+        if (stringComplete == true) {
+          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+          get_confirm_key(&data1, &confirm_key);
+          if (confirm_key = "ok") {
+            flag = true;
+          }
+          else if (confirm_key = "error") {
+            lcd.print(data3);
+          }
+          inputString = "";
+          stringComplete = false;
+        }
+      }
+      flag = false;*/
+    }
 
     /*###############################REFRESH MENU###############################*/
     if (FLAG_MENU == 1)  {
-      //lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, TORQUE_GET, SPEED_GET, POSITION_GET, encoder0Pos);
+      lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, 
+                     TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET,encoder0Pos);
       if (MODE_OLD != MODE)    {
-        menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &encoder0Pos);
+        menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET, &encoder0Pos, RESOLUTION);
         MODE_OLD = MODE;
       }
       else    {
@@ -515,15 +484,27 @@ void loop()
         break;
       case 1 :
         POSITION_TARGET = encoder0Pos;
-        lcd_print_int_value(POSITION_GET, POSITION_TARGET);
+        lcd_print_float_value(POSITION_GET, POSITION_TARGET);
         break;
       case 2 :
-        torque_convert(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS);
+        converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 500);
         lcd_print_float_value(TORQUE_GET, TORQUE_TARGET);
         break;
       case 3 :
-        speed_convert(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS);
+        converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,4400);
         lcd_print_float_value(SPEED_GET, SPEED_TARGET);
+        break;
+      case 4 :
+        converter(&HOME_POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 5000);
+        lcd_print_float_value(HOME_POSITION_GET, HOME_POSITION_TARGET);
+        break;
+      case 5 :
+        converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 5000);
+        lcd_print_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
+        break;
+      case 6 :
+        converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 5000);
+        lcd_print_float_value(DECELERATION_GET, DECELERATION_TARGET);
         break;
     }
 
@@ -617,103 +598,133 @@ void doEncoderB() {
 
 /*##################MENU##################*/
 int menu_set(int MENU)  {
-  int RESOLUTION = 18;
-  int MENU_SELECTOR = int(encoder0Pos) % RESOLUTION;
+  int RESOLUTION = 21;
+  int MENU_SELECTOR = abs(int(encoder0Pos) % RESOLUTION);
   lcd.setCursor(0, 0);
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
-  if (MENU_SELECTOR <=  4)  {
+  if (MENU_SELECTOR <=  3)  {
     lcd.print("Contrast        ");
     MENU = 0;
   }
-  else if (MENU_SELECTOR <= 8)  {
+  else if (MENU_SELECTOR <= 6)  {
     lcd.print("Position        ");
     MENU = 1;
   }
-  else if (MENU_SELECTOR <= 12)  {
+  else if (MENU_SELECTOR <= 9)  {
     lcd.print("Torque          ");
     MENU = 2;
   }
-  else if (MENU_SELECTOR <= 18)  {
+  else if (MENU_SELECTOR <= 12)  {
     lcd.print("Speed           ");
     MENU = 3;
+  }
+  else if (MENU_SELECTOR <= 15) { 
+    lcd.print("Set Home        ");
+    MENU = 4;
+  }
+  else if (MENU_SELECTOR <= 18) { 
+    lcd.print("Acceleration    ");
+    MENU = 5;
+  }
+  else if (MENU_SELECTOR <= 21) {
+    lcd.print("Deceleration    ");
+    MENU = 6;
   }
   return MENU;
 }
 
 float resolution_set(float RESOLUTION)  {
 
-  int RESOLUTION_SELECTOR = int(encoder0Pos) % 25;
+  int RESOLUTION_SELECTOR = abs(int(encoder0Pos) % 25);
   if (RESOLUTION_SELECTOR <=  5)  {
-    lcd.setCursor(1, 14);
+    lcd.setCursor(1, 10);
     lcd.cursor_on();
     RESOLUTION = 0.1;
   }
   else if (RESOLUTION_SELECTOR <= 10)  {
-    lcd.setCursor(1, 12);
+    lcd.setCursor(1, 8);
     lcd.cursor_on();
     RESOLUTION = 1;
   }
   else if (RESOLUTION_SELECTOR <= 15)  {
-    lcd.setCursor(1, 11);
+    lcd.setCursor(1, 7);
     lcd.cursor_on();
     RESOLUTION = 10;
   }
   else if (RESOLUTION_SELECTOR <= 20)  {
-    lcd.setCursor(1, 10);
+    lcd.setCursor(1, 6);
     lcd.cursor_on();
     RESOLUTION = 100;
   }
   else if (RESOLUTION_SELECTOR <= 25)  {
-    lcd.setCursor(1, 9);
+    lcd.setCursor(1, 5);
     lcd.cursor_on();
     RESOLUTION = 1000;
   }
   return RESOLUTION;
 }
 
-void menu_init(int MODE, int *CONTRAST, int *POSITION, float * TORQUE, float * SPEED, float * encoder0Pos)  {
+void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float * encoder0Pos, float resolution)  {
   switch (MODE) {
     case 0:
-      *CONTRAST = 5;
-      *encoder0Pos = 20;
+      *encoder0Pos = *CONTRAST * 4;
       break;
     case 1:
-      *POSITION = 0;
-      *encoder0Pos = 0;
+      *encoder0Pos = *POSITION;
       break;
     case 2:
-      *TORQUE = 0;
-      *encoder0Pos = 0;
+      *encoder0Pos = *TORQUE / resolution;
       break;
     case 3:
-      *SPEED = 0;
-      *encoder0Pos = 0;
+      *encoder0Pos = *SPEED / resolution;
+      break;
+    case 4:
+      *encoder0Pos = *HOME_POSITION / resolution;
+      break;
+    case 5:
+      *encoder0Pos = *ACCELERATION / resolution;
+      break;
+    case 6:
+      *encoder0Pos = *DECELERATION / resolution;
       break;
   }
 }
 
 /*##################LCD PRINT##################*/
-void lcd_print_menu(int MODE, int CONTRAST, int POSITION, float TORQUE, float SPEED, 
-                    float torque_get, float speed_get, float position_get, float encoder0Pos)  {
+
+void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION,
+                    float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float encoder0Pos)  {
   lcd.clear();
-  lcd.setCursor(0,15);
+  lcd.setCursor(0,0);
   switch (MODE) {
     case 0:
-      lcd.print("C");
+      lcd.print("CONTRAST");
       lcd_print_contrast_value(CONTRAST);
       break;
     case 1:
-      lcd.print("P");
-      lcd_print_int_value(position_get, POSITION);
+      lcd.print("Pos:");
+      lcd_print_float_value(position_get, POSITION);
       break;
     case 2:
-      lcd.print("T");
+      lcd.print("Trq:");
       lcd_print_float_value(torque_get, TORQUE);
       break;
     case 3:
-      lcd.print("S");
+      lcd.print("Spd:");
       lcd_print_float_value(speed_get, SPEED);
+      break;
+    case 4:
+      lcd.print("Hom:");
+      lcd_print_float_value(home_position_get, HOME_POSITION);
+      break;
+    case 5:
+      lcd.print("Acc:");
+      lcd_print_float_value(acceleration_get, ACCELERATION);
+      break;
+    case 6:
+      lcd.print("Dec:");
+      lcd_print_float_value(decelaration_get, DECELERATION);
       break;
   }
 }
@@ -738,7 +749,7 @@ void lcd_print_sign(float value)  {
     lcd.print("-");
   } 
 }
-
+/*
 void lcd_print_int_align_right(int value)  {
   if (value == 0) {
     lcd.print("000");
@@ -754,7 +765,7 @@ void lcd_print_int_align_right(int value)  {
   }
   lcd.print(abs(value));
 }
-
+*/
 void lcd_print_float_align_right(float value)  {
   if (value == 0) {
     lcd.print("000");
@@ -775,32 +786,31 @@ void lcd_print_float_align_right(float value)  {
 }
 
 void lcd_print_float_value(float value1, float value2) {
-  lcd.setCursor(0, 7);
+  lcd.setCursor(0, 4);
   lcd_print_sign(value1);
   lcd_print_float_align_right(value1);
 
   lcd.setCursor(1, 0);
   lcd.setCursor(1, 0);
-  lcd.print("Target:");
+  lcd.print("Tgt:");
   lcd_print_sign(value2);
 
   lcd_print_float_align_right(value2);
 }
-
+/*
 void lcd_print_int_value(int value1, int value2) {
-  lcd.setCursor(0, 11);
+  lcd.setCursor(0, 4);
   lcd_print_sign(value1);
   lcd_print_int_align_right(value1);
 
   lcd.setCursor(1, 0);
   lcd.setCursor(1, 0);
-  lcd.print("Target: ");
-  lcd.setCursor(1, 11);
+  lcd.print("Tgt: ");
   lcd_print_sign(value2);
   lcd_print_int_align_right(value2);
   lcd.print(value2);
 }
-
+*/
 /*##################CONVERTER##################*/
 void contrast_convert(int *CONTRAST, int *F_contrast, float * encoder0Pos) {
   int resolution = 10;
@@ -819,6 +829,48 @@ void contrast_convert(int *CONTRAST, int *F_contrast, float * encoder0Pos) {
   }
 }
 
+
+void converter(float *value, float *encoder0Pos, float resolution, bool sens, float max){
+  float temp = *encoder0Pos * resolution;
+  if (temp > 0 && temp < max) {
+    if (sens == HIGH)  {
+      *value = temp;
+    }
+    else if (sens == LOW)  {
+      *value = (-1) * temp;
+    }
+  }
+  else if (temp >= max)  {
+    if (sens == HIGH)  {
+      *value = max;
+    }
+    else if (sens == LOW)  {
+      *value = (-1) * max;
+    }
+    *encoder0Pos = max / resolution;
+  }
+  else if (temp <= 0) {
+    *value = 0;
+    *encoder0Pos = 0;
+  }
+}
+
+void converter_abs(float *value, float *encoder0Pos, float resolution, float max){
+  float temp = *encoder0Pos * resolution;
+  if (temp > 0 && temp < max) {
+    *value = temp;
+  }
+  else if (temp >= max)  {
+    *value = max;
+    *encoder0Pos = max / resolution;
+  }
+  else if (temp <= 0) {
+    *value = 0;
+    *encoder0Pos = 0;
+  }
+}
+
+/*
 void speed_convert(float * SPEED, float * encoder0Pos, float resolution, bool SENS)  {
   float value = *encoder0Pos * resolution;
 
@@ -866,7 +918,10 @@ void torque_convert(float * TORQUE, float * encoder0Pos, float resolution, bool 
 
     *encoder0Pos = 500 / resolution;
   }
+  else if (value <= 0) {
+    *TORQUE = 0;
+    *encoder0Pos = 0;
+  }
 
 }
-
-
+*/

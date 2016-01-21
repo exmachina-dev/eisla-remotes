@@ -18,6 +18,8 @@ float encoder0Pos = 0;
 #define DIRECTION_1 8
 #define DIRECTION_2 9
 
+#define BUTTON_2 10
+
 void setup() {
   /*ENCODER INITIALISATION*/
   pinMode(encoder0PinA, INPUT);
@@ -33,7 +35,7 @@ void setup() {
 
   pinMode(DIRECTION_1, INPUT);
   pinMode(DIRECTION_2, INPUT);
-
+  pinMode(BUTTON_2 , INPUT);
   lcd.init ();
   lcd.clear ();
   lcd.print("ExMachina");
@@ -49,10 +51,45 @@ int thisByte = 33;
 
 
 void loop() {
+  /*
   serial_test(thisByte);
   test_encoder();
   test_LED1();
   test_LED2();
+
+
+  if (digitalRead(DIRECTION_1) == HIGH){
+    lcd.setCursor(0,0);
+    lcd.print("DIRECTION1 == 1");
+  }
+  else if (digitalRead(DIRECTION_1) == LOW){
+    lcd.setCursor(0,0);
+    lcd.print("DIRECTION1 == 0");
+  }
+
+  delay(500);
+
+  if (digitalRead(DIRECTION_2) == HIGH){
+    lcd.setCursor(1,0);
+    lcd.print("DIRECTION2 == 1");
+  }
+  else if (digitalRead(DIRECTION_2) == LOW){
+    lcd.setCursor(1,0);
+    lcd.print("DIRECTION2 == 0");
+  }
+
+  delay(500);*/
+
+  if (digitalRead(BUTTON_2) == HIGH){
+    lcd.setCursor(1,0);
+    lcd.print("BUTTON2 == 1");
+  }
+  else if (digitalRead(BUTTON_2) == LOW){
+    lcd.setCursor(1,0);
+    lcd.print("BUTTON2 == 0");
+  }
+
+  delay(100);
 
 }
 

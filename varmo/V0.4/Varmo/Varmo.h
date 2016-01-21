@@ -56,7 +56,13 @@ String Position_ref = "machine.position_ref";
 
 String Speed = "machine.velocity";
 String Torque = "machine.torque";
+
 String Position = "machine.position";
+String Pos_go = "machine.command.go";
+String Pos_Home = "machine.possition_home";
+
+String Acceleration = "machine.acceleration";
+String Deceleration = "machine.decelaration";
 
 String Device_serial_num = "machine.serialnumber";
 String Drive_Enable = "status.drive_enable";
@@ -78,20 +84,22 @@ void doEncoderB();
 
 int menu_set(int MENU);
 float resolution_set(float RESOLUTION); 
-void menu_init(int MODE, int *CONTRAST, int *POSITION, float *TORQUE, float *SPEED, float *encoder0Pos);
+void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float * encoder0Pos, float resolution);
 
-void lcd_print_menu(int MODE, int CONTRAST, int POSITION, float TORQUE, float SPEED, float torque_get,
-					float speed_get, float position_get, float encoder0Pos);
+void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION,
+                    float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float encoder0Pos);
 void lcd_print_contrast_value(int CONTRAST);
 void lcd_print_sign(float value);
-void lcd_print_int_align_right(int value);
+//void lcd_print_int_align_right(int value);
 void lcd_print_float_align_right(float value);
 void lcd_print_float_value(float value1, float value2);
-void lcd_print_int_value(int value1, int value2);
+//void lcd_print_int_value(int value1, int value2);
 
+
+void converter(float *value, float *encoder0Pos, float resolution, bool sens, float max);
 void contrast_convert(int *CONTRAST, int *F_contrast, float *encoder0Pos);
-void speed_convert(float * SPEED, float * encoder0Pos, float resolution, bool SENS);
-void torque_convert(float * TORQUE, float * encoder0Pos, float resolution, bool SENS);
+//void speed_convert(float * SPEED, float * encoder0Pos, float resolution, bool SENS);
+//void torque_convert(float * TORQUE, float * encoder0Pos, float resolution, bool SENS);
 
 #endif // VARMO_H_INCLUDED
 
