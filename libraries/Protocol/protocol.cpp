@@ -1,89 +1,121 @@
 #include <Arduino.h>
 #include <protocol.h>
 
+using namespace std ;
+
 // CLASS METHODS
 // ----------------------------------------------------------------------------
 
 // Constructors:
 // ---------------------------------------------------------------------------
-Device::Device(String Serial)
-{
-	_Protocol = "ExmEisla";
-	_SerialNumber = Serial;
-	_End = "\r\n";
+Device::Device() {
+
+  _Protocol = "ExmEisla";
+	_SerialNumber = "0116VARM0001";
+	_End= "\r\n";
 	_delimitator = ':';
-	_Alive = "alive";
-	_Confirm = "ok";
 }
 
-void Device::sendData(String data1, String command) 
-{
-	String data;
+void Device::sendData(String data1, String command) {
 
-	if(data1 == "machine.get"){
-		data = _Protocol + _SerialNumber + data1 + _delimitator + command + _End;
-		data = InsertLengthdata(data);
-	}
+    int length = _Protocol.length() + _SerialNumber.length() + data1.length() + _delimitator.length() + command.length() + _End.length() + 2;
+    binaryRepr data_size;
 
-	Serial.print(data);
+    if (length<255){
+      data_size.toInt.int0 = length;
+      data_size.toInt.int1 = 0x00;
+    }
+    else if (length > 255) {
+      data_size.toInt.int0 = (length&0x00FF);
+      data_size.toInt.int1 = (length&0XFF00) >> 8;
+    }
+
+    Serial.print(_Protocol);
+    Serial.write(data_size.toInt.int1);
+    Serial.write(data_size.toInt.int0);
+    Serial.print(_SerialNumber);
+    Serial.print(data1);
+    Serial.print(_delimitator);
+    Serial.print(command);
+    Serial.print(_End);
+
 }
 
-void Device::sendData(String data1, String command, String value= "") 
-{
-	String data;
-	if (data1 == "machine.set"){
-		data = _Protocol + _SerialNumber + data1 + _delimitator + command + _delimitator + value + _End;
-		data = InsertLengthdata(data);
-	}
-	Serial.print(data);
+void Device::sendData(String data1, String command, String value= "") {
+	
+    int length = _Protocol.length() + _SerialNumber.length() + data1.length() + _delimitator.length() + command.length() + _delimitator.length() + value.length() + _End.length() + 2;
+    binaryRepr data_size;
+
+    if (length<255){
+      data_size.toInt.int0 = length;
+      data_size.toInt.int1 = 0x00;
+    }
+    else if (length > 255) {
+      data_size.toInt.int0 = (length&0x00FF);
+      data_size.toInt.int1 = (length&0XFF00) >> 8;
+    }
+
+    Serial.print(_Protocol);
+    Serial.write(data_size.toInt.int1);
+    Serial.write(data_size.toInt.int0);
+    Serial.print(_SerialNumber);
+    Serial.print(data1);
+    Serial.print(_delimitator);
+    Serial.print(command);
+    Serial.print(_delimitator);
+    Serial.print(value);
+    Serial.print(_End);
 }
 
-String InsertLengthdata(String data){
-	int data_size = data.length() + 2;
-	return data = data.substring(0,8) + data_size + data.substring(8, data_size);
-}
 
 void serial_analyse(String inputString, String *protocol, String *serial_num, String *data1, String *data2, String *data3) {
   char chara;
   String temp = "";
   *protocol = inputString.substring(0, 8);
   temp = inputString.substring(8, 10);
-  int data_length = temp.toInt();
+  binaryRepr length;
+  temp.getBytes(length.toBytes, 3);
+
+  int length_data = length.toInt.int0 * 0xFF + length.toInt.int1;
+
   temp = "";
 
-
   *serial_num = inputString.substring(10, 22);
+
   *data1 = "";
   *data2 = "";
   *data3 = "";
   int i = 22;
   chara = inputString[i];
-  while (!(chara == ':' || i == data_length)) {
+
+  while (!(chara == ':' || i == length_data)) {
     temp += chara;
     i += 1;
     chara = inputString[i];
   }
-
-  if (i != data_length) {
+  
+  if (i != length_data) {
     *data1 = temp;
     temp = "";
     i += 1;
     chara = inputString[i];
-    while (!(chara == ':' || i == data_length) ) {
+    while (!(chara == ':' || i == length_data) ) {
       temp += chara;
       i += 1;
       chara = inputString[i];
     }
-
-    if (i != data_length) {
+    
+    if (i != length_data) {
       *data2 = temp;
       temp = "";
       i += 1;
+
       chara = inputString[i];
-      while (!(chara == ':' || i == data_length) ) {
+      while (!(chara == ':' || i == length_data) ) {
         temp += chara;
         i += 1;
         chara = inputString[i];
+
       }
       *data3 = temp.substring(0, temp.length() - 2);
       temp = "";
@@ -100,26 +132,35 @@ void serial_analyse(String inputString, String *protocol, String *serial_num, St
   }
 }
 
-String get_confirm_key(String data) {
+String get_confirm_key(String *str, String *key) {
   int i = 0;
-  char chara = data[i];
-  String confirm_key;
+
+  char chara;
+  String temp = *str;
+
+  String temp_key;
+
+  temp_key = "";
+
+  chara = temp[i];
+
   while (chara != '.' ) {
     i += 1;
-    chara = data[i];
+    chara = temp[i];
   }
   i += 1;
-  chara = data[i];
+  chara = temp[i];
   while (chara != '.' ) {
     i += 1;
-    chara = data[i];
+    chara = temp[i];
   }
   i += 1;
-  chara = data[i];
-  while (!(chara == '.' || i == data.length() + 1)) {
-    confirm_key += chara;
+  chara = temp[i];
+  while (!(chara == '.' || i == temp.length())) {
+
+    temp_key += chara;
     i += 1;
-    chara = data[i];
+    chara = temp[i];
   }
-  return confirm_key;
+  *key = temp_key;
 }
