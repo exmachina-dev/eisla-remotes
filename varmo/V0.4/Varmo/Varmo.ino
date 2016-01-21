@@ -48,8 +48,8 @@ unsigned long refresh = 100;
 unsigned long last_refresh = 0;
 
 /*SEND*/
-bool send_button_push_old = LOW;
-bool send_state = HIGH;
+bool send_button_push_old = HIGH;
+bool send_state = LOW;
 long lastDebounceTime = 0;  // the last time the output pin was toggled
 long debounceDelay = 50;    // the debounce time; increase if the output flickers
 bool SEND = LOW;
@@ -97,7 +97,7 @@ void setup() {
 
   pinMode(encoderE, INPUT);
 
-  pinMode(SEND_BUTTON, INPUT_PULLUP);
+  pinMode(SEND_BUTTON, INPUT);
 
   pinMode(LED_1, OUTPUT);
   pinMode(LED_2, OUTPUT);
@@ -112,7 +112,7 @@ void setup() {
   lcd.print("ExMachina");
   lcd.setCursor(1, 0);
   lcd.print(VARMO_VERSION);
-  delay(1000);
+  delay(3000);
 
   // Load Custom Character
   int charBitmapSize = (sizeof(charBitmap ) / sizeof (charBitmap[0]));
@@ -127,16 +127,18 @@ void setup() {
   lcd.clear ();
   lcd.print("Connexion...");
   time_ping = millis();
-  Varmo.sendData(Get, Device_serial_num);
+  Varmo.sendData(Get, Device_serial_num);/*
   while (flag == false) {
     if (millis() - time_ping > time_out) {
       Varmo.sendData(Get, Device_serial_num);
       time_ping = millis();
     }
-    serialEvent();
     if (stringComplete == true) {
+      lcd.setCursor(0,0);
+      lcd.print(inputString);
       serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-      confirm_key = get_confirm_key(data1);
+      get_confirm_key(&data1, &confirm_key);
+
       if (SerialNumber_receipt == data3 && confirm_key == "ok") {
         flag = true;
       }
@@ -147,17 +149,17 @@ void setup() {
       stringComplete = false;
     }
   }
-  flag = false;
+  flag = false;*/
 }
 
 void loop()
 {
 
-
+/*
   if (Serial_OK == false) {
-  	lcd.print("Com Error")
+  	lcd.print("Com Error");
   	lcd.setCursor(1,0);
-  	lcd.print("Reconnecting..")
+  	lcd.print("Reconnecting...");
     Varmo.sendData(Get, Device_serial_num);
     time_ping = millis();
     flag = false;
@@ -166,10 +168,9 @@ void loop()
         Varmo.sendData(Get, Device_serial_num);
         time_ping = millis();
       }
-      serialEvent();
-      if (stringComplete == true) {
+     if (stringComplete == true) {
         serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-        confirm_key = get_confirm_key(data1);
+        get_confirm_key(&data1, &confirm_key);
         if (SerialNumber_receipt == data3 && confirm_key == "ok") {
           flag = true;
         }
@@ -182,7 +183,7 @@ void loop()
     }
     flag = false;
     Serial_OK = true;
-  }
+  }*/
 
 
   while (Serial_OK) {
@@ -240,18 +241,16 @@ void loop()
 
       switch (MODE)  {
         case 1 :
-          Varmo.sendData(Get, Position);
+          Varmo.sendData(Get, Position);/*
           time_ping = millis();
           while (flag == false) {
-            serialEvent();
             if ((millis() - time_ping) > time_out) {
               Serial_OK = false;
               flag = true;
             }
-            serialEvent();
             if (stringComplete == true) {
               serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-              confirm_key = get_confirm_key(data1);
+              get_confirm_key(&data1, &confirm_key);
               if (confirm_key = "ok") {
                 POSITION_GET = data3.toInt();
                 flag = true;
@@ -262,22 +261,20 @@ void loop()
               inputString = "";
               stringComplete = false;
             }
-          }
+          }*/
           flag = false;
           break;
         case 2 :
-          Varmo.sendData(Get, Torque);
+          Varmo.sendData(Get, Torque);/*
           time_ping = millis();
           while (flag == false) {
-            serialEvent();
             if ((millis() - time_ping) > time_out) {
               Serial_OK = false;
               flag = true;
             }
-            serialEvent();
             if (stringComplete == true) {
               serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-              confirm_key = get_confirm_key(data1);
+              get_confirm_key(&data1, &confirm_key);
               if (confirm_key = "ok") {
                 TORQUE_GET = data3.toFloat();
                 flag = true;
@@ -288,22 +285,20 @@ void loop()
               inputString = "";
               stringComplete = false;
             }
-          }
+          }*/
           flag = false;
           break;
         case 3 :
-          Varmo.sendData(Get, Speed);
+          Varmo.sendData(Get, Speed);/*
           time_ping = millis();
           while (flag == false) {
-            serialEvent();
             if ((millis() - time_ping) > time_out) {
               Serial_OK = false;
               flag = true;
             }
-            serialEvent();
             if (stringComplete == true) {
               serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-              confirm_key = get_confirm_key(data1);
+              get_confirm_key(&data1, &confirm_key);
               if (confirm_key = "ok") {
                 SPEED_GET = data3.toFloat();
                 flag = true;
@@ -314,22 +309,20 @@ void loop()
               inputString = "";
               stringComplete = false;
             }
-          }
+          }*/
           flag = false;
           break;
       }
-      Varmo.sendData(Get, Drive_Enable);
+      Varmo.sendData(Get, Drive_Enable);/*
       time_ping = millis();
       while (flag == false) {
-        serialEvent();
         if ((millis() - time_ping) > time_out) {
           Serial_OK = false;
           flag = true;
         }
-        serialEvent();
         if (stringComplete == true) {
           serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          confirm_key = get_confirm_key(data1);
+          get_confirm_key(&data1, &confirm_key);
           if (confirm_key = "ok") {
             if (data3 == "HIGH") {
               LED_1_STATUS = HIGH;
@@ -345,22 +338,20 @@ void loop()
           inputString = "";
           stringComplete = false;
         }
-      }
+      }*/
       flag = false;
 
 
-      Varmo.sendData(Get, Torque);
+      Varmo.sendData(Get, Torque);/*
       time_ping = millis();
       while (flag == false) {
-        serialEvent();
         if ((millis() - time_ping) > time_out) {
           Serial_OK = false;
           flag = true;
         }
-        serialEvent();
         if (stringComplete == true) {
           serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          confirm_key = get_confirm_key(data1);
+          get_confirm_key(&data1, &confirm_key);
           if (confirm_key = "ok") {
             if (data2.toFloat() > 0) {
               LED_2_STATUS = HIGH;
@@ -376,7 +367,7 @@ void loop()
           inputString = "";
           stringComplete = false;
         }
-      }
+      }*/
       flag = false;
     }
 
@@ -384,24 +375,22 @@ void loop()
     bool sens1 = digitalRead(DIRECTION_1);
     bool sens2 = digitalRead(DIRECTION_2);
 
-    if (!(sens1 == LOW) && (sens2 == LOW))  {
+    if (!(sens1 == HIGH) && (sens2 == HIGH))  {
       timer_motor_off = millis();
     }
 
-    if (millis() - timer_motor_off > 150) {
-      MOTOR_OFF = 1;
-      POSITION_TARGET = 0;
-      SPEED_TARGET = 0;
-      TORQUE_TARGET = 0;
-    }
-    else if ((sens1 == LOW) && (sens2 == HIGH)) {
+    if ((sens1 == LOW) && (sens2 == HIGH)) {
       SENS = HIGH;
-      MOTOR_OFF = 0;
+      MOTOR_OFF = LOW;
     }
     else if ((sens1 == HIGH) && (sens2 == LOW)) {
       SENS = LOW;
-      MOTOR_OFF = 0;
+      MOTOR_OFF = LOW;
     }
+    else if (millis() - timer_motor_off > 50) {
+      MOTOR_OFF = HIGH;
+    }
+
 
 
     /*###########################SET TARGET###########################*/
@@ -413,6 +402,7 @@ void loop()
     if ((millis() - lastDebounceTime) > debounceDelay) {
       if (send_button_push != send_state) {
         send_state = send_button_push;
+
         if (send_button_push == LOW)  {
           SEND = HIGH;
         }
@@ -420,87 +410,84 @@ void loop()
     }
     send_button_push_old = send_button_push;
 
-    //if (SEND == HIGH || MOTOR_OFF == 1) {
-    SEND = LOW;
-    switch (MODE)  {
-      case 1 :
-        Varmo.sendData(Set, Position_ref, String(POSITION_TARGET));
-        while (flag == false) {
-          serialEvent();
-          if ((millis() - time_ping) > time_out) {
-            Serial_OK = false;
-            flag = true;
-          }
-          serialEvent();
-          if (stringComplete == true) {
-            serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-            confirm_key = get_confirm_key(data1);
-            if (confirm_key = "ok") {
+    if (SEND == HIGH || MOTOR_OFF == 1) {
+      SEND = LOW;
+      lcd.setCursor(0,0);
+      lcd.print("envoie");
+      switch (MODE)  {
+        case 1 :
+          Varmo.sendData(Set, Position_ref, String(POSITION_TARGET));/*
+          while (flag == false) {
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
               flag = true;
             }
-            else if (confirm_key = "error") {
-              lcd.print(data3);
+            if (stringComplete == true) {
+              serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+              get_confirm_key(&data1, &confirm_key);
+              if (confirm_key = "ok") {
+                flag = true;
+              }
+              else if (confirm_key = "error") {
+                lcd.print(data3);
+              }
+              inputString = "";
+              stringComplete = false;
             }
-            inputString = "";
-            stringComplete = false;
           }
-        }
-        flag = false;
-        break;
-      case 2 :
-        Varmo.sendData(Set, Torque_ref, String(TORQUE_TARGET));
-        while (flag == false) {
-          serialEvent();
-          if ((millis() - time_ping) > time_out) {
-            Serial_OK = false;
-            flag = true;
-          }
-          serialEvent();
-          if (stringComplete == true) {
-            serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-            confirm_key = get_confirm_key(data1);
-            if (confirm_key = "ok") {
+          flag = false;*/
+          break;
+        case 2 :
+          Varmo.sendData(Set, Torque_ref, String(TORQUE_TARGET));/*
+          while (flag == false) {
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
               flag = true;
             }
-            else if (confirm_key = "error") {
-              lcd.print(data3);
+            if (stringComplete == true) {
+              serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+              get_confirm_key(&data1, &confirm_key);
+              if (confirm_key = "ok") {
+                flag = true;
+              }
+              else if (confirm_key = "error") {
+                lcd.print(data3);
+              }
+              inputString = "";
+              stringComplete = false;
             }
-            inputString = "";
-            stringComplete = false;
           }
-        }
-        flag = false;
-        break;
-      case 3 :
-        Varmo.sendData(Set, Speed_ref, String(SPEED_TARGET));
-        while (flag == false) {
-          serialEvent();
-          if ((millis() - time_ping) > time_out) {
-            Serial_OK = false;
-            flag = true;
-          }
-          serialEvent();
-          if (stringComplete == true) {
-            serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-            confirm_key = get_confirm_key(data1);
-            if (confirm_key = "ok") {
+          flag = false;*/
+          break;
+        case 3 :
+          Varmo.sendData(Set, Speed_ref, String(SPEED_TARGET));/*
+          while (flag == false) {
+            if ((millis() - time_ping) > time_out) {
+              Serial_OK = false;
               flag = true;
             }
-            else if (confirm_key = "error") {
-              lcd.print(data3);
+            if (stringComplete == true) {
+              serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+              get_confirm_key(&data1, &confirm_key);
+              if (confirm_key = "ok") {
+                flag = true;
+              }
+              else if (confirm_key = "error") {
+                lcd.print(data3);
+              }
+              inputString = "";
+              stringComplete = false;
             }
-            inputString = "";
-            stringComplete = false;
           }
-        }
-        flag = false;
-        break;
-    }
+          flag = false;*/
+          break;
+      }
+  }
 
 
     /*###############################REFRESH MENU###############################*/
     if (FLAG_MENU == 1)  {
-      lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, TORQUE_GET, SPEED_GET, POSITION_GET, encoder0Pos);
+      //lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, TORQUE_GET, SPEED_GET, POSITION_GET, encoder0Pos);
       if (MODE_OLD != MODE)    {
         menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &encoder0Pos);
         MODE_OLD = MODE;
@@ -531,7 +518,7 @@ void loop()
         lcd_print_int_value(POSITION_GET, POSITION_TARGET);
         break;
       case 2 :
-        torque_convert(&TORQUE_TARGET, &encoder0Pos, RESOLUTION);
+        torque_convert(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS);
         lcd_print_float_value(TORQUE_GET, TORQUE_TARGET);
         break;
       case 3 :
@@ -571,7 +558,9 @@ void serialEvent() {
 }
 
 /*
-  ExmEisla730116ARCP0001machine.get.ok:machine.serial_number:0116ARCP0001
+  ExmEisla080116VARM0001machine.get.ok:machine.serialnumber
+  ExmEisla0H0116ARCP0001machine.get.ok:machine.serialnumber:0116ARCP0001
+  ExmEisla\x00L00116ARCP0001machine.get.ok:machine.serialnumber:0116ARCP0001
   ExmEisla560116ARCP0001machine.get.ok:machine.speed:595
   ExmEisla600116ARCP0001machine.set.ok:machine.speed_ref:595
 */
@@ -708,21 +697,22 @@ void menu_init(int MODE, int *CONTRAST, int *POSITION, float * TORQUE, float * S
 void lcd_print_menu(int MODE, int CONTRAST, int POSITION, float TORQUE, float SPEED, 
                     float torque_get, float speed_get, float position_get, float encoder0Pos)  {
   lcd.clear();
+  lcd.setCursor(0,15);
   switch (MODE) {
     case 0:
-      lcd.print("Contrast        ");
+      lcd.print("C");
       lcd_print_contrast_value(CONTRAST);
       break;
     case 1:
-      lcd.print("Position:       ");
+      lcd.print("P");
       lcd_print_int_value(position_get, POSITION);
       break;
     case 2:
-      lcd.print("Torque:         ");
+      lcd.print("T");
       lcd_print_float_value(torque_get, TORQUE);
       break;
     case 3:
-      lcd.print("Speed:          ");
+      lcd.print("S");
       lcd_print_float_value(speed_get, SPEED);
       break;
   }
@@ -746,7 +736,7 @@ void lcd_print_sign(float value)  {
   }
   else  {
     lcd.print("-");
-  }
+  } 
 }
 
 void lcd_print_int_align_right(int value)  {
@@ -785,13 +775,13 @@ void lcd_print_float_align_right(float value)  {
 }
 
 void lcd_print_float_value(float value1, float value2) {
-  lcd.setCursor(0, 8);
+  lcd.setCursor(0, 7);
   lcd_print_sign(value1);
   lcd_print_float_align_right(value1);
 
   lcd.setCursor(1, 0);
   lcd.setCursor(1, 0);
-  lcd.print("Target: ");
+  lcd.print("Target:");
   lcd_print_sign(value2);
 
   lcd_print_float_align_right(value2);
@@ -855,19 +845,28 @@ void speed_convert(float * SPEED, float * encoder0Pos, float resolution, bool SE
   }
 }
 
-void torque_convert(float * TORQUE, float * encoder0Pos, float resolution)  {
+void torque_convert(float * TORQUE, float * encoder0Pos, float resolution, bool SENS)  {
   float value = *encoder0Pos * resolution;
-  if (value > -500 && value < 500) {
-    *TORQUE = value;
+  if (value > 0 && value < 500) {
+        if (SENS == HIGH)  {
+      *TORQUE = value;
+    }
+    else if (SENS == LOW)  {
+      *TORQUE = (-1) *value;
+    }
+
   }
   else if (value >= 500)  {
-  	*TORQUE = 500;
+    if (SENS == HIGH)  {
+      *TORQUE = 500;
+    }
+    else if (SENS == LOW)  {
+      *TORQUE = -500;
+    }
+
     *encoder0Pos = 500 / resolution;
   }
-  else if (value <= -500) {
-  	*TORQUE = -500;
-    *encoder0Pos = -500 / resolution;
-  }
+
 }
 
 

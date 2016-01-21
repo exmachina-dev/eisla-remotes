@@ -58,14 +58,14 @@ String Speed = "machine.velocity";
 String Torque = "machine.torque";
 String Position = "machine.position";
 
-String Device_serial_num = "machine.serial_number";
+String Device_serial_num = "machine.serialnumber";
 String Drive_Enable = "status.drive_enable";
 
 
 /*####################OBJECT####################*/
 
 ST7036 lcd = ST7036 ( 2, 16, 0x78 );
-Device Varmo = Device(SERIAL_NUMBER);
+Device Varmo = Device();
 
 /*####################FUNCTION####################*/
 void setup();
@@ -90,8 +90,8 @@ void lcd_print_float_value(float value1, float value2);
 void lcd_print_int_value(int value1, int value2);
 
 void contrast_convert(int *CONTRAST, int *F_contrast, float *encoder0Pos);
-void speed_convert(float * SPEED, float * encoder0Pos, float resolution);
-void torque_convert(float * TORQUE, float * encoder0Pos, float resolution);
+void speed_convert(float * SPEED, float * encoder0Pos, float resolution, bool SENS);
+void torque_convert(float * TORQUE, float * encoder0Pos, float resolution, bool SENS);
 
 #endif // VARMO_H_INCLUDED
 
