@@ -69,6 +69,13 @@ String Control_Mode = "machine.command.control_mode";
 String Device_serial_num = "machine.serialnumber";
 String Drive_Enable = "status.drive_enable";
 
+const uint8_t MODE_POS = 1;
+const uint8_t MODE_POS_SPD = 2;
+const uint8_t MODE_SPD = 3;
+const uint8_t MODE_TRQ = 4;
+const uint8_t MODE_HOME = 5;
+const uint8_t MODE_ACC = 6;
+const uint8_t MODE_DEC = 7;
 
 /*####################OBJECT####################*/
 
@@ -88,8 +95,8 @@ int menu_set(int MENU);
 float resolution_set(float RESOLUTION); 
 void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float * encoder0Pos, float resolution);
 
-void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION,
-                    float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float encoder0Pos);
+void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION, float POS_SPEED, 
+					float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float pos_speed_get, float encoder0Pos);
 void lcd_print_contrast_value(int CONTRAST);
 void lcd_print_sign(float value);
 //void lcd_print_int_align_right(int value);

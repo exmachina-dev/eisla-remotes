@@ -28,6 +28,7 @@ float POSITION_TARGET = 0;
 float HOME_POSITION_TARGET = 0;
 float ACCELERATION_TARGET = 0;
 float DECELERATION_TARGET = 0;
+float POS_SPEED_TARGET = 0;
 
 int CONTRAST = 5;
 
@@ -39,6 +40,7 @@ float POSITION_GET = 0;
 float HOME_POSITION_GET = 0;
 float ACCELERATION_GET = 0;
 float DECELERATION_GET = 0;
+float POS_SPEED_GET = 0;
 
 /*RESOLUTION*/
 float RESOLUTION = 1;
@@ -246,8 +248,11 @@ void loop()
         resolution_chosen = 0;
         RESOLUTION_old = RESOLUTION;
         while (resolution_chosen == 0 && MODE != 4)  {
-          if (MODE == 1) {
-            RESOLUTION = resolution_set(RESOLUTION, 0, 3);
+          if (MODE == MODE_POS) {
+            RESOLUTION = resolution_set(RESOLUTION, 0, 4);
+          }
+          else if (MODE == MODE_POS_SPD){
+            RESOLUTION = resolution_set(RESOLUTION, 0, 8);
           }
           else{
             RESOLUTION = resolution_set(RESOLUTION, 1, 5);
@@ -273,27 +278,27 @@ void loop()
       last_refresh = millis();
 
       switch (MODE)  {
-        case 1 :
+        case MODE_POS :
           Varmo.sendData(Get, Position);
           flag = false;
           break;
-        case 2 :
+        case MODE_TRQ :
           Varmo.sendData(Get, Torque);
           flag = false;
           break;
-        case 3 :
+        case MODE_SPD :
           Varmo.sendData(Get, Speed);
           flag = false;
           break;
-        case 4 :
+        case MODE_HOME :
           Varmo.sendData(Get, Pos_Home);
           flag = false;
           break;
-        case 5 :
+        case MODE_ACC :
           Varmo.sendData(Get, Acceleration);
           flag = false;
           break;
-        case 6 :
+        case MODE_DEC :
           Varmo.sendData(Get, Deceleration);
           flag = false;
           break;
@@ -445,7 +450,7 @@ void loop()
       }      
     }
 
-    if (MOTOR_OFF == 0 || MODE == 4 || MODE == 5 || MODE == 6)  {
+    if (MOTOR_OFF == 0 || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC)  {
       bool send_button_push = digitalRead(SEND_BUTTON);
       if (send_button_push != send_button_push_old) {
         lastDebounceTime = millis();
@@ -466,9 +471,13 @@ void loop()
     if (SEND == HIGH) {
       SEND = LOW;
       switch (MODE)  {
-        case 1 :
+        case MODE_POS :
           Varmo.sendData(Set, Position_ref, POSITION_TARGET);
-          Varmo.sendData(Set, Speed_ref, (float)200);/*
+          if (POS_SPEED_TARGET == 0){
+            MODE = MODE_POS_SPD;
+            FLAG_MENU = 1;
+          }
+          /*
           while (flag == false) {
             if ((millis() - time_ping) > time_out) {
               Serial_OK = false;
@@ -490,22 +499,26 @@ void loop()
           flag = false;*/
           Varmo.sendData(Set, Pos_go, true);
           break;
-        case 2 :
+        case MODE_POS_SPD:
+          Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
+          MODE = MODE_POS;
+          FLAG_MENU = 1;
+        case MODE_TRQ :
           Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
           break;
-        case 3 :
+        case MODE_SPD :
           Varmo.sendData(Set, Speed_ref, SPEED_TARGET);
           break;
-        case 4 :
+        case MODE_HOME :
           Varmo.sendData(Set, Pos_Home, true);
           lcd.setCursor(1,0);
           lcd.print("New home pos    ");
           refresh_set_home = millis();
           break;
-        case 5 :
+        case MODE_ACC :
           Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
           break;
-        case 6 :
+        case MODE_DEC :
           Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
           break;
 
@@ -534,9 +547,10 @@ void loop()
 
     /*###############################REFRESH MENU###############################*/
     if (FLAG_MENU == 1)  {
-      lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, 
-                     TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET,encoder0Pos);
-      menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET, &encoder0Pos, RESOLUTION);
+      lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, POS_SPEED_TARGET,
+                     TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET, POS_SPEED_GET,encoder0Pos);
+      menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, 
+                &ACCELERATION_TARGET, &DECELERATION_TARGET, &POS_SPEED_TARGET,&encoder0Pos, RESOLUTION);
         
       
       if (MODE_OLD == MODE)    {
@@ -563,19 +577,23 @@ void loop()
           analogWrite(CONTRAST_PWM, F_contrast);
         }
         break;*/
-      case 1 :
+      case MODE_POS :
         converter_abs(&POSITION_TARGET, &encoder0Pos, RESOLUTION, 9999);
         lcd_print_pos(POSITION_GET, POSITION_TARGET, SPEED_GET);
         break;
-      case 2 :
+      case MODE_POS_SPD :
+        converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 9999);
+        lcd_print_vit_pos(POS_SPEED_GET, POS_SPEED_TARGET);
+        break;
+      case MODE_TRQ :
         converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 500);
         lcd_print_float_value(TORQUE_GET, TORQUE_TARGET);
         break;
-      case 3 :
+      case MODE_SPD :
         converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,4400);
         lcd_print_float_value(SPEED_GET, SPEED_TARGET);
         break;
-      case 4 :
+      case MODE_HOME :
         if ( (millis() - refresh_set_home) > refresh ) {
           refresh_set_home = millis();
           lcd.setCursor(1,0);
@@ -584,11 +602,11 @@ void loop()
         /*converter(&HOME_POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999);
         lcd_print_float_value(HOME_POSITION_GET, HOME_POSITION_TARGET);*/
         break;
-      case 5 :
+      case MODE_ACC :
         converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
         lcd_print_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
         break;
-      case 6 :
+      case MODE_DEC :
         converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
         lcd_print_float_value(DECELERATION_GET, DECELERATION_TARGET);
         break;
@@ -711,28 +729,33 @@ int menu_set(int MENU)  {
   lcd.setCursor(1, 0);
   if (MENU_SELECTOR <= RESOLUTION )  {
     lcd.print("Position        ");
-    MENU = 1;
+    MENU = MODE_POS;
   }
   else if (MENU_SELECTOR <= RESOLUTION * 2)  {
-    lcd.print("Torque          ");
-    MENU = 2;
+    lcd.print("Speed Position  ");
+    MENU = MODE_POS_SPD;
   }
   else if (MENU_SELECTOR <= RESOLUTION * 3)  {
-    lcd.print("Speed           ");
-    MENU = 3;
+    lcd.print("Torque          ");
+    MENU = MODE_TRQ;
   }
   else if (MENU_SELECTOR <= RESOLUTION * 4) { 
-    lcd.print("Set Home        ");
-    MENU = 4;
+    lcd.print("Speed           ");
+    MENU = MODE_SPD;
   }
   else if (MENU_SELECTOR <= RESOLUTION * 5) { 
-    lcd.print("Acceleration    ");
-    MENU = 5;
+    lcd.print("Set Home        ");
+    MENU = MODE_HOME;
   }
   else if (MENU_SELECTOR <= RESOLUTION * 6) {
+    lcd.print("Acceleration    ");
+    MENU = MODE_ACC;
+  }
+  else if (MENU_SELECTOR <= RESOLUTION *7){
     lcd.print("Deceleration    ");
-    MENU = 6;
-  }/*
+    MENU = MODE_DEC;
+  }
+  /*
   else if (MENU_SELECTOR <= RESOLUTION * 7)  {
     lcd.print("Contrast        ");
     MENU = 0;
@@ -782,12 +805,12 @@ float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
   return RESOLUTION;
 }
 
-void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float * encoder0Pos, float resolution)  {
+void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float *POS_SPEED, float * encoder0Pos, float resolution)  {
   switch (MODE) {
     /*case 0:
       *encoder0Pos = *CONTRAST * 4;
       break;*/
-    case 1:
+    case MODE_POS:
       *encoder0Pos = *POSITION;
       Varmo.sendData(Set, Control_Mode, (unsigned int)3);
       /*while (flag == false) {
@@ -810,7 +833,7 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       }
       flag = false;*/
       break;
-    case 2:
+    case MODE_TRQ:
       *encoder0Pos = *TORQUE / resolution;
       Varmo.sendData(Set, Control_Mode, (unsigned int)1);
       /*while (flag == false) {
@@ -833,7 +856,7 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       }
       flag = false;*/
       break;
-    case 3:
+    case MODE_SPD:
       *encoder0Pos = *SPEED / resolution;
       Varmo.sendData(Set, Control_Mode, (unsigned int)2);
       /*while (flag == false) {
@@ -856,22 +879,25 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       }
       flag = false;*/
       break;
-    case 4:
+    case MODE_HOME:
       //*encoder0Pos = *HOME_POSITION / resolution;
       break;
-    case 5:
+    case MODE_ACC:
       *encoder0Pos = *ACCELERATION / resolution;
       break;
-    case 6:
+    case MODE_DEC:
       *encoder0Pos = *DECELERATION / resolution;
       break;
+    case MODE_POS_SPD :
+      *encoder0Pos = *POS_SPEED /resolution;
+      Varmo.sendData(Set, Control_Mode, (unsigned int)3);
   }
 }
 
 /*##################LCD PRINT##################*/
 
-void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION,
-                    float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float encoder0Pos)  {
+void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION, float POS_SPEED, 
+                    float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float pos_speed_get, float encoder0Pos)  {
   lcd.clear();
   lcd.setCursor(0,0);
   switch (MODE) {
@@ -879,29 +905,32 @@ void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float 
       lcd.print("CONTRAST");
       lcd_print_contrast_value(CONTRAST);
       break;*/
-    case 1:
+    case MODE_POS:
       lcd.print("Spd:");
       lcd_print_pos(position_get, POSITION, SPEED);
       break;
-    case 2:
+    case MODE_TRQ:
       lcd.print("Trq:");
       lcd_print_float_value(torque_get, TORQUE);
       break;
-    case 3:
+    case MODE_SPD:
       lcd.print("Spd:");
       lcd_print_float_value(speed_get, SPEED);
       break;
-    case 4:
+    case MODE_HOME:
       lcd.print("Set Home:");
       //lcd_print_float_value(home_position_get, HOME_POSITION);
       break;
-    case 5:
+    case MODE_ACC:
       lcd.print("Acc:");
-      lcd_print_float_value(acceleration_get, ACCELERATION);
+      lcd_print_abs_float_value(acceleration_get, ACCELERATION);
       break;
-    case 6:
+    case MODE_DEC:
       lcd.print("Dec:");
-      lcd_print_float_value(decelaration_get, DECELERATION);
+      lcd_print_abs_float_value(decelaration_get, DECELERATION);
+     case MODE_POS_SPD:
+      lcd.print("Spd:"); 
+      lcd_print_abs_float_value(pos_speed_get, POS_SPEED);
       break;
   }
 }
@@ -987,14 +1016,24 @@ void lcd_print_abs_float_value(float value1, float value2) {
   lcd_print_float_align_right(value2);
 }
 
+void lcd_print_vit_pos(float value1, float value2) {
+  lcd.setCursor(0,4);
+  lcd_print_float_align_right(value1);
+
+  lcd.setCursor(1,0);
+  lcd.print("Spd Pos:");
+  lcd.setCursor(1,8);
+  lcd_print_int_align_right(int(value2));
+
+}
+
 void lcd_print_pos(float value1, float value2, float value3) {
   lcd.setCursor(0,4);
-  lcd_print_sign(value3);
   lcd_print_float_align_right(value3);
 
   lcd.setCursor(1,0);
-  lcd.print("Tg:");
-  lcd.setCursor(1,3);
+  lcd.print("Tgt:");
+  lcd.setCursor(1,4);
   lcd_print_int_align_right(int(value2));
 
   lcd.setCursor(1,9);
