@@ -12,31 +12,33 @@ typedef union {
 } buff;
 
 typedef union {
-
-	 struct {
-    	uint8_t int0;
+   struct {
+      uint8_t int0;
         uint8_t int1;
     } toInt;
     /*
     struct {
-    	uint8_t char0;
+      uint8_t char0;
         uint8_t char1;
     } toChar;*/
     char toChar[1];    
     uint8_t toBytes[1];
-
 } binaryRepr;
 
 typedef struct {
-	uint8_t lenght;
-	char data[100];
+  uint8_t length;
+  /*struct {
+    byte toBytes[100];
+    char toChar[100];
+  } data;*/
+    byte data[300];
 } Packet;
 
 class Device 
 {
-	
-	public: 
-	
+  
+  public: 
+  
     /**
     Constructor for the device class
     
@@ -46,24 +48,24 @@ class Device
     
     DEVICE(String SerialNumber);
     */
-	Device();
+  Device();
 
-	void sendData(String data1, String command);
+  void sendData(String data1, String command);
 
-	void sendData(String data1, String command, String value);
-	
+  void sendData(String data1, String command, String value);
+  
 
-	private:
-	String _Protocol;
-	String _SerialNumber;
-	String _End;
-	String _delimitator;
+  private:
+  String _Protocol;
+  String _SerialNumber;
+  String _End;
+  String _delimitator;
 
 
 };
 
 
-void serial_analyse(String inputString, String *protocol, String *serial_num, String *data1, String *data2, String *data3);
+void serial_analyse(Packet packet, String *protocol, String *serial_num, String *data1, String *data2, String *data3);
 
 String get_confirm_key(String *str, String *key);
 

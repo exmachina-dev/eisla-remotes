@@ -68,53 +68,54 @@ void Device::sendData(String data1, String command, String value= "") {
 }
 
 
-void serial_analyse(String inputString, String *protocol, String *serial_num, String *data1, String *data2, String *data3) {
+void serial_analyse(Packet packet, String *pro, String *serial_num, String *data1, String *data2, String *data3) {
   char chara;
   String temp = "";
-  *protocol = inputString.substring(0, 8);
-  temp = inputString.substring(8, 10);
-  binaryRepr length;
-  temp.getBytes(length.toBytes, 3);
+  *pro = "";
+  //temp += (char(packet.data[0]));
+  for (int i = 0; i < 8; i++){
+    *pro += char(packet.data[i]);
+   }
 
-  int length_data = length.toInt.int0 * 0xFF + length.toInt.int1;
+  *serial_num  = "";
 
-  temp = "";
-
-  *serial_num = inputString.substring(10, 22);
+  for (int i = 10; i < 22; i++){
+    *serial_num += char(packet.data[i]);
+  }
 
   *data1 = "";
   *data2 = "";
   *data3 = "";
   int i = 22;
-  chara = inputString[i];
+  chara = packet.data[i];
 
-  while (!(chara == ':' || i == length_data)) {
+  while (!(chara == ':' || i == packet.length)) {
     temp += chara;
     i += 1;
-    chara = inputString[i];
+    chara = packet.data[i];
   }
   
-  if (i != length_data) {
+  if (i != packet.length) {
     *data1 = temp;
     temp = "";
     i += 1;
-    chara = inputString[i];
-    while (!(chara == ':' || i == length_data) ) {
+    chara = packet.data[i];
+    while (!(chara == ':' || i == packet.length) ) {
       temp += chara;
       i += 1;
-      chara = inputString[i];
+      chara = packet.data[i];
     }
     
-    if (i != length_data) {
+    if (i != packet.length) {
       *data2 = temp;
       temp = "";
       i += 1;
 
-      chara = inputString[i];
-      while (!(chara == ':' || i == length_data) ) {
+      chara = packet.data[i];
+      while (!(chara == ':' || i == packet.length) ) {
         temp += chara;
         i += 1;
-        chara = inputString[i];
+        chara = packet.data[i];
 
       }
       *data3 = temp.substring(0, temp.length() - 2);
