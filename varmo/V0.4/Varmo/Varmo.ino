@@ -467,7 +467,8 @@ void loop()
       SEND = LOW;
       switch (MODE)  {
         case 1 :
-          Varmo.sendData(Set, Position_ref, POSITION_TARGET);/*
+          Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+          Varmo.sendData(Set, Speed_ref, (float)200);/*
           while (flag == false) {
             if ((millis() - time_ping) > time_out) {
               Serial_OK = false;
@@ -535,11 +536,10 @@ void loop()
     if (FLAG_MENU == 1)  {
       lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, 
                      TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET,encoder0Pos);
-      if (MODE_OLD != MODE)    {
-        menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET, &encoder0Pos, RESOLUTION);
+      menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET, &encoder0Pos, RESOLUTION);
         MODE_OLD = MODE;
-      }
-      else    {
+      
+      if (MODE_OLD == MODE)    {
         encoder0Pos = encoder0Pos_old;
       }
       FLAG_MENU = 0;
@@ -962,6 +962,18 @@ void lcd_print_int_align_right(int value)  {
 void lcd_print_float_value(float value1, float value2) {
   lcd.setCursor(0, 4);
   lcd_print_sign(value1);
+  lcd_print_float_align_right(value1);
+
+  lcd.setCursor(1, 0);
+  lcd.setCursor(1, 0);
+  lcd.print("Tgt:");
+  lcd_print_sign(value2);
+
+  lcd_print_float_align_right(value2);
+}
+
+void lcd_print_abs_float_value(float value1, float value2) {
+  lcd.setCursor(0, 4);
   lcd_print_float_align_right(value1);
 
   lcd.setCursor(1, 0);
