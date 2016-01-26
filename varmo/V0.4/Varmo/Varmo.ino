@@ -399,11 +399,11 @@ void loop()
       MOTOR_OFF = HIGH;
       switch (MODE){
         case 1 :
-          Varmo.sendData(Set, Speed_ref, String(0));
+          Varmo.sendData(Set, Speed_ref, float(0.0));
         case 2 :
-          Varmo.sendData(Set, Torque_ref, String(0));
+          Varmo.sendData(Set, Torque_ref, float(0.0));
         case 3 :
-          Varmo.sendData(Set, Speed_ref, String(0));
+          Varmo.sendData(Set, Speed_ref, float(0.0));
       }
 
         /*
@@ -436,11 +436,11 @@ void loop()
         timer_motor_off_send = millis();
         switch (MODE){
           case 1 :
-            Varmo.sendData(Set, Speed_ref, String(0));
+            Varmo.sendData(Set, Speed_ref, float(0.0));
           case 2 :
-            Varmo.sendData(Set, Torque_ref, String(0));
+            Varmo.sendData(Set, Torque_ref, float(0.0));
           case 3 :
-            Varmo.sendData(Set, Speed_ref, String(0));
+            Varmo.sendData(Set, Speed_ref, float(0.0));
           }
       }      
     }
@@ -467,7 +467,7 @@ void loop()
       SEND = LOW;
       switch (MODE)  {
         case 1 :
-          Varmo.sendData(Set, Position_ref, String(POSITION_TARGET));/*
+          Varmo.sendData(Set, Position_ref, POSITION_TARGET);/*
           while (flag == false) {
             if ((millis() - time_ping) > time_out) {
               Serial_OK = false;
@@ -487,25 +487,25 @@ void loop()
             }
           }
           flag = false;*/
-          Varmo.sendData(Set, Pos_go, String(HIGH));
+          Varmo.sendData(Set, Pos_go, true);
           break;
         case 2 :
-          Varmo.sendData(Set, Torque_ref, String(TORQUE_TARGET));
+          Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
           break;
         case 3 :
-          Varmo.sendData(Set, Speed_ref, String(SPEED_TARGET));
+          Varmo.sendData(Set, Speed_ref, SPEED_TARGET);
           break;
         case 4 :
-          Varmo.sendData(Set, Pos_Home, String(1));
+          Varmo.sendData(Set, Pos_Home, true);
           lcd.setCursor(1,0);
           lcd.print("New home pos    ");
           refresh_set_home = millis();
           break;
         case 5 :
-          Varmo.sendData(Set, Acceleration, String(ACCELERATION_TARGET));
+          Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
           break;
         case 6 :
-          Varmo.sendData(Set, Deceleration, String(DECELERATION_TARGET));
+          Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
           break;
 
       }
@@ -786,7 +786,7 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       break;*/
     case 1:
       *encoder0Pos = *POSITION;
-      Varmo.sendData(Set, Control_Mode, String(3));
+      Varmo.sendData(Set, Control_Mode, (unsigned int)3);
       /*while (flag == false) {
         if ((millis() - time_ping) > time_out) {
           Serial_OK = false;
@@ -809,7 +809,7 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       break;
     case 2:
       *encoder0Pos = *TORQUE / resolution;
-      Varmo.sendData(Set, Control_Mode, String(1));
+      Varmo.sendData(Set, Control_Mode, (unsigned int)1);
       /*while (flag == false) {
         if ((millis() - time_ping) > time_out) {
           Serial_OK = false;
@@ -832,7 +832,7 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       break;
     case 3:
       *encoder0Pos = *SPEED / resolution;
-      Varmo.sendData(Set, Control_Mode, String(2));
+      Varmo.sendData(Set, Control_Mode, (unsigned int)2);
       /*while (flag == false) {
         if ((millis() - time_ping) > time_out) {
           Serial_OK = false;
