@@ -4,25 +4,27 @@
 #include <Arduino.h>
 
 using namespace std ;
-
+/*
 typedef union {
     char toChar[100];    
     uint8_t toBytes[100];
 
-} buff;
+} buff;*/
 
 typedef union {
    struct {
-      uint8_t int0;
-        uint8_t int1;
+      unsigned int int0;
+      unsigned int int1;
     } toInt;
-    /*
     struct {
-      uint8_t char0;
-        uint8_t char1;
-    } toChar;*/
-    char toChar[1];    
-    uint8_t toBytes[1];
+      uint8_t bool0;
+      uint8_t bool1;
+      uint8_t bool2;
+      uint8_t bool3;
+    } toBool;
+    float toFloat;
+    char toChar[4];    
+    uint8_t toBytes[4];
 } binaryRepr;
 
 typedef struct {
@@ -31,7 +33,7 @@ typedef struct {
     byte toBytes[100];
     char toChar[100];
   } data;*/
-    byte data[300];
+    byte data[150];
 } Packet;
 
 class Device 
@@ -51,6 +53,9 @@ class Device
   Device();
 
   void sendData(String data1, String command);
+  void sendData(String data1, String command, bool value);
+  void sendData(String data1, String command, unsigned int value);
+  void sendData(String data1, String command, float value);
 
   void sendData(String data1, String command, String value);
   
@@ -65,7 +70,7 @@ class Device
 };
 
 
-void serial_analyse(Packet packet, String *protocol, String *serial_num, String *data1, String *data2, String *data3);
+//void serial_analyse(Packet packet, String *protocol, String *serial_num, String *data1, String *data2, String *data3);
 
 String get_confirm_key(String *str, String *key);
 
