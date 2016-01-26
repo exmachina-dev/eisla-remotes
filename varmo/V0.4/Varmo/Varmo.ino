@@ -214,11 +214,15 @@ void loop()
 
       encoder_push = digitalRead(encoderE);
       time_push = millis();
-      while (encoder_push != HIGH)  {
+      Mode_chosen = 0;
+      while (encoder_push != HIGH && Mode_chosen == 0)  {
         encoder_push = digitalRead(encoderE);
+        if ((millis() - time_push)  > 250 )  {
+          Mode_chosen = 1;
+        }
       }
 
-      if (((millis() - time_push)  > 250 ) || (MODE == 0))   {
+      if (Mode_chosen == 1)  {
         Mode_chosen = 0;
         while (Mode_chosen == 0) {
           MODE = menu_set(MODE);
@@ -385,6 +389,7 @@ void loop()
       MOTOR_OFF = LOW;
     }
     else if (millis() - timer_motor_off > 50) {
+      timer_motor_off = millis();
       MOTOR_OFF = HIGH;
       switch (MODE){
         case 1 :
