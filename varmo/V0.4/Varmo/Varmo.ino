@@ -93,7 +93,7 @@ unsigned long timer_motor_off;
 unsigned long timer_motor_off_send;
 bool SENS = 1;
 
-
+unsigned long refresh_set_home = 2000;
 
 
 void setup() {
@@ -218,7 +218,7 @@ void loop()
       Mode_chosen = 0;
       while (encoder_push != HIGH && Mode_chosen == 0)  {
         encoder_push = digitalRead(encoderE);
-        if ((millis() - time_push)  > 250 )  {
+        if ((millis() - time_push)  > 500 )  {
           Mode_chosen = 1;
         }
       }
@@ -245,7 +245,7 @@ void loop()
       else  {
         resolution_chosen = 0;
         RESOLUTION_old = RESOLUTION;
-        while (resolution_chosen == 0)  {
+        while (resolution_chosen == 0 && MODE != 4)  {
           if (MODE == 1) {
             RESOLUTION = resolution_set(RESOLUTION, 0, 3);
           }
@@ -496,7 +496,10 @@ void loop()
           Varmo.sendData(Set, Speed_ref, String(SPEED_TARGET));
           break;
         case 4 :
-          Varmo.sendData(Set, Pos_Home, String(HOME_POSITION_TARGET));
+          Varmo.sendData(Set, Pos_Home, String(1));
+          lcd.setCursor(1,0);
+          lcd.print("New home pos    ");
+          refresh_set_home = millis();
           break;
         case 5 :
           Varmo.sendData(Set, Acceleration, String(ACCELERATION_TARGET));
@@ -570,8 +573,13 @@ void loop()
         lcd_print_float_value(SPEED_GET, SPEED_TARGET);
         break;
       case 4 :
-        converter(&HOME_POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999);
-        lcd_print_float_value(HOME_POSITION_GET, HOME_POSITION_TARGET);
+        if ( (millis() - refresh_set_home) > refresh ) {
+          refresh_set_home = millis();
+          lcd.setCursor(1,0);
+          lcd.print("                ");
+        }
+        /*converter(&HOME_POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999);
+        lcd_print_float_value(HOME_POSITION_GET, HOME_POSITION_TARGET);*/
         break;
       case 5 :
         converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
@@ -846,7 +854,7 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       flag = false;*/
       break;
     case 4:
-      *encoder0Pos = *HOME_POSITION / resolution;
+      //*encoder0Pos = *HOME_POSITION / resolution;
       break;
     case 5:
       *encoder0Pos = *ACCELERATION / resolution;
@@ -881,8 +889,8 @@ void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float 
       lcd_print_float_value(speed_get, SPEED);
       break;
     case 4:
-      lcd.print("Hom:");
-      lcd_print_float_value(home_position_get, HOME_POSITION);
+      lcd.print("Set Home:");
+      //lcd_print_float_value(home_position_get, HOME_POSITION);
       break;
     case 5:
       lcd.print("Acc:");
