@@ -59,10 +59,10 @@ String Torque = "machine.torque";
 
 String Position = "machine.position";
 String Pos_go = "machine.command.go";
-String Pos_Home = "machine.possition_home";
+String Pos_Home = "machine.command.set_home";
 
 String Acceleration = "machine.acceleration";
-String Deceleration = "machine.decelaration";
+String Deceleration = "machine.deceleration";
 
 String Control_Mode = "machine.command.control_mode";
 

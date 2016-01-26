@@ -13,7 +13,7 @@ float encoder0Pos_old = 0;
 int F_contrast = 0;
 
 /*MENU*/
-int MODE = 3;
+int MODE = 1;
 int MODE_OLD = -1;
 
 bool FLAG_MENU = 1;
@@ -31,11 +31,11 @@ float DECELERATION_TARGET = 0;
 
 int CONTRAST = 5;
 
-signed int CONTRAST_OLD = 5;
+int CONTRAST_OLD = 5;
 
 float SPEED_GET = 0;
 float TORQUE_GET = 0;
-float  POSITION_GET = 0;
+float POSITION_GET = 0;
 float HOME_POSITION_GET = 0;
 float ACCELERATION_GET = 0;
 float DECELERATION_GET = 0;
@@ -49,20 +49,16 @@ const uint8_t charBitmap[][8] = {
   { 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F },
 };
 
-/*TIMER*/
-unsigned long time_push = 0;
-unsigned long refresh = 100;
-unsigned long last_refresh = 0;
+
 
 /*SEND*/
 bool send_button_push_old = HIGH;
 bool send_state = LOW;
-long lastDebounceTime = 0;  // the last time the output pin was toggled
-long debounceDelay = 50;    // the debounce time; increase if the output flickers
+unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 bool SEND = LOW;
 
 /*GET*/
-String inputString = "";
 bool stringComplete = false;
 String data1 = "";
 String data2 = "";
@@ -70,24 +66,33 @@ String data3 = "";
 String confirm_key = "";
 String SerialNumber_receipt;
 String protocol_receipt;
-float actual_speed;
+byte incoming_buffer[10];
+byte packets_buffer[150];
+Packet new_packet;
+int pac_buf_pos;
+bool packet_complet;
+int inc_buf_size;
 
 /*LED STATUS*/
 bool LED_1_STATUS;
 bool LED_2_STATUS;
 
 /*TIME OUT*/
-bool Serial_OK = 1;
-long time_out = 200;
-long time_ping;
+bool Serial_OK = true;
+unsigned long time_out = 200;
+unsigned long time_ping;
+/*TIMER*/
+unsigned long time_push = 0;
+unsigned long refresh = 100;
+unsigned long last_refresh = 0;
 
 bool flag = false;
-
-char inChar_old;
 
 bool MOTOR_OFF;
 unsigned long timer_motor_off;
 bool SENS = 1;
+
+
 
 
 void setup() {
@@ -129,17 +134,23 @@ void setup() {
   }
 
   //SERIAL INITIALISATION
-  Serial.begin(115200);
+
 
   lcd.clear ();
   lcd.print("Connexion...");
   time_ping = millis();
-  Varmo.sendData(Get, Device_serial_num);/*
-  while (flag == false) {
+
+  Serial.begin(57600);
+  Varmo.sendData(Get, Device_serial_num);
+  delay(50);
+  Varmo.sendData(Get, Device_serial_num);
+  /*while (flag == false) {
     if (millis() - time_ping > time_out) {
       Varmo.sendData(Get, Device_serial_num);
       time_ping = millis();
     }
+          lcd.setCursor(0,0);
+      lcd.print(inputString);
     if (stringComplete == true) {
       lcd.setCursor(0,0);
       lcd.print(inputString);
@@ -155,8 +166,8 @@ void setup() {
       inputString = "";
       stringComplete = false;
     }
-  }
-  flag = false;*/
+  }*/
+  flag = false;
 }
 
 void loop()
@@ -207,7 +218,7 @@ void loop()
         encoder_push = digitalRead(encoderE);
       }
 
-      if (((millis() - time_push)  > 250 ) || (MODE == 0) || (MODE == 1) )   {
+      if (((millis() - time_push)  > 250 ) || (MODE == 0))   {
         Mode_chosen = 0;
         while (Mode_chosen == 0) {
           MODE = menu_set(MODE);
@@ -226,7 +237,13 @@ void loop()
         resolution_chosen = 0;
         RESOLUTION_old = RESOLUTION;
         while (resolution_chosen == 0)  {
-          RESOLUTION = resolution_set(RESOLUTION);
+          if (MODE == 1) {
+            RESOLUTION = resolution_set(RESOLUTION, 0, 3);
+          }
+          else{
+            RESOLUTION = resolution_set(RESOLUTION, 1, 5);
+          }
+
           encoder_push = digitalRead(encoderE);
           if (encoder_push == LOW)  {
             encoder_push = digitalRead(encoderE);
@@ -242,7 +259,7 @@ void loop()
 
 
     /*###########################GET VALUE###########################*/
-
+/*
     if ( (millis() - last_refresh) > refresh ) {
       last_refresh = millis();
 
@@ -272,7 +289,7 @@ void loop()
           flag = false;
           break;
       }
-      /*
+      
       time_ping = millis();
       while (flag == false) {
         if ((millis() - time_ping) > time_out) {
@@ -348,8 +365,8 @@ void loop()
           stringComplete = false;
         }
       }
-      flag = false;*/
-    }
+      flag = false;
+    }*/
 
     /*###########################GET DIRECTION###########################*/
     bool sens1 = digitalRead(DIRECTION_1);
@@ -359,16 +376,44 @@ void loop()
       timer_motor_off = millis();
     }
 
-    if ((sens1 == HIGH) && (sens2 == LOW)) {
+    if ((sens1 == LOW) && (sens2 == HIGH)) {
       SENS = HIGH;
       MOTOR_OFF = LOW;
     }
-    else if ((sens1 == LOW) && (sens2 == HIGH)) {
+    else if ((sens1 == HIGH) && (sens2 == LOW)) {
       SENS = LOW;
       MOTOR_OFF = LOW;
     }
     else if (millis() - timer_motor_off > 50) {
       MOTOR_OFF = HIGH;
+      switch (MODE){
+        case 1 :
+          Varmo.sendData(Set, Speed_ref, String(0));
+        case 2 :
+          Varmo.sendData(Set, Torque_ref, String(0));
+        case 3 :
+          Varmo.sendData(Set, Speed_ref, String(0));
+      }
+      /*
+      while (flag == false) {
+        if ((millis() - time_ping) > time_out) {
+          Serial_OK = false;
+          flag = true;
+        }
+        if (stringComplete == true) {
+          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+          get_confirm_key(&data1, &confirm_key);
+          if (confirm_key = "ok") {
+            flag = true;
+          }
+          else if (confirm_key = "error") {
+            lcd.print(data3);
+          }
+          inputString = "";
+          stringComplete = false;
+        }
+      }
+      flag = false;*/
     }
 
     /*###########################SET TARGET###########################*/
@@ -474,17 +519,17 @@ void loop()
     }
 
     switch (MODE)  {
-      case 0 :
+      /*case 0 :
         contrast_convert(&CONTRAST, &F_contrast, &encoder0Pos);
         if (CONTRAST != CONTRAST_OLD) {
           CONTRAST_OLD = CONTRAST;
           lcd_print_contrast_value(CONTRAST);
           analogWrite(CONTRAST_PWM, F_contrast);
         }
-        break;
+        break;*/
       case 1 :
-        converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
-        lcd_print_float_value(POSITION_GET, POSITION_TARGET);
+        converter_abs(&POSITION_TARGET, &encoder0Pos, RESOLUTION, 9999);
+        lcd_print_pos(POSITION_GET, POSITION_TARGET, SPEED_GET);
         break;
       case 2 :
         converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 500);
@@ -511,10 +556,12 @@ void loop()
     /*###########################REFRESH LEDS###########################*/
 
     if (LED_1_STATUS == 1) {
-      digitalWrite(LED_1, HIGH);
+      lcd.setCursor(0,15);
+      lcd.print('d');
     }
     else {
-      digitalWrite(LED_1, LOW);
+      lcd.setCursor(0,15);
+      lcd.print('n');
     }
     if (LED_2_STATUS == 1) {
       digitalWrite(13, HIGH);
@@ -527,21 +574,39 @@ void loop()
 }
 
 /*##################SERIAL##################*/
-void serialEvent() {
-  while (Serial.available()) {
-    char inChar = (char)Serial.read();
-    inputString += inChar;
-    if ((inChar_old == '\r') && (inChar == '\n')) {
-      stringComplete = true;
+/*void serialEvent() {
+  int data_length;
+  while (Serial.available() > 0) {
+    inc_buf_size = Serial.readBytes(incoming_buffer, 10);
+    if (inc_buf_size > 0) {
+      for (int i = 0; i < inc_buf_size; i++) {
+        packets_buffer[pac_buf_pos + i] = incoming_buffer[i];
+        if (packets_buffer[pac_buf_pos + i-1] == 13 && packets_buffer[pac_buf_pos+  i] == 10){  
+          for (int j = 0; j <= pac_buf_pos + i; j++) {
+            new_packet.data[j] = packets_buffer[j];
+          }
+          new_packet.length = pac_buf_pos + i + 1;
+          packet_complet = 1;
+          data_length = (new_packet.data [8] << 8) + new_packet.data[9];
+          if (data_length == new_packet.length){
+            packet_complet = 1;
+          }
+          pac_buf_pos = 0;
+          delayMicroseconds(5);
+        }
+      }
     }
-    inChar_old = inChar;
+    if (packet_complet == 0){
+      pac_buf_pos += inc_buf_size;
+    }
   }
 }
+*/
 
 /*
   ExmEisla080116VARM0001machine.get.ok:machine.serialnumber
   ExmEisla0H0116ARCP0001machine.get.ok:machine.serialnumber:0116ARCP0001
-  ExmEisla\x00L00116ARCP0001machine.get.ok:machine.serialnumber:0116ARCP0001
+ExmEisla0L0116ARCP0001machine.get.ok:machine.serialnumber:0116ARCP0001
   ExmEisla560116ARCP0001machine.get.ok:machine.speed:595
   ExmEisla600116ARCP0001machine.set.ok:machine.speed_ref:595
 */
@@ -598,67 +663,68 @@ void doEncoderB() {
 
 /*##################MENU##################*/
 int menu_set(int MENU)  {
-  int RESOLUTION = 21;
-  int MENU_SELECTOR = abs(int(encoder0Pos) % RESOLUTION);
+  int RESOLUTION = 2;
+  int MENU_SELECTOR = abs(int(encoder0Pos) % (RESOLUTION*8));
   lcd.setCursor(0, 0);
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
-  if (MENU_SELECTOR <=  3)  {
-    lcd.print("Contrast        ");
-    MENU = 0;
-  }
-  else if (MENU_SELECTOR <= 6)  {
+
+  if (MENU_SELECTOR <= RESOLUTION )  {
     lcd.print("Position        ");
     MENU = 1;
   }
-  else if (MENU_SELECTOR <= 9)  {
+  else if (MENU_SELECTOR <= RESOLUTION * 2)  {
     lcd.print("Torque          ");
     MENU = 2;
   }
-  else if (MENU_SELECTOR <= 12)  {
+  else if (MENU_SELECTOR <= RESOLUTION * 3)  {
     lcd.print("Speed           ");
     MENU = 3;
   }
-  else if (MENU_SELECTOR <= 15) { 
+  else if (MENU_SELECTOR <= RESOLUTION * 4) { 
     lcd.print("Set Home        ");
     MENU = 4;
   }
-  else if (MENU_SELECTOR <= 18) { 
+  else if (MENU_SELECTOR <= RESOLUTION * 5) { 
     lcd.print("Acceleration    ");
     MENU = 5;
   }
-  else if (MENU_SELECTOR <= 21) {
+  else if (MENU_SELECTOR <= RESOLUTION * 6) {
     lcd.print("Deceleration    ");
     MENU = 6;
-  }
+  }/*
+  else if (MENU_SELECTOR <= RESOLUTION * 7)  {
+    lcd.print("Contrast        ");
+    MENU = 0;
+  }*/
   return MENU;
 }
 
-float resolution_set(float RESOLUTION)  {
+float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
 
   int RESOLUTION_SELECTOR = abs(int(encoder0Pos) % 25);
-  if (RESOLUTION_SELECTOR <=  5)  {
-    lcd.setCursor(1, 10);
+  if (RESOLUTION_SELECTOR <=  5 && format == 1)  {
+    lcd.setCursor(1, set_cursor + 5);
     lcd.cursor_on();
     RESOLUTION = 0.1;
   }
   else if (RESOLUTION_SELECTOR <= 10)  {
-    lcd.setCursor(1, 8);
+    lcd.setCursor(1, set_cursor + 3);
     lcd.cursor_on();
     RESOLUTION = 1;
   }
   else if (RESOLUTION_SELECTOR <= 15)  {
-    lcd.setCursor(1, 7);
+    lcd.setCursor(1, set_cursor + 2);
     lcd.cursor_on();
     RESOLUTION = 10;
   }
   else if (RESOLUTION_SELECTOR <= 20)  {
-    lcd.setCursor(1, 6);
+    lcd.setCursor(1, set_cursor + 1);
     lcd.cursor_on();
     RESOLUTION = 100;
   }
   else if (RESOLUTION_SELECTOR <= 25)  {
-    lcd.setCursor(1, 5);
+    lcd.setCursor(1, set_cursor);
     lcd.cursor_on();
     RESOLUTION = 1000;
   }
@@ -667,9 +733,9 @@ float resolution_set(float RESOLUTION)  {
 
 void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float * encoder0Pos, float resolution)  {
   switch (MODE) {
-    case 0:
+    /*case 0:
       *encoder0Pos = *CONTRAST * 4;
-      break;
+      break;*/
     case 1:
       *encoder0Pos = *POSITION;
       Varmo.sendData(Set, Control_Mode, String(3));
@@ -758,13 +824,13 @@ void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float 
   lcd.clear();
   lcd.setCursor(0,0);
   switch (MODE) {
-    case 0:
+    /*case 0:
       lcd.print("CONTRAST");
       lcd_print_contrast_value(CONTRAST);
-      break;
+      break;*/
     case 1:
-      lcd.print("Pos:");
-      lcd_print_float_value(position_get, POSITION);
+      lcd.print("Spd:");
+      lcd_print_pos(position_get, POSITION, SPEED);
       break;
     case 2:
       lcd.print("Trq:");
@@ -809,9 +875,12 @@ void lcd_print_sign(float value)  {
     lcd.print("-");
   } 
 }
-/*
-void lcd_print_int_align_right(int value)  {
+
+void lcd_print_float_align_right(float value)  {
   if (value == 0) {
+    lcd.print("000");
+  }
+  else if (abs(value) < 1) {
     lcd.print("000");
   }
   else if (abs(value) < 10) {
@@ -825,12 +894,9 @@ void lcd_print_int_align_right(int value)  {
   }
   lcd.print(abs(value));
 }
-*/
-void lcd_print_float_align_right(float value)  {
+
+void lcd_print_int_align_right(int value)  {
   if (value == 0) {
-    lcd.print("000");
-  }
-  else if (abs(value) < 1) {
     lcd.print("000");
   }
   else if (abs(value) < 10) {
@@ -857,20 +923,23 @@ void lcd_print_float_value(float value1, float value2) {
 
   lcd_print_float_align_right(value2);
 }
-/*
-void lcd_print_int_value(int value1, int value2) {
-  lcd.setCursor(0, 4);
-  lcd_print_sign(value1);
-  lcd_print_int_align_right(value1);
 
-  lcd.setCursor(1, 0);
-  lcd.setCursor(1, 0);
-  lcd.print("Tgt: ");
-  lcd_print_sign(value2);
-  lcd_print_int_align_right(value2);
-  lcd.print(value2);
+void lcd_print_pos(float value1, float value2, float value3) {
+  lcd.setCursor(0,4);
+  lcd_print_sign(value3);
+  lcd_print_float_align_right(value3);
+
+  lcd.setCursor(1,0);
+  lcd.print("Tg:");
+  lcd.setCursor(1,3);
+  lcd_print_int_align_right(int(value2));
+
+  lcd.setCursor(1,9);
+  lcd.print("Ps:");
+  lcd.setCursor(1,12);
+  lcd_print_int_align_right(int(value1));
 }
-*/
+
 /*##################CONVERTER##################*/
 void contrast_convert(int *CONTRAST, int *F_contrast, float * encoder0Pos) {
   int resolution = 10;
@@ -888,7 +957,6 @@ void contrast_convert(int *CONTRAST, int *F_contrast, float * encoder0Pos) {
     *encoder0Pos = 0;
   }
 }
-
 
 void converter(float *value, float *encoder0Pos, float resolution, bool sens, float max){
   float temp = *encoder0Pos * resolution;
@@ -929,59 +997,3 @@ void converter_abs(float *value, float *encoder0Pos, float resolution, float max
     *encoder0Pos = 0;
   }
 }
-
-/*
-void speed_convert(float * SPEED, float * encoder0Pos, float resolution, bool SENS)  {
-  float value = *encoder0Pos * resolution;
-
-  if (value > 0 && value < 4400) {
-    if (SENS == HIGH)  {
-      *SPEED = value;
-    }
-    else if (SENS == LOW)  {
-      *SPEED = (-1) * value;
-    }
-  }
-  else if (value >= 4400)  {
-  	if (SENS == HIGH)  {
-      *SPEED = 4400;
-    }
-    else if (SENS == LOW)  {
-      *SPEED = -4400;
-    }
-  	*encoder0Pos = 4400 / resolution;
-  }
-  else if (value <= 0) {
-  	*SPEED = 0;
-    *encoder0Pos = 0;
-  }
-}
-
-void torque_convert(float * TORQUE, float * encoder0Pos, float resolution, bool SENS)  {
-  float value = *encoder0Pos * resolution;
-  if (value > 0 && value < 500) {
-        if (SENS == HIGH)  {
-      *TORQUE = value;
-    }
-    else if (SENS == LOW)  {
-      *TORQUE = (-1) *value;
-    }
-
-  }
-  else if (value >= 500)  {
-    if (SENS == HIGH)  {
-      *TORQUE = 500;
-    }
-    else if (SENS == LOW)  {
-      *TORQUE = -500;
-    }
-
-    *encoder0Pos = 500 / resolution;
-  }
-  else if (value <= 0) {
-    *TORQUE = 0;
-    *encoder0Pos = 0;
-  }
-
-}
-*/
