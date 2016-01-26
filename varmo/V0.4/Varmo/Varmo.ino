@@ -698,7 +698,6 @@ int menu_set(int MENU)  {
   lcd.setCursor(0, 0);
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
-
   if (MENU_SELECTOR <= RESOLUTION )  {
     lcd.print("Position        ");
     MENU = 1;
@@ -732,16 +731,27 @@ int menu_set(int MENU)  {
 
 float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
 
-  int RESOLUTION_SELECTOR = int(encoder0Pos) % 25;
-  if (RESOLUTION_SELECTOR <=  5 && format == 1)  {
-    lcd.setCursor(1, set_cursor + 5);
+  int RESOLUTION_SELECTOR = int(encoder0Pos);
+
+  if (RESOLUTION_SELECTOR < 0) {
+    encoder0Pos = 0;
+  }
+  else if (RESOLUTION_SELECTOR > 25){
+    encoder0Pos = 25;
+  }
+  else if (format == 0 && RESOLUTION_SELECTOR > 20) {
+    encoder0Pos = 20; 
+  }
+
+  if (RESOLUTION_SELECTOR <= 5)  {
+    lcd.setCursor(1, set_cursor);
     lcd.cursor_on();
-    RESOLUTION = 0.1;
+    RESOLUTION = 1000;
   }
   else if (RESOLUTION_SELECTOR <= 10)  {
-    lcd.setCursor(1, set_cursor + 3);
+    lcd.setCursor(1, set_cursor + 1);
     lcd.cursor_on();
-    RESOLUTION = 1;
+    RESOLUTION = 100;
   }
   else if (RESOLUTION_SELECTOR <= 15)  {
     lcd.setCursor(1, set_cursor + 2);
@@ -749,14 +759,14 @@ float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
     RESOLUTION = 10;
   }
   else if (RESOLUTION_SELECTOR <= 20)  {
-    lcd.setCursor(1, set_cursor + 1);
+    lcd.setCursor(1, set_cursor + 3);
     lcd.cursor_on();
-    RESOLUTION = 100;
+    RESOLUTION = 1;
   }
-  else if (RESOLUTION_SELECTOR <= 25)  {
-    lcd.setCursor(1, set_cursor);
+  else if (RESOLUTION_SELECTOR <=  25 && format == 1)  {
+    lcd.setCursor(1, set_cursor + 5);
     lcd.cursor_on();
-    RESOLUTION = 1000;
+    RESOLUTION = 0.1;
   }
   return RESOLUTION;
 }
