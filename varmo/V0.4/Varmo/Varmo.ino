@@ -83,13 +83,14 @@ unsigned long time_out = 200;
 unsigned long time_ping;
 /*TIMER*/
 unsigned long time_push = 0;
-unsigned long refresh = 100;
+unsigned long refresh = 500;
 unsigned long last_refresh = 0;
 
 bool flag = false;
 
 bool MOTOR_OFF;
 unsigned long timer_motor_off;
+unsigned long timer_motor_off_send;
 bool SENS = 1;
 
 
@@ -392,8 +393,9 @@ void loop()
       SENS = LOW;
       MOTOR_OFF = LOW;
     }
-    else if (millis() - timer_motor_off > 50) {
+    else if (millis() - timer_motor_off > 50 && MOTOR_OFF != HIGH) {
       timer_motor_off = millis();
+      timer_motor_off_send = millis();
       MOTOR_OFF = HIGH;
       switch (MODE){
         case 1 :
@@ -403,30 +405,46 @@ void loop()
         case 3 :
           Varmo.sendData(Set, Speed_ref, String(0));
       }
-      /*
-      while (flag == false) {
-        if ((millis() - time_ping) > time_out) {
-          Serial_OK = false;
-          flag = true;
-        }
-        if (stringComplete == true) {
-          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          get_confirm_key(&data1, &confirm_key);
-          if (confirm_key = "ok") {
+
+        /*
+        while (flag == false) {
+          if ((millis() - time_ping) > time_out) {
+            Serial_OK = false;
             flag = true;
           }
-          else if (confirm_key = "error") {
-            lcd.print(data3);
+          if (stringComplete == true) {
+            serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
+            get_confirm_key(&data1, &confirm_key);
+            if (confirm_key = "ok") {
+              flag = true;
+            }
+            else if (confirm_key = "error") {
+              lcd.print(data3);
+            }
+            inputString = "";
+            stringComplete = false;
           }
-          inputString = "";
-          stringComplete = false;
         }
-      }
-      flag = false;*/
+        flag = false;*/
+      
     }
 
     /*###########################SET TARGET###########################*/
     
+    if (MOTOR_OFF == 1) {
+      if ( (millis() - timer_motor_off_send) > refresh ) {
+        timer_motor_off_send = millis();
+        switch (MODE){
+          case 1 :
+            Varmo.sendData(Set, Speed_ref, String(0));
+          case 2 :
+            Varmo.sendData(Set, Torque_ref, String(0));
+          case 3 :
+            Varmo.sendData(Set, Speed_ref, String(0));
+          }
+      }      
+    }
+
     if (MOTOR_OFF == 0 || MODE == 4 || MODE == 5 || MODE == 6)  {
       bool send_button_push = digitalRead(SEND_BUTTON);
       if (send_button_push != send_button_push_old) {
@@ -676,7 +694,7 @@ void doEncoderB() {
 /*##################MENU##################*/
 int menu_set(int MENU)  {
   int RESOLUTION = 2;
-  int MENU_SELECTOR = abs(int(encoder0Pos) % (RESOLUTION*8));
+  int MENU_SELECTOR = int(encoder0Pos) % (RESOLUTION*7);
   lcd.setCursor(0, 0);
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
