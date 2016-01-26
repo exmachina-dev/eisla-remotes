@@ -224,6 +224,10 @@ void loop()
 
       if (Mode_chosen == 1)  {
         Mode_chosen = 0;
+        MODE = menu_set(MODE);
+        while (encoder_push != HIGH)  {
+          encoder_push = digitalRead(encoderE);
+        }
         while (Mode_chosen == 0) {
           MODE = menu_set(MODE);
           encoder_push = digitalRead(encoderE);
@@ -422,23 +426,26 @@ void loop()
     }
 
     /*###########################SET TARGET###########################*/
-    bool send_button_push = digitalRead(SEND_BUTTON);
-    if (send_button_push != send_button_push_old) {
-      lastDebounceTime = millis();
-    }
+    
+    if (MOTOR_OFF == 0 || MODE == 4 || MODE == 5 || MODE == 6)  {
+      bool send_button_push = digitalRead(SEND_BUTTON);
+      if (send_button_push != send_button_push_old) {
+        lastDebounceTime = millis();
+      }
 
-    if ((millis() - lastDebounceTime) > debounceDelay) {
-      if (send_button_push != send_state) {
-        send_state = send_button_push;
+      if ((millis() - lastDebounceTime) > debounceDelay) {
+        if (send_button_push != send_state) {
+          send_state = send_button_push;
 
-        if (send_button_push == LOW)  {
-          SEND = HIGH;
+          if (send_button_push == LOW)  {
+            SEND = HIGH;
+          }
         }
       }
+      send_button_push_old = send_button_push;
     }
-    send_button_push_old = send_button_push;
 
-    if (SEND == HIGH && MOTOR_OFF == 0) {
+    if (SEND == HIGH) {
       SEND = LOW;
       switch (MODE)  {
         case 1 :
@@ -707,7 +714,7 @@ int menu_set(int MENU)  {
 
 float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
 
-  int RESOLUTION_SELECTOR = abs(int(encoder0Pos) % 25);
+  int RESOLUTION_SELECTOR = int(encoder0Pos) % 25;
   if (RESOLUTION_SELECTOR <=  5 && format == 1)  {
     lcd.setCursor(1, set_cursor + 5);
     lcd.cursor_on();
