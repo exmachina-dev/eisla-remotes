@@ -727,6 +727,14 @@ int menu_set(int MENU)  {
   lcd.setCursor(0, 0);
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
+
+  if (MENU_SELECTOR < 0){
+    encoder0Pos = 0;
+  }
+  else if (MENU_SELECTOR > (RESOLUTION * 7)) {
+    encoder0Pos = RESOLUTION * 7;
+  }
+
   if (MENU_SELECTOR <= RESOLUTION )  {
     lcd.print("Position        ");
     MENU = MODE_POS;
