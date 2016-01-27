@@ -68,6 +68,8 @@ String Control_Mode = "machine.command.control_mode";
 
 String Device_serial_num = "machine.serialnumber";
 String Drive_Enable = "status.drive_enable";
+String Stop = "machine.command.cancel";
+
 
 const uint8_t MODE_POS = 1;
 const uint8_t MODE_POS_SPD = 2;

@@ -218,37 +218,6 @@ void loop()
       }
     }
 
-
-    /*###########################GET VALUE###########################*/
-/*
-    if ( (millis() - last_refresh) > refresh ) {
-      last_refresh = millis();
-
-      switch (MODE)  {
-        case MODE_POS :
-          Varmo.sendData(Get, Position);
-          break;
-        case MODE_TRQ :
-          Varmo.sendData(Get, Torque);
-          break;
-        case MODE_SPD :
-          Varmo.sendData(Get, Speed);
-          break;
-        case MODE_HOME :
-          Varmo.sendData(Get, Pos_Home);
-          break;
-        case MODE_ACC :
-          Varmo.sendData(Get, Acceleration);
-          break;
-        case MODE_DEC :
-          Varmo.sendData(Get, Deceleration);
-          break;
-      }
-      Varmo.sendData(Get, Drive_Enable);
-      Varmo.sendData(Get, Torque);
-
-    }*/
-
     /*###########################GET DIRECTION###########################*/
     bool sens1 = digitalRead(DIRECTION_1);
     bool sens2 = digitalRead(DIRECTION_2);
@@ -259,44 +228,29 @@ void loop()
 
     if ((sens1 == LOW) && (sens2 == HIGH)) {
       SENS = HIGH;
-      MOTOR_OFF = LOW;
+      MOTOR_OFF = false;
     }
     else if ((sens1 == HIGH) && (sens2 == LOW)) {
       SENS = LOW;
-      MOTOR_OFF = LOW;
+      MOTOR_OFF = false;
     }
     else if (millis() - timer_motor_off > 50 && MOTOR_OFF != HIGH) {
       timer_motor_off = millis();
       timer_motor_off_send = millis();
-      MOTOR_OFF = HIGH;
-      switch (MODE){
-        case 1 :
-          Varmo.sendData(Set, Speed_ref, float(0.0));
-        case 2 :
-          Varmo.sendData(Set, Torque_ref, float(0.0));
-        case 3 :
-          Varmo.sendData(Set, Speed_ref, float(0.0));
-      }
-    
+      MOTOR_OFF = true;
+      Varmo.sendData(Set, Stop, true);    
     }
 
     /*###########################SET TARGET###########################*/
     
-    if (MOTOR_OFF == 1) {
+    if (MOTOR_OFF == true) {
       if ( (millis() - timer_motor_off_send) > refresh ) {
         timer_motor_off_send = millis();
-        switch (MODE){
-          case 1 :
-            Varmo.sendData(Set, Speed_ref, float(0.0));
-          case 2 :
-            Varmo.sendData(Set, Torque_ref, float(0.0));
-          case 3 :
-            Varmo.sendData(Set, Speed_ref, float(0.0));
-          }
+        Varmo.sendData(Set, Stop, true);
       }      
     }
 
-    if (MOTOR_OFF == 0 || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC)  {
+    if (MOTOR_OFF == false || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC)  {
       bool send_button_push = digitalRead(SEND_BUTTON);
       if (send_button_push != send_button_push_old) {
         lastDebounceTime = millis();
@@ -431,46 +385,6 @@ void loop()
   }
 
 }
-
-/*##################SERIAL##################*/
-/*void serialEvent() {
-  int data_length;
-  while (Serial.available() > 0) {
-    inc_buf_size = Serial.readBytes(incoming_buffer, 10);
-    if (inc_buf_size > 0) {
-      for (int i = 0; i < inc_buf_size; i++) {
-        packets_buffer[pac_buf_pos + i] = incoming_buffer[i];
-        if (packets_buffer[pac_buf_pos + i-1] == 13 && packets_buffer[pac_buf_pos+  i] == 10){  
-          for (int j = 0; j <= pac_buf_pos + i; j++) {
-            new_packet.data[j] = packets_buffer[j];
-          }
-          new_packet.length = pac_buf_pos + i + 1;
-          packet_complet = 1;
-          data_length = (new_packet.data [8] << 8) + new_packet.data[9];
-          if (data_length == new_packet.length){
-            packet_complet = 1;
-          }
-          pac_buf_pos = 0;
-          delayMicroseconds(5);
-        }
-      }
-    }
-    if (packet_complet == 0){
-      pac_buf_pos += inc_buf_size;
-    }
-  }
-}
-*/
-
-/*
-  ExmEisla080116VARM0001machine.get.ok:machine.serialnumber
-  ExmEisla0H0116ARCP0001machine.get.ok:machine.serialnumber:0116ARCP0001
-ExmEisla0L0116ARCP0001machine.get.ok:machine.serialnumber:0116ARCP0001
-  ExmEisla560116ARCP0001machine.get.ok:machine.speed:595
-  ExmEisla600116ARCP0001machine.set.ok:machine.speed_ref:595
-*/
-
-
 /*##################ENCODER##################*/
 void doEncoderA() {
 

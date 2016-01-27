@@ -4,12 +4,7 @@
 #include <Arduino.h>
 
 using namespace std ;
-/*
-typedef union {
-    char toChar[100];    
-    uint8_t toBytes[100];
 
-} buff;*/
 
 typedef union {
    struct {
@@ -60,9 +55,6 @@ class Device
   String _delimitator;
 
 };
-
-
-//void serial_analyse(Packet packet, String *protocol, String *serial_num, String *data1, String *data2, String *data3);
 
 String get_confirm_key(String *str, String *key);
 
