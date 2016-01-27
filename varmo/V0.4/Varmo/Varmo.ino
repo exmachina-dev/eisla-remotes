@@ -227,6 +227,7 @@ void loop()
 
       if (Mode_chosen == 1)  {
         Mode_chosen = 0;
+        encoder0Pos = MODE * 2;
         MODE = menu_set(MODE);
         while (encoder_push != HIGH)  {
           encoder_push = digitalRead(encoderE);
@@ -473,10 +474,6 @@ void loop()
       switch (MODE)  {
         case MODE_POS :
           Varmo.sendData(Set, Position_ref, POSITION_TARGET);
-          if (POS_SPEED_TARGET == 0){
-            MODE = MODE_POS_SPD;
-            FLAG_MENU = 1;
-          }
           /*
           while (flag == false) {
             if ((millis() - time_ping) > time_out) {
@@ -547,7 +544,7 @@ void loop()
 
     /*###############################REFRESH MENU###############################*/
     if (FLAG_MENU == 1)  {
-      lcd_print_menu(MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, POS_SPEED_TARGET,
+      lcd_print_menu(&MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, POS_SPEED_TARGET,
                      TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET, POS_SPEED_GET,encoder0Pos);
       menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, 
                 &ACCELERATION_TARGET, &DECELERATION_TARGET, &POS_SPEED_TARGET,&encoder0Pos, RESOLUTION);
@@ -723,7 +720,7 @@ void doEncoderB() {
 /*##################MENU##################*/
 int menu_set(int MENU)  {
   int RESOLUTION = 2;
-  int MENU_SELECTOR = int(encoder0Pos) % (RESOLUTION*7);
+  int MENU_SELECTOR = int(encoder0Pos);
   lcd.setCursor(0, 0);
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
@@ -744,12 +741,12 @@ int menu_set(int MENU)  {
     MENU = MODE_POS_SPD;
   }
   else if (MENU_SELECTOR <= RESOLUTION * 3)  {
-    lcd.print("Torque          ");
-    MENU = MODE_TRQ;
-  }
-  else if (MENU_SELECTOR <= RESOLUTION * 4) { 
     lcd.print("Speed           ");
     MENU = MODE_SPD;
+  }
+  else if (MENU_SELECTOR <= RESOLUTION * 4) { 
+    lcd.print("Torque          ");
+    MENU = MODE_TRQ;
   }
   else if (MENU_SELECTOR <= RESOLUTION * 5) { 
     lcd.print("Set Home        ");
@@ -820,72 +817,18 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       break;*/
     case MODE_POS:
       *encoder0Pos = *POSITION;
-      Varmo.sendData(Set, Control_Mode, (unsigned int)3);
-      /*while (flag == false) {
-        if ((millis() - time_ping) > time_out) {
-          Serial_OK = false;
-          flag = true;
-        }
-        if (stringComplete == true) {
-          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          get_confirm_key(&data1, &confirm_key);
-          if (confirm_key = "ok") {
-            flag = true;
-          }
-          else if (confirm_key = "error") {
-            lcd.print(data3);
-          }
-          inputString = "";
-          stringComplete = false;
-        }
-      }
-      flag = false;*/
+      //Varmo.sendData(Set, Control_Mode, (unsigned int)3);
       break;
+
     case MODE_TRQ:
       *encoder0Pos = *TORQUE / resolution;
       Varmo.sendData(Set, Control_Mode, (unsigned int)1);
-      /*while (flag == false) {
-        if ((millis() - time_ping) > time_out) {
-          Serial_OK = false;
-          flag = true;
-        }
-        if (stringComplete == true) {
-          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          get_confirm_key(&data1, &confirm_key);
-          if (confirm_key = "ok") {
-            flag = true;
-          }
-          else if (confirm_key = "error") {
-            lcd.print(data3);
-          }
-          inputString = "";
-          stringComplete = false;
-        }
-      }
-      flag = false;*/
+
       break;
     case MODE_SPD:
       *encoder0Pos = *SPEED / resolution;
       Varmo.sendData(Set, Control_Mode, (unsigned int)2);
-      /*while (flag == false) {
-        if ((millis() - time_ping) > time_out) {
-          Serial_OK = false;
-          flag = true;
-        }
-        if (stringComplete == true) {
-          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          get_confirm_key(&data1, &confirm_key);
-          if (confirm_key = "ok") {
-            flag = true;
-          }
-          else if (confirm_key = "error") {
-            lcd.print(data3);
-          }
-          inputString = "";
-          stringComplete = false;
-        }
-      }
-      flag = false;*/
+
       break;
     case MODE_HOME:
       //*encoder0Pos = *HOME_POSITION / resolution;
@@ -904,19 +847,27 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
 
 /*##################LCD PRINT##################*/
 
-void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION, float POS_SPEED, 
+void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION, float POS_SPEED, 
                     float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float pos_speed_get, float encoder0Pos)  {
   lcd.clear();
   lcd.setCursor(0,0);
-  switch (MODE) {
+  switch (*MODE) {
     /*case 0:
       lcd.print("CONTRAST");
       lcd_print_contrast_value(CONTRAST);
       break;*/
     case MODE_POS:
-      lcd.print("Spd:");
-      lcd_print_pos(position_get, POSITION, SPEED);
-      break;
+      if (POS_SPEED == 0) {
+        *MODE = MODE_POS_SPD;
+        lcd.print("Spd:"); 
+        lcd_print_abs_float_value(pos_speed_get, POS_SPEED);
+        break;
+      }
+      else {  
+        lcd.print("Spd:");
+        lcd_print_pos(position_get, POSITION, SPEED);
+        break;
+      }
     case MODE_TRQ:
       lcd.print("Trq:");
       lcd_print_float_value(torque_get, TORQUE);
@@ -936,7 +887,8 @@ void lcd_print_menu(int MODE, int CONTRAST, float POSITION, float TORQUE, float 
     case MODE_DEC:
       lcd.print("Dec:");
       lcd_print_abs_float_value(decelaration_get, DECELERATION);
-     case MODE_POS_SPD:
+      break;
+    case MODE_POS_SPD:
       lcd.print("Spd:"); 
       lcd_print_abs_float_value(pos_speed_get, POS_SPEED);
       break;
