@@ -23,24 +23,19 @@ typedef union {
       uint8_t bool3;
     } toBool;
     float toFloat;
-    char toChar[4];    
+    char toChar[4];
     uint8_t toBytes[4];
 } binaryRepr;
 
 typedef struct {
   uint8_t length;
-  /*struct {
-    byte toBytes[100];
-    char toChar[100];
-  } data;*/
-    byte data[150];
+  byte data[150];
 } Packet;
 
 class Device 
 {
   
   public: 
-  
     /**
     Constructor for the device class
     
@@ -56,16 +51,13 @@ class Device
   void sendData(String data1, String command, bool value);
   void sendData(String data1, String command, unsigned int value);
   void sendData(String data1, String command, float value);
-
   void sendData(String data1, String command, String value);
-  
 
   private:
   String _Protocol;
   String _SerialNumber;
   String _End;
   String _delimitator;
-
 
 };
 

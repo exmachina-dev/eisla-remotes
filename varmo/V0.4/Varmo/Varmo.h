@@ -36,7 +36,7 @@
 
 /*####################PROTCOL KEYS WORDS####################*/
 
-#define VARMO_VERSION     "Varmo V0.4"
+#define VARMO_VERSION     "Varmo V1.0.0"
 #define SERIAL_NUMBER     "0116VARM0001"
 #define PROTOCOL          "ExmEisla"
 #define ARMAZ_ID          "0000"
@@ -99,16 +99,12 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
 					float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float pos_speed_get, float encoder0Pos);
 void lcd_print_contrast_value(int CONTRAST);
 void lcd_print_sign(float value);
-//void lcd_print_int_align_right(int value);
 void lcd_print_float_align_right(float value);
 void lcd_print_float_value(float value1, float value2);
-//void lcd_print_int_value(int value1, int value2);
 
 
 void converter(float *value, float *encoder0Pos, float resolution, bool sens, float max);
 void contrast_convert(int *CONTRAST, int *F_contrast, float *encoder0Pos);
-//void speed_convert(float * SPEED, float * encoder0Pos, float resolution, bool SENS);
-//void torque_convert(float * TORQUE, float * encoder0Pos, float resolution, bool SENS);
 
 #endif // VARMO_H_INCLUDED
 

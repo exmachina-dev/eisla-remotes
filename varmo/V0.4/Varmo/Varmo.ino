@@ -79,6 +79,8 @@ int inc_buf_size;
 bool LED_1_STATUS;
 bool LED_2_STATUS;
 
+bool DRIVE_ENABLE;
+
 /*TIME OUT*/
 bool Serial_OK = true;
 unsigned long time_out = 200;
@@ -147,66 +149,10 @@ void setup() {
   Varmo.sendData(Get, Device_serial_num);
   delay(50);
   Varmo.sendData(Get, Device_serial_num);
-  /*while (flag == false) {
-    if (millis() - time_ping > time_out) {
-      Varmo.sendData(Get, Device_serial_num);
-      time_ping = millis();
-    }
-          lcd.setCursor(0,0);
-      lcd.print(inputString);
-    if (stringComplete == true) {
-      lcd.setCursor(0,0);
-      lcd.print(inputString);
-      serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-      get_confirm_key(&data1, &confirm_key);
-
-      if (SerialNumber_receipt == data3 && confirm_key == "ok") {
-        flag = true;
-      }
-      else if (confirm_key = "error") {
-        lcd.print(data3);
-      }
-      inputString = "";
-      stringComplete = false;
-    }
-  }*/
-  flag = false;
 }
 
 void loop()
 {
-
-/*
-  if (Serial_OK == false) {
-  	lcd.print("Com Error");
-  	lcd.setCursor(1,0);
-  	lcd.print("Reconnecting...");
-    Varmo.sendData(Get, Device_serial_num);
-    time_ping = millis();
-    flag = false;
-    while (flag == false) {
-      if (millis() - time_ping > time_out) {
-        Varmo.sendData(Get, Device_serial_num);
-        time_ping = millis();
-      }
-     if (stringComplete == true) {
-        serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-        get_confirm_key(&data1, &confirm_key);
-        if (SerialNumber_receipt == data3 && confirm_key == "ok") {
-          flag = true;
-        }
-        else if (confirm_key = "error") {
-          lcd.print(data3);
-        }
-        inputString = "";
-        stringComplete = false;
-      }
-    }
-    flag = false;
-    Serial_OK = true;
-  }*/
-
-
   while (Serial_OK) {
     delay(100);
     encoder0Pos_old = encoder0Pos;
@@ -281,106 +227,26 @@ void loop()
       switch (MODE)  {
         case MODE_POS :
           Varmo.sendData(Get, Position);
-          flag = false;
           break;
         case MODE_TRQ :
           Varmo.sendData(Get, Torque);
-          flag = false;
           break;
         case MODE_SPD :
           Varmo.sendData(Get, Speed);
-          flag = false;
           break;
         case MODE_HOME :
           Varmo.sendData(Get, Pos_Home);
-          flag = false;
           break;
         case MODE_ACC :
           Varmo.sendData(Get, Acceleration);
-          flag = false;
           break;
         case MODE_DEC :
           Varmo.sendData(Get, Deceleration);
-          flag = false;
           break;
       }
-      
-      time_ping = millis();
-      while (flag == false) {
-        if ((millis() - time_ping) > time_out) {
-          Serial_OK = false;
-          flag = true;
-        }
-        if (stringComplete == true) {
-          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          get_confirm_key(&data1, &confirm_key);
-          if (confirm_key = "ok") {
-            POSITION_GET = data3.toInt();
-            flag = true;
-          }
-          else if (confirm_key = "error") {
-            lcd.print(data3);
-          }
-          inputString = "";
-          stringComplete = false;
-        }
-      }
       Varmo.sendData(Get, Drive_Enable);
-      time_ping = millis();
-      while (flag == false) {
-        if ((millis() - time_ping) > time_out) {
-          Serial_OK = false;
-          flag = true;
-        }
-        if (stringComplete == true) {
-          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          get_confirm_key(&data1, &confirm_key);
-          if (confirm_key = "ok") {
-            if (data3 == "HIGH") {
-              LED_1_STATUS = HIGH;
-            }
-            else if (data3 == "LOW") {
-              LED_1_STATUS = LOW;
-            }
-            flag = true;
-          }
-          else if (confirm_key = "error") {
-            lcd.print(data3);
-          }
-          inputString = "";
-          stringComplete = false;
-        }
-      }
-      flag = false;
-
-
       Varmo.sendData(Get, Torque);
-      time_ping = millis();
-      while (flag == false) {
-        if ((millis() - time_ping) > time_out) {
-          Serial_OK = false;
-          flag = true;
-        }
-        if (stringComplete == true) {
-          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          get_confirm_key(&data1, &confirm_key);
-          if (confirm_key = "ok") {
-            if (data2.toFloat() > 0) {
-              LED_2_STATUS = HIGH;
-            }
-            else {
-              LED_2_STATUS = LOW;
-            }
-            flag = true;
-          }
-          else if (confirm_key = "error") {
-            lcd.print(data3);
-          }
-          inputString = "";
-          stringComplete = false;
-        }
-      }
-      flag = false;
+
     }*/
 
     /*###########################GET DIRECTION###########################*/
@@ -411,28 +277,7 @@ void loop()
         case 3 :
           Varmo.sendData(Set, Speed_ref, float(0.0));
       }
-
-        /*
-        while (flag == false) {
-          if ((millis() - time_ping) > time_out) {
-            Serial_OK = false;
-            flag = true;
-          }
-          if (stringComplete == true) {
-            serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-            get_confirm_key(&data1, &confirm_key);
-            if (confirm_key = "ok") {
-              flag = true;
-            }
-            else if (confirm_key = "error") {
-              lcd.print(data3);
-            }
-            inputString = "";
-            stringComplete = false;
-          }
-        }
-        flag = false;*/
-      
+    
     }
 
     /*###########################SET TARGET###########################*/
@@ -474,26 +319,6 @@ void loop()
       switch (MODE)  {
         case MODE_POS :
           Varmo.sendData(Set, Position_ref, POSITION_TARGET);
-          /*
-          while (flag == false) {
-            if ((millis() - time_ping) > time_out) {
-              Serial_OK = false;
-              flag = true;
-            }
-            if (stringComplete == true) {
-              serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-              get_confirm_key(&data1, &confirm_key);
-              if (confirm_key = "ok") {
-                flag = true;
-              }
-              else if (confirm_key = "error") {
-                lcd.print(data3);
-              }
-              inputString = "";
-              stringComplete = false;
-            }
-          }
-          flag = false;*/
           Varmo.sendData(Set, Pos_go, true);
           break;
         case MODE_POS_SPD:
@@ -520,26 +345,6 @@ void loop()
           break;
 
       }
-      /*
-      while (flag == false) {
-        if ((millis() - time_ping) > time_out) {
-          Serial_OK = false;
-          flag = true;
-        }
-        if (stringComplete == true) {
-          serial_analyse(inputString, &protocol_receipt, &SerialNumber_receipt, &data1, &data2, &data3);
-          get_confirm_key(&data1, &confirm_key);
-          if (confirm_key = "ok") {
-            flag = true;
-          }
-          else if (confirm_key = "error") {
-            lcd.print(data3);
-          }
-          inputString = "";
-          stringComplete = false;
-        }
-      }
-      flag = false;*/
     }
 
     /*###############################REFRESH MENU###############################*/
@@ -596,8 +401,6 @@ void loop()
           lcd.setCursor(1,0);
           lcd.print("                ");
         }
-        /*converter(&HOME_POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999);
-        lcd_print_float_value(HOME_POSITION_GET, HOME_POSITION_TARGET);*/
         break;
       case MODE_ACC :
         converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
@@ -611,7 +414,7 @@ void loop()
 
     /*###########################REFRESH LEDS###########################*/
 
-    if (LED_1_STATUS == 1) {
+    if (DRIVE_ENABLE == 1) {
       lcd.setCursor(0,15);
       lcd.print('d');
     }
@@ -831,7 +634,6 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
 
       break;
     case MODE_HOME:
-      //*encoder0Pos = *HOME_POSITION / resolution;
       break;
     case MODE_ACC:
       *encoder0Pos = *ACCELERATION / resolution;
@@ -878,7 +680,6 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
       break;
     case MODE_HOME:
       lcd.print("Set Home:");
-      //lcd_print_float_value(home_position_get, HOME_POSITION);
       break;
     case MODE_ACC:
       lcd.print("Acc:");
