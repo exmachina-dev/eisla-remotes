@@ -46,29 +46,6 @@ String "machine.alive";
 String "machme.alive:ok";
  */
 
-String Get = "machine.get";
-String Set = "machine.set";
-String Alive = "machine.alive";
-
-String Speed_ref = "machine.velocity_ref";
-String Torque_ref = "machine.torque_ref";
-String Position_ref = "machine.position_ref";
-
-String Speed = "machine.velocity";
-String Torque = "machine.torque";
-
-String Position = "machine.position";
-String Pos_go = "machine.command.go";
-String Pos_Home = "machine.command.set_home";
-
-String Acceleration = "machine.acceleration";
-String Deceleration = "machine.deceleration";
-
-String Control_Mode = "machine.command.control_mode";
-
-String Device_serial_num = "machine.serialnumber";
-String Drive_Enable = "status.drive_enable";
-String Stop = "machine.command.cancel";
 
 
 const uint8_t MODE_POS = 1;

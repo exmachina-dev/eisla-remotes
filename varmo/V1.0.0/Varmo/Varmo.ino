@@ -5,6 +5,31 @@
 #include "./Varmo.h"
 
 
+
+char *Get = "machine.get";
+char *Set = "machine.set";
+char *Alive = "machine.alive";
+
+char *Speed_ref = "machine.velocity_ref";
+char *Torque_ref = "machine.torque_ref";
+char *Position_ref = "machine.position_ref";
+
+char *Speed = "machine.velocity";
+char *Torque = "machine.torque";
+
+char *Position = "machine.position";
+char *Pos_go = "machine.command.go";
+char *Pos_Home = "machine.command.set_home";
+
+char *Acceleration = "machine.acceleration";
+char *Deceleration = "machine.deceleration";
+
+char *Control_Mode = "machine.command.control_mode";
+
+char *Device_serial_num = "machine.serialnumber";
+char *Drive_Enable = "status.drive_enable";
+char *Stop = "machine.command.cancel";
+
 /*ENCODER*/
 float encoder0Pos = 0;
 float encoder0Pos_old = 0;
@@ -87,7 +112,7 @@ unsigned long time_out = 200;
 unsigned long time_ping;
 /*TIMER*/
 unsigned long time_push = 0;
-unsigned long refresh = 500;
+unsigned long refresh = 1000;
 unsigned long last_refresh = 0;
 
 bool flag = false;
@@ -242,14 +267,14 @@ void loop()
     }
 
     /*###########################SET TARGET###########################*/
-    
+/*    
     if (MOTOR_OFF == true) {
       if ( (millis() - timer_motor_off_send) > refresh ) {
         timer_motor_off_send = millis();
         Varmo.sendData(Set, Stop, true);
       }      
     }
-
+*/
     if (MOTOR_OFF == false || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC)  {
       bool send_button_push = digitalRead(SEND_BUTTON);
       if (send_button_push != send_button_push_old) {
@@ -368,7 +393,7 @@ void loop()
 
     /*###########################REFRESH LEDS###########################*/
 
-    if (DRIVE_ENABLE == 1) {
+/*    if (DRIVE_ENABLE == 1) {
       lcd.setCursor(0,15);
       lcd.print('d');
     }
@@ -381,7 +406,7 @@ void loop()
     }
     else {
       digitalWrite(13, LOW);
-    }
+    }*/
   }
 
 }
@@ -534,7 +559,7 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
       break;*/
     case MODE_POS:
       *encoder0Pos = *POSITION;
-      //Varmo.sendData(Set, Control_Mode, (unsigned int)3);
+      Varmo.sendData(Set, Control_Mode, (unsigned int)3);
       break;
 
     case MODE_TRQ:
@@ -577,7 +602,7 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
         *MODE = MODE_POS_SPD;
         lcd.print("Spd:"); 
         lcd_print_abs_float_value(pos_speed_get, POS_SPEED);
-        break;
+      break;
       }
       else {  
         lcd.print("Spd:");
