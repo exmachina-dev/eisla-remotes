@@ -211,6 +211,7 @@ void loop()
             while (encoder_push != HIGH)  {
               encoder_push = digitalRead(encoderE);
             }
+            RESOLUTION = 1;
             FLAG_MENU = 1;
             Mode_chosen = 1;
           }
@@ -360,11 +361,11 @@ void loop()
         break;*/
       case MODE_POS :
         converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999);
-        lcd_print_pos(POSITION_GET, POSITION_TARGET, SPEED_GET);
+        lcd_print_pos(POS_SPEED_TARGET, POSITION_TARGET, POS_SPEED_TARGET);
         break;
       case MODE_POS_SPD :
-        converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 9999);
-        lcd_print_vit_pos(POS_SPEED_GET, POS_SPEED_TARGET);
+        converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 999);
+        lcd_print_vit_pos(POS_SPEED_TARGET, POS_SPEED_TARGET);
         break;
       case MODE_TRQ :
         converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 500);
@@ -648,7 +649,10 @@ void lcd_print_contrast_value(int CONTRAST) {
 }
 
 void lcd_print_sign(float value)  {
-  if (value >= 0)  {
+  if (value == 0){
+    lcd.print(" ");
+  }
+  else if (value >= 0)  {
     lcd.print("+");
   }
   else  {
@@ -675,7 +679,7 @@ void lcd_print_float_align_right(float value)  {
   lcd.print(abs(value));
 }
 
-void lcd_print_int_align_right(int value)  {
+void lcd_print_int_align_right_three(int value)  {
   if (value == 0) {
     lcd.print("00");
   }
@@ -683,6 +687,22 @@ void lcd_print_int_align_right(int value)  {
     lcd.print("00");
   }
   else if (abs(value) < 100) {
+    lcd.print("0");
+  }
+  lcd.print(abs(value));
+}
+
+void lcd_print_int_align_right(int value)  {
+  if (value == 0) {
+    lcd.print("000");
+  }
+  else if (abs(value) < 10) {
+    lcd.print("000");
+  }
+  else if (abs(value) < 100) {
+    lcd.print("00");
+  }
+  else if (abs(value) < 1000){
     lcd.print("0");
   }
   lcd.print(abs(value));
@@ -720,10 +740,10 @@ void lcd_print_pos(float value1, float value2, float value3) {
   lcd_print_sign(value2);
   lcd_print_int_align_right(int(value2));
 
-  lcd.setCursor(1,9);
+  lcd.setCursor(1,10);
   lcd.print("Sp:");
-  lcd.setCursor(1,12);
-  lcd_print_int_align_right(int(value1));
+  lcd.setCursor(1,13);
+  lcd_print_int_align_right_three(int(value1));
 }
 
 /*##################CONVERTER##################*/
