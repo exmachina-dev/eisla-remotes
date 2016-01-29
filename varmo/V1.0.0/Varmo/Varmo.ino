@@ -225,7 +225,10 @@ void loop()
             RESOLUTION = resolution_set(RESOLUTION, 0, 5);
           }
           else if (MODE == MODE_POS_SPD){
-            RESOLUTION = resolution_set(RESOLUTION, 0, 8);
+            RESOLUTION = resolution_set_three(RESOLUTION, 4);
+          }
+          else if (MODE == MODE_SPD || MODE == MODE_TRQ){
+            RESOLUTION = resolution_set_three(RESOLUTION, 5);
           }
           else{
             RESOLUTION = resolution_set(RESOLUTION, 1, 5);
@@ -360,11 +363,11 @@ void loop()
         }
         break;*/
       case MODE_POS :
-        converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999);
+        converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
         lcd_print_pos(POS_SPEED_TARGET, POSITION_TARGET, POS_SPEED_TARGET);
         break;
       case MODE_POS_SPD :
-        converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 999);
+        converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 999.9);
         lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
         break;
       case MODE_TRQ :
@@ -372,7 +375,7 @@ void loop()
         lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET);
         break;
       case MODE_SPD :
-        converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,999);
+        converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,999.9);
         lcd_print_float_value_three(SPEED_GET, SPEED_TARGET);
         break;
       case MODE_HOME :
@@ -547,6 +550,41 @@ float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
   }
   else if (RESOLUTION_SELECTOR <=  25 && format == 1)  {
     lcd.setCursor(1, set_cursor + 5);
+    lcd.cursor_on();
+    RESOLUTION = 0.1;
+  }
+  return RESOLUTION;
+}
+
+float resolution_set_three(float RESOLUTION, int set_cursor)  {
+
+  int RESOLUTION_SELECTOR = int(encoder0Pos);
+
+  if (RESOLUTION_SELECTOR < 0) {
+    encoder0Pos = 0;
+  }
+  else if (RESOLUTION_SELECTOR > 20){
+    encoder0Pos = 20;
+  }
+
+
+  else if (RESOLUTION_SELECTOR <= 5)  {
+    lcd.setCursor(1, set_cursor);
+    lcd.cursor_on();
+    RESOLUTION = 100;
+  }
+  else if (RESOLUTION_SELECTOR <= 10)  {
+    lcd.setCursor(1, set_cursor + 1);
+    lcd.cursor_on();
+    RESOLUTION = 10;
+  }
+  else if (RESOLUTION_SELECTOR <= 15)  {
+    lcd.setCursor(1, set_cursor + 2);
+    lcd.cursor_on();
+    RESOLUTION = 1;
+  }
+  else if (RESOLUTION_SELECTOR <=  20)  {
+    lcd.setCursor(1, set_cursor + 4);
     lcd.cursor_on();
     RESOLUTION = 0.1;
   }
