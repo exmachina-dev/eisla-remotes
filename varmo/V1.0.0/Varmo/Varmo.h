@@ -50,11 +50,11 @@ String "machme.alive:ok";
 
 const uint8_t MODE_POS = 1;
 const uint8_t MODE_POS_SPD = 2;
-const uint8_t MODE_SPD = 6;
-const uint8_t MODE_TRQ = 7;
 const uint8_t MODE_HOME = 3;
 const uint8_t MODE_ACC = 4;
 const uint8_t MODE_DEC = 5;
+const uint8_t MODE_SPD = 6;
+const uint8_t MODE_TRQ = 7;
 
 /*####################OBJECT####################*/
 
@@ -80,7 +80,7 @@ void lcd_print_contrast_value(int CONTRAST);
 void lcd_print_sign(float value);
 void lcd_print_float_align_right(float value);
 void lcd_print_float_value(float value1, float value2);
-
+void lcd_print_float_value_three(float value1, float value2);
 
 void converter(float *value, float *encoder0Pos, float resolution, bool sens, float max);
 void contrast_convert(int *CONTRAST, int *F_contrast, float *encoder0Pos);

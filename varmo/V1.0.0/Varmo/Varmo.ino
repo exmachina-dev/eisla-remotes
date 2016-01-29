@@ -365,15 +365,15 @@ void loop()
         break;
       case MODE_POS_SPD :
         converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 999);
-        lcd_print_vit_pos(POS_SPEED_TARGET, POS_SPEED_TARGET);
+        lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
         break;
       case MODE_TRQ :
-        converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 500);
-        lcd_print_float_value(TORQUE_GET, TORQUE_TARGET);
+        converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 150);
+        lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET);
         break;
       case MODE_SPD :
-        converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,4400);
-        lcd_print_float_value(SPEED_GET, SPEED_TARGET);
+        converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,999);
+        lcd_print_float_value_three(SPEED_GET, SPEED_TARGET);
         break;
       case MODE_HOME :
         if ( (millis() - refresh_set_home) > refresh ) {
@@ -602,7 +602,9 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
       if (POS_SPEED == 0) {
         *MODE = MODE_POS_SPD;
         lcd.print("Speed Position"); 
-        lcd_print_abs_float_value(pos_speed_get, POS_SPEED);
+        lcd_print_abs_float_value_three(pos_speed_get, POS_SPEED);
+        lcd.setCursor(1,12);
+        lcd.print("cm/s");
       break;
       }
       else {  
@@ -612,11 +614,15 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
       }
     case MODE_TRQ:
       lcd.print("Torque Mode");
-      lcd_print_float_value(torque_get, TORQUE);
+      lcd_print_float_value_three(torque_get, TORQUE);
+      lcd.setCursor(1,15);
+      lcd.print("%");
       break;
     case MODE_SPD:
       lcd.print("Speed Mode");
-      lcd_print_float_value(speed_get, SPEED);
+      lcd_print_float_value_three(speed_get, SPEED);
+      lcd.setCursor(1,12);
+      lcd.print("cm/s");
       break;
     case MODE_HOME:
       lcd.print("Set Home:");
@@ -631,7 +637,9 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
       break;
     case MODE_POS_SPD:
       lcd.print("Speed Position"); 
-      lcd_print_abs_float_value(pos_speed_get, POS_SPEED);
+      lcd_print_abs_float_value_three(pos_speed_get, POS_SPEED);
+      lcd.setCursor(1,12);
+      lcd.print("cm/s");
       break;
   }
 }
@@ -658,6 +666,22 @@ void lcd_print_sign(float value)  {
   else  {
     lcd.print("-");
   } 
+}
+
+void lcd_print_float_three_align_right(float value)  {
+  if (value == 0) {
+    lcd.print("00");
+  }
+  else if (abs(value) < 1) {
+    lcd.print("00");
+  }
+  else if (abs(value) < 10) {
+    lcd.print("00");
+  }
+  else if (abs(value) < 100) {
+    lcd.print("0");
+  }
+  lcd.print(abs(value));
 }
 
 void lcd_print_float_align_right(float value)  {
@@ -710,15 +734,25 @@ void lcd_print_int_align_right(int value)  {
 
 void lcd_print_float_value(float value1, float value2) {
   lcd.setCursor(1, 0);
-  lcd.setCursor(1, 0);
   lcd.print("Tgt:");
   lcd_print_sign(value2);
-
   lcd_print_float_align_right(value2);
 }
 
-void lcd_print_abs_float_value(float value1, float value2) {
+void lcd_print_float_value_three(float value1, float value2) {
   lcd.setCursor(1, 0);
+  lcd.print("Tgt:");
+  lcd_print_sign(value2);
+  lcd_print_float_three_align_right(value2);
+}
+
+void lcd_print_abs_float_value_three(float value1, float value2) {
+  lcd.setCursor(1, 0);
+  lcd.print("Tgt:");
+  lcd_print_float_three_align_right(value2);
+}
+
+void lcd_print_abs_float_value(float value1, float value2) {
   lcd.setCursor(1, 0);
   lcd.print("Tgt:");
   lcd_print_sign(value2);
@@ -731,7 +765,6 @@ void lcd_print_vit_pos(float value1, float value2) {
   lcd.print("Spd Pos:");
   lcd.setCursor(1,8);
   lcd_print_int_align_right(int(value2));
-
 }
 
 void lcd_print_pos(float value1, float value2, float value3) {
