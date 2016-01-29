@@ -86,13 +86,6 @@ unsigned long debounceDelay = 50;    // the debounce time; increase if the outpu
 bool SEND = LOW;
 
 /*GET*/
-bool stringComplete = false;
-String data1 = "";
-String data2 = "";
-String data3 = "";
-String confirm_key = "";
-String SerialNumber_receipt;
-String protocol_receipt;
 byte incoming_buffer[10];
 byte packets_buffer[150];
 Packet new_packet;
@@ -220,9 +213,15 @@ void loop()
       else  {
         resolution_chosen = 0;
         RESOLUTION_old = RESOLUTION;
+        if (MODE == MODE_POS_SPD ||MODE == MODE_SPD || MODE == MODE_TRQ){
+          init_resolution_three(RESOLUTION, &encoder0Pos);
+        }
+        else {
+          init_resolution(RESOLUTION, &encoder0Pos);
+        }
         while (resolution_chosen == 0 && MODE != MODE_HOME)  {
           if (MODE == MODE_POS) {
-            RESOLUTION = resolution_set(RESOLUTION, 0, 5);
+            RESOLUTION = resolution_set(RESOLUTION, 1, 5);
           }
           else if (MODE == MODE_POS_SPD){
             RESOLUTION = resolution_set_three(RESOLUTION, 4);
@@ -231,7 +230,7 @@ void loop()
             RESOLUTION = resolution_set_three(RESOLUTION, 5);
           }
           else{
-            RESOLUTION = resolution_set(RESOLUTION, 1, 5);
+            RESOLUTION = resolution_set(RESOLUTION, 1, 4);
           }
 
           encoder_push = digitalRead(encoderE);
@@ -264,10 +263,15 @@ void loop()
       MOTOR_OFF = false;
     }
     else if (millis() - timer_motor_off > 50 && MOTOR_OFF != HIGH) {
-      timer_motor_off = millis();
+      timer_motor_off = millis();lcd.setCursor(1,4);
+        lcd.print(" ");
       timer_motor_off_send = millis();
       MOTOR_OFF = true;
-      Varmo.sendData(Set, Stop, true);    
+      Varmo.sendData(Set, Stop, true);
+/*
+      if(MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_DEC || MODE == MODE_ACC) {
+        
+      }*/
     }
 
     /*###########################SET TARGET###########################*/
@@ -279,7 +283,7 @@ void loop()
       }      
     }
 */
-    if (MOTOR_OFF == false || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC)  {
+    if (MOTOR_OFF == false || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC || MODE == MODE_POS_SPD)  {
       bool send_button_push = digitalRead(SEND_BUTTON);
       if (send_button_push != send_button_push_old) {
         lastDebounceTime = millis();
@@ -336,8 +340,6 @@ void loop()
                      TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET, POS_SPEED_GET,encoder0Pos);
       menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, 
                 &ACCELERATION_TARGET, &DECELERATION_TARGET, &POS_SPEED_TARGET,&encoder0Pos, RESOLUTION);
-        
-      
       if (MODE_OLD == MODE)    {
         encoder0Pos = encoder0Pos_old;
       }
@@ -352,6 +354,9 @@ void loop()
       FLAG_RESOLUTION = 0;
       lcd.cursor_off();
     }
+    else {
+      encoder0Pos = encoder0Pos_old;
+    }
 
     switch (MODE)  {
       /*case 0 :
@@ -364,19 +369,31 @@ void loop()
         break;*/
       case MODE_POS :
         converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
-        lcd_print_pos(POS_SPEED_TARGET, POSITION_TARGET, POS_SPEED_TARGET);
+        lcd_print_pos(POS_SPEED_TARGET, POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
+        if (MOTOR_OFF == true){
+          lcd.setCursor(1,4);
+          lcd.print(" ");
+        }
         break;
       case MODE_POS_SPD :
-        converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 999.9);
+        converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 99.9);
         lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
         break;
       case MODE_TRQ :
         converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 150);
-        lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET);
+        lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET, MOTOR_OFF);
+        if (MOTOR_OFF == true){
+          lcd.setCursor(1,4);
+          lcd.print(" ");
+        }
         break;
       case MODE_SPD :
         converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,999.9);
-        lcd_print_float_value_three(SPEED_GET, SPEED_TARGET);
+        lcd_print_float_value_three(SPEED_GET, SPEED_TARGET, MOTOR_OFF);
+        if (MOTOR_OFF == true){
+          lcd.setCursor(1,4);
+          lcd.print(" ");
+        }
         break;
       case MODE_HOME :
         if ( (millis() - refresh_set_home) > refresh ) {
@@ -386,12 +403,12 @@ void loop()
         }
         break;
       case MODE_ACC :
-        converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
-        lcd_print_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
+        converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
+        lcd_print_abs_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
         break;
       case MODE_DEC :
-        converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999);
-        lcd_print_float_value(DECELERATION_GET, DECELERATION_TARGET);
+        converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
+        lcd_print_abs_float_value(DECELERATION_GET, DECELERATION_TARGET);
         break;
     }
 
@@ -514,6 +531,39 @@ int menu_set(int MENU)  {
   return MENU;
 }
 
+float init_resolution(float RESOLUTION, float *encoder0Pos) {
+  if (RESOLUTION == 0.1){
+    *encoder0Pos = 25;
+  }
+  else if (RESOLUTION == 1) {
+    *encoder0Pos = 20;
+  }
+  else if (RESOLUTION == 10) {
+    *encoder0Pos = 15;
+  }
+  else if (RESOLUTION == 100) {
+    *encoder0Pos = 10;
+  }
+  else if (RESOLUTION == 1000) {
+    *encoder0Pos = 5;
+  }
+}
+
+float init_resolution_three(float RESOLUTION, float *encoder0Pos) {
+  if (RESOLUTION == 0.1) {
+    *encoder0Pos = 20;
+  }
+  else if (RESOLUTION == 1) {
+    *encoder0Pos = 15;
+  }
+  else if (RESOLUTION == 10) {
+    *encoder0Pos = 10;
+  }
+  else if (RESOLUTION == 100) {
+    *encoder0Pos = 5;
+  }
+}
+
 float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
 
   int RESOLUTION_SELECTOR = int(encoder0Pos);
@@ -567,8 +617,7 @@ float resolution_set_three(float RESOLUTION, int set_cursor)  {
     encoder0Pos = 20;
   }
 
-
-  else if (RESOLUTION_SELECTOR <= 5)  {
+  if (RESOLUTION_SELECTOR <= 5)  {
     lcd.setCursor(1, set_cursor);
     lcd.cursor_on();
     RESOLUTION = 100;
@@ -647,18 +696,18 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
       }
       else {  
         lcd.print("Set Position");
-        lcd_print_pos(position_get, POSITION, SPEED);
+        lcd_print_pos(position_get, POSITION, SPEED,MOTOR_OFF);
         break;
       }
     case MODE_TRQ:
       lcd.print("Torque Mode");
-      lcd_print_float_value_three(torque_get, TORQUE);
+      lcd_print_float_value_three(torque_get, TORQUE,MOTOR_OFF);
       lcd.setCursor(1,15);
       lcd.print("%");
       break;
     case MODE_SPD:
       lcd.print("Speed Mode");
-      lcd_print_float_value_three(speed_get, SPEED);
+      lcd_print_float_value_three(speed_get, SPEED,MOTOR_OFF);
       lcd.setCursor(1,12);
       lcd.print("cm/s");
       break;
@@ -754,6 +803,16 @@ void lcd_print_int_align_right_three(int value)  {
   lcd.print(abs(value));
 }
 
+void lcd_print_int_align_right_two(int value)  {
+  if (value == 0) {
+    lcd.print("0");
+  }
+  else if (abs(value) < 10) {
+    lcd.print("0");
+  }
+  lcd.print(abs(value));
+}
+
 void lcd_print_int_align_right(int value)  {
   if (value == 0) {
     lcd.print("000");
@@ -770,17 +829,27 @@ void lcd_print_int_align_right(int value)  {
   lcd.print(abs(value));
 }
 
-void lcd_print_float_value(float value1, float value2) {
+void lcd_print_float_value(float value1, float value2, bool motor) {
   lcd.setCursor(1, 0);
   lcd.print("Tgt:");
-  lcd_print_sign(value2);
+  if (motor == false) {
+    lcd_print_sign(value2);
+  }
+  else if (motor == true){
+    lcd.print(" ");
+  }
   lcd_print_float_align_right(value2);
 }
 
-void lcd_print_float_value_three(float value1, float value2) {
+void lcd_print_float_value_three(float value1, float value2, bool motor) {
   lcd.setCursor(1, 0);
   lcd.print("Tgt:");
-  lcd_print_sign(value2);
+  if (motor == false) {
+    lcd_print_sign(value2);
+  }
+  else if (motor == true){
+    lcd.print(" ");
+  }
   lcd_print_float_three_align_right(value2);
 }
 
@@ -793,8 +862,6 @@ void lcd_print_abs_float_value_three(float value1, float value2) {
 void lcd_print_abs_float_value(float value1, float value2) {
   lcd.setCursor(1, 0);
   lcd.print("Tgt:");
-  lcd_print_sign(value2);
-
   lcd_print_float_align_right(value2);
 }
 
@@ -805,16 +872,24 @@ void lcd_print_vit_pos(float value1, float value2) {
   lcd_print_int_align_right(int(value2));
 }
 
-void lcd_print_pos(float value1, float value2, float value3) {
+void lcd_print_pos(float value1, float value2, float value3, bool motor) {
   lcd.setCursor(1,0);
   lcd.print("Tgt:");
-  lcd_print_sign(value2);
-  lcd_print_int_align_right(int(value2));
+  if (motor == false) {
+    lcd_print_sign(value2);
+  }
+  else if (motor == true){
+    lcd.print(" ");
+  }
+  lcd_print_float_align_right(value2);
 
-  lcd.setCursor(1,10);
-  lcd.print("Sp:");
-  lcd.setCursor(1,13);
-  lcd_print_int_align_right_three(int(value1));
+  lcd.setCursor(1,11);
+  lcd.print(" ");
+
+  lcd.setCursor(1,12);
+  lcd.print("S:");
+  lcd.setCursor(1,14);
+  lcd_print_int_align_right_two(int(value1));
 }
 
 /*##################CONVERTER##################*/
