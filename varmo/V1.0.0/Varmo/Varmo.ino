@@ -484,24 +484,24 @@ int menu_set(int MENU)  {
     MENU = MODE_POS_SPD;
   }
   else if (MENU_SELECTOR <= RESOLUTION * 3)  {
-    lcd.print("Speed           ");
-    MENU = MODE_SPD;
-  }
-  else if (MENU_SELECTOR <= RESOLUTION * 4) { 
-    lcd.print("Torque          ");
-    MENU = MODE_TRQ;
-  }
-  else if (MENU_SELECTOR <= RESOLUTION * 5) { 
     lcd.print("Set Home        ");
     MENU = MODE_HOME;
   }
-  else if (MENU_SELECTOR <= RESOLUTION * 6) {
+  else if (MENU_SELECTOR <= RESOLUTION * 4) { 
     lcd.print("Acceleration    ");
     MENU = MODE_ACC;
   }
-  else if (MENU_SELECTOR <= RESOLUTION *7){
+  else if (MENU_SELECTOR <= RESOLUTION * 5) { 
     lcd.print("Deceleration    ");
     MENU = MODE_DEC;
+  }
+  else if (MENU_SELECTOR <= RESOLUTION * 6) {
+    lcd.print("Speed           ");
+    MENU = MODE_SPD;
+  }
+  else if (MENU_SELECTOR <= RESOLUTION *7){
+    lcd.print("Torque          ");
+    MENU = MODE_TRQ;
   }
   /*
   else if (MENU_SELECTOR <= RESOLUTION * 7)  {

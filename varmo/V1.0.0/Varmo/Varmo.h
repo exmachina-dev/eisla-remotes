@@ -50,11 +50,11 @@ String "machme.alive:ok";
 
 const uint8_t MODE_POS = 1;
 const uint8_t MODE_POS_SPD = 2;
-const uint8_t MODE_SPD = 3;
-const uint8_t MODE_TRQ = 4;
-const uint8_t MODE_HOME = 5;
-const uint8_t MODE_ACC = 6;
-const uint8_t MODE_DEC = 7;
+const uint8_t MODE_SPD = 6;
+const uint8_t MODE_TRQ = 7;
+const uint8_t MODE_HOME = 3;
+const uint8_t MODE_ACC = 4;
+const uint8_t MODE_DEC = 5;
 
 /*####################OBJECT####################*/
 
