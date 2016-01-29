@@ -263,26 +263,28 @@ void loop()
       MOTOR_OFF = false;
     }
     else if (millis() - timer_motor_off > 50 && MOTOR_OFF != HIGH) {
-      timer_motor_off = millis();lcd.setCursor(1,4);
-        lcd.print(" ");
+      timer_motor_off = millis();
+      lcd.setCursor(1,4);
+      lcd.print(" ");
       timer_motor_off_send = millis();
       MOTOR_OFF = true;
       Varmo.sendData(Set, Stop, true);
-/*
-      if(MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_DEC || MODE == MODE_ACC) {
-        
-      }*/
+    }
+    if (MOTOR_OFF == false){
+      if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ){
+        lcd.setCursor(0,13);
+        lcd.print(" on");
+      }
+    }
+    else if (MOTOR_OFF == true){
+      if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ){
+        lcd.setCursor(0,13);
+        lcd.print("off");
+      }
     }
 
     /*###########################SET TARGET###########################*/
-/*    
-    if (MOTOR_OFF == true) {
-      if ( (millis() - timer_motor_off_send) > refresh ) {
-        timer_motor_off_send = millis();
-        Varmo.sendData(Set, Stop, true);
-      }      
-    }
-*/
+
     if (MOTOR_OFF == false || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC || MODE == MODE_POS_SPD)  {
       bool send_button_push = digitalRead(SEND_BUTTON);
       if (send_button_push != send_button_push_old) {
@@ -720,11 +722,15 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
       *encoder0Pos = ACCELERATION_TARGET;
       lcd.print("Set Acceleration");
       lcd_print_abs_float_value(acceleration_get, ACCELERATION);
+      lcd.setCursor(1,13);
+      lcd.print("sec");
       break;
     case MODE_DEC:
       *encoder0Pos = DECELERATION_TARGET;
       lcd.print("Set Deceleration");
       lcd_print_abs_float_value(decelaration_get, DECELERATION);
+      lcd.setCursor(1,13);
+      lcd.print("sec");      
       break;
     case MODE_POS_SPD:
       *encoder0Pos = POS_SPEED_TARGET;
