@@ -76,8 +76,6 @@ const uint8_t charBitmap[][8] = {
   { 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F },
 };
 
-
-
 /*SEND*/
 bool send_button_push_old = HIGH;
 bool send_state = LOW;
@@ -171,266 +169,248 @@ void setup() {
 
 void loop()
 {
-  while (Serial_OK) {
-    delay(100);
-    encoder0Pos_old = encoder0Pos;
 
-    /*###############################MENU###############################*/
-    int encoder_push = digitalRead(encoderE);
-    if (encoder_push == LOW)  {
+  delay(100);
+  encoder0Pos_old = encoder0Pos;
 
+  /*###############################MENU###############################*/
+  int encoder_push = digitalRead(encoderE);
+  if (encoder_push == LOW)  {
+
+    encoder_push = digitalRead(encoderE);
+    time_push = millis();
+    Mode_chosen = 0;
+    while (encoder_push != HIGH && Mode_chosen == 0)  {
       encoder_push = digitalRead(encoderE);
-      time_push = millis();
+      if ((millis() - time_push)  > 500 )  {
+        Mode_chosen = 1;
+      }
+    }
+
+    if (Mode_chosen == 1)  {
       Mode_chosen = 0;
-      while (encoder_push != HIGH && Mode_chosen == 0)  {
+      encoder0Pos = MODE * 2;
+      MODE = menu_set(MODE);
+      while (encoder_push != HIGH)  {
         encoder_push = digitalRead(encoderE);
-        if ((millis() - time_push)  > 500 )  {
+      }
+      while (Mode_chosen == 0) {
+        MODE = menu_set(MODE);
+        encoder_push = digitalRead(encoderE);
+        if (encoder_push == LOW)  {
+          encoder_push = digitalRead(encoderE);
+          while (encoder_push != HIGH)  {
+            encoder_push = digitalRead(encoderE);
+          }
+          RESOLUTION = 1;
+          FLAG_MENU = 1;
           Mode_chosen = 1;
         }
       }
-
-      if (Mode_chosen == 1)  {
-        Mode_chosen = 0;
-        encoder0Pos = MODE * 2;
-        MODE = menu_set(MODE);
-        while (encoder_push != HIGH)  {
-          encoder_push = digitalRead(encoderE);
-        }
-        while (Mode_chosen == 0) {
-          MODE = menu_set(MODE);
-          encoder_push = digitalRead(encoderE);
-          if (encoder_push == LOW)  {
-            encoder_push = digitalRead(encoderE);
-            while (encoder_push != HIGH)  {
-              encoder_push = digitalRead(encoderE);
-            }
-            RESOLUTION = 1;
-            FLAG_MENU = 1;
-            Mode_chosen = 1;
-          }
-        }
-      }
-      else  {
-        resolution_chosen = 0;
-        RESOLUTION_old = RESOLUTION;
-        if (MODE == MODE_POS_SPD ||MODE == MODE_SPD || MODE == MODE_TRQ){
-          init_resolution_three(RESOLUTION, &encoder0Pos);
-        }
-        else {
-          init_resolution(RESOLUTION, &encoder0Pos);
-        }
-        while (resolution_chosen == 0 && MODE != MODE_HOME)  {
-          if (MODE == MODE_POS) {
-            RESOLUTION = resolution_set(RESOLUTION, 1, 5);
-          }
-          else if (MODE == MODE_POS_SPD){
-            RESOLUTION = resolution_set_three(RESOLUTION, 4);
-          }
-          else if (MODE == MODE_SPD || MODE == MODE_TRQ){
-            RESOLUTION = resolution_set_three(RESOLUTION, 5);
-          }
-          else{
-            RESOLUTION = resolution_set(RESOLUTION, 1, 4);
-          }
-
-          encoder_push = digitalRead(encoderE);
-          if (encoder_push == LOW)  {
-            encoder_push = digitalRead(encoderE);
-            while (encoder_push != HIGH)  {
-              encoder_push = digitalRead(encoderE);
-            }
-            FLAG_RESOLUTION = 1;
-            resolution_chosen = 1;
-          }
-        }
-      }
     }
-
-    /*###########################GET DIRECTION###########################*/
-    bool sens1 = digitalRead(DIRECTION_1);
-    bool sens2 = digitalRead(DIRECTION_2);
-
-    if (!(sens1 == HIGH) && (sens2 == HIGH))  {
-      timer_motor_off = millis();
-    }
-
-    if ((sens1 == LOW) && (sens2 == HIGH)) {
-      SENS = HIGH;
-      MOTOR_OFF = false;
-    }
-    else if ((sens1 == HIGH) && (sens2 == LOW)) {
-      SENS = LOW;
-      MOTOR_OFF = false;
-    }
-    else if (millis() - timer_motor_off > 50 && MOTOR_OFF != HIGH) {
-      timer_motor_off = millis();
-      lcd.setCursor(1,4);
-      lcd.print(" ");
-      timer_motor_off_send = millis();
-      MOTOR_OFF = true;
-      Varmo.sendData(Set, Stop, true);
-    }
-    if (MOTOR_OFF == false){
-      if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ){
-        lcd.setCursor(0,13);
-        lcd.print(" on");
-      }
-    }
-    else if (MOTOR_OFF == true){
-      if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ){
-        lcd.setCursor(0,13);
-        lcd.print("off");
-      }
-    }
-
-    /*###########################SET TARGET###########################*/
-
-    if (MOTOR_OFF == false || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC || MODE == MODE_POS_SPD)  {
-      bool send_button_push = digitalRead(SEND_BUTTON);
-      if (send_button_push != send_button_push_old) {
-        lastDebounceTime = millis();
-      }
-
-      if ((millis() - lastDebounceTime) > debounceDelay) {
-        if (send_button_push != send_state) {
-          send_state = send_button_push;
-
-          if (send_button_push == LOW)  {
-            SEND = HIGH;
-          }
-        }
-      }
-      send_button_push_old = send_button_push;
-    }
-
-    if (SEND == HIGH) {
-      SEND = LOW;
-      switch (MODE)  {
-        case MODE_POS :
-          Varmo.sendData(Set, Position_ref, POSITION_TARGET);
-          Varmo.sendData(Set, Pos_go, true);
-          break;
-        case MODE_POS_SPD:
-          Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
-          MODE = MODE_POS;
-          FLAG_MENU = 1;
-          RESOLUTION = 1;
-        case MODE_TRQ :
-          Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
-          break;
-        case MODE_SPD :
-          Varmo.sendData(Set, Speed_ref, SPEED_TARGET);
-          break;
-        case MODE_HOME :
-          Varmo.sendData(Set, Pos_Home, true);
-          lcd.setCursor(1,0);
-          lcd.print("New home pos    ");
-          refresh_set_home = millis();
-          break;
-        case MODE_ACC :
-          Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
-          break;
-        case MODE_DEC :
-          Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
-          break;
-
-      }
-    }
-
-    /*###############################REFRESH MENU###############################*/
-    if (FLAG_MENU == 1)  {
-      lcd_print_menu(&MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, POS_SPEED_TARGET,
-                     TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET, POS_SPEED_GET,&encoder0Pos);
-      menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, 
-                &ACCELERATION_TARGET, &DECELERATION_TARGET, &POS_SPEED_TARGET,&encoder0Pos, RESOLUTION);
-      if (MODE_OLD == MODE)    {
-        //encoder0Pos = encoder0Pos_old;
+    else  {
+      resolution_chosen = 0;
+      RESOLUTION_old = RESOLUTION;
+      if (MODE == MODE_POS_SPD ||MODE == MODE_SPD || MODE == MODE_TRQ){
+        init_resolution_three(RESOLUTION, &encoder0Pos);
       }
       else {
-        MODE_OLD = MODE;
+        init_resolution(RESOLUTION, &encoder0Pos);
       }
-      FLAG_MENU = 0;
+      while (resolution_chosen == 0 && MODE != MODE_HOME)  {
+        if (MODE == MODE_POS) {
+          RESOLUTION = resolution_set(RESOLUTION, 1, 5);
+        }
+        else if (MODE == MODE_POS_SPD){
+          RESOLUTION = resolution_set_three(RESOLUTION, 4);
+        }
+        else if (MODE == MODE_SPD || MODE == MODE_TRQ){
+          RESOLUTION = resolution_set_three(RESOLUTION, 5);
+        }
+        else{
+          RESOLUTION = resolution_set(RESOLUTION, 1, 4);
+        }
+
+        encoder_push = digitalRead(encoderE);
+        if (encoder_push == LOW)  {
+          encoder_push = digitalRead(encoderE);
+          while (encoder_push != HIGH)  {
+            encoder_push = digitalRead(encoderE);
+          }
+          FLAG_RESOLUTION = 1;
+          resolution_chosen = 1;
+        }
+      }
+    }
+  }
+
+  /*###########################GET DIRECTION###########################*/
+  bool sens1 = digitalRead(DIRECTION_1);
+  bool sens2 = digitalRead(DIRECTION_2);
+
+  if (!(sens1 == HIGH) && (sens2 == HIGH))  {
+    timer_motor_off = millis();
+  }
+
+  if ((sens1 == LOW) && (sens2 == HIGH)) {
+    SENS = HIGH;
+    MOTOR_OFF = false;
+  }
+  else if ((sens1 == HIGH) && (sens2 == LOW)) {
+    SENS = LOW;
+    MOTOR_OFF = false;
+  }
+  else if (millis() - timer_motor_off > 50 && MOTOR_OFF != HIGH) {
+    timer_motor_off = millis();
+    lcd.setCursor(1,4);
+    lcd.print(" ");
+    timer_motor_off_send = millis();
+    MOTOR_OFF = true;
+    Varmo.sendData(Set, Stop, true);
+  }
+  if (MOTOR_OFF == false){
+    if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ){
+      lcd.setCursor(0,13);
+      lcd.print(" on");
+    }
+  }
+  else if (MOTOR_OFF == true){
+    if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ){
+      lcd.setCursor(0,13);
+      lcd.print("off");
+    }
+  }
+
+  /*###########################SET TARGET###########################*/
+
+  if (MOTOR_OFF == false || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC || MODE == MODE_POS_SPD)  {
+    bool send_button_push = digitalRead(SEND_BUTTON);
+    if (send_button_push != send_button_push_old) {
+      lastDebounceTime = millis();
     }
 
-    if (FLAG_RESOLUTION == 1) {
-      encoder0Pos = encoder0Pos_old * (RESOLUTION_old / RESOLUTION);
-      FLAG_RESOLUTION = 0;
-      lcd.cursor_off();
-    }
+    if ((millis() - lastDebounceTime) > debounceDelay) {
+      if (send_button_push != send_state) {
+        send_state = send_button_push;
 
+        if (send_button_push == LOW)  {
+          SEND = HIGH;
+        }
+      }
+    }
+    send_button_push_old = send_button_push;
+  }
+
+  if (SEND == HIGH) {
+    SEND = LOW;
     switch (MODE)  {
-      /*case 0 :
-        contrast_convert(&CONTRAST, &F_contrast, &encoder0Pos);
-        if (CONTRAST != CONTRAST_OLD) {
-          CONTRAST_OLD = CONTRAST;
-          lcd_print_contrast_value(CONTRAST);
-          analogWrite(CONTRAST_PWM, F_contrast);
-        }
-        break;*/
       case MODE_POS :
-        converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
-        lcd_print_pos(POS_SPEED_TARGET, POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
-        if (MOTOR_OFF == true){
-          lcd.setCursor(1,4);
-          lcd.print(" ");
-        }
+        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+        Varmo.sendData(Set, Pos_go, true);
         break;
-      case MODE_POS_SPD :
-        converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 99.9);
-        lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
-        break;
+      case MODE_POS_SPD:
+        Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
+        MODE = MODE_POS;
+        FLAG_MENU = 1;
+        RESOLUTION = 1;
       case MODE_TRQ :
-        converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 150);
-        lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET, MOTOR_OFF);
-        if (MOTOR_OFF == true){
-          lcd.setCursor(1,4);
-          lcd.print(" ");
-        }
+        Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
         break;
       case MODE_SPD :
-        converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,999.9);
-        lcd_print_float_value_three(SPEED_GET, SPEED_TARGET, MOTOR_OFF);
-        if (MOTOR_OFF == true){
-          lcd.setCursor(1,4);
-          lcd.print(" ");
-        }
+        Varmo.sendData(Set, Speed_ref, SPEED_TARGET);
         break;
       case MODE_HOME :
-        if ( (millis() - refresh_set_home) > refresh ) {
-          refresh_set_home = millis();
-          lcd.setCursor(1,0);
-          lcd.print("                ");
-        }
+        Varmo.sendData(Set, Pos_Home, true);
+        lcd.setCursor(1,0);
+        lcd.print("New home pos    ");
+        refresh_set_home = millis();
         break;
       case MODE_ACC :
-        converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
-        lcd_print_abs_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
+        Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
         break;
       case MODE_DEC :
-        converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
-        lcd_print_abs_float_value(DECELERATION_GET, DECELERATION_TARGET);
+        Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
         break;
-    }
 
-    /*###########################REFRESH LEDS###########################*/
+    }
+  }
 
-/*    if (DRIVE_ENABLE == 1) {
-      lcd.setCursor(0,15);
-      lcd.print('d');
-    }
+  /*###############################REFRESH MENU###############################*/
+  if (FLAG_MENU == 1)  {
+    lcd_print_menu(&MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, POS_SPEED_TARGET,
+                   TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET, POS_SPEED_GET,&encoder0Pos);
+    menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, 
+              &ACCELERATION_TARGET, &DECELERATION_TARGET, &POS_SPEED_TARGET,&encoder0Pos, RESOLUTION);
+    if (MODE_OLD == MODE) {}
     else {
-      lcd.setCursor(0,15);
-      lcd.print('n');
+      MODE_OLD = MODE;
     }
-    if (LED_2_STATUS == 1) {
-      digitalWrite(13, HIGH);
-    }
-    else {
-      digitalWrite(13, LOW);
-    }*/
+    FLAG_MENU = 0;
+  }
+
+  if (FLAG_RESOLUTION == 1) {
+    encoder0Pos = encoder0Pos_old * (RESOLUTION_old / RESOLUTION);
+    FLAG_RESOLUTION = 0;
+    lcd.cursor_off();
+  }
+
+  switch (MODE)  {
+    /*case 0 :
+      contrast_convert(&CONTRAST, &F_contrast, &encoder0Pos);
+      if (CONTRAST != CONTRAST_OLD) {
+        CONTRAST_OLD = CONTRAST;
+        lcd_print_contrast_value(CONTRAST);
+        analogWrite(CONTRAST_PWM, F_contrast);
+      }
+      break;*/
+    case MODE_POS :
+      converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
+      lcd_print_pos(POS_SPEED_TARGET, POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
+      if (MOTOR_OFF == true){
+        lcd.setCursor(1,4);
+        lcd.print(" ");
+      }
+      break;
+    case MODE_POS_SPD :
+      converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 99.9);
+      lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
+      break;
+    case MODE_TRQ :
+      converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 150);
+      lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET, MOTOR_OFF);
+      if (MOTOR_OFF == true){
+        lcd.setCursor(1,4);
+        lcd.print(" ");
+      }
+      break;
+    case MODE_SPD :
+      converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,999.9);
+      lcd_print_float_value_three(SPEED_GET, SPEED_TARGET, MOTOR_OFF);
+      if (MOTOR_OFF == true){
+        lcd.setCursor(1,4);
+        lcd.print(" ");
+      }
+      break;
+    case MODE_HOME :
+      if ( (millis() - refresh_set_home) > refresh ) {
+        refresh_set_home = millis();
+        lcd.setCursor(1,0);
+        lcd.print("                ");
+      }
+      break;
+    case MODE_ACC :
+      converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
+      lcd_print_abs_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
+      break;
+    case MODE_DEC :
+      converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
+      lcd_print_abs_float_value(DECELERATION_GET, DECELERATION_TARGET);
+      break;
   }
 
 }
+
+
 /*##################ENCODER##################*/
 void doEncoderA() {
 
