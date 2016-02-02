@@ -295,41 +295,48 @@ void loop()
     }
     send_button_push_old = send_button_push;
   }
-
+/*
   if (SEND == HIGH) {
     SEND = LOW;
     switch (MODE)  {
       case MODE_POS :
+        SEND = LOW;
         Varmo.sendData(Set, Position_ref, POSITION_TARGET);
         Varmo.sendData(Set, Pos_go, true);
         break;
       case MODE_POS_SPD:
+        SEND = LOW;
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
         MODE = MODE_POS;
         FLAG_MENU = 1;
         RESOLUTION = 1;
         break;
       case MODE_TRQ :
+        SEND = LOW;
         Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
         break;
       case MODE_SPD :
+        SEND = LOW;
         Varmo.sendData(Set, Speed_ref, SPEED_TARGET);
         break;
       case MODE_HOME :
+        SEND = LOW;
         Varmo.sendData(Set, Pos_Home, true);
         lcd.setCursor(1,0);
         lcd.print("New home pos    ");
         refresh_set_home = millis();
         break;
       case MODE_ACC :
+        SEND = LOW;
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
         break;
       case MODE_DEC :
+        SEND = LOW;
         Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
         break;
 
     }
-  }
+  }*/
 
   /*###############################REFRESH MENU###############################*/
   if (FLAG_MENU == 1)  {
@@ -360,6 +367,11 @@ void loop()
       }
       break;*/
     case MODE_POS :
+      if (SEND == HIGH){
+        SEND = LOW;
+        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+        Varmo.sendData(Set, Pos_go, true);
+      }
       converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
       lcd_print_pos(POS_SPEED_TARGET, POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
       if (MOTOR_OFF == true){
@@ -368,10 +380,21 @@ void loop()
       }
       break;
     case MODE_POS_SPD :
+      if (SEND == HIGH){
+        SEND = LOW;
+        Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
+        MODE = MODE_POS;
+        FLAG_MENU = 1;
+        RESOLUTION = 1;
+      }
       converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 99.9);
       lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
       break;
     case MODE_TRQ :
+      if (SEND == HIGH){
+        SEND = LOW;
+        Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
+      }
       converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 150);
       lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET, MOTOR_OFF);
       if (MOTOR_OFF == true){
@@ -380,6 +403,10 @@ void loop()
       }
       break;
     case MODE_SPD :
+      if (SEND == HIGH){
+        SEND = LOW;
+        Varmo.sendData(Set, Speed_ref, SPEED_TARGET);
+      }
       converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,999.9);
       lcd_print_float_value_three(SPEED_GET, SPEED_TARGET, MOTOR_OFF);
       if (MOTOR_OFF == true){
@@ -388,6 +415,13 @@ void loop()
       }
       break;
     case MODE_HOME :
+      if (SEND == HIGH){
+        SEND = LOW;
+        Varmo.sendData(Set, Pos_Home, true);
+        lcd.setCursor(1,0);
+        lcd.print("New home pos    ");
+        refresh_set_home = millis();
+      }
       if ( (millis() - refresh_set_home) > refresh ) {
         refresh_set_home = millis();
         lcd.setCursor(1,0);
@@ -395,10 +429,18 @@ void loop()
       }
       break;
     case MODE_ACC :
+      if (SEND == HIGH){
+        SEND = LOW;
+        Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
+      }
       converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
       lcd_print_abs_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
       break;
     case MODE_DEC :
+      if (SEND == HIGH){
+        SEND = LOW;
+        Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
+      }
       converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
       lcd_print_abs_float_value(DECELERATION_GET, DECELERATION_TARGET);
       break;
