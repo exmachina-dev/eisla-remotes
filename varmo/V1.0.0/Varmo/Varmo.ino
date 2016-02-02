@@ -6,40 +6,41 @@
 
 
 
-char *Get = "machine.get";
-char *Set = "machine.set";
-char *Alive = "machine.alive";
+const char *Get = "machine.get";
+const char *Set = "machine.set";
 
-char *Speed_ref = "machine.velocity_ref";
-char *Torque_ref = "machine.torque_ref";
-char *Position_ref = "machine.position_ref";
+const char *Speed_ref = "machine.velocity_ref";
+const char *Torque_ref = "machine.torque_ref";
+const char *Position_ref = "machine.position_ref";
 
-char *Speed = "machine.velocity";
-char *Torque = "machine.torque";
+const char *Speed = "machine.velocity";
+const char *Torque = "machine.torque";
 
-char *Position = "machine.position";
-char *Pos_go = "machine.command.go";
-char *Pos_Home = "machine.command.set_home";
+const char *Position = "machine.position";
+const char *Pos_go = "machine.command.go";
+const char *Go_Home = "machine.command.go_home";
+const char *Pos_Home = "machine.command.set_home";
 
-char *Acceleration = "machine.acceleration";
-char *Deceleration = "machine.deceleration";
+const char *Acceleration = "machine.acceleration";
+const char *Deceleration = "machine.deceleration";
 
-char *Control_Mode = "machine.command.control_mode";
+const char *Control_Mode = "machine.command.control_mode";
 
-char *Device_serial_num = "machine.serialnumber";
-char *Drive_Enable = "status.drive_enable";
-char *Stop = "machine.command.cancel";
+const char *Device_serial_num = "machine.serialnumber";
+const char *Drive_Enable = "status.drive_enable";
+const char *Stop = "machine.command.cancel";
+
 
 /*ENCODER*/
 float encoder0Pos = 0;
 float encoder0Pos_old = 0;
 
 /*CONTRAST*/
-int F_contrast = 0;
+uint8_t F_contrast = 0;
 
 /*MENU*/
-int MODE = 1;
-int MODE_OLD = -1;
+uint8_t MODE = 1;
+uint8_t MODE_OLD = -1;
 
 bool FLAG_MENU = 1;
 bool FLAG_RESOLUTION = 0;
@@ -55,9 +56,8 @@ float ACCELERATION_TARGET = 0;
 float DECELERATION_TARGET = 0;
 float POS_SPEED_TARGET = 0;
 
-int CONTRAST = 5;
-
-int CONTRAST_OLD = 5;
+uint8_t CONTRAST = 5;
+uint8_t CONTRAST_OLD = 5;
 
 float SPEED_GET = 0;
 float TORQUE_GET = 0;
@@ -68,8 +68,8 @@ float DECELERATION_GET = 0;
 float POS_SPEED_GET = 0;
 
 /*RESOLUTION*/
-float RESOLUTION = 1;
-float RESOLUTION_old = 1;
+short RESOLUTION = 1;
+short RESOLUTION_old = 1;
 
 /*CUSTOM CHARACTER*/
 const uint8_t charBitmap[][8] = {
@@ -80,7 +80,7 @@ const uint8_t charBitmap[][8] = {
 bool send_button_push_old = HIGH;
 bool send_state = LOW;
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+const unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 bool SEND = LOW;
 
 /*GET*/
@@ -99,21 +99,18 @@ bool DRIVE_ENABLE;
 
 /*TIME OUT*/
 bool Serial_OK = true;
-unsigned long time_out = 200;
-unsigned long time_ping;
 /*TIMER*/
 unsigned long time_push = 0;
-unsigned long refresh = 1000;
-unsigned long last_refresh = 0;
+const unsigned long refresh = 1000;
+
 
 bool flag = false;
 
 bool MOTOR_OFF;
 unsigned long timer_motor_off;
-unsigned long timer_motor_off_send;
 bool SENS = 1;
 
-unsigned long refresh_set_home = 2000;
+unsigned long refresh_set_home;
 
 
 void setup() {
@@ -159,7 +156,6 @@ void setup() {
 
   lcd.clear ();
   lcd.print("Connexion...");
-  time_ping = millis();
 
   Serial.begin(57600);
   Varmo.sendData(Get, Device_serial_num);
@@ -264,7 +260,6 @@ void loop()
     timer_motor_off = millis();
     lcd.setCursor(1,4);
     lcd.print(" ");
-    timer_motor_off_send = millis();
     MOTOR_OFF = true;
     Varmo.sendData(Set, Stop, true);
   }
@@ -313,6 +308,7 @@ void loop()
         MODE = MODE_POS;
         FLAG_MENU = 1;
         RESOLUTION = 1;
+        break;
       case MODE_TRQ :
         Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
         break;
@@ -341,10 +337,10 @@ void loop()
                    TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET, POS_SPEED_GET,&encoder0Pos);
     menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, 
               &ACCELERATION_TARGET, &DECELERATION_TARGET, &POS_SPEED_TARGET,&encoder0Pos, RESOLUTION);
-    if (MODE_OLD == MODE) {}
+/*    if (MODE_OLD == MODE) {}
     else {
       MODE_OLD = MODE;
-    }
+    }*/
     FLAG_MENU = 0;
   }
 
@@ -461,9 +457,9 @@ void doEncoderB() {
 }
 
 /*##################MENU##################*/
-int menu_set(int MENU)  {
-  int RESOLUTION = 2;
-  int MENU_SELECTOR = int(encoder0Pos);
+uint8_t menu_set(uint8_t MENU)  {
+  uint8_t RESOLUTION = 2;
+  uint8_t MENU_SELECTOR = uint8_t(encoder0Pos);
   lcd.setCursor(0, 0);
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
@@ -511,7 +507,7 @@ int menu_set(int MENU)  {
   return MENU;
 }
 
-float init_resolution(float RESOLUTION, float *encoder0Pos) {
+void init_resolution(short RESOLUTION, float *encoder0Pos) {
   if (RESOLUTION == 0.1){
     *encoder0Pos = 25;
   }
@@ -529,7 +525,7 @@ float init_resolution(float RESOLUTION, float *encoder0Pos) {
   }
 }
 
-float init_resolution_three(float RESOLUTION, float *encoder0Pos) {
+void init_resolution_three(short RESOLUTION, float *encoder0Pos) {
   if (RESOLUTION == 0.1) {
     *encoder0Pos = 20;
   }
@@ -544,9 +540,9 @@ float init_resolution_three(float RESOLUTION, float *encoder0Pos) {
   }
 }
 
-float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
+short resolution_set(short RESOLUTION, bool format, int set_cursor)  {
 
-  int RESOLUTION_SELECTOR = int(encoder0Pos);
+  uint8_t RESOLUTION_SELECTOR = uint8_t(encoder0Pos);
 
   if (RESOLUTION_SELECTOR < 0) {
     encoder0Pos = 0;
@@ -586,9 +582,9 @@ float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
   return RESOLUTION;
 }
 
-float resolution_set_three(float RESOLUTION, int set_cursor)  {
+short resolution_set_three(short RESOLUTION, uint8_t set_cursor)  {
 
-  int RESOLUTION_SELECTOR = int(encoder0Pos);
+  uint8_t RESOLUTION_SELECTOR = uint8_t(encoder0Pos);
 
   if (RESOLUTION_SELECTOR < 0) {
     encoder0Pos = 0;
@@ -620,7 +616,7 @@ float resolution_set_three(float RESOLUTION, int set_cursor)  {
   return RESOLUTION;
 }
 
-void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float *POS_SPEED, float * encoder0Pos, float resolution)  {
+void menu_init(uint8_t MODE, uint8_t *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float *POS_SPEED, float * encoder0Pos, short resolution)  {
   switch (MODE) {
     /*case 0:
       *encoder0Pos = *CONTRAST * 4;
@@ -651,12 +647,13 @@ void menu_init(int MODE, int *CONTRAST, float *POSITION, float * TORQUE, float *
     case MODE_POS_SPD :
       *encoder0Pos = *POS_SPEED /resolution;
       Varmo.sendData(Set, Control_Mode, (unsigned int)3);
+      break;
   }
 }
 
 /*##################LCD PRINT##################*/
 
-void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION, float POS_SPEED, 
+void lcd_print_menu(uint8_t *MODE, uint8_t CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION, float POS_SPEED, 
                     float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float pos_speed_get, float *encoder0Pos)  {
   lcd.clear();
   lcd.setCursor(0,0);
@@ -673,7 +670,7 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
         lcd_print_abs_float_value_three(pos_speed_get, POS_SPEED);
         lcd.setCursor(1,12);
         lcd.print("cm/s");
-      break;
+        break;
       }
       else {  
         *encoder0Pos = POSITION_TARGET;
@@ -722,7 +719,7 @@ void lcd_print_menu(int *MODE, int CONTRAST, float POSITION, float TORQUE, float
   }
 }
 
-void lcd_print_contrast_value(int CONTRAST) {
+void lcd_print_contrast_value(uint8_t CONTRAST) {
   lcd.setCursor(1, 3);
   lcd.print("          ");
   lcd.setCursor(1, 2);
@@ -884,14 +881,14 @@ void lcd_print_pos(float value1, float value2, float value3, bool motor) {
 }
 
 /*##################CONVERTER##################*/
-void contrast_convert(int *CONTRAST, int *F_contrast, float * encoder0Pos) {
-  int resolution = 10;
-  int sensibility = 4;
-  int  value = *CONTRAST;
-  value = int(*encoder0Pos / sensibility );
+void contrast_convert(uint8_t *CONTRAST, uint8_t *F_contrast, float * encoder0Pos) {
+  uint8_t resolution = 10;
+  uint8_t sensibility = 4;
+  uint8_t  value = *CONTRAST;
+  value = uint8_t(*encoder0Pos / sensibility );
   if (value >= 0 && value <= 10)  {
     *CONTRAST = value;
-    *F_contrast = int( 25.5 * value);
+    *F_contrast = uint8_t( 25.5 * value);
   }
   else if (value > 10)  {
     *encoder0Pos = resolution * sensibility;
@@ -901,7 +898,7 @@ void contrast_convert(int *CONTRAST, int *F_contrast, float * encoder0Pos) {
   }
 }
 
-void converter(float *value, float *encoder0Pos, float resolution, bool sens, float max){
+void converter(float *value, float *encoder0Pos, short resolution, bool sens, float max){
   float temp = *encoder0Pos * resolution;
   if (temp > 0 && temp < max) {
     if (sens == HIGH)  {
@@ -926,7 +923,7 @@ void converter(float *value, float *encoder0Pos, float resolution, bool sens, fl
   }
 }
 
-void converter_abs(float *value, float *encoder0Pos, float resolution, float max){
+void converter_abs(float *value, float *encoder0Pos, short resolution, float max){
   float temp = *encoder0Pos * resolution;
   if (temp > 0 && temp < max) {
     *value = temp;
