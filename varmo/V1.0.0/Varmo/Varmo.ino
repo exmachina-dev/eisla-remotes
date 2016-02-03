@@ -68,8 +68,8 @@ float DECELERATION_GET = 0;
 float POS_SPEED_GET = 0;
 
 /*RESOLUTION*/
-short RESOLUTION = 1;
-short RESOLUTION_old = 1;
+float RESOLUTION = 1;
+float RESOLUTION_old = 1;
 
 /*CUSTOM CHARACTER*/
 const uint8_t charBitmap[][8] = {
@@ -295,48 +295,6 @@ void loop()
     }
     send_button_push_old = send_button_push;
   }
-/*
-  if (SEND == HIGH) {
-    SEND = LOW;
-    switch (MODE)  {
-      case MODE_POS :
-        SEND = LOW;
-        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
-        Varmo.sendData(Set, Pos_go, true);
-        break;
-      case MODE_POS_SPD:
-        SEND = LOW;
-        Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
-        MODE = MODE_POS;
-        FLAG_MENU = 1;
-        RESOLUTION = 1;
-        break;
-      case MODE_TRQ :
-        SEND = LOW;
-        Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
-        break;
-      case MODE_SPD :
-        SEND = LOW;
-        Varmo.sendData(Set, Speed_ref, SPEED_TARGET);
-        break;
-      case MODE_HOME :
-        SEND = LOW;
-        Varmo.sendData(Set, Pos_Home, true);
-        lcd.setCursor(1,0);
-        lcd.print("New home pos    ");
-        refresh_set_home = millis();
-        break;
-      case MODE_ACC :
-        SEND = LOW;
-        Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
-        break;
-      case MODE_DEC :
-        SEND = LOW;
-        Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
-        break;
-
-    }
-  }*/
 
   /*###############################REFRESH MENU###############################*/
   if (FLAG_MENU == 1)  {
@@ -344,10 +302,7 @@ void loop()
                    TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET, POS_SPEED_GET,&encoder0Pos);
     menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, 
               &ACCELERATION_TARGET, &DECELERATION_TARGET, &POS_SPEED_TARGET,&encoder0Pos, RESOLUTION);
-/*    if (MODE_OLD == MODE) {}
-    else {
-      MODE_OLD = MODE;
-    }*/
+
     FLAG_MENU = 0;
   }
 
@@ -358,28 +313,24 @@ void loop()
   }
 
   switch (MODE)  {
-    /*case 0 :
-      contrast_convert(&CONTRAST, &F_contrast, &encoder0Pos);
-      if (CONTRAST != CONTRAST_OLD) {
-        CONTRAST_OLD = CONTRAST;
-        lcd_print_contrast_value(CONTRAST);
-        analogWrite(CONTRAST_PWM, F_contrast);
-      }
-      break;*/
+
     case MODE_POS :
+
       if (SEND == HIGH){
         SEND = LOW;
         Varmo.sendData(Set, Position_ref, POSITION_TARGET);
         Varmo.sendData(Set, Pos_go, true);
       }
       converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
-      lcd_print_pos(POS_SPEED_TARGET, POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
+      lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
       if (MOTOR_OFF == true){
         lcd.setCursor(1,4);
         lcd.print(" ");
       }
       break;
+
     case MODE_POS_SPD :
+
       if (SEND == HIGH){
         SEND = LOW;
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
@@ -390,7 +341,9 @@ void loop()
       converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 99.9);
       lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
       break;
+
     case MODE_TRQ :
+
       if (SEND == HIGH){
         SEND = LOW;
         Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
@@ -402,7 +355,9 @@ void loop()
         lcd.print(" ");
       }
       break;
+
     case MODE_SPD :
+
       if (SEND == HIGH){
         SEND = LOW;
         Varmo.sendData(Set, Speed_ref, SPEED_TARGET);
@@ -414,7 +369,9 @@ void loop()
         lcd.print(" ");
       }
       break;
+
     case MODE_HOME :
+
       if (SEND == HIGH){
         SEND = LOW;
         Varmo.sendData(Set, Pos_Home, true);
@@ -428,7 +385,9 @@ void loop()
         lcd.print("                ");
       }
       break;
+
     case MODE_ACC :
+
       if (SEND == HIGH){
         SEND = LOW;
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
@@ -436,7 +395,9 @@ void loop()
       converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
       lcd_print_abs_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
       break;
+
     case MODE_DEC :
+    
       if (SEND == HIGH){
         SEND = LOW;
         Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
@@ -445,6 +406,7 @@ void loop()
       lcd_print_abs_float_value(DECELERATION_GET, DECELERATION_TARGET);
       break;
   }
+
 
 }
 
@@ -501,16 +463,18 @@ void doEncoderB() {
 /*##################MENU##################*/
 uint8_t menu_set(uint8_t MENU)  {
   uint8_t RESOLUTION = 2;
-  uint8_t MENU_SELECTOR = uint8_t(encoder0Pos);
+  int8_t MENU_SELECTOR = int8_t(encoder0Pos);
   lcd.setCursor(0, 0);
   lcd.print("Menu            ");
   lcd.setCursor(1, 0);
 
-  if (MENU_SELECTOR < 0){
+  if (MENU_SELECTOR <= 0){
     encoder0Pos = 0;
+    MENU_SELECTOR =0;
   }
-  else if (MENU_SELECTOR > (RESOLUTION * 7)) {
+  else if (MENU_SELECTOR >= (RESOLUTION * 7)) {
     encoder0Pos = RESOLUTION * 7;
+    MENU_SELECTOR = RESOLUTION *7;
   }
 
   if (MENU_SELECTOR <= RESOLUTION )  {
@@ -541,15 +505,10 @@ uint8_t menu_set(uint8_t MENU)  {
     lcd.print("Torque          ");
     MENU = MODE_TRQ;
   }
-  /*
-  else if (MENU_SELECTOR <= RESOLUTION * 7)  {
-    lcd.print("Contrast        ");
-    MENU = 0;
-  }*/
   return MENU;
 }
 
-void init_resolution(short RESOLUTION, float *encoder0Pos) {
+void init_resolution(float RESOLUTION, float *encoder0Pos) {
   if (RESOLUTION == 0.1){
     *encoder0Pos = 25;
   }
@@ -567,7 +526,7 @@ void init_resolution(short RESOLUTION, float *encoder0Pos) {
   }
 }
 
-void init_resolution_three(short RESOLUTION, float *encoder0Pos) {
+void init_resolution_three(float RESOLUTION, float *encoder0Pos) {
   if (RESOLUTION == 0.1) {
     *encoder0Pos = 20;
   }
@@ -582,18 +541,21 @@ void init_resolution_three(short RESOLUTION, float *encoder0Pos) {
   }
 }
 
-short resolution_set(short RESOLUTION, bool format, int set_cursor)  {
+float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
 
   uint8_t RESOLUTION_SELECTOR = uint8_t(encoder0Pos);
 
   if (RESOLUTION_SELECTOR < 0) {
     encoder0Pos = 0;
+    RESOLUTION_SELECTOR = 0;
   }
   else if (RESOLUTION_SELECTOR > 25){
     encoder0Pos = 25;
+    RESOLUTION_SELECTOR = 25;
   }
   else if (format == 0 && RESOLUTION_SELECTOR > 20) {
     encoder0Pos = 20; 
+    RESOLUTION_SELECTOR = 20;
   }
 
   if (RESOLUTION_SELECTOR <= 5)  {
@@ -624,7 +586,7 @@ short resolution_set(short RESOLUTION, bool format, int set_cursor)  {
   return RESOLUTION;
 }
 
-short resolution_set_three(short RESOLUTION, uint8_t set_cursor)  {
+float resolution_set_three(float RESOLUTION, uint8_t set_cursor)  {
 
   uint8_t RESOLUTION_SELECTOR = uint8_t(encoder0Pos);
 
@@ -658,7 +620,7 @@ short resolution_set_three(short RESOLUTION, uint8_t set_cursor)  {
   return RESOLUTION;
 }
 
-void menu_init(uint8_t MODE, uint8_t *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float *POS_SPEED, float * encoder0Pos, short resolution)  {
+void menu_init(uint8_t MODE, uint8_t *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float *POS_SPEED, float * encoder0Pos, float resolution)  {
   switch (MODE) {
     /*case 0:
       *encoder0Pos = *CONTRAST * 4;
@@ -675,7 +637,7 @@ void menu_init(uint8_t MODE, uint8_t *CONTRAST, float *POSITION, float * TORQUE,
       break;
     case MODE_SPD:
       *encoder0Pos = *SPEED / resolution;
-      Varmo.sendData(Set, Control_Mode, (unsigned int)2);
+      Varmo.sendData(Set, Control_Mode, (unsigned int)1);
 
       break;
     case MODE_HOME:
@@ -694,6 +656,7 @@ void menu_init(uint8_t MODE, uint8_t *CONTRAST, float *POSITION, float * TORQUE,
 }
 
 /*##################LCD PRINT##################*/
+
 
 void lcd_print_menu(uint8_t *MODE, uint8_t CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION, float POS_SPEED, 
                     float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float pos_speed_get, float *encoder0Pos)  {
@@ -717,7 +680,7 @@ void lcd_print_menu(uint8_t *MODE, uint8_t CONTRAST, float POSITION, float TORQU
       else {  
         *encoder0Pos = POSITION_TARGET;
         lcd.print("Set Position");
-        lcd_print_pos(position_get, POSITION, SPEED,MOTOR_OFF);
+        lcd_print_pos(POSITION, SPEED,MOTOR_OFF);
         break;
       }
     case MODE_TRQ:
@@ -902,16 +865,16 @@ void lcd_print_vit_pos(float value1, float value2) {
   lcd_print_int_align_right(int(value2));
 }
 
-void lcd_print_pos(float value1, float value2, float value3, bool motor) {
+void lcd_print_pos(float value1, float value2, bool motor) {
   lcd.setCursor(1,0);
   lcd.print("Tgt:");
   if (motor == false) {
-    lcd_print_sign(value2);
+    lcd_print_sign(value1);
   }
   else if (motor == true){
     lcd.print(" ");
   }
-  lcd_print_float_align_right(value2);
+  lcd_print_float_align_right(value1);
 
   lcd.setCursor(1,11);
   lcd.print(" ");
@@ -919,7 +882,7 @@ void lcd_print_pos(float value1, float value2, float value3, bool motor) {
   lcd.setCursor(1,12);
   lcd.print("S:");
   lcd.setCursor(1,14);
-  lcd_print_int_align_right_two(int(value1));
+  lcd_print_int_align_right_two(int(value2));
 }
 
 /*##################CONVERTER##################*/
@@ -940,7 +903,7 @@ void contrast_convert(uint8_t *CONTRAST, uint8_t *F_contrast, float * encoder0Po
   }
 }
 
-void converter(float *value, float *encoder0Pos, short resolution, bool sens, float max){
+void converter(float *value, float *encoder0Pos, float resolution, bool sens, float max){
   float temp = *encoder0Pos * resolution;
   if (temp > 0 && temp < max) {
     if (sens == HIGH)  {
@@ -965,7 +928,7 @@ void converter(float *value, float *encoder0Pos, short resolution, bool sens, fl
   }
 }
 
-void converter_abs(float *value, float *encoder0Pos, short resolution, float max){
+void converter_abs(float *value, float *encoder0Pos, float resolution, float max){
   float temp = *encoder0Pos * resolution;
   if (temp > 0 && temp < max) {
     *value = temp;
