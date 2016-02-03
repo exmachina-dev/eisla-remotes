@@ -115,7 +115,6 @@ unsigned long refresh_set_home;
 
 void setup() {
 
-  pinMode(13, OUTPUT);
   //ENCODER INITIALISATION
   pinMode(encoder0PinA, INPUT);
   pinMode(encoder0PinB, INPUT);
@@ -135,7 +134,6 @@ void setup() {
   pinMode(DIRECTION_1, INPUT);
   pinMode(DIRECTION_2, INPUT);
 
-  analogWrite(CONTRAST_PWM, 0);
   //LCD INITIALISATION
   lcd.init ();
   lcd.clear ();
@@ -405,6 +403,7 @@ void loop()
       converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
       lcd_print_abs_float_value(DECELERATION_GET, DECELERATION_TARGET);
       break;
+
   }
 
 
@@ -470,11 +469,11 @@ uint8_t menu_set(uint8_t MENU)  {
 
   if (MENU_SELECTOR <= 0){
     encoder0Pos = 0;
-    MENU_SELECTOR =0;
+    //MENU_SELECTOR =0;
   }
   else if (MENU_SELECTOR >= (RESOLUTION * 7)) {
     encoder0Pos = RESOLUTION * 7;
-    MENU_SELECTOR = RESOLUTION *7;
+    //MENU_SELECTOR = RESOLUTION *7;
   }
 
   if (MENU_SELECTOR <= RESOLUTION )  {
@@ -505,6 +504,7 @@ uint8_t menu_set(uint8_t MENU)  {
     lcd.print("Torque          ");
     MENU = MODE_TRQ;
   }
+
   return MENU;
 }
 

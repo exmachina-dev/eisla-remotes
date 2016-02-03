@@ -54,6 +54,8 @@ const uint8_t MODE_DEC = 5;
 const uint8_t MODE_SPD = 6;
 const uint8_t MODE_TRQ = 7;
 
+const uint8_t MODE_CUE = 8;
+
 /*####################OBJECT####################*/
 
 ST7036 lcd = ST7036 ( 2, 16, 0x78 );
