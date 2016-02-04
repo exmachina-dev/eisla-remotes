@@ -88,17 +88,11 @@ Device Varmo = Device();
 void setup();
 void loop();
 
-void serialEvent();
-
 void doEncoderA();
 void doEncoderB();
 
-uint8_t menu_set(uint8_t MENU);
 float resolution_set(float RESOLUTION); 
-void menu_init(uint8_t MODE, uint8_t *CONTRAST, float *POSITION, float * TORQUE, float * SPEED, float *HOME_POSITION, float *ACCELERATION, float *DECELERATION, float * encoder0Pos, float resolution);
 
-void lcd_print_menu(uint8_t *MODE, uint8_t CONTRAST, float POSITION, float TORQUE, float SPEED, float HOME_POSITION, float ACCELERATION, float DECELERATION, float POS_SPEED, 
-					float torque_get, float speed_get, float position_get, float home_position_get, float acceleration_get, float decelaration_get, float pos_speed_get, float *encoder0Pos);
 void lcd_print_contrast_value(short CONTRAST);
 void lcd_print_sign(float value);
 void lcd_print_float_align_right(float value);
