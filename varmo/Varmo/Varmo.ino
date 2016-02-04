@@ -401,6 +401,7 @@ void loop()
         SEND = LOW;
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
         on_pos_selected(0);
+        break;
       }
       converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 99.9);
       lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
