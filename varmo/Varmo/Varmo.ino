@@ -911,10 +911,15 @@ void on_dec_selected(MenuItem* p_menu_item) {
 
 void on_pos_selected(MenuItem* p_menu_item) {
   lcd.clear();
-  encoder0Pos = POSITION_TARGET;
-  lcd.print("Set Position");
-  lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET,MOTOR_OFF);
-  MODE = MODE_POS;
+  if (POS_SPEED_TARGET != 0){
+    encoder0Pos = POSITION_TARGET;
+    lcd.print("Set Position");
+    lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET,MOTOR_OFF);
+    MODE = MODE_POS;
+  }
+  else{
+    on_pos_speed_selected(0);
+  }
 }
 
 void on_pos_speed_selected(MenuItem* p_menu_item) {
