@@ -36,7 +36,7 @@
 
 /*####################PROTCOL KEYS WORDS####################*/
 
-#define VARMO_VERSION     "Varmo V1.0.0"
+#define VARMO_VERSION     "Varmo V1.1.0"
 #define SERIAL_NUMBER     "0116VARM0001"
 #define PROTOCOL          "ExmEisla"
 #define ARMAZ_ID          "0000"
@@ -67,8 +67,9 @@ Menu mu3("Torque Mode");
 
 MenuItem mu1_mi1("Set Position");
 MenuItem mu1_mi2("Set Speed");
-MenuItem mu1_mi3("Set Acceleration");
-MenuItem mu1_mi4("Set Decceleration");
+MenuItem mu1_mi3("Set Home");
+MenuItem mu1_mi4("Set Acceleration");
+MenuItem mu1_mi5("Set Deceleration");
 
 MenuItem mu2_mi1("Set Speed");
 MenuItem mu2_mi2("Set Acceleration");
