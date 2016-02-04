@@ -12,7 +12,7 @@
 #include "ST7036.h"
 #include <Wire.h>
 #include <protocol.h>
-
+#include <MenuSystem.h>
 /*####################PIN ASIGNMENTS####################*/
 
 /*ENCODER*/
@@ -55,6 +55,28 @@ const uint8_t MODE_SPD = 6;
 const uint8_t MODE_TRQ = 7;
 
 const uint8_t MODE_CUE = 8;
+
+
+// Menu variables
+MenuSystem ms;
+Menu mm("ROOT Menu Title");
+Menu mu1("Position Mode");
+Menu mu2("Speed Mode");
+Menu mu3("Torque Mode");
+
+
+MenuItem mu1_mi1("Set Position");
+MenuItem mu1_mi2("Set Speed");
+MenuItem mu1_mi3("Set Acceleration");
+MenuItem mu1_mi4("Set Decceleration");
+
+MenuItem mu2_mi1("Set Speed");
+MenuItem mu2_mi2("Set Acceleration");
+MenuItem mu2_mi3("Set Deceleration");
+
+MenuItem mu3_mi1("Set Torque");
+MenuItem mu3_mi2("Set Torque rise");
+MenuItem mu3_mi3("Set Torque Fall");
 
 /*####################OBJECT####################*/
 

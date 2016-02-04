@@ -3,7 +3,7 @@
 #include <Wire.h>
 #include <protocol.h>
 #include "./Varmo.h"
-
+#include <MenuSystem.h>
 
 
 const char *Get = "machine.get";
@@ -39,7 +39,7 @@ float encoder0Pos_old = 0;
 uint8_t F_contrast = 0;
 
 /*MENU*/
-uint8_t MODE = 1;
+uint8_t MODE = 0;
 uint8_t MODE_OLD = -1;
 
 bool FLAG_MENU = 1;
@@ -134,6 +134,29 @@ void setup() {
   pinMode(DIRECTION_1, INPUT);
   pinMode(DIRECTION_2, INPUT);
 
+  mm.add_menu(&mu1);
+  mm.add_menu(&mu2);
+  mm.add_menu(&mu3);
+
+
+  mu1.add_item(&mu1_mi1, &on_pos_selected);
+  mu1.add_item(&mu1_mi2, &on_speed_selected);
+  mu1.add_item(&mu1_mi3, &on_acc_selected);
+  mu1.add_item(&mu1_mi4, &on_dec_selected);
+
+  mu2.add_item(&mu2_mi1, &on_speed_selected);
+  mu2.add_item(&mu2_mi2, &on_acc_selected);
+  mu2.add_item(&mu2_mi3, &on_dec_selected);
+
+  mu3.add_item(&mu3_mi1, &on_torque_selected);
+  mu3.add_item(&mu3_mi2, &on_torque_rise_selected);
+  mu3.add_item(&mu3_mi3, &on_torque_fall_selected);
+
+  ms.set_root_menu(&mm);
+  FLAG_MENU = 1;
+  displayMenu();
+
+
   //LCD INITIALISATION
   lcd.init ();
   lcd.clear ();
@@ -169,7 +192,7 @@ void loop()
 
   /*###############################MENU###############################*/
   int encoder_push = digitalRead(encoderE);
-  if (encoder_push == LOW)  {
+  /*if (encoder_push == LOW)  {
 
     encoder_push = digitalRead(encoderE);
     time_push = millis();
@@ -200,6 +223,39 @@ void loop()
           FLAG_MENU = 1;
           Mode_chosen = 1;
         }
+      }
+    }*/
+
+  if (encoder_push == LOW )  {
+
+    encoder_push = digitalRead(encoderE);
+    time_push = millis();
+    FLAG_MENU = 0;
+
+    while (encoder_push != HIGH && FLAG_MENU == 0)  {
+      encoder_push = digitalRead(encoderE);
+      if ((millis() - time_push)  > 500 )  {
+        FLAG_MENU = 1;
+      }
+
+    }
+
+    if (FLAG_MENU == 0 && MODE==0){
+      ms.select();
+      displayMenu();
+      FLAG_MENU = 1;
+    }
+    else if (FLAG_MENU == 1){
+      if (MODE != 0){
+        displayMenu();
+        MODE = 0;
+      }
+      else {
+        ms.back();
+        displayMenu();
+      }
+      while(encoder_push != HIGH){
+        encoder_push = digitalRead(encoderE);
       }
     }
     else  {
@@ -295,12 +351,20 @@ void loop()
   }
 
   /*###############################REFRESH MENU###############################*/
-  if (FLAG_MENU == 1)  {
+  /*if (FLAG_MENU == 1)  {
     lcd_print_menu(&MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, POS_SPEED_TARGET,
                    TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET, POS_SPEED_GET,&encoder0Pos);
     menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, 
               &ACCELERATION_TARGET, &DECELERATION_TARGET, &POS_SPEED_TARGET,&encoder0Pos, RESOLUTION);
 
+    FLAG_MENU = 0;
+  }*/
+  if (FLAG_MENU ==1){
+    moveMenu();
+    encoder0Pos_old = encoder0Pos;
+  }
+
+  if (MODE != 0){
     FLAG_MENU = 0;
   }
 
@@ -941,4 +1005,79 @@ void converter_abs(float *value, float *encoder0Pos, float resolution, float max
     *value = 0;
     *encoder0Pos = 0;
   }
+}
+
+void moveMenu(){
+  if (encoder0Pos - encoder0Pos_old >= 2 ){
+    ms.next();
+    displayMenu();
+  }
+  else if(encoder0Pos - encoder0Pos_old <= -2){
+    ms.prev();
+    displayMenu();
+  }
+}
+
+void displayMenu() {
+  lcd.clear();
+  lcd.setCursor(0,0);
+  // Display the menu
+  Menu const* cp_menu = ms.get_current_menu();
+  lcd.print(cp_menu->get_selected()->get_name());
+}
+
+void on_speed_selected(MenuItem* p_menu_item)
+{
+  lcd.clear();
+  lcd.print("Speed Sel");
+  MODE = 1;
+  //delay(1000);
+}
+
+void on_acc_selected(MenuItem* p_menu_item)
+{
+  lcd.clear();
+  lcd.print("Acceleration Sel");
+  MODE = 2;
+  //delay(1000);
+}
+
+void on_dec_selected(MenuItem* p_menu_item)
+{
+  lcd.clear();
+  lcd.print("Deceleration Sel");
+  MODE = 3;
+  //delay(1000);
+}
+
+void on_pos_selected(MenuItem* p_menu_item)
+{
+  lcd.clear();
+  lcd.print("Position Sel");
+  MODE = 4;
+  //delay(1000);
+}
+
+void on_torque_selected(MenuItem* p_menu_item)
+{
+  lcd.clear();
+  lcd.print("Torque Sel");
+  MODE = 4;
+  //delay(1000);
+}
+
+void on_torque_fall_selected(MenuItem* p_menu_item)
+{
+  lcd.clear();
+  lcd.print("Torque Fall Sel");
+  MODE = 5;
+  //delay(1000);
+
+}
+void on_torque_rise_selected(MenuItem* p_menu_item)
+{
+  lcd.clear();
+  lcd.print("Torque rise Sel");
+  MODE = 6;
+  //delay(1000);
 }
