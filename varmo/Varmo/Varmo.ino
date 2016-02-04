@@ -181,6 +181,7 @@ void setup() {
   Varmo.sendData(Get, Device_serial_num);
   delay(50);
   Varmo.sendData(Get, Device_serial_num);
+  displayMenu();
 }
 
 void loop()
@@ -294,8 +295,6 @@ void loop()
 
   if (FLAG_MENU == 1){
     moveMenu();
-    lcd.setCursor(1,15);
-    lcd.print("1");
     encoder0Pos_old = encoder0Pos;
   }
 
