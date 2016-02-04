@@ -209,14 +209,14 @@ void loop()
 
     if (FLAG_MENU == 0 && MODE==0){
       Menu const* cp_menu = ms.get_current_menu();
-      if (cp_menu->get_selected()->get_name() == "Position Mode"){
-
+       if (cp_menu->get_selected()->get_name() == "Position Mode"){
+        Varmo.sendData(Set, Control_Mode, (unsigned int) 3);
       }
       else if (cp_menu->get_selected()->get_name() == "Speed Mode"){
-
+        Varmo.sendData(Set, Control_Mode, (unsigned int) 2);
       }
       else if (cp_menu->get_selected()->get_name() == "Torque Mode"){
-
+        Varmo.sendData(Set, Control_Mode, (unsigned int) 1);
       }
       ms.select();
       if (MODE == 0){
