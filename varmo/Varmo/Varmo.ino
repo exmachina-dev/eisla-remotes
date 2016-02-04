@@ -192,39 +192,6 @@ void loop()
   
   /*###############################MENU###############################*/
   int encoder_push = digitalRead(encoderE);
-  /*if (encoder_push == LOW)  {
-
-    encoder_push = digitalRead(encoderE);
-    time_push = millis();
-    Mode_chosen = 0;
-    while (encoder_push != HIGH && Mode_chosen == 0)  {
-      encoder_push = digitalRead(encoderE);
-      if ((millis() - time_push)  > 500 )  {
-        Mode_chosen = 1;
-      }
-    }
-
-    if (Mode_chosen == 1)  {
-      Mode_chosen = 0;
-      encoder0Pos = MODE * 2;
-      MODE = menu_set(MODE);
-      while (encoder_push != HIGH)  {
-        encoder_push = digitalRead(encoderE);
-      }
-      while (Mode_chosen == 0) {
-        MODE = menu_set(MODE);
-        encoder_push = digitalRead(encoderE);
-        if (encoder_push == LOW)  {
-          encoder_push = digitalRead(encoderE);
-          while (encoder_push != HIGH)  {
-            encoder_push = digitalRead(encoderE);
-          }
-          RESOLUTION = 1;
-          FLAG_MENU = 1;
-          Mode_chosen = 1;
-        }
-      }
-    }*/
 
   if (encoder_push == LOW )  {
 
@@ -241,6 +208,16 @@ void loop()
     }
 
     if (FLAG_MENU == 0 && MODE==0){
+      Menu const* cp_menu = ms.get_current_menu();
+      if (cp_menu->get_selected()->get_name() == "Position Mode"){
+
+      }
+      else if (cp_menu->get_selected()->get_name() == "Speed Mode"){
+
+      }
+      else if (cp_menu->get_selected()->get_name() == "Torque Mode"){
+
+      }
       ms.select();
       if (MODE == 0){
         displayMenu();
