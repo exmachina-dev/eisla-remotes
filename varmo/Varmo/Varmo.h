@@ -47,7 +47,10 @@ const uint8_t MODE_DEC = 5;
 const uint8_t MODE_SPD = 6;
 const uint8_t MODE_TRQ = 7;
 
-const uint8_t MODE_CUE = 8;
+const uint8_t MODE_PLAY_CUE = 8;
+const uint8_t MODE_REC_CUE = 9;
+const uint8_t MODE_MOD_CUE = 10;
+const uint8_t MODE_DEL_CUE = 11;
 
 
 // Menu variables
@@ -66,6 +69,7 @@ MenuItem mu1_mu4_mi1("Play Cue");
 MenuItem mu1_mu4_mi2("Rec Cue");
 MenuItem mu1_mu4_mi3("Mod Cue");
 MenuItem mu1_mu4_mi4("Del Cue");
+MenuItem mu1_mu4_mi5("Back");
 MenuItem mu1_mi5("Set Acceleration");
 MenuItem mu1_mi6("Set Deceleration");
 MenuItem mu1_mi7("Back");

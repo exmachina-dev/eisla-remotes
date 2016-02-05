@@ -122,6 +122,7 @@ void setup() {
   mu1_mu4.add_item(&mu1_mu4_mi2, &on_rec_cue_selected);
   mu1_mu4.add_item(&mu1_mu4_mi3, &on_mod_cue_selected);
   mu1_mu4.add_item(&mu1_mu4_mi4, &on_del_cue_selected);
+  mu1_mu4.add_item(&mu1_mu4_mi5, &on_back_selected);
   mu1.add_item(&mu1_mi5, &on_acc_selected);
   mu1.add_item(&mu1_mi6, &on_dec_selected);
   mu1.add_item(&mu1_mi7, &on_back_selected);
@@ -896,13 +897,13 @@ void on_torque_selected(MenuItem* p_menu_item)  {
 void on_torque_fall_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Torque Fall Sel");
-  MODE = 9;
+  MODE =20;
 }
 
 void on_torque_rise_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Torque rise Sel");
-  MODE = 10;
+  MODE = 21;
 }
 
 void on_back_selected(MenuItem* p_menu_item) {
@@ -912,23 +913,23 @@ void on_back_selected(MenuItem* p_menu_item) {
 void on_play_cue_selected(MenuItem* p_menu_item)  {
   lcd.clear();
   lcd.print("Play cue");
-  MODE = 11;  
+  MODE = MODE_PLAY_CUE;  
 }
 
 void on_rec_cue_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Rec cue");
-  MODE = 12;
+  MODE = MODE_REC_CUE;
 }
 
 void on_mod_cue_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Mod cue");
-  MODE = 13;
+  MODE = MODE_MOD_CUE;
 }
 
 void on_del_cue_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Del cue");
-  MODE = 14;
+  MODE = MODE_DEL_CUE;
 }
