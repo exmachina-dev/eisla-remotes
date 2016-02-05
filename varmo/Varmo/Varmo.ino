@@ -143,14 +143,17 @@ void setup() {
   mu1.add_item(&mu1_mi3, &on_home_selected);
   mu1.add_item(&mu1_mi4, &on_acc_selected);
   mu1.add_item(&mu1_mi5, &on_dec_selected);
+  mu1.add_item(&mu1_mi6, &on_back_selected);
 
   mu2.add_item(&mu2_mi1, &on_speed_selected);
   mu2.add_item(&mu2_mi2, &on_acc_selected);
   mu2.add_item(&mu2_mi3, &on_dec_selected);
+  mu2.add_item(&mu2_mi4,&on_back_selected);
 
   mu3.add_item(&mu3_mi1, &on_torque_selected);
   mu3.add_item(&mu3_mi2, &on_torque_rise_selected);
   mu3.add_item(&mu3_mi3, &on_torque_fall_selected);
+  mu3.add_item(&mu3_mi4, &on_back_selected);
 
   ms.set_root_menu(&mm);
   FLAG_MENU = 1;
@@ -935,4 +938,8 @@ void on_torque_rise_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Torque rise Sel");
   MODE = 10;
+}
+
+void on_torque_rise_selected(MenuItem* p_menu_item) {
+  ms.back();
 }
