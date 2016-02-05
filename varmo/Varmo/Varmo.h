@@ -1,10 +1,3 @@
-/*
-
-  ExmEisla0116ARCP0001alive
-  ExmEisla0116ARCP0001alive:ok
-  ExmEisla0116ARCP0001get.speed:595
-
-*/
 
 #ifndef VARMO_H_INCLUDED
 #define VARMO_H_INCLUDED
@@ -68,16 +61,24 @@ Menu mu3("Torque Mode");
 MenuItem mu1_mi1("Set Position");
 MenuItem mu1_mi2("Set Speed");
 MenuItem mu1_mi3("Set Home");
-MenuItem mu1_mi4("Set Acceleration");
-MenuItem mu1_mi5("Set Deceleration");
+Menu mu1_mu4("Cue Mode");
+MenuItem mu1_mu4_mi1("Play Cue");
+MenuItem mu1_mu4_mi2("Rec Cue");
+MenuItem mu1_mu4_mi3("Mod Cue");
+MenuItem mu1_mu4_mi4("Del Cue");
+MenuItem mu1_mi5("Set Acceleration");
+MenuItem mu1_mi6("Set Deceleration");
+MenuItem mu1_mi7("Back");
 
 MenuItem mu2_mi1("Set Speed");
 MenuItem mu2_mi2("Set Acceleration");
 MenuItem mu2_mi3("Set Deceleration");
+MenuItem mu2_mi4("Back");
 
 MenuItem mu3_mi1("Set Torque");
 MenuItem mu3_mi2("Set Torque rise");
 MenuItem mu3_mi3("Set Torque Fall");
+MenuItem mu3_mi4("Back");
 
 /*####################OBJECT####################*/
 

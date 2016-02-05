@@ -70,11 +70,6 @@ float POS_SPEED_GET = 0;
 float RESOLUTION = 1;
 float RESOLUTION_old = 1;
 
-/*CUSTOM CHARACTER*/
-const uint8_t charBitmap[][8] = {
-  { 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F, 0x1F },
-};
-
 /*SEND*/
 bool send_button_push_old = HIGH;
 bool send_state = LOW;
@@ -82,28 +77,9 @@ unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
 const unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 bool SEND = LOW;
 
-/*GET*/
-/*byte incoming_buffer[10];
-byte packets_buffer[150];
-Packet new_packet;
-int pac_buf_pos;
-bool packet_complet;
-int inc_buf_size;*/
-
-/*LED STATUS*/
-/*bool LED_1_STATUS;
-bool LED_2_STATUS;*/
-
-//bool DRIVE_ENABLE;
-
-/*TIME OUT*/
-bool Serial_OK = true;
 /*TIMER*/
 unsigned long time_push = 0;
 const unsigned long refresh = 1000;
-
-
-bool flag = false;
 
 bool MOTOR_OFF;
 unsigned long timer_motor_off;
@@ -141,9 +117,14 @@ void setup() {
   mu1.add_item(&mu1_mi1, &on_pos_selected);
   mu1.add_item(&mu1_mi2, &on_pos_speed_selected);
   mu1.add_item(&mu1_mi3, &on_home_selected);
-  mu1.add_item(&mu1_mi4, &on_acc_selected);
-  mu1.add_item(&mu1_mi5, &on_dec_selected);
-  mu1.add_item(&mu1_mi6, &on_back_selected);
+  mu1.add_menu(&mu1_mu4);
+  mu1_mu4.add_item(&mu1_mu4_mi1, &on_play_cue_selected);
+  mu1_mu4.add_item(&mu1_mu4_mi2, &on_rec_cue_selected);
+  mu1_mu4.add_item(&mu1_mu4_mi3, &on_mod_cue_selected);
+  mu1_mu4.add_item(&mu1_mu4_mi4, &on_del_cue_selected);
+  mu1.add_item(&mu1_mi5, &on_acc_selected);
+  mu1.add_item(&mu1_mi6, &on_dec_selected);
+  mu1.add_item(&mu1_mi7, &on_back_selected);
 
   mu2.add_item(&mu2_mi1, &on_speed_selected);
   mu2.add_item(&mu2_mi2, &on_acc_selected);
@@ -167,13 +148,6 @@ void setup() {
   lcd.setCursor(1, 0);
   lcd.print(VARMO_VERSION);
   delay(3000);
-
-  // Load Custom Character
-  int charBitmapSize = (sizeof(charBitmap ) / sizeof (charBitmap[0]));
-  // Load custom character set into CGRAM
-  for (int i = 0; i < charBitmapSize; i++ )  {
-    lcd.load_custom_character ( i, (uint8_t *)charBitmap[i] );
-  }
 
   //SERIAL INITIALISATION
 
@@ -348,15 +322,6 @@ void loop()
   }
 
   /*###############################REFRESH###############################*/
-  /*if (FLAG_MENU == 1)  {
-    lcd_print_menu(&MODE, CONTRAST, POSITION_TARGET, TORQUE_TARGET, SPEED_TARGET, HOME_POSITION_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET, POS_SPEED_TARGET,
-                   TORQUE_GET, SPEED_GET, POSITION_GET, HOME_POSITION_GET, ACCELERATION_GET, DECELERATION_GET, POS_SPEED_GET,&encoder0Pos);
-    menu_init(MODE, &CONTRAST, &POSITION_TARGET, &TORQUE_TARGET, &SPEED_TARGET, &HOME_POSITION_TARGET, 
-              &ACCELERATION_TARGET, &DECELERATION_TARGET, &POS_SPEED_TARGET,&encoder0Pos, RESOLUTION);
-
-    FLAG_MENU = 0;
-  }*/
-
 
   switch (MODE)  {
 
@@ -940,6 +905,30 @@ void on_torque_rise_selected(MenuItem* p_menu_item) {
   MODE = 10;
 }
 
-void on_torque_rise_selected(MenuItem* p_menu_item) {
+void on_back_selected(MenuItem* p_menu_item) {
   ms.back();
+}
+
+void on_play_cue_selected(MenuItem* p_menu_item)  {
+  lcd.clear();
+  lcd.print("Play cue");
+  MODE = 11;  
+}
+
+void on_rec_cue_selected(MenuItem* p_menu_item) {
+  lcd.clear();
+  lcd.print("Rec cue");
+  MODE = 12;
+}
+
+void on_mod_cue_selected(MenuItem* p_menu_item) {
+  lcd.clear();
+  lcd.print("Mod cue");
+  MODE = 13;
+}
+
+void on_del_cue_selected(MenuItem* p_menu_item) {
+  lcd.clear();
+  lcd.print("Del cue");
+  MODE = 14;
 }
