@@ -126,7 +126,7 @@ void setup() {
   mu1.add_menu(&mu1_mu4);
   mu1_mu4.add_item(&mu1_mu4_mi1, &on_play_cue_selected);
   mu1_mu4.add_item(&mu1_mu4_mi2, &on_rec_cue_selected);
-  mu1_mu4.add_item(&mu1_mu4_mi3, &on_mod_cue_selected);
+  //mu1_mu4.add_item(&mu1_mu4_mi3, &on_mod_cue_selected);
   mu1_mu4.add_item(&mu1_mu4_mi4, &on_del_cue_selected);
   mu1_mu4.add_item(&mu1_mu4_mi5, &on_back_selected);
   mu1.add_item(&mu1_mi5, &on_acc_selected);
@@ -139,8 +139,8 @@ void setup() {
   mu2.add_item(&mu2_mi4, &on_back_selected);
 
   mu3.add_item(&mu3_mi1, &on_torque_selected);
-  mu3.add_item(&mu3_mi2, &on_torque_rise_selected);
-  mu3.add_item(&mu3_mi3, &on_torque_fall_selected);
+  //mu3.add_item(&mu3_mi2, &on_torque_rise_selected);
+  //mu3.add_item(&mu3_mi3, &on_torque_fall_selected);
   mu3.add_item(&mu3_mi4, &on_back_selected);
 
   ms.set_root_menu(&mm);
@@ -435,6 +435,9 @@ void loop()
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
         Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
+        delay(1000);
+        lcd.setCursor(1, 0);
+        lcd.print("                ");        
       }
       CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
       lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
@@ -833,7 +836,13 @@ void lcd_print_pos(float value1, float value2, bool motor) {
 void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
   lcd.setCursor(1, 1);
   if (cue_pos < max) {
-    lcd.print(cue_save[cue_pos]);
+    if (cue_save[cue_pos] < 10) {
+      lcd.print("0");
+      lcd.print(cue_save[cue_pos]);
+    }
+    else{
+     lcd.print(cue_save[cue_pos]);
+    }
   }
   if (cue_pos + 1 < max) {
     if (cue_save[cue_pos + 1] < 10) {
@@ -846,6 +855,10 @@ void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
       lcd.print(cue_save[cue_pos + 1]);
     }
   }
+  else{
+    lcd.setCursor(1,4);
+    lcd.print("  ");
+  }
   if (cue_pos + 2 < max) {
     if (cue_save[cue_pos + 2] < 10) {
       lcd.setCursor(1, 7);
@@ -856,6 +869,10 @@ void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
       lcd.setCursor(1, 7);
       lcd.print(cue_save[cue_pos + 2]);
     }
+  }
+  else{
+    lcd.setCursor(1,7);
+    lcd.print("  ");
   }
   if (cue_pos + 3 < max) {
     if (cue_save[cue_pos + 3] < 10) {
@@ -868,6 +885,10 @@ void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
       lcd.print(cue_save[cue_pos + 3]);
     }
   }
+  else{
+    lcd.setCursor(1,10);
+    lcd.print("  ");
+  }
   if (cue_pos + 4 < max) {
     if (cue_save[cue_pos + 4] < 10) {
       lcd.setCursor(1, 13);
@@ -878,6 +899,10 @@ void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
       lcd.setCursor(1, 13);
       lcd.print(cue_save[cue_pos + 4]);
     }
+  }
+  else{
+    lcd.setCursor(1,13);
+    lcd.print("  ");
   }
   lcd.setCursor(1, 1);
   lcd.cursor_on();
