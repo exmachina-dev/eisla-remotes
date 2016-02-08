@@ -464,11 +464,23 @@ void loop()
           while (SEND != HIGH){
             SEND = digitalRead(SEND_BUTTON);
           }
+          lcd.cursor_off();
           lcd.setCursor(1, 0);
-          lcd.print("Erase saved cue?");
+          lcd.print("Erase cue ");
+          if (CUE < 10){
+            lcd.print("0");
+            lcd.print(CUE);
+          }
+          else{
+            lcd.print(CUE);
+          }
+          lcd.print("?");
+          lcd.print("( )");
           do {
             SEND = digitalRead(SEND_BUTTON);
-            if (millis() - time_out_saved > 2000) {
+            lcd.setCursor(1,14);
+            //lcd.print(uint8_t(millis() - time_out_saved- 5000)/1000);
+            if (millis() - time_out_saved > 5000) {
               TIME_OUT = 1;
             }
           } while (SEND != LOW && TIME_OUT != 1);
@@ -836,78 +848,84 @@ void lcd_print_pos(float value1, float value2, bool motor) {
 }
 
 void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
-  lcd.setCursor(1, 1);
-  if (cue_pos < max) {
-    if (cue_save[cue_pos] < 10) {
-      lcd.print("0");
-      lcd.print(cue_save[cue_pos]);
+  if (max !=0){
+    lcd.setCursor(1, 1);
+    if (cue_pos < max) {
+      if (cue_save[cue_pos] < 10) {
+        lcd.print("0");
+        lcd.print(cue_save[cue_pos]);
+      }
+      else{
+       lcd.print(cue_save[cue_pos]);
+      }
+    }
+    if (cue_pos + 1 < max) {
+      if (cue_save[cue_pos + 1] < 10) {
+        lcd.setCursor(1, 4);
+        lcd.print("0");
+        lcd.print(cue_save[cue_pos + 1]);
+      }
+      else {
+        lcd.setCursor(1, 4);
+        lcd.print(cue_save[cue_pos + 1]);
+      }
     }
     else{
-     lcd.print(cue_save[cue_pos]);
+      lcd.setCursor(1,4);
+      lcd.print("  ");
     }
-  }
-  if (cue_pos + 1 < max) {
-    if (cue_save[cue_pos + 1] < 10) {
-      lcd.setCursor(1, 4);
-      lcd.print("0");
-      lcd.print(cue_save[cue_pos + 1]);
+    if (cue_pos + 2 < max) {
+      if (cue_save[cue_pos + 2] < 10) {
+        lcd.setCursor(1, 7);
+        lcd.print("0");
+        lcd.print(cue_save[cue_pos + 2]);
+      }
+      else {
+        lcd.setCursor(1, 7);
+        lcd.print(cue_save[cue_pos + 2]);
+      }
     }
-    else {
-      lcd.setCursor(1, 4);
-      lcd.print(cue_save[cue_pos + 1]);
+    else{
+      lcd.setCursor(1,7);
+      lcd.print("  ");
     }
-  }
-  else{
-    lcd.setCursor(1,4);
-    lcd.print("  ");
-  }
-  if (cue_pos + 2 < max) {
-    if (cue_save[cue_pos + 2] < 10) {
-      lcd.setCursor(1, 7);
-      lcd.print("0");
-      lcd.print(cue_save[cue_pos + 2]);
+    if (cue_pos + 3 < max) {
+      if (cue_save[cue_pos + 3] < 10) {
+        lcd.setCursor(1, 10);
+        lcd.print("0");
+        lcd.print(cue_save[cue_pos + 3]);
+      }
+      else {
+        lcd.setCursor(1, 10);
+        lcd.print(cue_save[cue_pos + 3]);
+      }
     }
-    else {
-      lcd.setCursor(1, 7);
-      lcd.print(cue_save[cue_pos + 2]);
+    else{
+      lcd.setCursor(1,10);
+      lcd.print("  ");
     }
-  }
-  else{
-    lcd.setCursor(1,7);
-    lcd.print("  ");
-  }
-  if (cue_pos + 3 < max) {
-    if (cue_save[cue_pos + 3] < 10) {
-      lcd.setCursor(1, 10);
-      lcd.print("0");
-      lcd.print(cue_save[cue_pos + 3]);
+    if (cue_pos + 4 < max) {
+      if (cue_save[cue_pos + 4] < 10) {
+        lcd.setCursor(1, 13);
+        lcd.print("0");
+        lcd.print(cue_save[cue_pos + 4]);
+      }
+      else {
+        lcd.setCursor(1, 13);
+        lcd.print(cue_save[cue_pos + 4]);
+      }
     }
-    else {
-      lcd.setCursor(1, 10);
-      lcd.print(cue_save[cue_pos + 3]);
+    else{
+      lcd.setCursor(1,13);
+      lcd.print("  ");
     }
-  }
-  else{
-    lcd.setCursor(1,10);
-    lcd.print("  ");
-  }
-  if (cue_pos + 4 < max) {
-    if (cue_save[cue_pos + 4] < 10) {
-      lcd.setCursor(1, 13);
-      lcd.print("0");
-      lcd.print(cue_save[cue_pos + 4]);
-    }
-    else {
-      lcd.setCursor(1, 13);
-      lcd.print(cue_save[cue_pos + 4]);
-    }
+    lcd.setCursor(1, 1);
+    lcd.cursor_on();
   }
   else{
-    lcd.setCursor(1,13);
-    lcd.print("  ");
+    lcd.setCursor(1,0);
+    lcd.print("No cue saved    ");
   }
-  lcd.setCursor(1, 1);
-  lcd.cursor_on();
 }
 void lcd_print_all_cue(uint8_t CUE, uint8_t max) {
 
