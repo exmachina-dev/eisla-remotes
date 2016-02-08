@@ -428,6 +428,8 @@ void loop()
     case MODE_PLAY_CUE:
       if (SEND == HIGH) {
         SEND = LOW;
+        lcd.setCursor(1,0);
+        lcd.print("Cue Load        ");
         reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
         Varmo.sendData(Set, Position_ref, POSITION_TARGET);
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
@@ -442,7 +444,7 @@ void loop()
       if (SEND == HIGH) {
         SEND = LOW;
         byte temp = erase_cue_eeprom(CUE);
-        if (temp == 0)  {
+        if (temp != 1)  {
           write_cue_eeprom(CUE, POSITION_TARGET, POS_SPEED_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET);
           lcd.setCursor(1, 0);
           lcd.print("Cue saved       ");
@@ -877,6 +879,8 @@ void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
       lcd.print(cue_save[cue_pos + 4]);
     }
   }
+  lcd.setCursor(1, 1);
+  lcd.cursor_on();
 }
 void lcd_print_all_cue(uint8_t CUE, uint8_t max) {
 
@@ -1142,9 +1146,6 @@ void on_play_cue_selected(MenuItem* p_menu_item)  {
   lcd.print("Play Cue");
   MODE = MODE_PLAY_CUE;
   CUE_LENGTH = get_cue_save(CUE_SAVE);
-  lcd.setCursor(0,15);
-  lcd.print(CUE_LENGTH);
-  delay(500);
   encoder0Pos = 0;
 }
 
@@ -1191,7 +1192,6 @@ byte erase_cue_eeprom(uint8_t cue) {
   MyObject writing;
 
   eeAddress = sizeof(writing) * (cue);
-
   return EEPROM.read(eeAddress);
 }
 
