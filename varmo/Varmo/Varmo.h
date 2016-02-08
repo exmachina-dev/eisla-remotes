@@ -55,7 +55,7 @@ const uint8_t MODE_DEL_CUE = 11;
 
 // Menu variables
 MenuSystem ms;
-Menu mm("ROOT Menu Title");
+Menu mm("Root Menu");
 Menu mu1("Position Mode");
 Menu mu2("Speed Mode");
 Menu mu3("Torque Mode");
@@ -63,15 +63,15 @@ Menu mu3("Torque Mode");
 
 MenuItem mu1_mi1("Set Position");
 MenuItem mu1_mi2("Set Speed");
-MenuItem mu1_mi3("Set Home");
-Menu mu1_mu4("Cue Mode");
-MenuItem mu1_mu4_mi1("Play Cue");
-MenuItem mu1_mu4_mi2("Rec Cue");
-MenuItem mu1_mu4_mi3("Mod Cue");
-MenuItem mu1_mu4_mi4("Del Cue");
-MenuItem mu1_mu4_mi5("Back");
-MenuItem mu1_mi5("Set Acceleration");
-MenuItem mu1_mi6("Set Deceleration");
+MenuItem mu1_mi3("Set Acceleration");
+MenuItem mu1_mi4("Set Deceleration");
+Menu mu1_mu5("Cue Mode");
+MenuItem mu1_mu5_mi1("Play Cue");
+MenuItem mu1_mu5_mi2("Rec Cue");
+MenuItem mu1_mu5_mi3("Mod Cue");
+MenuItem mu1_mu5_mi4("Del Cue");
+MenuItem mu1_mu5_mi5("Back");
+MenuItem mu1_mi6("Set Home");
 MenuItem mu1_mi7("Back");
 
 MenuItem mu2_mi1("Set Speed");

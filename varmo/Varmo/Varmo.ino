@@ -122,15 +122,15 @@ void setup() {
 
   mu1.add_item(&mu1_mi1, &on_pos_selected);
   mu1.add_item(&mu1_mi2, &on_pos_speed_selected);
-  mu1.add_item(&mu1_mi3, &on_home_selected);
-  mu1.add_menu(&mu1_mu4);
-  mu1_mu4.add_item(&mu1_mu4_mi1, &on_play_cue_selected);
-  mu1_mu4.add_item(&mu1_mu4_mi2, &on_rec_cue_selected);
-  //mu1_mu4.add_item(&mu1_mu4_mi3, &on_mod_cue_selected);
-  mu1_mu4.add_item(&mu1_mu4_mi4, &on_del_cue_selected);
-  mu1_mu4.add_item(&mu1_mu4_mi5, &on_back_selected);
-  mu1.add_item(&mu1_mi5, &on_acc_selected);
-  mu1.add_item(&mu1_mi6, &on_dec_selected);
+  mu1.add_item(&mu1_mi3, &on_acc_selected);
+  mu1.add_item(&mu1_mi4, &on_dec_selected);
+  mu1.add_menu(&mu1_mu5);
+  mu1_mu5.add_item(&mu1_mu5_mi1, &on_play_cue_selected);
+  mu1_mu5.add_item(&mu1_mu5_mi2, &on_rec_cue_selected);
+  //mu1_mu5.add_item(&mu1_mu5_mi3, &on_mod_cue_selected);
+  mu1_mu5.add_item(&mu1_mu5_mi4, &on_del_cue_selected);
+  mu1_mu5.add_item(&mu1_mu5_mi5, &on_back_selected);
+  mu1.add_item(&mu1_mi6, &on_home_selected);
   mu1.add_item(&mu1_mi7, &on_back_selected);
 
   mu2.add_item(&mu2_mi1, &on_speed_selected);
@@ -431,7 +431,14 @@ void loop()
       if (SEND == HIGH) {
         SEND = LOW;
         lcd.setCursor(1,0);
-        lcd.print("Cue Load        ");
+        lcd.print("Go To Cue ");
+        if (CUE_SAVE[CUE_POS]<10){
+          lcd.print("0");
+          lcd.print(CUE_SAVE[CUE_POS]);
+        }
+        else{
+          lcd.print(CUE_SAVE[CUE_POS]);
+        }
         reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
         Varmo.sendData(Set, Position_ref, POSITION_TARGET);
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
@@ -467,19 +474,19 @@ void loop()
           lcd.cursor_off();
           lcd.setCursor(1, 0);
           lcd.print("Erase cue ");
-          if (CUE < 10){
+          if (CUE+1 < 10){
             lcd.print("0");
-            lcd.print(CUE);
+            lcd.print(CUE+1);
           }
           else{
-            lcd.print(CUE);
+            lcd.print(CUE+1);
           }
           lcd.print("?");
           lcd.print("( )");
           do {
             SEND = digitalRead(SEND_BUTTON);
             lcd.setCursor(1,14);
-            //lcd.print(uint8_t(millis() - time_out_saved- 5000)/1000);
+            lcd.print(uint8_t((5000 - (millis() - time_out_saved))/1000));
             if (millis() - time_out_saved > 5000) {
               TIME_OUT = 1;
             }
@@ -1060,25 +1067,27 @@ void converter_abs(float *value, float *encoder0Pos, float resolution, float max
 }
 
 uint8_t convert_cue(uint8_t cue, float *encoder0Pos) {
-  if (*encoder0Pos <= 0) {
+  uint8_t temp = *encoder0Pos * 2;
+  if (temp <= 0) {
     *encoder0Pos = 0;
   }
-  else if (*encoder0Pos >= 49) {
-    *encoder0Pos = 49;
+  else if (temp >= 98) {
+    *encoder0Pos = 98/2;
   }
-  cue = *encoder0Pos;
+  cue = temp;
   return cue;
 }
 
 uint8_t convert_cue_save(uint8_t * cue_save, float *encoder0Pos, uint8_t max) {
   uint8_t cue_pos;
-  if (*encoder0Pos <= 0) {
+  uint8_t temp = *encoder0Pos *2;
+  if (temp <= 0) {
     *encoder0Pos = 0;
   }
-  else if (*encoder0Pos >= max) {
+  else if (temp >= max *2) {
     *encoder0Pos = max;
   }
-  cue_pos = (uint8_t) * encoder0Pos;
+  cue_pos = (uint8_t) temp;
   return cue_pos;
 }
 
@@ -1095,7 +1104,10 @@ void moveMenu() {
 
 void displayMenu() {
   lcd.clear();
-  lcd.setCursor(0, 0);
+  Menu const* p_menu = ms.get_current_menu();
+  lcd.print(p_menu->get_name());
+
+  lcd.setCursor(1, 0);
   // Display the menu
   Menu const* cp_menu = ms.get_current_menu();
   lcd.print(cp_menu->get_selected()->get_name());
