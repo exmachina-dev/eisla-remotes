@@ -84,6 +84,15 @@ MenuItem mu3_mi2("Set Torque rise");
 MenuItem mu3_mi3("Set Torque Fall");
 MenuItem mu3_mi4("Back");
 
+struct MyObject {
+  byte data;
+  byte cue_num;
+  float pos;
+  float pos_speed;
+  float acc;
+  float dec;
+};
+
 /*####################OBJECT####################*/
 
 ST7036 lcd = ST7036 ( 2, 16, 0x78 );

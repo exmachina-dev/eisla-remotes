@@ -4,7 +4,7 @@
 #include <protocol.h>
 #include "./Varmo.h"
 #include <MenuSystem.h>
-
+#include <EEPROM.h>
 
 const char *Get = "machine.get";
 const char *Set = "machine.set";
@@ -87,6 +87,12 @@ bool SENS = 1;
 
 unsigned long refresh_set_home;
 
+/*POSITION CUE*/
+uint8_t CUE = 0;
+uint8_t CUE_POS = 0;
+uint8_t CUE_SAVE[50];
+uint8_t CUE_LENGTH = 0;
+unsigned long time_out_saved;
 
 void setup() {
 
@@ -130,7 +136,7 @@ void setup() {
   mu2.add_item(&mu2_mi1, &on_speed_selected);
   mu2.add_item(&mu2_mi2, &on_acc_selected);
   mu2.add_item(&mu2_mi3, &on_dec_selected);
-  mu2.add_item(&mu2_mi4,&on_back_selected);
+  mu2.add_item(&mu2_mi4, &on_back_selected);
 
   mu3.add_item(&mu3_mi1, &on_torque_selected);
   mu3.add_item(&mu3_mi2, &on_torque_rise_selected);
@@ -167,7 +173,7 @@ void loop()
 {
 
   delay(100);
-  
+
   /*###############################MENU###############################*/
   int encoder_push = digitalRead(encoderE);
 
@@ -185,56 +191,58 @@ void loop()
 
     }
 
-    if (FLAG_MENU == 0 && MODE==0){
+    if (FLAG_MENU == 0 && MODE == 0) {
       Menu const* cp_menu = ms.get_current_menu();
-       if (cp_menu->get_selected()->get_name() == "Position Mode"){
+      if (cp_menu->get_selected()->get_name() == "Position Mode") {
         Varmo.sendData(Set, Control_Mode, (unsigned int) 3);
       }
-      else if (cp_menu->get_selected()->get_name() == "Speed Mode"){
+      else if (cp_menu->get_selected()->get_name() == "Speed Mode") {
         Varmo.sendData(Set, Control_Mode, (unsigned int) 2);
       }
-      else if (cp_menu->get_selected()->get_name() == "Torque Mode"){
+      else if (cp_menu->get_selected()->get_name() == "Torque Mode") {
         Varmo.sendData(Set, Control_Mode, (unsigned int) 1);
       }
       ms.select();
-      if (MODE == 0){
+      if (MODE == 0) {
         displayMenu();
       }
       FLAG_MENU = 1;
     }
-    else if (FLAG_MENU == 1){
-      if (MODE != 0){
+    else if (FLAG_MENU == 1) {
+      if (MODE != 0) {
         MODE = 0;
+        lcd.cursor_off();
         displayMenu();
       }
       else {
+        lcd.cursor_off();
         ms.back();
         displayMenu();
       }
-      while(encoder_push != HIGH){
+      while (encoder_push != HIGH) {
         encoder_push = digitalRead(encoderE);
       }
     }
     else  {
       resolution_chosen = 0;
       RESOLUTION_old = RESOLUTION;
-      if (MODE == MODE_POS_SPD ||MODE == MODE_SPD || MODE == MODE_TRQ){
+      if (MODE == MODE_POS_SPD || MODE == MODE_SPD || MODE == MODE_TRQ) {
         init_resolution_three(RESOLUTION, &encoder0Pos);
       }
       else {
         init_resolution(RESOLUTION, &encoder0Pos);
       }
-      while (resolution_chosen == 0 && MODE != MODE_HOME)  {
+      while (resolution_chosen == 0 && MODE != MODE_HOME && MODE != MODE_REC_CUE && MODE != MODE_PLAY_CUE && MODE != MODE_DEL_CUE && MODE != MODE_MOD_CUE)  {
         if (MODE == MODE_POS) {
           RESOLUTION = resolution_set(RESOLUTION, 1, 5);
         }
-        else if (MODE == MODE_POS_SPD){
+        else if (MODE == MODE_POS_SPD) {
           RESOLUTION = resolution_set_three(RESOLUTION, 4);
         }
-        else if (MODE == MODE_SPD || MODE == MODE_TRQ){
+        else if (MODE == MODE_SPD || MODE == MODE_TRQ) {
           RESOLUTION = resolution_set_three(RESOLUTION, 5);
         }
-        else{
+        else {
           RESOLUTION = resolution_set(RESOLUTION, 1, 4);
         }
 
@@ -251,12 +259,12 @@ void loop()
     }
   }
 
-  if (FLAG_MENU == 1 && MODE == 0){
+  if (FLAG_MENU == 1 && MODE == 0) {
     moveMenu();
     encoder0Pos_old = encoder0Pos;
   }
 
-  if (MODE != 0){
+  if (MODE != 0) {
     FLAG_MENU = 0;
   }
 
@@ -284,20 +292,20 @@ void loop()
   }
   else if (millis() - timer_motor_off > 50 && MOTOR_OFF != HIGH) {
     timer_motor_off = millis();
-    lcd.setCursor(1,4);
+    lcd.setCursor(1, 4);
     lcd.print(" ");
     MOTOR_OFF = true;
     Varmo.sendData(Set, Stop, true);
   }
-  if (MOTOR_OFF == false){
-    if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ){
-      lcd.setCursor(0,13);
+  if (MOTOR_OFF == false) {
+    if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ) {
+      lcd.setCursor(0, 13);
       lcd.print(" on");
     }
   }
-  else if (MOTOR_OFF == true){
-    if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ){
-      lcd.setCursor(0,13);
+  else if (MOTOR_OFF == true) {
+    if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ) {
+      lcd.setCursor(0, 13);
       lcd.print("off");
     }
   }
@@ -328,22 +336,22 @@ void loop()
 
     case MODE_POS :
 
-      if (SEND == HIGH){
+      if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Position_ref, POSITION_TARGET);
         Varmo.sendData(Set, Pos_go, true);
       }
       converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
       lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
-      if (MOTOR_OFF == true){
-        lcd.setCursor(1,4);
+      if (MOTOR_OFF == true) {
+        lcd.setCursor(1, 4);
         lcd.print(" ");
       }
       break;
 
     case MODE_POS_SPD :
 
-      if (SEND == HIGH){
+      if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
         on_pos_selected(0);
@@ -355,51 +363,51 @@ void loop()
 
     case MODE_TRQ :
 
-      if (SEND == HIGH){
+      if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
       }
       converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 150);
       lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET, MOTOR_OFF);
-      if (MOTOR_OFF == true){
-        lcd.setCursor(1,4);
+      if (MOTOR_OFF == true) {
+        lcd.setCursor(1, 4);
         lcd.print(" ");
       }
       break;
 
     case MODE_SPD :
 
-      if (SEND == HIGH){
+      if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Speed_ref, SPEED_TARGET);
       }
-      converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS,999.9);
+      converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS, 999.9);
       lcd_print_float_value_three(SPEED_GET, SPEED_TARGET, MOTOR_OFF);
-      if (MOTOR_OFF == true){
-        lcd.setCursor(1,4);
+      if (MOTOR_OFF == true) {
+        lcd.setCursor(1, 4);
         lcd.print(" ");
       }
       break;
 
     case MODE_HOME :
 
-      if (SEND == HIGH){
+      if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Pos_Home, true);
-        lcd.setCursor(1,0);
+        lcd.setCursor(1, 0);
         lcd.print("New home pos    ");
         refresh_set_home = millis();
       }
       if ( (millis() - refresh_set_home) > refresh ) {
         refresh_set_home = millis();
-        lcd.setCursor(1,0);
+        lcd.setCursor(1, 0);
         lcd.print("                ");
       }
       break;
 
     case MODE_ACC :
 
-      if (SEND == HIGH){
+      if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
       }
@@ -408,13 +416,85 @@ void loop()
       break;
 
     case MODE_DEC :
-    
-      if (SEND == HIGH){
+
+      if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
       }
       converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
       lcd_print_abs_float_value(DECELERATION_GET, DECELERATION_TARGET);
+      break;
+
+    case MODE_PLAY_CUE:
+      if (SEND == HIGH) {
+        SEND = LOW;
+        reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
+        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+        Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
+        Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
+        Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
+      }
+      CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
+      lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
+      break;
+
+    case MODE_REC_CUE:
+      if (SEND == HIGH) {
+        SEND = LOW;
+        byte temp = erase_cue_eeprom(CUE);
+        if (temp == 0)  {
+          write_cue_eeprom(CUE, POSITION_TARGET, POS_SPEED_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET);
+          lcd.setCursor(1, 0);
+          lcd.print("Cue saved       ");
+          delay(1000);
+          lcd.setCursor(1, 0);
+          lcd.print("                ");
+        }
+        else {
+          bool TIME_OUT = 0;
+          time_out_saved = millis();
+          SEND = digitalRead(SEND_BUTTON);
+          while (SEND != HIGH){
+            SEND = digitalRead(SEND_BUTTON);
+          }
+          lcd.setCursor(1, 0);
+          lcd.print("Erase saved cue?");
+          do {
+            SEND = digitalRead(SEND_BUTTON);
+            if (millis() - time_out_saved > 2000) {
+              TIME_OUT = 1;
+            }
+          } while (SEND != LOW && TIME_OUT != 1);
+          SEND = LOW;
+          if (TIME_OUT != 1)  {
+            lcd.setCursor(1, 0);
+            lcd.print("Cue saved       ");
+            delay(1000);
+            lcd.setCursor(1, 0);
+            lcd.print("                ");
+          }
+          else{
+            lcd.setCursor(1, 0);
+            lcd.print("Cue not saved   ");
+            delay(1000);
+            lcd.setCursor(1, 0);
+            lcd.print("                ");
+        }
+          TIME_OUT = 0;
+        }
+
+      }
+
+      CUE = convert_cue(CUE, &encoder0Pos);
+      lcd_print_all_cue(CUE, 50);
+      break;
+
+    case MODE_MOD_CUE:
+
+      break;
+
+    case MODE_DEL_CUE:
+
       break;
 
   }
@@ -475,7 +555,7 @@ void doEncoderB() {
 /*##################MENU##################*/
 
 void init_resolution(float RESOLUTION, float *encoder0Pos) {
-  if (RESOLUTION == 0.1){
+  if (RESOLUTION == 0.1) {
     *encoder0Pos = 25;
   }
   else if (RESOLUTION == 1) {
@@ -515,12 +595,12 @@ float resolution_set(float RESOLUTION, bool format, int set_cursor)  {
     encoder0Pos = 0;
     RESOLUTION_SELECTOR = 0;
   }
-  else if (RESOLUTION_SELECTOR > 25){
+  else if (RESOLUTION_SELECTOR > 25) {
     encoder0Pos = 25;
     RESOLUTION_SELECTOR = 25;
   }
   else if (format == 0 && RESOLUTION_SELECTOR > 20) {
-    encoder0Pos = 20; 
+    encoder0Pos = 20;
     RESOLUTION_SELECTOR = 20;
   }
 
@@ -559,7 +639,7 @@ float resolution_set_three(float RESOLUTION, uint8_t set_cursor)  {
   if (RESOLUTION_SELECTOR < 0) {
     encoder0Pos = 0;
   }
-  else if (RESOLUTION_SELECTOR > 20){
+  else if (RESOLUTION_SELECTOR > 20) {
     encoder0Pos = 20;
   }
 
@@ -600,7 +680,7 @@ void lcd_print_contrast_value(uint8_t CONTRAST) {
 }
 
 void lcd_print_sign(float value)  {
-  if (value == 0){
+  if (value == 0) {
     lcd.print(" ");
   }
   else if (value >= 0)  {
@@ -608,7 +688,7 @@ void lcd_print_sign(float value)  {
   }
   else  {
     lcd.print("-");
-  } 
+  }
 }
 
 void lcd_print_float_three_align_right(float value)  {
@@ -679,7 +759,7 @@ void lcd_print_int_align_right(int value)  {
   else if (abs(value) < 100) {
     lcd.print("00");
   }
-  else if (abs(value) < 1000){
+  else if (abs(value) < 1000) {
     lcd.print("0");
   }
   lcd.print(abs(value));
@@ -691,7 +771,7 @@ void lcd_print_float_value(float value1, float value2, bool motor) {
   if (motor == false) {
     lcd_print_sign(value2);
   }
-  else if (motor == true){
+  else if (motor == true) {
     lcd.print(" ");
   }
   lcd_print_float_align_right(value2);
@@ -703,7 +783,7 @@ void lcd_print_float_value_three(float value1, float value2, bool motor) {
   if (motor == false) {
     lcd_print_sign(value2);
   }
-  else if (motor == true){
+  else if (motor == true) {
     lcd.print(" ");
   }
   lcd_print_float_three_align_right(value2);
@@ -722,30 +802,154 @@ void lcd_print_abs_float_value(float value1, float value2) {
 }
 
 void lcd_print_vit_pos(float value1, float value2) {
-  lcd.setCursor(1,0);
+  lcd.setCursor(1, 0);
   lcd.print("Spd Pos:");
-  lcd.setCursor(1,8);
+  lcd.setCursor(1, 8);
   lcd_print_int_align_right(int(value2));
 }
 
 void lcd_print_pos(float value1, float value2, bool motor) {
-  lcd.setCursor(1,0);
+  lcd.setCursor(1, 0);
   lcd.print("Tgt:");
   if (motor == false) {
     lcd_print_sign(value1);
   }
-  else if (motor == true){
+  else if (motor == true) {
     lcd.print(" ");
   }
   lcd_print_float_align_right(value1);
 
-  lcd.setCursor(1,11);
+  lcd.setCursor(1, 11);
   lcd.print(" ");
 
-  lcd.setCursor(1,12);
+  lcd.setCursor(1, 12);
   lcd.print("S:");
-  lcd.setCursor(1,14);
+  lcd.setCursor(1, 14);
   lcd_print_int_align_right_two(int(value2));
+}
+
+void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
+  lcd.setCursor(1, 1);
+  if (cue_pos < max) {
+    lcd.print(cue_save[cue_pos]);
+  }
+  if (cue_pos + 1 < max) {
+    if (cue_save[cue_pos + 1] < 10) {
+      lcd.setCursor(1, 4);
+      lcd.print("0");
+      lcd.print(cue_save[cue_pos + 1]);
+    }
+    else {
+      lcd.setCursor(1, 4);
+      lcd.print(cue_save[cue_pos + 1]);
+    }
+  }
+  if (cue_pos + 2 < max) {
+    if (cue_save[cue_pos + 2] < 10) {
+      lcd.setCursor(1, 7);
+      lcd.print("0");
+      lcd.print(cue_save[cue_pos + 2]);
+    }
+    else {
+      lcd.setCursor(1, 7);
+      lcd.print(cue_save[cue_pos + 2]);
+    }
+  }
+  if (cue_pos + 3 < max) {
+    if (cue_save[cue_pos + 3] < 10) {
+      lcd.setCursor(1, 10);
+      lcd.print("0");
+      lcd.print(cue_save[cue_pos + 3]);
+    }
+    else {
+      lcd.setCursor(1, 10);
+      lcd.print(cue_save[cue_pos + 3]);
+    }
+  }
+  if (cue_pos + 4 < max) {
+    if (cue_save[cue_pos + 4] < 10) {
+      lcd.setCursor(1, 13);
+      lcd.print("0");
+      lcd.print(cue_save[cue_pos + 4]);
+    }
+    else {
+      lcd.setCursor(1, 13);
+      lcd.print(cue_save[cue_pos + 4]);
+    }
+  }
+}
+void lcd_print_all_cue(uint8_t CUE, uint8_t max) {
+
+  lcd.setCursor(1, 1);
+  if ((CUE + 1) < 10) {
+    lcd.print("0");
+    lcd.print(CUE + 1);
+  }
+  else  {
+    lcd.print(CUE + 1);
+  }
+
+  if (CUE + 2 <= max)  {
+    lcd.setCursor(1, 4);
+    if ((CUE + 2) < 10) {
+      lcd.print("0");
+      lcd.print(CUE + 2);
+    }
+    else  {
+      lcd.print(CUE + 2);
+    }
+  }
+  else  {
+    lcd.setCursor(1, 4);
+    lcd.print("  ");
+  }
+
+  if (CUE + 3 <= max) {
+    lcd.setCursor(1, 7);
+    if ((CUE + 3) < 10) {
+      lcd.print("0");
+      lcd.print(CUE + 3);
+    }
+    else  {
+      lcd.print(CUE + 3);
+    }
+  }
+  else  {
+    lcd.setCursor(1, 7);
+    lcd.print("  ");
+  }
+
+  if (CUE + 4 <= max) {
+    lcd.setCursor(1, 10);
+    if ((CUE + 4) < 10) {
+      lcd.print("0");
+      lcd.print(CUE + 4);
+    }
+    else  {
+      lcd.print(CUE + 4);
+    }
+  }
+  else  {
+    lcd.setCursor(1, 10);
+    lcd.print("  ");
+  }
+
+  if (CUE + 5 <= max) {
+    lcd.setCursor(1, 13);
+    if ((CUE + 5) < 10) {
+      lcd.print("0");
+      lcd.print(CUE + 5);
+    }
+    else  {
+      lcd.print(CUE + 5);
+    }
+  }
+  else  {
+    lcd.setCursor(1, 13);
+    lcd.print("  ");
+  }
+  lcd.setCursor(1, 1);
+  lcd.cursor_on();
 }
 
 /*##################CONVERTER##################*/
@@ -766,7 +970,7 @@ void contrast_convert(uint8_t *CONTRAST, uint8_t *F_contrast, float * encoder0Po
   }
 }
 
-void converter(float *value, float *encoder0Pos, float resolution, bool sens, float max){
+void converter(float *value, float *encoder0Pos, float resolution, bool sens, float max) {
   float temp = *encoder0Pos * resolution;
   if (temp > 0 && temp < max) {
     if (sens == HIGH)  {
@@ -791,7 +995,7 @@ void converter(float *value, float *encoder0Pos, float resolution, bool sens, fl
   }
 }
 
-void converter_abs(float *value, float *encoder0Pos, float resolution, float max){
+void converter_abs(float *value, float *encoder0Pos, float resolution, float max) {
   float temp = *encoder0Pos * resolution;
   if (temp > 0 && temp < max) {
     *value = temp;
@@ -806,12 +1010,35 @@ void converter_abs(float *value, float *encoder0Pos, float resolution, float max
   }
 }
 
-void moveMenu(){
-  if (encoder0Pos - encoder0Pos_old >= 2 ){
+uint8_t convert_cue(uint8_t cue, float *encoder0Pos) {
+  if (*encoder0Pos <= 0) {
+    *encoder0Pos = 0;
+  }
+  else if (*encoder0Pos >= 49) {
+    *encoder0Pos = 49;
+  }
+  cue = *encoder0Pos;
+  return cue;
+}
+
+uint8_t convert_cue_save(uint8_t * cue_save, float *encoder0Pos, uint8_t max) {
+  uint8_t cue_pos;
+  if (*encoder0Pos <= 0) {
+    *encoder0Pos = 0;
+  }
+  else if (*encoder0Pos >= max) {
+    *encoder0Pos = max;
+  }
+  cue_pos = (uint8_t) * encoder0Pos;
+  return cue_pos;
+}
+
+void moveMenu() {
+  if (encoder0Pos - encoder0Pos_old >= 2 ) {
     ms.next();
     displayMenu();
   }
-  else if(encoder0Pos - encoder0Pos_old <= -2){
+  else if (encoder0Pos - encoder0Pos_old <= -2) {
     ms.prev();
     displayMenu();
   }
@@ -819,7 +1046,7 @@ void moveMenu(){
 
 void displayMenu() {
   lcd.clear();
-  lcd.setCursor(0,0);
+  lcd.setCursor(0, 0);
   // Display the menu
   Menu const* cp_menu = ms.get_current_menu();
   lcd.print(cp_menu->get_selected()->get_name());
@@ -829,8 +1056,8 @@ void on_speed_selected(MenuItem* p_menu_item) {
   lcd.clear();
   encoder0Pos = SPEED_TARGET;
   lcd.print("Speed Mode");
-  lcd_print_float_value_three(SPEED_GET, SPEED_TARGET,MOTOR_OFF);
-  lcd.setCursor(1,12);
+  lcd_print_float_value_three(SPEED_GET, SPEED_TARGET, MOTOR_OFF);
+  lcd.setCursor(1, 12);
   lcd.print("cm/s");
   MODE = MODE_SPD;
 }
@@ -840,7 +1067,7 @@ void on_acc_selected(MenuItem* p_menu_item) {
   encoder0Pos = ACCELERATION_TARGET;
   lcd.print("Set Acceleration");
   lcd_print_abs_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
-  lcd.setCursor(1,13);
+  lcd.setCursor(1, 13);
   lcd.print("sec");
   MODE = MODE_ACC;
 }
@@ -850,20 +1077,20 @@ void on_dec_selected(MenuItem* p_menu_item) {
   encoder0Pos = DECELERATION_TARGET;
   lcd.print("Set Deceleration");
   lcd_print_abs_float_value(DECELERATION_GET, DECELERATION_TARGET);
-  lcd.setCursor(1,13);
-  lcd.print("sec");  
+  lcd.setCursor(1, 13);
+  lcd.print("sec");
   MODE = MODE_DEC;
 }
 
 void on_pos_selected(MenuItem* p_menu_item) {
   lcd.clear();
-  if (POS_SPEED_TARGET != 0){
+  if (POS_SPEED_TARGET != 0) {
     encoder0Pos = POSITION_TARGET;
     lcd.print("Set Position");
-    lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET,MOTOR_OFF);
+    lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
     MODE = MODE_POS;
   }
-  else{
+  else {
     on_pos_speed_selected(0);
   }
 }
@@ -871,9 +1098,9 @@ void on_pos_selected(MenuItem* p_menu_item) {
 void on_pos_speed_selected(MenuItem* p_menu_item) {
   lcd.clear();
   encoder0Pos = POS_SPEED_TARGET;
-  lcd.print("Speed Position"); 
+  lcd.print("Speed Position");
   lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_GET);
-  lcd.setCursor(1,12);
+  lcd.setCursor(1, 12);
   lcd.print("cm/s");
   MODE = MODE_POS_SPD;
 }
@@ -888,8 +1115,8 @@ void on_torque_selected(MenuItem* p_menu_item)  {
   lcd.clear();
   encoder0Pos = TORQUE_TARGET;
   lcd.print("Torque Mode");
-  lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET,MOTOR_OFF);
-  lcd.setCursor(1,15);
+  lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET, MOTOR_OFF);
+  lcd.setCursor(1, 15);
   lcd.print("%");
   MODE = MODE_TRQ;
 }
@@ -897,7 +1124,7 @@ void on_torque_selected(MenuItem* p_menu_item)  {
 void on_torque_fall_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Torque Fall Sel");
-  MODE =20;
+  MODE = 20;
 }
 
 void on_torque_rise_selected(MenuItem* p_menu_item) {
@@ -912,14 +1139,20 @@ void on_back_selected(MenuItem* p_menu_item) {
 
 void on_play_cue_selected(MenuItem* p_menu_item)  {
   lcd.clear();
-  lcd.print("Play cue");
-  MODE = MODE_PLAY_CUE;  
+  lcd.print("Play Cue");
+  MODE = MODE_PLAY_CUE;
+  CUE_LENGTH = get_cue_save(CUE_SAVE);
+  lcd.setCursor(0,15);
+  lcd.print(CUE_LENGTH);
+  delay(500);
+  encoder0Pos = 0;
 }
 
 void on_rec_cue_selected(MenuItem* p_menu_item) {
   lcd.clear();
-  lcd.print("Rec cue");
+  lcd.print("Rec Cue");
   MODE = MODE_REC_CUE;
+  encoder0Pos = 0;
 }
 
 void on_mod_cue_selected(MenuItem* p_menu_item) {
@@ -932,4 +1165,78 @@ void on_del_cue_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Del cue");
   MODE = MODE_DEL_CUE;
+}
+
+uint8_t get_cue_save(uint8_t * cue) {
+  short eeAddress;
+  uint8_t j = 0;
+  for (uint8_t i = 0; i < 50; i++) {
+    eeAddress = (i) * 18;
+    byte temp = EEPROM.read(eeAddress);
+
+    if (temp == 1) {
+      cue[j] = i + 1;
+      j++;
+    }
+  }
+  for (uint8_t i = j; i < 50; i++) {
+    cue[i] = 0;
+  }
+  return j;
+}
+
+byte erase_cue_eeprom(uint8_t cue) {
+  int eeAddress = 0;   //Location we want the data to be put.
+
+  MyObject writing;
+
+  eeAddress = sizeof(writing) * (cue);
+
+  return EEPROM.read(eeAddress);
+}
+
+void write_cue_eeprom(uint8_t cue, float pos, float speed, float acceleration, float decceleration) {
+  int eeAddress = 0;   //Location we want the data to be put.
+
+  MyObject writing;
+
+  eeAddress = sizeof(writing) * (cue);
+
+  byte temp = EEPROM.read(eeAddress);
+
+  if (temp != 1)  {
+    writing.data = 1;
+    writing.cue_num = cue;
+    writing.pos = pos;
+    writing.pos_speed = speed;
+    writing.acc = acceleration;
+    writing.dec = decceleration;
+  }
+  else if (temp == 1) {
+    writing.data = 1;
+    writing.cue_num = cue;
+    writing.pos = pos;
+    writing.pos_speed = speed;
+    writing.acc = acceleration;
+    writing.dec = decceleration;
+  }
+  EEPROM.put(eeAddress, writing);
+}
+
+void reading_cue_eeprom(uint8_t * cue_save, uint8_t cue_pos, float *pos, float *speed, float *acceleration, float *decceleration) {
+  int eeAddress = 0; //Move address to the next byte after float 'f'.
+
+  MyObject reading; //Variable to store custom object read from EEPROM.
+  uint8_t cue = cue_save[cue_pos];
+  eeAddress = sizeof(reading) * (cue - 1);
+
+  EEPROM.get(eeAddress, reading);
+
+  if (reading.data == 1 ) {
+    //reading.cue_num;
+    *pos = reading.pos;
+    *speed = reading.pos_speed;
+    *acceleration = reading.acc;
+    *decceleration = reading.dec;
+  }
 }
