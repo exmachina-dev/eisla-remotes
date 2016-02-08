@@ -225,6 +225,7 @@ void loop()
       }
     }
     else  {
+      encoder0Pos_old = encoder0Pos;
       resolution_chosen = 0;
       RESOLUTION_old = RESOLUTION;
       if (MODE == MODE_POS_SPD || MODE == MODE_SPD || MODE == MODE_TRQ) {
