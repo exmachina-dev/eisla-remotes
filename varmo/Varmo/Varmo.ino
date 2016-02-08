@@ -206,6 +206,7 @@ void loop()
       if (MODE == 0) {
         displayMenu();
       }
+      delay(500);
       FLAG_MENU = 1;
     }
     else if (FLAG_MENU == 1) {
@@ -1089,6 +1090,7 @@ void on_speed_selected(MenuItem* p_menu_item) {
   lcd.setCursor(1, 12);
   lcd.print("cm/s");
   MODE = MODE_SPD;
+  RESOLUTION = 1;
 }
 
 void on_acc_selected(MenuItem* p_menu_item) {
@@ -1099,6 +1101,7 @@ void on_acc_selected(MenuItem* p_menu_item) {
   lcd.setCursor(1, 13);
   lcd.print("sec");
   MODE = MODE_ACC;
+  RESOLUTION = 1;
 }
 
 void on_dec_selected(MenuItem* p_menu_item) {
@@ -1109,6 +1112,7 @@ void on_dec_selected(MenuItem* p_menu_item) {
   lcd.setCursor(1, 13);
   lcd.print("sec");
   MODE = MODE_DEC;
+  RESOLUTION = 1;
 }
 
 void on_pos_selected(MenuItem* p_menu_item) {
@@ -1118,10 +1122,12 @@ void on_pos_selected(MenuItem* p_menu_item) {
     lcd.print("Set Position");
     lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
     MODE = MODE_POS;
+    RESOLUTION = 1;
   }
   else {
     on_pos_speed_selected(0);
   }
+
 }
 
 void on_pos_speed_selected(MenuItem* p_menu_item) {
@@ -1132,6 +1138,7 @@ void on_pos_speed_selected(MenuItem* p_menu_item) {
   lcd.setCursor(1, 12);
   lcd.print("cm/s");
   MODE = MODE_POS_SPD;
+  RESOLUTION = 1;
 }
 
 void on_home_selected(MenuItem* p_menu_item)  {
@@ -1148,6 +1155,7 @@ void on_torque_selected(MenuItem* p_menu_item)  {
   lcd.setCursor(1, 15);
   lcd.print("%");
   MODE = MODE_TRQ;
+  RESOLUTION = 1;
 }
 
 void on_torque_fall_selected(MenuItem* p_menu_item) {
@@ -1199,7 +1207,6 @@ uint8_t get_cue_save(uint8_t * cue) {
   for (uint8_t i = 0; i < 50; i++) {
     eeAddress = (i) * 18;
     byte temp = EEPROM.read(eeAddress);
-
     if (temp == 1) {
       cue[j] = i + 1;
       j++;
@@ -1260,6 +1267,8 @@ void reading_cue_eeprom(uint8_t * cue_save, uint8_t cue_pos, float *pos, float *
   if (reading.data == 1 ) {
     //reading.cue_num;
     *pos = reading.pos;
+    lcd.setCursor(1,0);
+    lcd.print(*pos);
     *speed = reading.pos_speed;
     *acceleration = reading.acc;
     *decceleration = reading.dec;
