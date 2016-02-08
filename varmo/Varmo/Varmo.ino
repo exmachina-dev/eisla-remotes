@@ -1268,8 +1268,6 @@ void reading_cue_eeprom(uint8_t * cue_save, uint8_t cue_pos, float *pos, float *
   if (reading.data == 1 ) {
     //reading.cue_num;
     *pos = reading.pos;
-    lcd.setCursor(1,0);
-    lcd.print(*pos);
     *speed = reading.pos_speed;
     *acceleration = reading.acc;
     *decceleration = reading.dec;
