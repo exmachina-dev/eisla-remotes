@@ -28,7 +28,7 @@ struct MyObject {
   float acc;
   float dec;
 };
-
+uint8_t CUE_SAVE[];
 const char SERIAL_NUMBER[14] = "0116VARM0001";
 const int deviceAdress = 900;
 
@@ -39,20 +39,44 @@ void setup() {
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
+
   //Serial.println(EEPROM.length());
-  save_device_eeprom(SERIAL_NUMBER);
-/*  get_device_eeprom(SERIAL_NUMBER);
+  //save_device_eeprom(SERIAL_NUMBER);
+//  get_device_eeprom(SERIAL_NUMBER);
 
-  write_cue_eeprom(7, POS, SPEED, ACCELERATION, DECELERATION);
-
+  //write_cue_eeprom(10, POS, SPEED, ACCELERATION, DECELERATION);
+/*
   Serial.println("Read float from EEPROM: ");
 
-  reading_cue_eeprom(7);
+  reading_cue_eeprom(2);
+*/
+ /* for (uint8_t i = 0; i<50; i++){
+    eeAddress = (i)*18;
+    byte temp = EEPROM.read(eeAddress);
+    
+    if (temp == 1){
+      CUE_SAVE[i] = 1;
+    }
+    else{
+      CUE_SAVE[i] = 0;
+    }
+  }*/
 
-  erase_cue_eeprom(7);
-  write_cue_eeprom(7, POS, SPEED, ACCELERATION, DECELERATION);
-
-  reading_cue_eeprom(7);*/
+  get_cue_save(CUE_SAVE);
+  //Serial.print(sizeof(CUE_SAVE));
+  for (uint8_t i = 0; i<50; i++){
+    if (CUE_SAVE[i] != 0){
+      Serial.println(CUE_SAVE[i]);
+    }
+  }
+  erase_cue_eeprom(2);
+  get_cue_save(CUE_SAVE);
+  //Serial.print(sizeof(CUE_SAVE));
+  for (uint8_t i = 0; i<50; i++){
+    if (CUE_SAVE[i] != 0){
+      Serial.println(CUE_SAVE[i]);
+    }
+  }
 }
 
 void save_device_eeprom(const char* serialnumber){
@@ -74,6 +98,23 @@ void get_device_eeprom(const char* serialnumber){
 void erase_cue_eeprom(byte cue){
   int eeAddress = 18 * (cue-1);
   EEPROM.write(eeAddress, 0);
+}
+
+void get_cue_save(uint8_t * cue){
+  short eeAddress;
+  uint8_t j = 0;
+  for (uint8_t i = 0; i<50; i++){
+    eeAddress = (i)*18;
+    byte temp = EEPROM.read(eeAddress);
+    
+    if (temp == 1){
+      cue[j] = i+1;
+      j++;
+    }
+  }
+  for (uint8_t i =j; i<50; i++) {
+    cue[i] =0;
+  }
 }
 
 void write_cue_eeprom(byte cue, float pos, float speed, float acceleration, float deceleration) {
