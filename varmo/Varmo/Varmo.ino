@@ -144,10 +144,7 @@ void setup() {
   mu3.add_item(&mu3_mi4, &on_back_selected);
 
   ms.set_root_menu(&mm);
-  FLAG_MENU = 1;
-  displayMenu();
-
-
+  
   //LCD INITIALISATION
   lcd.init ();
   lcd.clear ();
@@ -158,14 +155,15 @@ void setup() {
 
   //SERIAL INITIALISATION
 
-
   lcd.clear ();
-  lcd.print("Connexion...");
 
   Serial.begin(57600);
   Varmo.sendData(Get, Device_serial_num);
   delay(50);
   Varmo.sendData(Get, Device_serial_num);
+
+  FLAG_MENU = 1;
+  displayMenu();
   displayMenu();
 }
 
@@ -494,14 +492,14 @@ void loop()
           SEND = LOW;
           if (TIME_OUT != 1)  {
             lcd.setCursor(1, 0);
-            lcd.print("Cue saved       ");
+            lcd.print("Cue Deleted     ");
             delay(1000);
             lcd.setCursor(1, 0);
             lcd.print("                ");
           }
           else{
             lcd.setCursor(1, 0);
-            lcd.print("Cue not saved   ");
+            lcd.print("Cue Not Deleted ");
             delay(1000);
             lcd.setCursor(1, 0);
             lcd.print("                ");
@@ -520,7 +518,29 @@ void loop()
       break;
 
     case MODE_DEL_CUE:
-
+      if (SEND == HIGH) {
+        SEND = LOW;
+        lcd.setCursor(1,0);
+        lcd.print("Delete Cue ");
+        if (CUE_SAVE[CUE_POS]<10){
+          lcd.print("0");
+          lcd.print(CUE_SAVE[CUE_POS]);
+        }
+        else{
+          lcd.print(CUE_SAVE[CUE_POS]);
+        }
+        reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
+        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+        Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
+        Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
+        Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
+        delay(1000);
+        lcd.setCursor(1, 0);
+        lcd.print("                ");        
+      }
+      CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
+      lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
+      break;
       break;
 
   }
@@ -1067,27 +1087,26 @@ void converter_abs(float *value, float *encoder0Pos, float resolution, float max
 }
 
 uint8_t convert_cue(uint8_t cue, float *encoder0Pos) {
-  uint8_t temp = *encoder0Pos * 2;
-  if (temp <= 0) {
+  if (*encoder0Pos <= 0) {
     *encoder0Pos = 0;
+
   }
-  else if (temp >= 98) {
-    *encoder0Pos = 98/2;
+  else if (*encoder0Pos >= 49*2) {
+    *encoder0Pos = 49*2;
   }
-  cue = temp;
+  cue = (uint8_t) *encoder0Pos/2;
   return cue;
 }
 
 uint8_t convert_cue_save(uint8_t * cue_save, float *encoder0Pos, uint8_t max) {
   uint8_t cue_pos;
-  uint8_t temp = *encoder0Pos *2;
-  if (temp <= 0) {
+  if (*encoder0Pos <= 0) {
     *encoder0Pos = 0;
   }
-  else if (temp >= max *2) {
-    *encoder0Pos = max;
+  else if (*encoder0Pos >= max*2) {
+    *encoder0Pos = max*2;
   }
-  cue_pos = (uint8_t) temp;
+  cue_pos = (uint8_t) *encoder0Pos/2;
   return cue_pos;
 }
 
