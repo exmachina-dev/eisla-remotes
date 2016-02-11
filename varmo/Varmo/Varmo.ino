@@ -312,7 +312,10 @@ void loop()
 
   /*###########################SEND###########################*/
 
-  if (MOTOR_OFF == false || MODE == MODE_HOME || MODE == MODE_ACC || MODE == MODE_DEC || MODE == MODE_POS_SPD)  {
+  if (MOTOR_OFF == false || MODE == MODE_HOME     || MODE == MODE_ACC 
+                         || MODE == MODE_DEC      || MODE == MODE_POS_SPD
+                         || MODE == MODE_PLAY_CUE || MODE == MODE_REC_CUE
+                         || MODE == MODE_DEL_CUE  || MODE == MODE_MOD_CUE)  {
     bool send_button_push = digitalRead(SEND_BUTTON);
     if (send_button_push != send_button_push_old) {
       lastDebounceTime = millis();
@@ -437,11 +440,13 @@ void loop()
         else{
           lcd.print(CUE_SAVE[CUE_POS]);
         }
-        reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
+        reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET,
+                                              &ACCELERATION_TARGET, &DECELERATION_TARGET);
         Varmo.sendData(Set, Position_ref, POSITION_TARGET);
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
         Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
+        Varmo.sendData(Set, Pos_go, true);
         delay(1000);
         lcd.setCursor(1, 0);
         lcd.print("                ");        
@@ -453,9 +458,10 @@ void loop()
     case MODE_REC_CUE:
       if (SEND == HIGH) {
         SEND = LOW;
-        byte temp = erase_cue_eeprom(CUE);
+        byte temp = get_cue_status(CUE);
         if (temp != 1)  {
-          write_cue_eeprom(CUE, POSITION_TARGET, POS_SPEED_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET);
+          write_cue_eeprom(CUE, POSITION_TARGET, POS_SPEED_TARGET,
+                                ACCELERATION_TARGET, DECELERATION_TARGET);
           lcd.setCursor(1, 0);
           lcd.print("Cue saved       ");
           delay(1000);
@@ -520,27 +526,57 @@ void loop()
     case MODE_DEL_CUE:
       if (SEND == HIGH) {
         SEND = LOW;
-        lcd.setCursor(1,0);
-        lcd.print("Delete Cue ");
-        if (CUE_SAVE[CUE_POS]<10){
+        bool TIME_OUT = 0;
+        time_out_saved = millis();
+        SEND = digitalRead(SEND_BUTTON);
+        while (SEND != HIGH){
+          SEND = digitalRead(SEND_BUTTON);
+        }
+        lcd.cursor_off();
+        lcd.setCursor(1, 0);
+        lcd.print("Erase cue ");
+        if (CUE+1 < 10){
           lcd.print("0");
-          lcd.print(CUE_SAVE[CUE_POS]);
+          lcd.print(CUE+1);
         }
         else{
-          lcd.print(CUE_SAVE[CUE_POS]);
+          lcd.print(CUE+1);
         }
-        reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
-        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
-        Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
-        Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
-        Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
+        lcd.print("?");
+        lcd.print("( )");
+        do {
+          SEND = digitalRead(SEND_BUTTON);
+          lcd.setCursor(1,14);
+          lcd.print(uint8_t((5000 - (millis() - time_out_saved))/1000));
+          if (millis() - time_out_saved > 5000) {
+            TIME_OUT = 1;
+          }
+        } while (SEND != LOW && TIME_OUT != 1);
+        SEND = LOW;
+        if (TIME_OUT != 1)  {
+          erase_cue_eeprom(CUE_POS, CUE_SAVE);
+          get_cue_save(CUE_SAVE);
+          lcd.setCursor(1, 0);
+          lcd.print("Cue Deleted     ");
+          delay(1000);
+          lcd.setCursor(1, 0);
+          lcd.print("                ");
+        }
+        else{
+          lcd.setCursor(1, 0);
+          lcd.print("Cue Not Deleted ");
+          delay(1000);
+          lcd.setCursor(1, 0);
+          lcd.print("                ");
+        }
+        TIME_OUT = 0; 
+
         delay(1000);
         lcd.setCursor(1, 0);
         lcd.print("                ");        
       }
       CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
       lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
-      break;
       break;
 
   }
@@ -1249,6 +1285,8 @@ void on_del_cue_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Del cue");
   MODE = MODE_DEL_CUE;
+  CUE_LENGTH = get_cue_save(CUE_SAVE);
+  encoder0Pos = 0;
 }
 
 uint8_t get_cue_save(uint8_t * cue) {
@@ -1268,7 +1306,14 @@ uint8_t get_cue_save(uint8_t * cue) {
   return j;
 }
 
-byte erase_cue_eeprom(uint8_t cue) {
+void erase_cue_eeprom(uint8_t cue, uint8_t *cue_save){
+  int eeAddress = 18 * (cue_save[cue]-1);
+  lcd.setCursor(0,13);
+  lcd.print(eeAddress);
+  EEPROM.write(eeAddress, 0);
+}
+
+byte get_cue_status(uint8_t cue) {
   int eeAddress = 0;   //Location we want the data to be put.
 
   MyObject writing;
