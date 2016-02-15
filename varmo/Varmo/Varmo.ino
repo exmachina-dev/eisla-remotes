@@ -127,7 +127,7 @@ void setup() {
   mu1.add_menu(&mu1_mu5);
   mu1_mu5.add_item(&mu1_mu5_mi1, &on_play_cue_selected);
   mu1_mu5.add_item(&mu1_mu5_mi2, &on_rec_cue_selected);
-  //mu1_mu5.add_item(&mu1_mu5_mi3, &on_mod_cue_selected);
+  mu1_mu5.add_item(&mu1_mu5_mi3, &on_mod_cue_selected);
   mu1_mu5.add_item(&mu1_mu5_mi4, &on_del_cue_selected);
   mu1_mu5.add_item(&mu1_mu5_mi5, &on_back_selected);
   mu1.add_item(&mu1_mi6, &on_home_selected);
@@ -232,7 +232,9 @@ void loop()
       else {
         init_resolution(RESOLUTION, &encoder0Pos);
       }
-      while (resolution_chosen == 0 && MODE != MODE_HOME && MODE != MODE_REC_CUE && MODE != MODE_PLAY_CUE && MODE != MODE_DEL_CUE && MODE != MODE_MOD_CUE)  {
+      while (resolution_chosen == 0 && MODE != MODE_HOME     && MODE != MODE_REC_CUE
+                                    && MODE != MODE_PLAY_CUE && MODE != MODE_DEL_CUE
+                                    && MODE != MODE_MOD_CUE)  {
         if (MODE == MODE_POS) {
           RESOLUTION = resolution_set(RESOLUTION, 1, 5);
         }
@@ -440,8 +442,7 @@ void loop()
         else{
           lcd.print(CUE_SAVE[CUE_POS]);
         }
-        reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET,
-                                              &ACCELERATION_TARGET, &DECELERATION_TARGET);
+        reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
         Varmo.sendData(Set, Position_ref, POSITION_TARGET);
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
@@ -520,6 +521,28 @@ void loop()
       break;
 
     case MODE_MOD_CUE:
+      if (SEND == HIGH) {
+        SEND = LOW;
+        lcd.setCursor(1,0);
+        lcd.print("Modify Cue ");
+        if (CUE_SAVE[CUE_POS]<10){
+          lcd.print("0");
+          lcd.print(CUE_SAVE[CUE_POS]);
+        }
+        else{
+          lcd.print(CUE_SAVE[CUE_POS]);
+        }
+        reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
+        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+        Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
+        Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
+        Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
+        delay(1000);
+        lcd.setCursor(1, 0);
+        lcd.print("                ");        
+      }
+      CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
+      lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
 
       break;
 
@@ -555,7 +578,7 @@ void loop()
         SEND = LOW;
         if (TIME_OUT != 1)  {
           erase_cue_eeprom(CUE_POS, CUE_SAVE);
-          get_cue_save(CUE_SAVE);
+          CUE_LENGTH = get_cue_save(CUE_SAVE);
           lcd.setCursor(1, 0);
           lcd.print("Cue Deleted     ");
           delay(1000);
@@ -578,9 +601,7 @@ void loop()
       CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
       lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
       break;
-
   }
-
 
 }
 
@@ -990,6 +1011,7 @@ void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
     lcd.print("No cue saved    ");
   }
 }
+
 void lcd_print_all_cue(uint8_t CUE, uint8_t max) {
 
   lcd.setCursor(1, 1);
@@ -1213,7 +1235,6 @@ void on_pos_selected(MenuItem* p_menu_item) {
   else {
     on_pos_speed_selected(0);
   }
-
 }
 
 void on_pos_speed_selected(MenuItem* p_menu_item) {
@@ -1279,6 +1300,8 @@ void on_mod_cue_selected(MenuItem* p_menu_item) {
   lcd.clear();
   lcd.print("Mod cue");
   MODE = MODE_MOD_CUE;
+  CUE_LENGTH = get_cue_save(CUE_SAVE);
+  encoder0Pos = 0;
 }
 
 void on_del_cue_selected(MenuItem* p_menu_item) {
