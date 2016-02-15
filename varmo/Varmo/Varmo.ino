@@ -374,9 +374,11 @@ void loop()
     if (CUE_LOAD == 1){
       lcd.setCursor(0,0);
       lcd.print("Modify cue      ");
-      byte temp = get_cue_status(CUE);
+      lcd.setCursor(0,14);
+      lcd.print(CUE);
+      byte temp = get_cue_status(CUE_SAVE[CUE_POS]);
       if (temp != 1)  {
-        write_cue_eeprom(CUE, POSITION_TARGET, POS_SPEED_TARGET,
+        write_cue_eeprom(CUE_SAVE[CUE_POS], POSITION_TARGET, POS_SPEED_TARGET,
                               ACCELERATION_TARGET, DECELERATION_TARGET);
         lcd.setCursor(1, 0);
         lcd.print("Cue saved       ");
@@ -394,12 +396,12 @@ void loop()
         lcd.cursor_off();
         lcd.setCursor(1, 0);
         lcd.print("Erase cue ");
-        if (CUE+1 < 10){
+        if (CUE_SAVE[CUE_POS] < 10){
           lcd.print("0");
-          lcd.print(CUE+1);
+          lcd.print(CUE_SAVE[CUE_POS]);
         }
         else{
-          lcd.print(CUE+1);
+          lcd.print(CUE_SAVE[CUE_POS]);
         }
         lcd.print("?");
         lcd.print("( )");
@@ -414,6 +416,8 @@ void loop()
         SEND = LOW;
         if (TIME_OUT != 1)  {
           CUE_LOAD = 0;
+          write_cue_eeprom(CUE_SAVE[CUE_POS], POSITION_TARGET, POS_SPEED_TARGET,
+                                ACCELERATION_TARGET, DECELERATION_TARGET);
           lcd.setCursor(1, 0);
           lcd.print("Cue Overwrited  ");
           delay(1000);
@@ -602,6 +606,8 @@ void loop()
           } while (SEND != LOW && TIME_OUT != 1);
           SEND = LOW;
           if (TIME_OUT != 1)  {
+            write_cue_eeprom(CUE, POSITION_TARGET, POS_SPEED_TARGET,
+                                ACCELERATION_TARGET, DECELERATION_TARGET);
             lcd.setCursor(1, 0);
             lcd.print("Cue Overwrtied  ");
             delay(1000);
