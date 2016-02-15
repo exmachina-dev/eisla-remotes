@@ -164,7 +164,6 @@ void setup() {
 
   FLAG_MENU = 1;
   displayMenu();
-  displayMenu();
 }
 
 void loop()
@@ -292,7 +291,7 @@ void loop()
     SENS = LOW;
     MOTOR_OFF = false;
   }
-  else if (millis() - timer_motor_off > 50 && MOTOR_OFF != HIGH) {
+  else if (millis() - timer_motor_off > 50 && MOTOR_OFF != HIGH && MODE !=0) {
     timer_motor_off = millis();
     lcd.setCursor(1, 4);
     lcd.print(" ");
@@ -1199,6 +1198,8 @@ void on_speed_selected(MenuItem* p_menu_item) {
   lcd.print("cm/s");
   MODE = MODE_SPD;
   RESOLUTION = 1;
+  converter(&SPEED_TARGET, &encoder0Pos, RESOLUTION, SENS, 999.9);
+  lcd_print_float_value_three(SPEED_GET, SPEED_TARGET, MOTOR_OFF);
 }
 
 void on_acc_selected(MenuItem* p_menu_item) {
@@ -1210,6 +1211,8 @@ void on_acc_selected(MenuItem* p_menu_item) {
   lcd.print("sec");
   MODE = MODE_ACC;
   RESOLUTION = 1;
+  converter_abs(&ACCELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
+  lcd_print_abs_float_value(ACCELERATION_GET, ACCELERATION_TARGET);
 }
 
 void on_dec_selected(MenuItem* p_menu_item) {
@@ -1221,6 +1224,8 @@ void on_dec_selected(MenuItem* p_menu_item) {
   lcd.print("sec");
   MODE = MODE_DEC;
   RESOLUTION = 1;
+  converter_abs(&DECELERATION_TARGET, &encoder0Pos, RESOLUTION, 9999.9);
+  lcd_print_abs_float_value(DECELERATION_GET, DECELERATION_TARGET);
 }
 
 void on_pos_selected(MenuItem* p_menu_item) {
@@ -1231,6 +1236,8 @@ void on_pos_selected(MenuItem* p_menu_item) {
     lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
     MODE = MODE_POS;
     RESOLUTION = 1;
+    converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
+    lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
   }
   else {
     on_pos_speed_selected(0);
@@ -1246,6 +1253,8 @@ void on_pos_speed_selected(MenuItem* p_menu_item) {
   lcd.print("cm/s");
   MODE = MODE_POS_SPD;
   RESOLUTION = 1;
+  converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 99.9);
+  lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
 }
 
 void on_home_selected(MenuItem* p_menu_item)  {
@@ -1263,6 +1272,8 @@ void on_torque_selected(MenuItem* p_menu_item)  {
   lcd.print("%");
   MODE = MODE_TRQ;
   RESOLUTION = 1;
+  converter(&TORQUE_TARGET, &encoder0Pos, RESOLUTION, SENS, 150);
+  lcd_print_float_value_three(TORQUE_GET, TORQUE_TARGET, MOTOR_OFF);
 }
 
 void on_torque_fall_selected(MenuItem* p_menu_item) {
@@ -1287,6 +1298,8 @@ void on_play_cue_selected(MenuItem* p_menu_item)  {
   MODE = MODE_PLAY_CUE;
   CUE_LENGTH = get_cue_save(CUE_SAVE);
   encoder0Pos = 0;
+  CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
+  lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
 }
 
 void on_rec_cue_selected(MenuItem* p_menu_item) {
@@ -1294,6 +1307,8 @@ void on_rec_cue_selected(MenuItem* p_menu_item) {
   lcd.print("Rec Cue");
   MODE = MODE_REC_CUE;
   encoder0Pos = 0;
+  CUE = convert_cue(CUE, &encoder0Pos);
+  lcd_print_all_cue(CUE, 50);
 }
 
 void on_mod_cue_selected(MenuItem* p_menu_item) {
@@ -1302,6 +1317,8 @@ void on_mod_cue_selected(MenuItem* p_menu_item) {
   MODE = MODE_MOD_CUE;
   CUE_LENGTH = get_cue_save(CUE_SAVE);
   encoder0Pos = 0;
+  CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
+  lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
 }
 
 void on_del_cue_selected(MenuItem* p_menu_item) {
@@ -1310,6 +1327,8 @@ void on_del_cue_selected(MenuItem* p_menu_item) {
   MODE = MODE_DEL_CUE;
   CUE_LENGTH = get_cue_save(CUE_SAVE);
   encoder0Pos = 0;
+  CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
+  lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
 }
 
 uint8_t get_cue_save(uint8_t * cue) {
