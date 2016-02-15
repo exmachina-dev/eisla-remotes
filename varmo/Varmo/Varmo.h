@@ -23,6 +23,9 @@
 #define LED_1 A0
 #define LED_2 A1
 
+/*SAVE BUTTON */
+#define SAVE_BUTTON A6
+
 /*DIRECTION*/
 #define DIRECTION_1 8
 #define DIRECTION_2 9
