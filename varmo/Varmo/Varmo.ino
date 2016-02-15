@@ -429,7 +429,7 @@ void loop()
         }
         TIME_OUT = 0;
       }
-      lcd.clear():
+      lcd.clear();
       displayMenu();
     }
     else{
@@ -536,6 +536,7 @@ void loop()
     case MODE_PLAY_CUE:
       if (SEND == HIGH) {
         SEND = LOW;
+        lcd.cursor_off();
         lcd.setCursor(1,0);
         lcd.print("Go To Cue ");
         if (CUE_SAVE[CUE_POS]<10){
@@ -626,6 +627,7 @@ void loop()
     case MODE_MOD_CUE:
       if (SEND == HIGH) {
         SEND = LOW;
+        lcd.cursor_off();
         lcd.setCursor(1,0);
         lcd.print("Modify Cue ");
         if (CUE_SAVE[CUE_POS]<10){
@@ -654,6 +656,7 @@ void loop()
       if (SEND == HIGH) {
         SEND = LOW;
         bool TIME_OUT = 0;
+        lcd.cursor_off();
         time_out_saved = millis();
         SEND = digitalRead(SEND_BUTTON);
         while (SEND != HIGH){
@@ -1036,7 +1039,9 @@ void lcd_print_pos(float value1, float value2, bool motor) {
 }
 
 void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
-  if (max !=0){
+  lcd.setCursor(1,0);
+  lcd.print("                ");
+  if (max != 0){
     lcd.setCursor(1, 1);
     if (cue_pos < max) {
       if (cue_save[cue_pos] < 10) {
@@ -1266,7 +1271,7 @@ uint8_t convert_cue_save(uint8_t * cue_save, float *encoder0Pos, uint8_t max) {
     *encoder0Pos = 0;
   }
   else if (*encoder0Pos >= max*2) {
-    *encoder0Pos = max*2;
+    *encoder0Pos = (max-1)*2;
   }
   cue_pos = (uint8_t) *encoder0Pos/2;
   return cue_pos;
