@@ -16,7 +16,7 @@ const char *Position_ref = "machine.position_ref";
 
 const char *Position = "machine.position";
 const char *Pos_go = "machine.command.go";
-//const char *Go_Home = "machine.command.go_home";
+const char *Go_Home = "machine.command.go_home";
 const char *Pos_Home = "machine.command.set_home";
 
 const char *Acceleration = "machine.acceleration";
@@ -457,8 +457,13 @@ void loop()
       }
       if (SEND == HIGH) {
         SEND = LOW;
-        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
-        Varmo.sendData(Set, Pos_go, true);
+        if (POSITION_TARGET > 0){
+          Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+          Varmo.sendData(Set, Pos_go, true);
+        }
+        else{
+          Varmo.sendData(Set, Go_Home, true);
+        }
       }
       converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
       lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
