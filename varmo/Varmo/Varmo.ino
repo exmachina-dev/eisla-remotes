@@ -13,12 +13,10 @@ const char *Speed_ref = "machine.velocity_ref";
 const char *Torque_ref = "machine.torque_ref";
 const char *Position_ref = "machine.position_ref";
 
-const char *Speed = "machine.velocity";
-const char *Torque = "machine.torque";
 
 const char *Position = "machine.position";
 const char *Pos_go = "machine.command.go";
-const char *Go_Home = "machine.command.go_home";
+//const char *Go_Home = "machine.command.go_home";
 const char *Pos_Home = "machine.command.set_home";
 
 const char *Acceleration = "machine.acceleration";
@@ -27,7 +25,6 @@ const char *Deceleration = "machine.deceleration";
 const char *Control_Mode = "machine.command.control_mode";
 
 const char *Device_serial_num = "machine.serialnumber";
-const char *Drive_Enable = "status.drive_enable";
 const char *Stop = "machine.command.cancel";
 
 
@@ -74,7 +71,7 @@ float RESOLUTION_old = 1;
 bool send_button_push_old = HIGH;
 bool send_state = LOW;
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-const unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+//const unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 bool SEND = LOW;
 
 bool SAVE = LOW;
@@ -83,7 +80,7 @@ bool save_state = LOW;
 
 /*TIMER*/
 unsigned long time_push = 0;
-const unsigned long refresh = 1000;
+//const unsigned long refresh = 1000;
 
 bool MOTOR_OFF;
 unsigned long timer_motor_off;
@@ -98,7 +95,7 @@ uint8_t CUE_SAVE[50];
 uint8_t CUE_LENGTH = 0;
 unsigned long time_out_saved;
 bool CUE_LOAD = 0;
-
+bool FLAG_SHORTCUT = 0;
 bool FLAG_POS_MODE;
 
 void setup() {
@@ -116,8 +113,8 @@ void setup() {
 
   pinMode(SEND_BUTTON, INPUT);
 
-  pinMode(LED_1, OUTPUT);
-  pinMode(LED_2, OUTPUT);
+  //pinMode(LED_1, OUTPUT);
+  //pinMode(LED_2, OUTPUT);
 
   pinMode(DIRECTION_1, INPUT);
   pinMode(DIRECTION_2, INPUT);
@@ -179,7 +176,7 @@ void loop()
   delay(100);
 
   /*###############################MENU#####################################*/
-  bool encoder_push = digitalRead(encoderE);
+  bool encoder_push  = digitalRead(encoderE);
 
   if (encoder_push == LOW )  {
 
@@ -231,7 +228,8 @@ void loop()
         encoder_push = digitalRead(encoderE);
       }
     }
-    else  {
+    else if (MODE != MODE_HOME && MODE != MODE_REC_CUE && MODE != MODE_PLAY_CUE
+                               && MODE != MODE_DEL_CUE && MODE != MODE_MOD_CUE)  {
       encoder0Pos_old = encoder0Pos;
       resolution_chosen = 0;
       RESOLUTION_old = RESOLUTION;
@@ -241,9 +239,7 @@ void loop()
       else {
         init_resolution(RESOLUTION, &encoder0Pos);
       }
-      while (resolution_chosen == 0 && MODE != MODE_HOME     && MODE != MODE_REC_CUE
-                                    && MODE != MODE_PLAY_CUE && MODE != MODE_DEL_CUE
-                                    && MODE != MODE_MOD_CUE)  {
+      while (resolution_chosen == 0)  {
         if (MODE == MODE_POS) {
           RESOLUTION = resolution_set(RESOLUTION, 1, 5);
         }
@@ -332,7 +328,7 @@ void loop()
       lastDebounceTime = millis();
     }
 
-    if ((millis() - lastDebounceTime) > debounceDelay) {
+    if ((millis() - lastDebounceTime) > 50) {
       if (send_button_push != send_state) {
         send_state = send_button_push;
 
@@ -345,101 +341,109 @@ void loop()
   }
 
   /*###############################SAVE#####################################*/
-  uint8_t analog_val = analogRead(SAVE_BUTTON);
-  bool save_button_push;
-  if (analog_val > 127){
-    save_button_push = true;
-  }
-  else {
-    save_button_push = false;
-  }
-  if (save_button_push != save_button_push_old) {
-    lastDebounceTime = millis();
-  }
+  if (FLAG_POS_MODE == 1){
 
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    if (save_button_push != save_state) {
-      save_state = save_button_push;
+    //uint8_t analog_val = analogRead(SAVE_BUTTON);
+    bool save_button_push;
+    if (analogRead(SAVE_BUTTON) > 127){
+      save_button_push = true;
+    }
+    else {
+      save_button_push = false;
+    }
+    if (save_button_push != save_button_push_old) {
+      lastDebounceTime = millis();
+    }
 
-      if (save_button_push == LOW)  {
-        SAVE = HIGH;
+    if ((millis() - lastDebounceTime) > 50) {
+      if (save_button_push != save_state) {
+        save_state = save_button_push;
+
+        if (save_button_push == LOW)  {
+          SAVE = HIGH;
+        }
       }
     }
+    save_button_push_old = save_button_push;
   }
-  save_button_push_old = save_button_push;
-  
 
   if (SAVE == HIGH && FLAG_POS_MODE == 1) {
     SAVE = LOW;
+    lcd.clear();
     if (CUE_LOAD == 1){
-      lcd.setCursor(0,0);
       lcd.print("Modify cue      ");
-      lcd.setCursor(0,14);
-      lcd.print(CUE);
-      byte temp = get_cue_status(CUE_SAVE[CUE_POS]);
-      if (temp != 1)  {
+      uint8_t temp = get_cue_status(CUE_SAVE[CUE_POS]);
+
+      bool TIME_OUT = 0;
+      time_out_saved = millis();
+      lcd.cursor_off();
+      lcd.setCursor(1, 0);
+      lcd.print("Erase cue ");
+      if (CUE_SAVE[CUE_POS] < 10){
+        lcd.print("0");
+        lcd.print(CUE_SAVE[CUE_POS]);
+      }
+      else{
+        lcd.print(CUE_SAVE[CUE_POS]);
+      }
+      lcd.print("?");
+      lcd.print("( )");
+      do {
+        SEND = digitalRead(SEND_BUTTON);
+        lcd.setCursor(1,14);
+        lcd.print(uint8_t((5000 - (millis() - time_out_saved))/1000));
+        if (millis() - time_out_saved > 5000) {
+          TIME_OUT = 1;
+        }
+      } while (SEND != LOW && TIME_OUT != 1);
+      SEND = LOW;
+      if (TIME_OUT != 1)  {
+        CUE_LOAD = 0;
         write_cue_eeprom(CUE_SAVE[CUE_POS], POSITION_TARGET, POS_SPEED_TARGET,
                               ACCELERATION_TARGET, DECELERATION_TARGET);
         lcd.setCursor(1, 0);
-        lcd.print("Cue saved       ");
+        lcd.print("Cue Overwrited  ");
         delay(1000);
         lcd.setCursor(1, 0);
         lcd.print("                ");
       }
-      else {
-        bool TIME_OUT = 0;
-        time_out_saved = millis();
-        SEND = digitalRead(SEND_BUTTON);
-        while (SEND != HIGH){
-          SEND = digitalRead(SEND_BUTTON);
-        }
-        lcd.cursor_off();
+      else{
         lcd.setCursor(1, 0);
-        lcd.print("Erase cue ");
-        if (CUE_SAVE[CUE_POS] < 10){
-          lcd.print("0");
-          lcd.print(CUE_SAVE[CUE_POS]);
-        }
-        else{
-          lcd.print(CUE_SAVE[CUE_POS]);
-        }
-        lcd.print("?");
-        lcd.print("( )");
-        do {
-          SEND = digitalRead(SEND_BUTTON);
-          lcd.setCursor(1,14);
-          lcd.print(uint8_t((5000 - (millis() - time_out_saved))/1000));
-          if (millis() - time_out_saved > 5000) {
-            TIME_OUT = 1;
-          }
-        } while (SEND != LOW && TIME_OUT != 1);
-        SEND = LOW;
-        if (TIME_OUT != 1)  {
-          CUE_LOAD = 0;
-          write_cue_eeprom(CUE_SAVE[CUE_POS], POSITION_TARGET, POS_SPEED_TARGET,
-                                ACCELERATION_TARGET, DECELERATION_TARGET);
-          lcd.setCursor(1, 0);
-          lcd.print("Cue Overwrited  ");
-          delay(1000);
-          lcd.setCursor(1, 0);
-          lcd.print("                ");
-        }
-        else{
-          lcd.setCursor(1, 0);
-          lcd.print("Cue not saved   ");
-          delay(1000);
-          lcd.setCursor(1, 0);
-          lcd.print("                ");
-        }
-        TIME_OUT = 0;
+        lcd.print("Cue not saved   ");
+        delay(1000);
+        lcd.setCursor(1, 0);
+        lcd.print("                ");
       }
-      lcd.clear();
-      displayMenu();
+      TIME_OUT = 0;
     }
-    else{
-
+    else {
+      lcd.setCursor(0,0);
+      lcd.print("Save cue ");
+      uint8_t SLOT = get_cue_slot_free();
+      if (SLOT == 50){
+        lcd.setCursor(1,0);
+        lcd.print("Cue full");
+      }
+      else{
+        write_cue_eeprom(SLOT, POSITION_TARGET, POS_SPEED_TARGET, ACCELERATION_TARGET, DECELERATION_TARGET);
+        lcd.setCursor(1, 0);
+        lcd.print("Cue saved ");
+        lcd.setCursor(1,14);
+        if (SLOT+1 < 10){
+          lcd.print("0");
+          lcd.print(SLOT+1);
+        }
+        else{
+          lcd.print(SLOT+1);
+        }
+      }
+      delay(1000);
     }
-
+    if (MODE != 0){
+      ms.select();
+    }
+    FLAG_SHORTCUT = 1;
+    displayMenu();
   }
 
   /*###############################REFRESH##################################*/
@@ -447,7 +451,10 @@ void loop()
   switch (MODE)  {
 
     case MODE_POS :
-
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_pos_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Position_ref, POSITION_TARGET);
@@ -462,7 +469,10 @@ void loop()
       break;
 
     case MODE_POS_SPD :
-
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_pos_speed_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
@@ -474,7 +484,10 @@ void loop()
       break;
 
     case MODE_TRQ :
-
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_torque_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Torque_ref, TORQUE_TARGET);
@@ -488,6 +501,10 @@ void loop()
       break;
 
     case MODE_SPD :
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_speed_selected(0);
+      }
 
       if (SEND == HIGH) {
         SEND = LOW;
@@ -502,7 +519,10 @@ void loop()
       break;
 
     case MODE_HOME :
-
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_home_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Pos_Home, true);
@@ -510,7 +530,7 @@ void loop()
         lcd.print("New home pos    ");
         refresh_set_home = millis();
       }
-      if ( (millis() - refresh_set_home) > refresh ) {
+      if ( (millis() - refresh_set_home) > 1000 ) {
         refresh_set_home = millis();
         lcd.setCursor(1, 0);
         lcd.print("                ");
@@ -518,7 +538,10 @@ void loop()
       break;
 
     case MODE_ACC :
-
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_acc_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
@@ -528,7 +551,10 @@ void loop()
       break;
 
     case MODE_DEC :
-
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_dec_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
@@ -538,6 +564,10 @@ void loop()
       break;
 
     case MODE_PLAY_CUE:
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_play_cue_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         lcd.cursor_off();
@@ -565,6 +595,10 @@ void loop()
       break;
 
     case MODE_REC_CUE:
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_rec_cue_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         byte temp = get_cue_status(CUE);
@@ -631,6 +665,10 @@ void loop()
       break;
 
     case MODE_MOD_CUE:
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_mod_cue_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         lcd.cursor_off();
@@ -655,10 +693,13 @@ void loop()
       }
       CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
       lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
-
       break;
 
     case MODE_DEL_CUE:
+      if (FLAG_SHORTCUT == 1){
+        FLAG_SHORTCUT = 0;
+        on_del_cue_selected(0);
+      }
       if (SEND == HIGH) {
         SEND = LOW;
         bool TIME_OUT = 0;
@@ -1045,8 +1086,7 @@ void lcd_print_pos(float value1, float value2, bool motor) {
 }
 
 void lcd_print_saved_cue(uint8_t * cue_save, uint8_t cue_pos, uint8_t max)  {
-  lcd.setCursor(1,0);
-  lcd.print("                ");
+
   if (max != 0){
     lcd.setCursor(1, 1);
     if (cue_pos < max) {
@@ -1446,6 +1486,23 @@ void on_del_cue_selected(MenuItem* p_menu_item) {
   CUE_POS = convert_cue_save(CUE_SAVE, &encoder0Pos, CUE_LENGTH);
   lcd_print_saved_cue(CUE_SAVE, CUE_POS, CUE_LENGTH);
 }
+uint8_t get_cue_slot_free() {
+  short eeAddress;
+  uint8_t j = 0;
+  bool slot_free = 0;
+  for (uint8_t i = 0; i < 50; i++) {
+    eeAddress = (i) * 18;
+    byte temp = EEPROM.read(eeAddress);
+    if (temp != 1 && slot_free == 0) {
+      j = i;
+      slot_free = 1;
+    }
+  }
+  if (slot_free == 0){
+    j = 50;
+  }
+  return j;
+}
 
 uint8_t get_cue_save(uint8_t * cue) {
   short eeAddress;
@@ -1487,7 +1544,7 @@ void write_cue_eeprom(uint8_t cue, float pos, float speed, float acceleration, f
 
   eeAddress = sizeof(writing) * (cue);
 
-  byte temp = EEPROM.read(eeAddress);
+  uint8_t temp = EEPROM.read(eeAddress);
 
   if (temp != 1)  {
     writing.data = 1;

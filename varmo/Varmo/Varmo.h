@@ -14,15 +14,15 @@
 #define encoderE 4
 
 /*CONTRASTE*/
-#define CONTRAST_PWM 5
+///#define CONTRAST_PWM 5
 
 /*SEND_BUTTON*/
 #define SEND_BUTTON 10
 
 /*LED*/
-#define LED_1 A0
+/*#define LED_1 A0
 #define LED_2 A1
-
+*/
 /*SAVE BUTTON */
 #define SAVE_BUTTON A6
 
@@ -34,9 +34,9 @@
 
 #define VARMO_VERSION     "Varmo V1.1.0"
 #define SERIAL_NUMBER     "0116VARM0001"
-#define PROTOCOL          "ExmEisla"
+/*#define PROTOCOL          "ExmEisla"
 #define ARMAZ_ID          "0000"
-
+*/
 /*
 String "machine.alive";
 String "machme.alive:ok";
@@ -120,5 +120,3 @@ void converter(float *value, float *encoder0Pos, float resolution, bool sens, fl
 void contrast_convert(uint8_t *CONTRAST, uint8_t *F_contrast, float *encoder0Pos);
 
 #endif // VARMO_H_INCLUDED
-
-;
