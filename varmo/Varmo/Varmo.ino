@@ -71,7 +71,6 @@ float RESOLUTION_old = 1;
 bool send_button_push_old = HIGH;
 bool send_state = LOW;
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-//const unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 bool SEND = LOW;
 
 bool SAVE = LOW;
@@ -80,7 +79,6 @@ bool save_state = LOW;
 
 /*TIMER*/
 unsigned long time_push = 0;
-//const unsigned long refresh = 1000;
 
 bool MOTOR_OFF;
 unsigned long timer_motor_off;
@@ -112,9 +110,6 @@ void setup() {
   pinMode(encoderE, INPUT);
 
   pinMode(SEND_BUTTON, INPUT);
-
-  //pinMode(LED_1, OUTPUT);
-  //pinMode(LED_2, OUTPUT);
 
   pinMode(DIRECTION_1, INPUT);
   pinMode(DIRECTION_2, INPUT);
@@ -343,7 +338,6 @@ void loop()
   /*###############################SAVE#####################################*/
   if (FLAG_POS_MODE == 1){
 
-    //uint8_t analog_val = analogRead(SAVE_BUTTON);
     bool save_button_push;
     if (analogRead(SAVE_BUTTON) > 127){
       save_button_push = true;
@@ -1580,7 +1574,6 @@ void reading_cue_eeprom(uint8_t * cue_save, uint8_t cue_pos, float *pos, float *
   EEPROM.get(eeAddress, reading);
 
   if (reading.data == 1 ) {
-    //reading.cue_num;
     *pos = reading.pos;
     *speed = reading.pos_speed;
     *acceleration = reading.acc;

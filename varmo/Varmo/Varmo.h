@@ -13,16 +13,9 @@
 #define encoder0PinB 3
 #define encoderE 4
 
-/*CONTRASTE*/
-///#define CONTRAST_PWM 5
-
 /*SEND_BUTTON*/
 #define SEND_BUTTON 10
 
-/*LED*/
-/*#define LED_1 A0
-#define LED_2 A1
-*/
 /*SAVE BUTTON */
 #define SAVE_BUTTON A6
 
@@ -34,13 +27,7 @@
 
 #define VARMO_VERSION     "Varmo V1.1.0"
 #define SERIAL_NUMBER     "0116VARM0001"
-/*#define PROTOCOL          "ExmEisla"
-#define ARMAZ_ID          "0000"
-*/
-/*
-String "machine.alive";
-String "machme.alive:ok";
- */
+
 
 const uint8_t MODE_POS = 1;
 const uint8_t MODE_POS_SPD = 2;
