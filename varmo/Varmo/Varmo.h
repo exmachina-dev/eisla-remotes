@@ -62,17 +62,17 @@ MenuItem mu1_mu5_mi3("Mod Cue");
 MenuItem mu1_mu5_mi4("Del Cue");
 MenuItem mu1_mu5_mi5("Back");
 MenuItem mu1_mi6("Set Home");
-MenuItem mu1_mi7("Back");
+MenuItem mu1_mi7("Back  -->");
 
 MenuItem mu2_mi1("Set Speed");
 MenuItem mu2_mi2("Set Acceleration");
 MenuItem mu2_mi3("Set Deceleration");
-MenuItem mu2_mi4("Back");
+MenuItem mu2_mi4("Back  -->");
 
 MenuItem mu3_mi1("Set Torque");
 MenuItem mu3_mi2("Set Torque rise");
 MenuItem mu3_mi3("Set Torque Fall");
-MenuItem mu3_mi4("Back");
+MenuItem mu3_mi4("Back  -->");
 
 struct MyObject {
   byte data;
