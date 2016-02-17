@@ -35,7 +35,7 @@ const uint8_t MODE_HOME = 3;
 const uint8_t MODE_ACC = 4;
 const uint8_t MODE_DEC = 5;
 const uint8_t MODE_SPD = 6;
-const uint8_t MODE_TRQ = 7;
+//const uint8_t MODE_TRQ = 7;
 
 const uint8_t MODE_PLAY_CUE = 8;
 const uint8_t MODE_REC_CUE = 9;
@@ -48,7 +48,7 @@ MenuSystem ms;
 Menu mm("Root Menu");
 Menu mu1("Position Mode");
 Menu mu2("Speed Mode");
-Menu mu3("Torque Mode");
+//Menu mu3("Torque Mode");
 
 
 MenuItem mu1_mi1("Set Position");
@@ -68,12 +68,12 @@ MenuItem mu2_mi1("Set Speed");
 MenuItem mu2_mi2("Set Acceleration");
 MenuItem mu2_mi3("Set Deceleration");
 MenuItem mu2_mi4("Back  -->");
-
+/*
 MenuItem mu3_mi1("Set Torque");
 MenuItem mu3_mi2("Set Torque rise");
 MenuItem mu3_mi3("Set Torque Fall");
 MenuItem mu3_mi4("Back  -->");
-
+*/
 struct MyObject {
   byte data;
   byte cue_num;

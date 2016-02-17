@@ -10,7 +10,7 @@ const char *Get = "machine.get";
 const char *Set = "machine.set";
 
 const char *Speed_ref = "machine.velocity_ref";
-const char *Torque_ref = "machine.torque_ref";
+//const char *Torque_ref = "machine.torque_ref";
 const char *Position_ref = "machine.position_ref";
 
 
@@ -45,7 +45,7 @@ bool resolution_chosen = 0;
 
 /*PARAMETERS*/
 float SPEED_TARGET = 0;
-float TORQUE_TARGET = 0;
+//float TORQUE_TARGET = 0;
 float POSITION_TARGET = 0;
 float HOME_POSITION_TARGET = 0;
 float ACCELERATION_TARGET = 0;
@@ -56,7 +56,7 @@ uint8_t CONTRAST = 5;
 uint8_t CONTRAST_OLD = 5;
 
 float SPEED_GET = 0;
-float TORQUE_GET = 0;
+//float TORQUE_GET = 0;
 float POSITION_GET = 0;
 float HOME_POSITION_GET = 0;
 float ACCELERATION_GET = 0;
@@ -116,7 +116,7 @@ void setup() {
 
   mm.add_menu(&mu1);
   mm.add_menu(&mu2);
-  mm.add_menu(&mu3);
+  //mm.add_menu(&mu3);
 
 
   mu1.add_item(&mu1_mi1, &on_pos_selected);
@@ -137,10 +137,10 @@ void setup() {
   mu2.add_item(&mu2_mi3, &on_dec_selected);
   mu2.add_item(&mu2_mi4, &on_back_selected);
 
-  mu3.add_item(&mu3_mi1, &on_torque_selected);
+  //mu3.add_item(&mu3_mi1, &on_torque_selected);
   //mu3.add_item(&mu3_mi2, &on_torque_rise_selected);
   //mu3.add_item(&mu3_mi3, &on_torque_fall_selected);
-  mu3.add_item(&mu3_mi4, &on_back_selected);
+  //mu3.add_item(&mu3_mi4, &on_back_selected);
 
   ms.set_root_menu(&mm);
   
@@ -196,11 +196,11 @@ void loop()
       else if (cp_menu->get_selected()->get_name() == "Speed Mode") {
         Varmo.sendData(Set, Control_Mode, (unsigned int) 2);
         FLAG_POS_MODE = 0;
-      }
+      }/*
       else if (cp_menu->get_selected()->get_name() == "Torque Mode") {
         Varmo.sendData(Set, Control_Mode, (unsigned int) 1);
         FLAG_POS_MODE = 0;
-      }
+      }*/
       ms.select();
       if (MODE == 0) {
         displayMenu();
@@ -228,7 +228,7 @@ void loop()
       encoder0Pos_old = encoder0Pos;
       resolution_chosen = 0;
       RESOLUTION_old = RESOLUTION;
-      if (MODE == MODE_POS_SPD || MODE == MODE_SPD || MODE == MODE_TRQ) {
+      if (MODE == MODE_POS_SPD || MODE == MODE_SPD /*|| MODE == MODE_TRQ*/) {
         init_resolution_three(RESOLUTION, &encoder0Pos);
       }
       else {
@@ -241,7 +241,7 @@ void loop()
         else if (MODE == MODE_POS_SPD) {
           RESOLUTION = resolution_set_three(RESOLUTION, 4);
         }
-        else if (MODE == MODE_SPD || MODE == MODE_TRQ) {
+        else if (MODE == MODE_SPD /*|| MODE == MODE_TRQ*/) {
           RESOLUTION = resolution_set_three(RESOLUTION, 5);
         }
         else {
@@ -300,13 +300,13 @@ void loop()
     Varmo.sendData(Set, Stop, true);
   }
   if (MOTOR_OFF == false) {
-    if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ) {
+    if (MODE == MODE_SPD ||/* MODE == MODE_TRQ ||*/ MODE == MODE_POS ) {
       lcd.setCursor(0, 13);
       lcd.print(" on");
     }
   }
   else if (MOTOR_OFF == true) {
-    if (MODE == MODE_SPD || MODE == MODE_TRQ || MODE == MODE_POS ) {
+    if (MODE == MODE_SPD ||/* MODE == MODE_TRQ ||*/ MODE == MODE_POS ) {
       lcd.setCursor(0, 13);
       lcd.print("off");
     }
@@ -451,7 +451,7 @@ void loop()
       }
       if (SEND == HIGH) {
         SEND = LOW;
-        if (POSITION_TARGET > 0){
+        if (POSITION_TARGET != 0){
           Varmo.sendData(Set, Position_ref, POSITION_TARGET);
           Varmo.sendData(Set, Pos_go, true);
         }
@@ -481,7 +481,7 @@ void loop()
       converter_abs(&POS_SPEED_TARGET, &encoder0Pos, RESOLUTION, 99.9);
       lcd_print_abs_float_value_three(POS_SPEED_TARGET, POS_SPEED_TARGET);
       break;
-
+/*
     case MODE_TRQ :
       if (FLAG_SHORTCUT == 1){
         FLAG_SHORTCUT = 0;
@@ -498,7 +498,7 @@ void loop()
         lcd.print(" ");
       }
       break;
-
+*/
     case MODE_SPD :
       if (FLAG_SHORTCUT == 1){
         FLAG_SHORTCUT = 0;
@@ -1417,7 +1417,7 @@ void on_home_selected(MenuItem* p_menu_item)  {
   lcd.print("Home Position:");
   MODE = MODE_HOME;
 }
-
+/*
 void on_torque_selected(MenuItem* p_menu_item)  {
   lcd.clear();
   encoder0Pos = TORQUE_TARGET;
@@ -1442,7 +1442,7 @@ void on_torque_rise_selected(MenuItem* p_menu_item) {
   lcd.print("Torque rise Sel");
   MODE = 21;
 }
-
+*/
 void on_back_selected(MenuItem* p_menu_item) {
   ms.back();
 }
