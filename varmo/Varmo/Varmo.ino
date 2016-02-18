@@ -397,14 +397,14 @@ void loop()
                               ACCELERATION_TARGET, DECELERATION_TARGET);
         lcd.setCursor(1, 0);
         lcd.print("Cue Overwrited  ");
-        delay(1000);
+        delay(3000);
         lcd.setCursor(1, 0);
         lcd.print("                ");
       }
       else{
         lcd.setCursor(1, 0);
         lcd.print("Cue not saved   ");
-        delay(1000);
+        delay(3000);
         lcd.setCursor(1, 0);
         lcd.print("                ");
       }
@@ -431,7 +431,7 @@ void loop()
           lcd.print(SLOT+1);
         }
       }
-      delay(1000);
+      delay(3000);
     }
     if (MODE != 0){
       ms.select();
@@ -451,13 +451,15 @@ void loop()
       }
       if (SEND == HIGH) {
         SEND = LOW;
-        if (POSITION_TARGET != 0){
+        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+        Varmo.sendData(Set, Pos_go, true);
+        /*if (POSITION_TARGET != 0){
           Varmo.sendData(Set, Position_ref, POSITION_TARGET);
           Varmo.sendData(Set, Pos_go, true);
         }
         else{
           Varmo.sendData(Set, Go_Home, true);
-        }
+        }*/
       }
       converter(&POSITION_TARGET, &encoder0Pos, RESOLUTION, SENS, 9999.9);
       lcd_print_pos(POSITION_TARGET, POS_SPEED_TARGET, MOTOR_OFF);
@@ -581,11 +583,15 @@ void loop()
         }
         reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
         Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+        delay(10);
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
+        delay(10);
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
+        delay(10);
         Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
+        delay(10);
         Varmo.sendData(Set, Pos_go, true);
-        delay(1000);
+        delay(3000);
         lcd.setCursor(1, 0);
         lcd.print("                ");        
       }
@@ -606,7 +612,7 @@ void loop()
                                 ACCELERATION_TARGET, DECELERATION_TARGET);
           lcd.setCursor(1, 0);
           lcd.print("Cue saved       ");
-          delay(1000);
+          delay(3000);
           lcd.setCursor(1, 0);
           lcd.print("                ");
         }
@@ -643,14 +649,14 @@ void loop()
                                 ACCELERATION_TARGET, DECELERATION_TARGET);
             lcd.setCursor(1, 0);
             lcd.print("Cue Overwrtied  ");
-            delay(1000);
+            delay(3000);
             lcd.setCursor(1, 0);
             lcd.print("                ");
           }
           else{
             lcd.setCursor(1, 0);
             lcd.print("Cue Not Saved   ");
-            delay(1000);
+            delay(3000);
             lcd.setCursor(1, 0);
             lcd.print("                ");
         }
@@ -681,11 +687,11 @@ void loop()
           lcd.print(CUE_SAVE[CUE_POS]);
         }
         reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
-        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+       /* Varmo.sendData(Set, Position_ref, POSITION_TARGET);
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
-        Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
-        delay(1000);
+        Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);*/
+        delay(3000);
         lcd.setCursor(1, 0);
         lcd.print("                ");
         CUE_LOAD = 1;        
@@ -734,20 +740,20 @@ void loop()
           CUE_LENGTH = get_cue_save(CUE_SAVE);
           lcd.setCursor(1, 0);
           lcd.print("Cue Deleted     ");
-          delay(1000);
+          delay(3000);
           lcd.setCursor(1, 0);
           lcd.print("                ");
         }
         else{
           lcd.setCursor(1, 0);
           lcd.print("Cue Not Deleted ");
-          delay(1000);
+          delay(3000);
           lcd.setCursor(1, 0);
           lcd.print("                ");
         }
         TIME_OUT = 0; 
 
-        delay(1000);
+        delay(3000);
         lcd.setCursor(1, 0);
         lcd.print("                ");        
       }
