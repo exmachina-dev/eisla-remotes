@@ -582,14 +582,14 @@ void loop()
           lcd.print(CUE_SAVE[CUE_POS]);
         }
         reading_cue_eeprom(CUE_SAVE, CUE_POS, &POSITION_TARGET, &POS_SPEED_TARGET, &ACCELERATION_TARGET, &DECELERATION_TARGET);
-        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
-        delay(10);
         Varmo.sendData(Set, Speed_ref, POS_SPEED_TARGET);
-        delay(10);
+        delay(1);
         Varmo.sendData(Set, Acceleration, ACCELERATION_TARGET);
-        delay(10);
+        delay(1);
         Varmo.sendData(Set, Deceleration, DECELERATION_TARGET);
-        delay(10);
+        delay(1);
+        Varmo.sendData(Set, Position_ref, POSITION_TARGET);
+        delay(1);
         Varmo.sendData(Set, Pos_go, true);
         delay(3000);
         lcd.setCursor(1, 0);
