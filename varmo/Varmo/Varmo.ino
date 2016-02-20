@@ -648,7 +648,7 @@ void loop()
             write_cue_eeprom(CUE, POSITION_TARGET, POS_SPEED_TARGET,
                                 ACCELERATION_TARGET, DECELERATION_TARGET);
             lcd.setCursor(1, 0);
-            lcd.print("Cue Overwrtied  ");
+            lcd.print("Cue Overwrited  ");
             delay(3000);
             lcd.setCursor(1, 0);
             lcd.print("                ");
