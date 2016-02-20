@@ -45,34 +45,34 @@ const uint8_t MODE_DEL_CUE = 11;
 
 // Menu variables
 MenuSystem ms;
-Menu mm("Root Menu");
-Menu mu1("Position Mode");
-Menu mu2("Speed Mode");
-//Menu mu3("Torque Mode");
+Menu mm("Root menu");
+Menu mu1("Position mode");
+Menu mu2("Speed mode");
+//Menu mu3("Torque mode");
 
 
-MenuItem mu1_mi1("Set Position");
-MenuItem mu1_mi2("Set Speed");
-MenuItem mu1_mi3("Set Acceleration");
-MenuItem mu1_mi4("Set Deceleration");
-Menu mu1_mu5("Cue Mode");
-MenuItem mu1_mu5_mi1("Play Cue");
-MenuItem mu1_mu5_mi2("Rec Cue");
-MenuItem mu1_mu5_mi3("Mod Cue");
-MenuItem mu1_mu5_mi4("Del Cue");
-MenuItem mu1_mu5_mi5("Back");
-MenuItem mu1_mi6("Set Home");
-MenuItem mu1_mi7("Back  -->");
+MenuItem mu1_mi1("Set position");
+MenuItem mu1_mi2("Set speed");
+MenuItem mu1_mi3("Set acceleration");
+MenuItem mu1_mi4("Set deceleration");
+Menu mu1_mu5("Cue mode");
+MenuItem mu1_mu5_mi1("Play cue");
+MenuItem mu1_mu5_mi2("Record cue");
+MenuItem mu1_mu5_mi3("Load cue");
+MenuItem mu1_mu5_mi4("Delete cue");
+MenuItem mu1_mu5_mi5("<-- Back");
+MenuItem mu1_mi6("Set home");
+MenuItem mu1_mi7("<-- Back");
 
-MenuItem mu2_mi1("Set Speed");
-MenuItem mu2_mi2("Set Acceleration");
-MenuItem mu2_mi3("Set Deceleration");
-MenuItem mu2_mi4("Back  -->");
+MenuItem mu2_mi1("Set speed");
+MenuItem mu2_mi2("Set acceleration");
+MenuItem mu2_mi3("Set deceleration");
+MenuItem mu2_mi4("<-- Back");
 /*
-MenuItem mu3_mi1("Set Torque");
-MenuItem mu3_mi2("Set Torque rise");
-MenuItem mu3_mi3("Set Torque Fall");
-MenuItem mu3_mi4("Back  -->");
+MenuItem mu3_mi1("Set torque");
+MenuItem mu3_mi2("Set torque rise");
+MenuItem mu3_mi3("Set torque fall");
+MenuItem mu3_mi4("<-- Back");
 */
 struct MyObject {
   byte data;
