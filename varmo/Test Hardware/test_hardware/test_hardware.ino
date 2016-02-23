@@ -1,6 +1,9 @@
 /*
 
 */
+
+#include <Arduino.h>
+#include <Wire.h>
 #include "ST7036.h"
 ST7036 lcd = ST7036 ( 2, 16, 0x78 );
 
@@ -18,7 +21,11 @@ float encoder0Pos = 0;
 #define DIRECTION_1 8
 #define DIRECTION_2 9
 
-#define BUTTON_2 10
+/*SEND_BUTTON*/
+#define SEND_BUTTON 10
+
+/*SAVE BUTTON */
+#define SAVE_BUTTON A6
 
 void setup() {
   /*ENCODER INITIALISATION*/
@@ -35,91 +42,114 @@ void setup() {
 
   pinMode(DIRECTION_1, INPUT);
   pinMode(DIRECTION_2, INPUT);
-  pinMode(BUTTON_2 , INPUT);
+  pinMode(SEND_BUTTON , INPUT);
   lcd.init ();
   lcd.clear ();
-  lcd.print("ExMachina");
+  lcd.print("LCD screen work");
+  delay(3000);
 
-  Serial.begin(9600);
-  while (!Serial) {
-    ;
-  }
-  Serial.println("ASCII Table ~ Character Map");
+  Serial.begin(57600);
+
 }
 
-int thisByte = 33;
-
-
 void loop() {
-  /*
-  serial_test(thisByte);
-  test_encoder();
-  test_LED1();
-  test_LED2();
+  lcd.print("Test encoder");
+  delay(1000);
 
-
-  if (digitalRead(DIRECTION_1) == HIGH){
-    lcd.setCursor(0,0);
-    lcd.print("DIRECTION1 == 1");
-  }
-  else if (digitalRead(DIRECTION_1) == LOW){
-    lcd.setCursor(0,0);
-    lcd.print("DIRECTION1 == 0");
+  bool encoder_push  = digitalRead(encoderE);
+  while (encoder_push != HIGH){
+    test_encoder();
+  encoder_push = digitalRead(encoderE);
   }
 
-  delay(500);
+  lcd.print("Test send button");
+  delay(1000);
 
-  if (digitalRead(DIRECTION_2) == HIGH){
-    lcd.setCursor(1,0);
-    lcd.print("DIRECTION2 == 1");
-  }
-  else if (digitalRead(DIRECTION_2) == LOW){
-    lcd.setCursor(1,0);
-    lcd.print("DIRECTION2 == 0");
+  while (encoder_push != HIGH){
+    test_button(SEND_BUTTON);
+  encoder_push = digitalRead(encoderE);
   }
 
-  delay(500);*/
+  lcd.print("Test save button");
+  delay(1000);
 
-  if (digitalRead(BUTTON_2) == HIGH){
-    lcd.setCursor(1,0);
-    lcd.print("BUTTON2 == 1");
+  while (encoder_push != HIGH){
+    test_button_analog(SAVE_BUTTON);
+  encoder_push = digitalRead(encoderE);
   }
-  else if (digitalRead(BUTTON_2) == LOW){
-    lcd.setCursor(1,0);
-    lcd.print("BUTTON2 == 0");
+
+  lcd.print("Test save button");
+  delay(1000);
+
+  while (encoder_push != HIGH){
+    test_button_analog(SAVE_BUTTON);
+  encoder_push = digitalRead(encoderE);
+  }
+
+  lcd.print("Test LED");
+  delay(1000);
+
+  while (encoder_push != HIGH){
+    test_LED(LED_1);
+  test_LED(LED_2);
+  encoder_push = digitalRead(encoderE);
+  }
+
+  lcd.print("Test direction");
+  delay(1000);
+
+  bool sens1 = digitalRead(DIRECTION_1);
+  bool sens2 = digitalRead(DIRECTION_2);
+  bool SENS;
+  if ((sens1 == LOW) && (sens2 == HIGH)) {
+    SENS = HIGH;
+  }
+  else if ((sens1 == HIGH) && (sens2 == LOW)) {
+    SENS = LOW;
   }
 
   delay(100);
 
 }
 
-
-void test_LED1() {
-  digitalWrite(LED_1, HIGH);
-  delay(50);
-  digitalWrite(LED_1, LOW);
+void test_button_analog(int button){
+  bool save_button_push;
+  if (analogRead(SAVE_BUTTON) > 127){
+    save_button_push = true;
+    lcd.print("SAVE = 1");
+  }
+  else {
+    lcd.setCursor(1,0);
+  lcd.print("SAVE = 0");
+  save_button_push = false;
+  }
 }
 
-void test_LED2 () {
-  digitalWrite(LED_2, HIGH);
-  delay(50);
-  digitalWrite(LED_2, LOW);
+void test_button(int button)  {
+  if (digitalRead(button) == HIGH){
+    lcd.setCursor(1,0);
+  lcd.print("SEND = 1");
+  }
+  else if (digitalRead(button) == LOW){
+    lcd.setCursor(1,0);
+  lcd.print("SEND = 0");
+  }
 }
+
+void test_LED(int LED) {
+  digitalWrite(LED, HIGH);
+  delay(100);
+  digitalWrite(LED, LOW);
+  delay(100);
+}
+
 
 void test_encoder() {
   lcd.setCursor(0, 0);
-  lcd.print("Encoder: ");
-  lcd.print(encoder0Pos);
-  lcd.setCursor(1, 0);
-  lcd.print("Push: ");
+  lcd.print("rotary encoder: ");
 
-  int encoder_push = digitalRead(encoderE);
-  if (encoder_push == LOW) {
-    lcd.print("LOW");
-  }
-  else if (encoderE == HIGH) {
-    lcd.print("HIGH");
-  }
+  lcd.setCursor(1, 0);
+  lcd.print(encoder0Pos);
 }
 
 void doEncoderA() {
@@ -169,25 +199,3 @@ void doEncoderB() {
     }
   }
 }
-
-void serial_test(int thisByte) {
-  while (thisByte != 126) {
-    Serial.write(thisByte);
-
-    Serial.print(", dec: ");
-    Serial.print(thisByte);
-    Serial.print(", hex: ");
-
-    Serial.print(thisByte, HEX);
-
-    Serial.print(", oct: ");
-    Serial.print(thisByte, OCT);
-
-    Serial.print(", bin: ");
-    Serial.println(thisByte, BIN);
-
-    thisByte++;
-  }
-  thisByte = 33;
-}
-
