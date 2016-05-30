@@ -51,26 +51,44 @@
   <FILES>
     <GeneratedCs>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd1.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd2.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd3.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd4.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd5.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\Cpu.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_DEBUG.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_1.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_2.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_3.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_4.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\PE_LDD.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\TU_500ms.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\Vectors.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Project_Settings\Startup_Code\startup.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\Events.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\display.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\main.c</PathName>
     </GeneratedCs>
     <GeneratedHs>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd1.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd2.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd3.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd4.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd5.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\Cpu.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\IO_Map.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_DEBUG.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_1.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_2.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_3.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_4.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\PE_Const.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\PE_Error.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\PE_LDD.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\PE_Types.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\TU_500ms.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\Events.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\display.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Static_Code\IO_Map\MK20D7.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Static_Code\PDD\ADC_PDD.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Static_Code\PDD\CAN_PDD.h</PathName>

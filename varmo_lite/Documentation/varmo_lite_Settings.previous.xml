@@ -121,21 +121,21 @@
             <MCG_mode v="FEI" />
             <MCG_output__MHz_ v="20.971520000000" />
             <MCGIRCLK_clock__MHz_ v="0.032768" />
-            <OSCERCLK_clock__MHz_ v="8" />
+            <OSCERCLK_clock__MHz_ v="0" />
             <ERCLK32K__clock__kHz_ v="0.001" />
             <MCGFFCLK__kHz_ v="32.768" />
           </enumgroup>
           <group name="System clocks">
-            <Core_clock_prescaler v="Auto select" />
+            <Core_clock_prescaler v="1" />
             <Core_clock v="20.971520000000" />
-            <Bus_clock_prescaler v="Auto select" />
-            <Bus_clock v="20.971520000000" />
-            <External_clock_prescaler v="Auto select" />
-            <External_bus_clock v="10.485760000000" />
-            <Flash_clock_prescaler v="Auto select" />
-            <Flash_clock v="10.485760000000" />
-            <enumgroup name="PLL/FLL clock selection" v="FLL clock">
-              <Clock_frequency__MHz_ v="20.971520000000" />
+            <Bus_clock_prescaler v="2" />
+            <Bus_clock v="10.485760000000" />
+            <External_clock_prescaler v="4" />
+            <External_bus_clock v="5.242880000000" />
+            <Flash_clock_prescaler v="4" />
+            <Flash_clock v="5.242880000000" />
+            <enumgroup name="PLL/FLL clock selection" v="PLL clock">
+              <Clock_frequency__MHz_ v="0" />
             </enumgroup>
           </group>
         </group>
@@ -282,10 +282,10 @@ PE_DEBUGHALT();
       <EmptySection_DummyValue />
     </Events>
   </Bean>
-  <Bean name="TU1" type="TimerUnit_LDD">
+  <Bean name="TU_500ms" type="TimerUnit_LDD">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="TU1" />
+      <Component_name v="TU_500ms" />
       <Module_name v="FTM0" />
       <Counter v="FTM0_CNT" />
       <Counter_direction v="Up" />
@@ -347,7 +347,7 @@ PE_DEBUGHALT();
     <Events>
       <Event_module_name v="Events" />
       <event name="OnCounterRestart" v="generate code">
-        <Event_procedure_name v="TU1_OnCounterRestart" />
+        <Event_procedure_name v="TU_500ms_OnCounterRestart" />
       </event>
       <event name="OnChannel0" v="don&amp;apos;t generate code" />
       <event name="OnChannel1" v="don&amp;apos;t generate code" />

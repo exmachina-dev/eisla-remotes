@@ -36,6 +36,14 @@
 #include "LED_DEBUG.h"
 #include "BitIoLdd1.h"
 #include "TU_500ms.h"
+#include "LED_STATUS_1.h"
+#include "BitIoLdd2.h"
+#include "LED_STATUS_2.h"
+#include "BitIoLdd3.h"
+#include "LED_STATUS_3.h"
+#include "BitIoLdd4.h"
+#include "LED_STATUS_4.h"
+#include "BitIoLdd5.h"
 
 #ifdef __cplusplus
 extern "C" {

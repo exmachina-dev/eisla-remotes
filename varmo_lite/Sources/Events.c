@@ -29,11 +29,16 @@
 #include "Cpu.h"
 #include "Events.h"
 #include "LED_DEBUG.h"
+#include "LED_STATUS_1.h"
+#include "LED_STATUS_2.h"
+#include "LED_STATUS_3.h"
+#include "LED_STATUS_4.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif 
 
+uint8 i;
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
@@ -76,7 +81,10 @@ void Cpu_OnNMIINT(void)
 /* ===================================================================*/
 void TU_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-	LED_DEBUG_NegVal();
+	i++;
+	led_init(i);
+
+	//LED_DEBUG_NegVal();
 }
 
 /* END Events */

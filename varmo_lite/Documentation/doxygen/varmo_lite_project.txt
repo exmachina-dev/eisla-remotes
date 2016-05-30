@@ -30,6 +30,10 @@
 \page page_components Components 
 - \subpage BitIoLdd1
 - \subpage TU_500ms
+- \subpage BitIoLdd2
+- \subpage BitIoLdd3
+- \subpage BitIoLdd4
+- \subpage BitIoLdd5
 
 */
 
