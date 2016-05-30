@@ -1,7 +1,7 @@
 /* ###################################################################
 **     Filename    : Events.c
 **     Project     : varmo_lite
-**     Processor   : MK20DX256VMC7
+**     Processor   : MK20DX256VLH7
 **     Component   : Events
 **     Version     : Driver 01.00
 **     Compiler    : GNU C Compiler
@@ -38,7 +38,8 @@
 extern "C" {
 #endif 
 
-uint8 i;
+int i;
+int encoder=1000;
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
@@ -62,9 +63,9 @@ void Cpu_OnNMIINT(void)
 
 /*
 ** ===================================================================
-**     Event       :  TU_500ms_OnCounterRestart (module Events)
+**     Event       :  TU1_OnCounterRestart (module Events)
 **
-**     Component   :  TU_500ms [TimerUnit_LDD]
+**     Component   :  TU1 [TimerUnit_LDD]
 */
 /*!
 **     @brief
@@ -79,12 +80,43 @@ void Cpu_OnNMIINT(void)
 **                           the parameter of Init method.
 */
 /* ===================================================================*/
-void TU_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
+void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-	i++;
-	led_init(i);
+	//i++;
+	//led_init(i);
 
-	//LED_DEBUG_NegVal();
+	LED_DEBUG_NegVal();
+}
+
+/*
+** ===================================================================
+**     Event       :  ENCODER_OnPortEvent (module Events)
+**
+**     Component   :  ENCODER [GPIO_LDD]
+*/
+/*!
+**     @brief
+**         Called if defined event on any pin of the port occured.
+**         OnPortEvent event and GPIO interrupt must be enabled. See
+**         SetEventMask() and GetEventMask() methods. This event is
+**         enabled if [Interrupt service/event] is Enabled and disabled
+**         if [Interrupt service/event] is Disabled.
+**     @param
+**         UserDataPtr     - Pointer to RTOS device
+**                           data structure pointer.
+*/
+/* ===================================================================*/
+void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
+{
+	if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B) == 1){
+		if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_A) == 0){
+			encoder -= 1;
+		}
+		else {
+			encoder += 1;
+		}
+	}
+	led_init(encoder);
 }
 
 /* END Events */

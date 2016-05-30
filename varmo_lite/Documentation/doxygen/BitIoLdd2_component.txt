@@ -244,7 +244,7 @@ registers of the peripheral(s) configured by the component.
 \page BitIoLdd2_settings Component Settings
 \code
 **          Component name                                 : BitIoLdd2
-**          Pin for I/O                                    : ADC0_SE7b/PTD6/LLWU_P15/SPI0_PCS3/UART0_RX/FTM0_CH6/FB_AD0/FTM0_FLT0
+**          Pin for I/O                                    : ADC0_SE7b/PTD6/LLWU_P15/SPI0_PCS3/UART0_RX/FTM0_CH6/FTM0_FLT0
 **          Pin signal                                     : 
 **          Direction                                      : Output
 **          Initialization                                 : 

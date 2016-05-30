@@ -6,11 +6,11 @@
 /*##                                   */
 /*##     Project   : varmo_lite        */
 /*##                                   */
-/*##     Processor : MK20DX256VMC7     */
+/*##     Processor : MK20DX256VLH7     */
 /*##                                   */
 /*##     Compiler  : GNU C Compiler    */
 /*##                                   */
-/*##     Date/Time : 2016-05-30, 15:08, # CodeGen: 0 */
+/*##     Date/Time : 2016-05-30, 20:36, # CodeGen: 21 */
 /*##                                   */
 /*##     Abstract  :                   */
 /*##                                   */

@@ -244,7 +244,7 @@ registers of the peripheral(s) configured by the component.
 \page BitIoLdd5_settings Component Settings
 \code
 **          Component name                                 : BitIoLdd5
-**          Pin for I/O                                    : ADC1_SE5a/PTE1/LLWU_P0/SPI1_SOUT/UART1_RX/I2C1_SCL/SPI1_SIN
+**          Pin for I/O                                    : ADC1_SE5a/PTE1/LLWU_P0/UART1_RX/I2C1_SCL
 **          Pin signal                                     : 
 **          Direction                                      : Output
 **          Initialization                                 : 

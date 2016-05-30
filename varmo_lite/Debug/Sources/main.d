@@ -16,7 +16,7 @@ Sources/main.o: ../Sources/main.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PDD_Types.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/Cpu.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd1.h \
- C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/TU_500ms.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/TU1.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/FTM_PDD.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/LED_STATUS_1.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd2.h \
@@ -29,7 +29,9 @@ Sources/main.o: ../Sources/main.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd4.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/LED_STATUS_4.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd5.h \
- C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd5.h
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd5.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ENCODER.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PDD.h
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/Cpu.h:
 
@@ -65,7 +67,7 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/Cpu.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd1.h:
 
-C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/TU_500ms.h:
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/TU1.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/FTM_PDD.h:
 
@@ -92,3 +94,7 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/LED_STAT
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd5.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd5.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ENCODER.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PDD.h:

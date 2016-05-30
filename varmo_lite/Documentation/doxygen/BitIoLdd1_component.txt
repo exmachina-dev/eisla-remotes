@@ -182,7 +182,7 @@ registers of the peripheral(s) configured by the component.
 \page BitIoLdd1_settings Component Settings
 \code
 **          Component name                                 : BitIoLdd1
-**          Pin for I/O                                    : PTD4/LLWU_P14/SPI0_PCS1/UART0_RTS_b/FTM0_CH4/FB_AD2/EWM_IN
+**          Pin for I/O                                    : PTD4/LLWU_P14/SPI0_PCS1/UART0_RTS_b/FTM0_CH4/EWM_IN
 **          Pin signal                                     : 
 **          Direction                                      : Output
 **          Initialization                                 : 
