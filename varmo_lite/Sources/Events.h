@@ -45,9 +45,8 @@
 #include "LED_STATUS_4.h"
 #include "BitIoLdd5.h"
 #include "ENCODER.h"
-#include "PUSH_BUTTON_SEND.h"
-#include "PUSH_BUTTON_REC.h"
-#include "DIRECTION.h"
+#include "ENCODER_PUSH.h"
+#include "ExtIntLdd1.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -130,45 +129,19 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr);
 /* ===================================================================*/
 void DIRECTION_OnPortEvent(LDD_TUserData *UserDataPtr);
 
+void ENCODER_PUSH_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  PUSH_BUTTON_REC_OnPortEvent (module Events)
+**     Event       :  ENCODER_PUSH_OnInterrupt (module Events)
 **
-**     Component   :  PUSH_BUTTON_REC [GPIO_LDD]
-*/
-/*!
-**     @brief
-**         Called if defined event on any pin of the port occured.
-**         OnPortEvent event and GPIO interrupt must be enabled. See
-**         SetEventMask() and GetEventMask() methods. This event is
-**         enabled if [Interrupt service/event] is Enabled and disabled
-**         if [Interrupt service/event] is Disabled.
-**     @param
-**         UserDataPtr     - Pointer to RTOS device
-**                           data structure pointer.
-*/
-/* ===================================================================*/
-void PUSH_BUTTON_REC_OnPortEvent(LDD_TUserData *UserDataPtr);
-
-/*
+**     Component   :  ENCODER_PUSH [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
 ** ===================================================================
-**     Event       :  PUSH_BUTTON_SEND_OnPortEvent (module Events)
-**
-**     Component   :  PUSH_BUTTON_SEND [GPIO_LDD]
 */
-/*!
-**     @brief
-**         Called if defined event on any pin of the port occured.
-**         OnPortEvent event and GPIO interrupt must be enabled. See
-**         SetEventMask() and GetEventMask() methods. This event is
-**         enabled if [Interrupt service/event] is Enabled and disabled
-**         if [Interrupt service/event] is Disabled.
-**     @param
-**         UserDataPtr     - Pointer to RTOS device
-**                           data structure pointer.
-*/
-/* ===================================================================*/
-void PUSH_BUTTON_SEND_OnPortEvent(LDD_TUserData *UserDataPtr);
 
 /* END Events */
 

@@ -35,9 +35,7 @@
 - \subpage BitIoLdd4
 - \subpage BitIoLdd5
 - \subpage ENCODER
-- \subpage PUSH_BUTTON_SEND
-- \subpage PUSH_BUTTON_REC
-- \subpage DIRECTION
+- \subpage ExtIntLdd1
 
 */
 

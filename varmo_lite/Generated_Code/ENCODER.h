@@ -7,7 +7,7 @@
 **     Version     : Component 01.128, Driver 01.08, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 01:57, # CodeGen: 38
+**     Date/Time   : 2016-05-31, 19:27, # CodeGen: 46
 **     Abstract    :
 **         The HAL GPIO component will provide a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -31,7 +31,7 @@
 **                  Pin                                    : CMP0_IN1/PTC7/SPI0_SIN/USB_SOF_OUT/I2S0_RX_FS
 **                  Pin signal                             : 
 **                  Initial pin direction                  : Input
-**                  Initial pin event                      : Both edges
+**                  Initial pin event                      : Rising edge
 **                  Lock initialization function           : no
 **            Bit field                                    : 
 **              Field name                                 : ENCODER_A
@@ -47,12 +47,14 @@
 **            Event mask                                   : 
 **              OnPortEvent                                : Enabled
 **     Contents    :
-**         Init            - LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr);
-**         SetFieldValue   - void ENCODER_SetFieldValue(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
-**         GetFieldValue   - ENCODER_TFieldValue ENCODER_GetFieldValue(LDD_TDeviceData *DeviceDataPtr,...
-**         ClearFieldBits  - void ENCODER_ClearFieldBits(LDD_TDeviceData *DeviceDataPtr,...
-**         SetFieldBits    - void ENCODER_SetFieldBits(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
-**         ToggleFieldBits - void ENCODER_ToggleFieldBits(LDD_TDeviceData *DeviceDataPtr,...
+**         Init               - LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr);
+**         GetEventMask       - LDD_TEventMask ENCODER_GetEventMask(LDD_TDeviceData *DeviceDataPtr);
+**         GetPortEventStatus - ENCODER_TPortValue ENCODER_GetPortEventStatus(LDD_TDeviceData *DeviceDataPtr);
+**         SetFieldValue      - void ENCODER_SetFieldValue(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
+**         GetFieldValue      - ENCODER_TFieldValue ENCODER_GetFieldValue(LDD_TDeviceData *DeviceDataPtr,...
+**         ClearFieldBits     - void ENCODER_ClearFieldBits(LDD_TDeviceData *DeviceDataPtr,...
+**         SetFieldBits       - void ENCODER_SetFieldBits(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
+**         ToggleFieldBits    - void ENCODER_ToggleFieldBits(LDD_TDeviceData *DeviceDataPtr,...
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -131,6 +133,8 @@ extern "C" {
 
 /* Methods configuration constants - generated for all enabled component's methods */
 #define ENCODER_Init_METHOD_ENABLED    /*!< Init method of the component ENCODER is enabled (generated) */
+#define ENCODER_GetEventMask_METHOD_ENABLED /*!< GetEventMask method of the component ENCODER is enabled (generated) */
+#define ENCODER_GetPortEventStatus_METHOD_ENABLED /*!< GetPortEventStatus method of the component ENCODER is enabled (generated) */
 #define ENCODER_SetFieldValue_METHOD_ENABLED /*!< SetFieldValue method of the component ENCODER is enabled (generated) */
 #define ENCODER_GetFieldValue_METHOD_ENABLED /*!< GetFieldValue method of the component ENCODER is enabled (generated) */
 #define ENCODER_ClearFieldBits_METHOD_ENABLED /*!< ClearFieldBits method of the component ENCODER is enabled (generated) */
@@ -190,6 +194,55 @@ typedef ENCODER_TPortValue ENCODER_TFieldValue;
 */
 /* ===================================================================*/
 LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr);
+
+/*
+** ===================================================================
+**     Method      :  ENCODER_GetEventMask (component GPIO_LDD)
+*/
+/*!
+**     @brief
+**         This method returns current events mask of the port. 
+**         Note: Event that are not generated (See the "Events" tab in
+**         the Component inspector) are not handled by this method.
+**         Pair method to SetEventMask().
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by [Init] method.
+**     @return
+**                         - Current EventMask. The component event masks
+**                           are defined in the PE_Types.h file.
+*/
+/* ===================================================================*/
+LDD_TEventMask ENCODER_GetEventMask(LDD_TDeviceData *DeviceDataPtr);
+
+/*
+** ===================================================================
+**     Method      :  ENCODER_GetPortEventStatus (component GPIO_LDD)
+*/
+/*!
+**     @brief
+**         Returns a set of asserted flags. The flags are accumulated
+**         in the set. After calling this method the set is returned
+**         and cleared.
+**         Note: Some type of "Port" device requires enabling
+**         "Interrupt service/event" property for a pin edge detect
+**         function.
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by [Init] method.
+**     @return
+**                         - Current status flags. Each port pin has
+**                           corresponding bit in the mask. Bit value 0
+**                           means condition didn't occur on
+**                           corresponding pin, bit value 1 means
+**                           condition occured on corresponding pin. The
+**                           bit 0 corresponds with the pin which has
+**                           index 0 within the port, the bit 1
+**                           corresponds with the pin which has index 1
+**                           within the port, etc.
+*/
+/* ===================================================================*/
+ENCODER_TPortValue ENCODER_GetPortEventStatus(LDD_TDeviceData *DeviceDataPtr);
 
 /*
 ** ===================================================================

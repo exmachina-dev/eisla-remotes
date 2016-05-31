@@ -7,7 +7,7 @@
 **     Version     : Component 01.128, Driver 01.08, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 01:57, # CodeGen: 38
+**     Date/Time   : 2016-05-31, 19:27, # CodeGen: 46
 **     Abstract    :
 **         The HAL GPIO component will provide a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -31,7 +31,7 @@
 **                  Pin                                    : CMP0_IN1/PTC7/SPI0_SIN/USB_SOF_OUT/I2S0_RX_FS
 **                  Pin signal                             : 
 **                  Initial pin direction                  : Input
-**                  Initial pin event                      : Both edges
+**                  Initial pin event                      : Rising edge
 **                  Lock initialization function           : no
 **            Bit field                                    : 
 **              Field name                                 : ENCODER_A
@@ -47,12 +47,14 @@
 **            Event mask                                   : 
 **              OnPortEvent                                : Enabled
 **     Contents    :
-**         Init            - LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr);
-**         SetFieldValue   - void ENCODER_SetFieldValue(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
-**         GetFieldValue   - ENCODER_TFieldValue ENCODER_GetFieldValue(LDD_TDeviceData *DeviceDataPtr,...
-**         ClearFieldBits  - void ENCODER_ClearFieldBits(LDD_TDeviceData *DeviceDataPtr,...
-**         SetFieldBits    - void ENCODER_SetFieldBits(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
-**         ToggleFieldBits - void ENCODER_ToggleFieldBits(LDD_TDeviceData *DeviceDataPtr,...
+**         Init               - LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr);
+**         GetEventMask       - LDD_TEventMask ENCODER_GetEventMask(LDD_TDeviceData *DeviceDataPtr);
+**         GetPortEventStatus - ENCODER_TPortValue ENCODER_GetPortEventStatus(LDD_TDeviceData *DeviceDataPtr);
+**         SetFieldValue      - void ENCODER_SetFieldValue(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
+**         GetFieldValue      - ENCODER_TFieldValue ENCODER_GetFieldValue(LDD_TDeviceData *DeviceDataPtr,...
+**         ClearFieldBits     - void ENCODER_ClearFieldBits(LDD_TDeviceData *DeviceDataPtr,...
+**         SetFieldBits       - void ENCODER_SetFieldBits(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
+**         ToggleFieldBits    - void ENCODER_ToggleFieldBits(LDD_TDeviceData *DeviceDataPtr,...
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -113,6 +115,7 @@ extern "C" {
 #endif 
 
 typedef struct {
+  LDD_TEventMask EventMask;            /* Event mask of enabled events */
   ENCODER_TPortValue EventFlags;       /* Holds event flags */
   LDD_TUserData *UserData;             /* RTOS device data structure */
 } ENCODER_TDeviceData, *ENCODER_TDeviceDataPtr; /* Device data structure type */
@@ -147,6 +150,7 @@ LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr)
   /* {Default RTOS Adapter} Driver memory allocation: Dynamic allocation is simulated by a pointer to the static object */
   DeviceDataPrv = &DeviceDataPrv__DEFAULT_RTOS_ALLOC;
   /* Save RTOS Device structure */
+  DeviceDataPrv->EventMask = 0x01U;    /* Initialization of the event mask variable */
   DeviceDataPrv->EventFlags = 0x00U;   /* Clears stored events */
   DeviceDataPrv->UserData = UserDataPtr; /* Store the RTOS device structure */
   /* Interrupt vector(s) allocation */
@@ -171,12 +175,12 @@ LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr)
                )) | (uint32_t)(
                 PORT_PCR_MUX(0x01)
                ));
-  /* PORTC_PCR7: ISF=1,IRQC=0x0B */
+  /* PORTC_PCR7: ISF=1,IRQC=9 */
   PORTC_PCR7 = (uint32_t)((PORTC_PCR7 & (uint32_t)~(uint32_t)(
-                PORT_PCR_IRQC(0x04)
+                PORT_PCR_IRQC(0x06)
                )) | (uint32_t)(
                 PORT_PCR_ISF_MASK |
-                PORT_PCR_IRQC(0x0B)
+                PORT_PCR_IRQC(0x09)
                ));
   /* NVICIP89: PRI89=0x80 */
   NVICIP89 = NVIC_IP_PRI89(0x80);
@@ -185,6 +189,70 @@ LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr)
   /* Registration of the device structure */
   PE_LDD_RegisterDeviceStructure(PE_LDD_COMPONENT_ENCODER_ID,DeviceDataPrv);
   return ((LDD_TDeviceData *)DeviceDataPrv);
+}
+
+/*
+** ===================================================================
+**     Method      :  ENCODER_GetEventMask (component GPIO_LDD)
+*/
+/*!
+**     @brief
+**         This method returns current events mask of the port. 
+**         Note: Event that are not generated (See the "Events" tab in
+**         the Component inspector) are not handled by this method.
+**         Pair method to SetEventMask().
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by [Init] method.
+**     @return
+**                         - Current EventMask. The component event masks
+**                           are defined in the PE_Types.h file.
+*/
+/* ===================================================================*/
+LDD_TEventMask ENCODER_GetEventMask(LDD_TDeviceData *DeviceDataPtr)
+{
+  return ((ENCODER_TDeviceData *)DeviceDataPtr)->EventMask;
+}
+
+/*
+** ===================================================================
+**     Method      :  ENCODER_GetPortEventStatus (component GPIO_LDD)
+*/
+/*!
+**     @brief
+**         Returns a set of asserted flags. The flags are accumulated
+**         in the set. After calling this method the set is returned
+**         and cleared.
+**         Note: Some type of "Port" device requires enabling
+**         "Interrupt service/event" property for a pin edge detect
+**         function.
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by [Init] method.
+**     @return
+**                         - Current status flags. Each port pin has
+**                           corresponding bit in the mask. Bit value 0
+**                           means condition didn't occur on
+**                           corresponding pin, bit value 1 means
+**                           condition occured on corresponding pin. The
+**                           bit 0 corresponds with the pin which has
+**                           index 0 within the port, the bit 1
+**                           corresponds with the pin which has index 1
+**                           within the port, etc.
+*/
+/* ===================================================================*/
+ENCODER_TPortValue ENCODER_GetPortEventStatus(LDD_TDeviceData *DeviceDataPtr)
+{
+  ENCODER_TPortValue RetrievedFlags;   /* Contains flags */
+  ENCODER_TDeviceData *DeviceDataPrv = (ENCODER_TDeviceData *)DeviceDataPtr;
+
+  /* {Default RTOS Adapter} Critical section begin, general PE function is used */
+  EnterCritical();
+  RetrievedFlags = DeviceDataPrv->EventFlags; /* Temporary saved flags */
+  DeviceDataPrv->EventFlags = 0U;      /* Clear flags */
+  /* {Default RTOS Adapter} Critical section end, general PE function is used */
+  ExitCritical();
+  return RetrievedFlags;
 }
 
 /*

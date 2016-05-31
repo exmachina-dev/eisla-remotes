@@ -387,7 +387,7 @@ PE_DEBUGHALT();
           <PutVal v="generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
-          <NegVal v="don&amp;apos;t generate code" />
+          <NegVal v="generate code" />
           <ConnectPin v="don&amp;apos;t generate code" />
           <GetRawVal v="don&amp;apos;t generate code" />
         </Methods>
@@ -412,7 +412,7 @@ PE_DEBUGHALT();
       <PutVal v="generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
-      <NegVal v="don&amp;apos;t generate code" />
+      <NegVal v="generate code" />
       <ConnectPin v="don&amp;apos;t generate code" />
       <GetRawVal v="don&amp;apos;t generate code" />
     </Methods>
@@ -627,7 +627,7 @@ PE_DEBUGHALT();
             <group name="Pin">
               <Pin v="CMP0_IN1/PTC7/SPI0_SIN/USB_SOF_OUT/I2S0_RX_FS" />
               <boolgroup name="Initial pin direction" v="Input" />
-              <Initial_pin_event v="Both edges" />
+              <Initial_pin_event v="Rising edge" />
               <Lock_initialization_function v="no" />
             </group>
           </list>
@@ -654,9 +654,9 @@ PE_DEBUGHALT();
       <Init v="generate code" />
       <Deinit v="don&amp;apos;t generate code" />
       <SetEventMask v="don&amp;apos;t generate code" />
-      <GetEventMask v="don&amp;apos;t generate code" />
+      <GetEventMask v="generate code" />
       <SetPortEventCondition v="don&amp;apos;t generate code" />
-      <GetPortEventStatus v="don&amp;apos;t generate code" />
+      <GetPortEventStatus v="generate code" />
       <SetPortValue v="don&amp;apos;t generate code" />
       <GetPortValue v="don&amp;apos;t generate code" />
       <ClearPortBits v="don&amp;apos;t generate code" />
@@ -679,6 +679,64 @@ PE_DEBUGHALT();
       <Event_module_name v="Events" />
       <event name="OnPortEvent" v="generate code">
         <Event_procedure_name v="ENCODER_OnPortEvent" />
+      </event>
+    </Events>
+  </Bean>
+  <Bean name="ENCODER_PUSH" type="ExtInt">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="ENCODER_PUSH" />
+      <Pin v="ADC1_SE5b/CMP0_IN3/PTC9/I2S0_RX_BCLK/FTM2_FLT0" />
+      <inhrbean type="ExtInt_LDD">
+        <Enabled v="Y" />
+        <Template v="ExtInt_LDD" />
+        <Properties>
+          <Component_name v="ExtIntLdd1" />
+          <Pin v="ADC1_SE5b/CMP0_IN3/PTC9/I2S0_RX_BCLK/FTM2_FLT0" />
+          <Generate_interrupt_on v="rising edge" />
+          <Interrupt v="INT_PORTC" />
+          <Interrupt_priority v="medium priority" />
+          <group name="Initialization">
+            <Enabled_in_init__code v="yes" />
+          </group>
+        </Properties>
+        <Methods>
+          <Init v="generate code" />
+          <Deinit v="don&amp;apos;t generate code" />
+          <Enable v="don&amp;apos;t generate code" />
+          <Disable v="don&amp;apos;t generate code" />
+          <GetVal v="generate code" />
+          <SetEdge v="don&amp;apos;t generate code" />
+          <SetOperationMode v="don&amp;apos;t generate code" />
+          <GetDriverState v="don&amp;apos;t generate code" />
+          <ConnectPin v="don&amp;apos;t generate code" />
+        </Methods>
+        <Events>
+          <Event_module_name v="Events" />
+          <event name="OnInterrupt" v="generate code">
+            <Event_procedure_name v="ExtIntLdd1_OnInterrupt" />
+          </event>
+        </Events>
+      </inhrbean>
+      <Generate_interrupt_on v="rising edge" />
+      <Interrupt v="INT_PORTC" />
+      <Interrupt_priority v="medium priority" />
+      <group name="Initialization">
+        <Enabled_in_init__code v="yes" />
+      </group>
+    </Properties>
+    <Methods>
+      <Enable v="don&amp;apos;t generate code" />
+      <Disable v="don&amp;apos;t generate code" />
+      <GetVal v="generate code" />
+      <SetEdge v="don&amp;apos;t generate code" />
+      <ConnectPin v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="OnInterrupt" v="generate code">
+        <Event_procedure_name v="ENCODER_PUSH_OnInterrupt" />
+        <Priority v="same as interrupt" />
       </event>
     </Events>
   </Bean>

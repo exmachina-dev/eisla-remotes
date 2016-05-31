@@ -31,9 +31,9 @@ Generated_Code/ENCODER.o: ../Generated_Code/ENCODER.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd5.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ENCODER.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PDD.h \
- C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_SEND.h \
- C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_REC.h \
- C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/DIRECTION.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ENCODER_PUSH.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd1.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd1.h \
  ../Generated_Code/ENCODER.h ../Generated_Code/IO_Map.h
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/Events.h:
@@ -100,11 +100,11 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ENCODER.
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PDD.h:
 
-C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_SEND.h:
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ENCODER_PUSH.h:
 
-C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_REC.h:
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd1.h:
 
-C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/DIRECTION.h:
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd1.h:
 
 ../Generated_Code/ENCODER.h:
 

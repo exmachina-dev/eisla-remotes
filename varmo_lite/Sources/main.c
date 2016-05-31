@@ -42,9 +42,8 @@
 #include "LED_STATUS_4.h"
 #include "BitIoLdd5.h"
 #include "ENCODER.h"
-#include "PUSH_BUTTON_SEND.h"
-#include "PUSH_BUTTON_REC.h"
-#include "DIRECTION.h"
+#include "ENCODER_PUSH.h"
+#include "ExtIntLdd1.h"
 
 //#include "LCD.h"
 /* Including shared modules, which are used for whole project */

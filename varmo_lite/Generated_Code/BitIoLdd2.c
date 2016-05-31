@@ -7,7 +7,7 @@
 **     Version     : Component 01.033, Driver 01.03, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-30, 22:56, # CodeGen: 28
+**     Date/Time   : 2016-05-31, 19:25, # CodeGen: 45
 **     Abstract    :
 **         The HAL BitIO component provides a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -31,6 +31,7 @@
 **         PutVal - void BitIoLdd2_PutVal(LDD_TDeviceData *DeviceDataPtr, bool Val);
 **         ClrVal - void BitIoLdd2_ClrVal(LDD_TDeviceData *DeviceDataPtr);
 **         SetVal - void BitIoLdd2_SetVal(LDD_TDeviceData *DeviceDataPtr);
+**         NegVal - void BitIoLdd2_NegVal(LDD_TDeviceData *DeviceDataPtr);
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -245,6 +246,26 @@ void BitIoLdd2_SetVal(LDD_TDeviceData *DeviceDataPtr)
 {
   (void)DeviceDataPtr;                 /* Parameter is not used, suppress unused argument warning */
   GPIO_PDD_SetPortDataOutputMask(BitIoLdd2_MODULE_BASE_ADDRESS, BitIoLdd2_PORT_MASK);
+}
+
+/*
+** ===================================================================
+**     Method      :  BitIoLdd2_NegVal (component BitIO_LDD)
+*/
+/*!
+**     @brief
+**         Negates (inverts) the output value. It is equivalent to the
+**         [PutVal(!GetVal())]. This method is available only if the
+**         direction = _[output]_ or _[input/output]_.
+**     @param
+**         DeviceDataPtr   - Pointer to device data
+**                           structure returned by <Init> method.
+*/
+/* ===================================================================*/
+void BitIoLdd2_NegVal(LDD_TDeviceData *DeviceDataPtr)
+{
+  (void)DeviceDataPtr;                 /* Parameter is not used, suppress unused argument warning */
+  GPIO_PDD_TogglePortDataOutputMask(BitIoLdd2_MODULE_BASE_ADDRESS, BitIoLdd2_PORT_MASK);
 }
 
 /* END BitIoLdd2. */

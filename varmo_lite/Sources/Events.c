@@ -85,7 +85,7 @@ void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
 	//i++;
 	//led_init(i);
 
-	LED_DEBUG_NegVal();
+	//LED_DEBUG_NegVal();
 }
 
 /*
@@ -116,7 +116,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 			encoder += 1;
 		}
 	}
-	led_init(encoder);
+	LED_STATUS_1_NegVal();
 }
 
 /*
@@ -137,7 +137,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 **                           data structure pointer.
 */
 /* ===================================================================*/
-void DIRECTION_OnPortEvent(LDD_TUserData *UserDataPtr)
+/*void DIRECTION_OnPortEvent(LDD_TUserData *UserDataPtr)
 {
 	uint8 dir1 = DIRECTION_GetFieldValue(&UserDataPtr, DIRECTION_1);
 	uint8 dir2 = DIRECTION_GetFieldValue(&UserDataPtr, DIRECTION_2);
@@ -151,52 +151,24 @@ void DIRECTION_OnPortEvent(LDD_TUserData *UserDataPtr)
 	else {
 		//MOTOR OFF
 	}
-}
+}*/
 
 /*
 ** ===================================================================
-**     Event       :  PUSH_BUTTON_REC_OnPortEvent (module Events)
+**     Event       :  ENCODER_PUSH_OnInterrupt (module Events)
 **
-**     Component   :  PUSH_BUTTON_REC [GPIO_LDD]
-*/
-/*!
-**     @brief
-**         Called if defined event on any pin of the port occured.
-**         OnPortEvent event and GPIO interrupt must be enabled. See
-**         SetEventMask() and GetEventMask() methods. This event is
-**         enabled if [Interrupt service/event] is Enabled and disabled
-**         if [Interrupt service/event] is Disabled.
-**     @param
-**         UserDataPtr     - Pointer to RTOS device
-**                           data structure pointer.
-*/
-/* ===================================================================*/
-void PUSH_BUTTON_REC_OnPortEvent(LDD_TUserData *UserDataPtr)
-{
-  /* Write your code here ... */
-}
-
-/*
+**     Component   :  ENCODER_PUSH [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
 ** ===================================================================
-**     Event       :  PUSH_BUTTON_SEND_OnPortEvent (module Events)
-**
-**     Component   :  PUSH_BUTTON_SEND [GPIO_LDD]
 */
-/*!
-**     @brief
-**         Called if defined event on any pin of the port occured.
-**         OnPortEvent event and GPIO interrupt must be enabled. See
-**         SetEventMask() and GetEventMask() methods. This event is
-**         enabled if [Interrupt service/event] is Enabled and disabled
-**         if [Interrupt service/event] is Disabled.
-**     @param
-**         UserDataPtr     - Pointer to RTOS device
-**                           data structure pointer.
-*/
-/* ===================================================================*/
-void PUSH_BUTTON_SEND_OnPortEvent(LDD_TUserData *UserDataPtr)
+void ENCODER_PUSH_OnInterrupt(void)
 {
-  /* Write your code here ... */
+	LED_DEBUG_NegVal();
+	/* Write your code here ... */
 }
 
 /* END Events */
