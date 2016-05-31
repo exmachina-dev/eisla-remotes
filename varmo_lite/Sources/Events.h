@@ -47,6 +47,10 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
+#include "DIRECTION_1.h"
+#include "ExtIntLdd2.h"
+#include "DIRECTION_2.h"
+#include "ExtIntLdd3.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -135,6 +139,34 @@ void ENCODER_PUSH_OnInterrupt(void);
 **     Event       :  ENCODER_PUSH_OnInterrupt (module Events)
 **
 **     Component   :  ENCODER_PUSH [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void DIRECTION_2_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  DIRECTION_2_OnInterrupt (module Events)
+**
+**     Component   :  DIRECTION_2 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void DIRECTION_1_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  DIRECTION_1_OnInterrupt (module Events)
+**
+**     Component   :  DIRECTION_1 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.

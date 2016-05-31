@@ -14,7 +14,9 @@ Generated_Code/PE_LDD.o: ../Generated_Code/PE_LDD.c \
  ../Generated_Code/LED_STATUS_4.h ../Generated_Code/BitIoLdd5.h \
  ../Generated_Code/ENCODER.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PDD.h \
- ../Generated_Code/ENCODER_PUSH.h ../Generated_Code/ExtIntLdd1.h
+ ../Generated_Code/ENCODER_PUSH.h ../Generated_Code/ExtIntLdd1.h \
+ ../Generated_Code/DIRECTION_1.h ../Generated_Code/ExtIntLdd2.h \
+ ../Generated_Code/DIRECTION_2.h ../Generated_Code/ExtIntLdd3.h
 
 ../Generated_Code/PE_LDD.h:
 
@@ -65,3 +67,11 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PD
 ../Generated_Code/ENCODER_PUSH.h:
 
 ../Generated_Code/ExtIntLdd1.h:
+
+../Generated_Code/DIRECTION_1.h:
+
+../Generated_Code/ExtIntLdd2.h:
+
+../Generated_Code/DIRECTION_2.h:
+
+../Generated_Code/ExtIntLdd3.h:

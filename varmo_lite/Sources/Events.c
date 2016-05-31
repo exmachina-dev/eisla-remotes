@@ -121,40 +121,6 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 
 /*
 ** ===================================================================
-**     Event       :  DIRECTION_OnPortEvent (module Events)
-**
-**     Component   :  DIRECTION [GPIO_LDD]
-*/
-/*!
-**     @brief
-**         Called if defined event on any pin of the port occured.
-**         OnPortEvent event and GPIO interrupt must be enabled. See
-**         SetEventMask() and GetEventMask() methods. This event is
-**         enabled if [Interrupt service/event] is Enabled and disabled
-**         if [Interrupt service/event] is Disabled.
-**     @param
-**         UserDataPtr     - Pointer to RTOS device
-**                           data structure pointer.
-*/
-/* ===================================================================*/
-/*void DIRECTION_OnPortEvent(LDD_TUserData *UserDataPtr)
-{
-	uint8 dir1 = DIRECTION_GetFieldValue(&UserDataPtr, DIRECTION_1);
-	uint8 dir2 = DIRECTION_GetFieldValue(&UserDataPtr, DIRECTION_2);
-
-	if (dir1 == 1 && dir2 == 0){
-		//MOTOR DIRECTION 1
-	}
-	else if (dir1 == 0 && dir2 == 1){
-		//MOTOR DIRECTION 2
-	}
-	else {
-		//MOTOR OFF
-	}
-}*/
-
-/*
-** ===================================================================
 **     Event       :  ENCODER_PUSH_OnInterrupt (module Events)
 **
 **     Component   :  ENCODER_PUSH [ExtInt]
@@ -169,6 +135,50 @@ void ENCODER_PUSH_OnInterrupt(void)
 {
 	LED_DEBUG_NegVal();
 	/* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  DIRECTION_2_OnInterrupt (module Events)
+**
+**     Component   :  DIRECTION_2 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void DIRECTION_2_OnInterrupt(void)
+{
+	if (DIRECTION_2_GetVal() == 1) {
+		//MOTOR DIRECTION -
+	}
+	else{
+		//MOTOR OFF
+	}
+}
+
+/*
+** ===================================================================
+**     Event       :  DIRECTION_1_OnInterrupt (module Events)
+**
+**     Component   :  DIRECTION_1 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void DIRECTION_1_OnInterrupt(void)
+{
+	if (DIRECTION_1_GetVal() == 1) {
+		//MOTOR DIRECTION -
+	}
+	else{
+		//MOTOR OFF
+	}
 }
 
 /* END Events */

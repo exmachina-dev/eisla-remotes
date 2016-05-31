@@ -44,6 +44,10 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
+#include "DIRECTION_1.h"
+#include "ExtIntLdd2.h"
+#include "DIRECTION_2.h"
+#include "ExtIntLdd3.h"
 
 //#include "LCD.h"
 /* Including shared modules, which are used for whole project */

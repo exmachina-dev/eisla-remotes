@@ -36,6 +36,8 @@
 - \subpage BitIoLdd5
 - \subpage ENCODER
 - \subpage ExtIntLdd1
+- \subpage ExtIntLdd2
+- \subpage ExtIntLdd3
 
 */
 

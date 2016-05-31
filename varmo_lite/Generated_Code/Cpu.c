@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 19:17, # CodeGen: 42
+**     Date/Time   : 2016-05-31, 20:55, # CodeGen: 48
 **     Abstract    :
 **
 **     Settings    :
@@ -320,6 +320,10 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
+#include "DIRECTION_1.h"
+#include "ExtIntLdd2.h"
+#include "DIRECTION_2.h"
+#include "ExtIntLdd3.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -360,6 +364,8 @@ PE_ISR(Cpu_ivINT_PORTC)
 {
   ENCODER_Interrupt();                 /* Call the service routine */
   ExtIntLdd1_Interrupt();              /* Call the service routine */
+  ExtIntLdd2_Interrupt();              /* Call the service routine */
+  ExtIntLdd3_Interrupt();              /* Call the service routine */
 }
 
 /*
@@ -555,8 +561,8 @@ void PE_low_level_init(void)
   /* Common initialization of the CPU registers */
   /* NVICIP20: PRI20=0 */
   NVICIP20 = NVIC_IP_PRI20(0x00);
-  /* GPIOC_PDDR: PDD&=~0x0200 */
-  GPIOC_PDDR &= (uint32_t)~(uint32_t)(GPIO_PDDR_PDD(0x0200));
+  /* GPIOC_PDDR: PDD&=~0x0230 */
+  GPIOC_PDDR &= (uint32_t)~(uint32_t)(GPIO_PDDR_PDD(0x0230));
   /* ### BitIO_LDD "BitIoLdd1" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)BitIoLdd1_Init(NULL);
   /* ### TimerUnit_LDD "TU1" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
@@ -573,6 +579,10 @@ void PE_low_level_init(void)
   (void)ENCODER_Init(NULL);
   /* ### ExtInt_LDD "ExtIntLdd1" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)ExtIntLdd1_Init(NULL);
+  /* ### ExtInt_LDD "ExtIntLdd2" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)ExtIntLdd2_Init(NULL);
+  /* ### ExtInt_LDD "ExtIntLdd3" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)ExtIntLdd3_Init(NULL);
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

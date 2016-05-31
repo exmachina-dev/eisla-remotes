@@ -97,6 +97,12 @@ Module "ENCODER"   (component GPIO_LDD)
 Module "ENCODER_PUSH" (component ExtInt)
    - ENCODER_PUSH_GetVal -Returns the actual value of the input pin of the component.
 
+Module "DIRECTION_1" (component ExtInt)
+   - DIRECTION_1_GetVal -Returns the actual value of the input pin of the component.
+
+Module "DIRECTION_2" (component ExtInt)
+   - DIRECTION_2_GetVal -Returns the actual value of the input pin of the component.
+
 Module "Cpu"       (component MK20DX256LH7)
 
 ===================================================================================

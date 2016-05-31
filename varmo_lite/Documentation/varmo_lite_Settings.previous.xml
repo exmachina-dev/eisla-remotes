@@ -693,7 +693,7 @@ PE_DEBUGHALT();
         <Properties>
           <Component_name v="ExtIntLdd1" />
           <Pin v="ADC1_SE5b/CMP0_IN3/PTC9/I2S0_RX_BCLK/FTM2_FLT0" />
-          <Generate_interrupt_on v="rising edge" />
+          <Generate_interrupt_on v="falling edge" />
           <Interrupt v="INT_PORTC" />
           <Interrupt_priority v="medium priority" />
           <group name="Initialization">
@@ -718,7 +718,7 @@ PE_DEBUGHALT();
           </event>
         </Events>
       </inhrbean>
-      <Generate_interrupt_on v="rising edge" />
+      <Generate_interrupt_on v="falling edge" />
       <Interrupt v="INT_PORTC" />
       <Interrupt_priority v="medium priority" />
       <group name="Initialization">
