@@ -39,7 +39,7 @@ by the component.
 <td class="regNotResetVal">0x010B0100</td>
  <td>PORTC_PCR4 register, peripheral ExtIntLdd3.</td></tr>
 <tr><td>0x4004B014</td><td>PORTC_PCR5</td>
-<td class="regNotResetVal">0x010B0100</td>
+<td class="regNotResetVal">0x01090100</td>
  <td>PORTC_PCR5 register, peripheral ExtIntLdd3.</td></tr>
 </table>
 Color Denotes Reset Value
@@ -437,7 +437,7 @@ registers of the peripheral(s) configured by the component.
         
 </div>
 <table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004B014</td></tr>
-<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x010B0100</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x01090100</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
 <tr><td>24</td><td>ISF</td><td>0x01</td><td>Interrupt Status Flag</td>
@@ -458,7 +458,7 @@ registers of the peripheral(s) configured by the component.
 **          Component name                                 : ExtIntLdd3
 **          Pin                                            : PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT
 **          Pin signal                                     : DIR_2
-**          Generate interrupt on                          : both edges
+**          Generate interrupt on                          : rising or falling edge
 **          Interrupt                                      : INT_PORTC
 **          Interrupt priority                             : medium priority
 **          Initialization                                 : 

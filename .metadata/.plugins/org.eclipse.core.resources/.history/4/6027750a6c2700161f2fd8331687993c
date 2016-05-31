@@ -194,6 +194,7 @@ void ENCODER_PUSH_OnInterrupt(void)
 */
 void DIRECTION_2_OnInterrupt(void)
 {
+	LED_STATUS_1_NegVal();
 	if (DIRECTION_2_GetVal() == 0) {
 		LED_STATUS_2_PutVal(1);
 		LED_STATUS_3_PutVal(0);

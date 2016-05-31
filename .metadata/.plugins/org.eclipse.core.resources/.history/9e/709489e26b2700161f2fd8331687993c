@@ -195,9 +195,9 @@ void ENCODER_PUSH_OnInterrupt(void)
 void DIRECTION_2_OnInterrupt(void)
 {
 	if (DIRECTION_2_GetVal() == 0) {
-		LED_STATUS_2_PutVal(1);
+		LED_STATUS_2_PutVal(0);
 		LED_STATUS_3_PutVal(0);
-		LED_STATUS_4_PutVal(0);
+		LED_STATUS_4_PutVal(1);
 	}
 	else{
 		LED_STATUS_2_PutVal(0);
@@ -221,9 +221,9 @@ void DIRECTION_2_OnInterrupt(void)
 void DIRECTION_1_OnInterrupt(void)
 {
 	if (DIRECTION_1_GetVal() == 0) {
-		LED_STATUS_2_PutVal(0);
+		LED_STATUS_2_PutVal(1);
 		LED_STATUS_3_PutVal(0);
-		LED_STATUS_4_PutVal(1);
+		LED_STATUS_4_PutVal(0);
 	}
 	else{
 		LED_STATUS_2_PutVal(0);

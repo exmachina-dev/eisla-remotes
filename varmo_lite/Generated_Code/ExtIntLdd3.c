@@ -7,7 +7,7 @@
 **     Version     : Component 02.156, Driver 01.02, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 20:55, # CodeGen: 48
+**     Date/Time   : 2016-05-31, 22:10, # CodeGen: 50
 **     Abstract    :
 **         This component, "ExtInt_LDD", provide a low level API 
 **         for unified access of external interrupts handling
@@ -18,7 +18,7 @@
 **          Component name                                 : ExtIntLdd3
 **          Pin                                            : PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT
 **          Pin signal                                     : DIR_2
-**          Generate interrupt on                          : rising or falling edge
+**          Generate interrupt on                          : both edges
 **          Interrupt                                      : INT_PORTC
 **          Interrupt priority                             : medium priority
 **          Initialization                                 : 
@@ -132,12 +132,12 @@ LDD_TDeviceData* ExtIntLdd3_Init(LDD_TUserData *UserDataPtr)
                )) | (uint32_t)(
                 PORT_PCR_MUX(0x01)
                ));
-  /* PORTC_PCR5: ISF=1,IRQC=9 */
+  /* PORTC_PCR5: ISF=1,IRQC=0x0B */
   PORTC_PCR5 = (uint32_t)((PORTC_PCR5 & (uint32_t)~(uint32_t)(
-                PORT_PCR_IRQC(0x06)
+                PORT_PCR_IRQC(0x04)
                )) | (uint32_t)(
                 PORT_PCR_ISF_MASK |
-                PORT_PCR_IRQC(0x09)
+                PORT_PCR_IRQC(0x0B)
                ));
   /* NVICIP89: PRI89=0x80 */
   NVICIP89 = NVIC_IP_PRI89(0x80);
