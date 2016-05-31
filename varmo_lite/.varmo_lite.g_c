@@ -19,7 +19,7 @@
         <Line>PE_Const</Line>
         <Line>IO_Map</Line>
       </GenSharedModules>
-      <ShrdHeaderAge0>1220480354</ShrdHeaderAge0>
+      <ShrdHeaderAge0>1220480825</ShrdHeaderAge0>
       <ShrdCodeAge0>-1</ShrdCodeAge0>
       <ShrdAsemblAge0>-1</ShrdAsemblAge0>
       <ShrdHeaderAge1>1220453520</ShrdHeaderAge1>
@@ -31,7 +31,7 @@
       <ShrdHeaderAge3>1220453520</ShrdHeaderAge3>
       <ShrdCodeAge3>-1</ShrdCodeAge3>
       <ShrdAsemblAge3>-1</ShrdAsemblAge3>
-      <GenExtraFiles lines_count="16">
+      <GenExtraFiles lines_count="19">
         <Line>Documentation\doxygen\BitIoLdd1_component.txt</Line>
         <Line>Documentation\doxygen\TU1_component.txt</Line>
         <Line>Documentation\doxygen\BitIoLdd2_component.txt</Line>
@@ -39,6 +39,9 @@
         <Line>Documentation\doxygen\BitIoLdd4_component.txt</Line>
         <Line>Documentation\doxygen\BitIoLdd5_component.txt</Line>
         <Line>Documentation\doxygen\ENCODER_component.txt</Line>
+        <Line>Documentation\doxygen\PUSH_BUTTON_SEND_component.txt</Line>
+        <Line>Documentation\doxygen\PUSH_BUTTON_REC_component.txt</Line>
+        <Line>Documentation\doxygen\DIRECTION_component.txt</Line>
         <Line>Documentation\doxygen\varmo_lite_project.txt</Line>
         <Line>Documentation\doxygen\RoutingReport_component.txt</Line>
         <Line>Documentation\doxygen\pex.doxyfile</Line>
@@ -49,18 +52,21 @@
         <Line>Project_Settings\Startup_Code\startup.c</Line>
         <Line>Generated_Code\Vectors.c</Line>
       </GenExtraFiles>
-      <GenExtraFileSrcDir14>lib\Kinetis\startup\</GenExtraFileSrcDir14>
-      <GenExtraFileSrcDir10>Repositories\lib\doxygen\</GenExtraFileSrcDir10>
-      <XtraAge11>1220480354</XtraAge11>
-      <XtraAge12>1220480354</XtraAge12>
-      <XtraAge14>1220442375</XtraAge14>
-      <XtraAge15>1220480354</XtraAge15>
+      <GenExtraFileSrcDir17>lib\Kinetis\startup\</GenExtraFileSrcDir17>
+      <GenExtraFileSrcDir13>Repositories\lib\doxygen\</GenExtraFileSrcDir13>
+      <XtraAge14>1220480825</XtraAge14>
+      <XtraAge15>1220480825</XtraAge15>
+      <XtraAge17>1220442375</XtraAge17>
+      <XtraAge18>1220480825</XtraAge18>
+      <GenExtraFileType18>4</GenExtraFileType18>
+      <GenExtraFileType17>5</GenExtraFileType17>
+      <GenExtraFileType16>4</GenExtraFileType16>
       <GenExtraFileType15>4</GenExtraFileType15>
-      <GenExtraFileType14>5</GenExtraFileType14>
-      <GenExtraFileType13>4</GenExtraFileType13>
+      <GenExtraFileType14>4</GenExtraFileType14>
+      <GenExtraFileType13>5</GenExtraFileType13>
       <GenExtraFileType12>4</GenExtraFileType12>
       <GenExtraFileType11>4</GenExtraFileType11>
-      <GenExtraFileType10>5</GenExtraFileType10>
+      <GenExtraFileType10>4</GenExtraFileType10>
       <GenExtraFileType9>4</GenExtraFileType9>
       <GenExtraFileType8>4</GenExtraFileType8>
       <GenExtraFileType7>4</GenExtraFileType7>
@@ -372,18 +378,22 @@
       <GenEventModules lines_count="1">
         <Line>Events</Line>
       </GenEventModules>
-      <GenMethodsInEvents lines_count="3">
+      <GenMethodsInEvents lines_count="6">
+        <Line>DIRECTION_OnPortEvent</Line>
+        <Line>PUSH_BUTTON_REC_OnPortEvent</Line>
+        <Line>PUSH_BUTTON_SEND_OnPortEvent</Line>
         <Line>ENCODER_OnPortEvent</Line>
         <Line>TU1_OnCounterRestart</Line>
         <Line>Cpu_OnNMIINT</Line>
       </GenMethodsInEvents>
-      <GenAllModules lines_count="18">
+      <GenAllModules lines_count="21">
         <Line>BitIoLdd1</Line>
         <Line>BitIoLdd2</Line>
         <Line>BitIoLdd3</Line>
         <Line>BitIoLdd4</Line>
         <Line>BitIoLdd5</Line>
         <Line>Cpu</Line>
+        <Line>DIRECTION</Line>
         <Line>ENCODER</Line>
         <Line>Events</Line>
         <Line>IO_Map</Line>
@@ -395,10 +405,12 @@
         <Line>PE_Const</Line>
         <Line>PE_Error</Line>
         <Line>PE_Types</Line>
+        <Line>PUSH_BUTTON_REC</Line>
+        <Line>PUSH_BUTTON_SEND</Line>
         <Line>TU1</Line>
       </GenAllModules>
       <GenExternModules lines_count="0" />
-      <GenBeanModules lines_count="12">
+      <GenBeanModules lines_count="15">
         <Line>LED_DEBUG</Line>
         <Line>BitIoLdd1</Line>
         <Line>TU1</Line>
@@ -411,11 +423,14 @@
         <Line>LED_STATUS_4</Line>
         <Line>BitIoLdd5</Line>
         <Line>ENCODER</Line>
+        <Line>PUSH_BUTTON_SEND</Line>
+        <Line>PUSH_BUTTON_REC</Line>
+        <Line>DIRECTION</Line>
       </GenBeanModules>
     </GenFiles>
     <SignalListFile>Documentation\varmo_lite_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>34</ProjectModificationStamp>
+    <ProjectModificationStamp>35</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>false</Generated>
@@ -492,8 +507,8 @@
     <GenComponentVersion>01.001</GenComponentVersion>
     <GenDriverVersion>01.04</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1220480354</HeaderAge>
-    <CodeAge>1220480354</CodeAge>
+    <HeaderAge>1220480825</HeaderAge>
+    <CodeAge>1220480825</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetClockConfiguration>false</SetClockConfiguration>
@@ -1625,8 +1640,8 @@
     <GenComponentVersion>01.128</GenComponentVersion>
     <GenDriverVersion>01.08</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1220480393</HeaderAge>
-    <CodeAge>1220480393</CodeAge>
+    <HeaderAge>1220480825</HeaderAge>
+    <CodeAge>1220480825</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>27</GenNumMethods>
     <Init>true</Init>
@@ -1764,11 +1779,461 @@
       <MethodType>internal_method</MethodType>
       <ModuleType>Code</ModuleType>
       <LineBeg>452</LineBeg>
-      <LineEnd>474</LineEnd>
+      <LineEnd>476</LineEnd>
     </MethodPos>
     <GenExtraFilesCount>1</GenExtraFilesCount>
     <ExtraFile0>Documentation\doxygen\ENCODER_component.txt</ExtraFile0>
   </ComponentID_41>
+  <ComponentID_42>
+    <Generated>true</Generated>
+    <GenCompName>PUSH_BUTTON_SEND</GenCompName>
+    <GenComponentVersion>01.128</GenComponentVersion>
+    <GenDriverVersion>01.08</GenDriverVersion>
+    <GenEventModule>Events</GenEventModule>
+    <HeaderAge>1220480825</HeaderAge>
+    <CodeAge>1220480825</CodeAge>
+    <AsemblAge>-1</AsemblAge>
+    <GenNumMethods>27</GenNumMethods>
+    <Init>true</Init>
+    <Deinit>false</Deinit>
+    <SetEventMask>false</SetEventMask>
+    <GetEventMask>false</GetEventMask>
+    <SetPortEventCondition>false</SetPortEventCondition>
+    <GetPortEventStatus>false</GetPortEventStatus>
+    <SetFieldEventCondition>false</SetFieldEventCondition>
+    <GetFieldEventStatus>false</GetFieldEventStatus>
+    <SetPortValue>false</SetPortValue>
+    <GetPortValue>false</GetPortValue>
+    <GetPortOutputValue>false</GetPortOutputValue>
+    <ClearPortBits>false</ClearPortBits>
+    <SetPortBits>false</SetPortBits>
+    <TogglePortBits>false</TogglePortBits>
+    <SetPortInputDirection>false</SetPortInputDirection>
+    <SetPortOutputDirection>false</SetPortOutputDirection>
+    <SetFieldValue>true</SetFieldValue>
+    <GetFieldValue>true</GetFieldValue>
+    <GetFieldOutputValue>false</GetFieldOutputValue>
+    <ClearFieldBits>true</ClearFieldBits>
+    <SetFieldBits>true</SetFieldBits>
+    <ToggleFieldBits>true</ToggleFieldBits>
+    <SetFieldInputDirection>false</SetFieldInputDirection>
+    <SetFieldOutputDirection>false</SetFieldOutputDirection>
+    <SetOperationMode>false</SetOperationMode>
+    <GetDriverState>false</GetDriverState>
+    <ConnectPin>false</ConnectPin>
+    <GenNumEvents>2</GenNumEvents>
+    <OnPortEvent_Selected>3</OnPortEvent_Selected>
+    <OnPortEvent_Name>PUSH_BUTTON_SEND_OnPortEvent</OnPortEvent_Name>
+    <OnPortEvent_Priority>interrupts disabled</OnPortEvent_Priority>
+    <OnFieldEvent_Selected>1</OnFieldEvent_Selected>
+    <OnFieldEvent_Name>PUSH_BUTTON_SEND_OnFieldEvent</OnFieldEvent_Name>
+    <OnFieldEvent_Priority>interrupts disabled</OnFieldEvent_Priority>
+    <ISR_PortInterruptISRHandle />
+    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+    <GenMethodPos>14</GenMethodPos>
+    <MethodPos>
+      <MethodPos0>Init</MethodPos0>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>156</LineBeg>
+      <LineEnd>176</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos1>SetFieldValue</MethodPos1>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>177</LineBeg>
+      <LineEnd>202</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos2>GetFieldValue</MethodPos2>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>203</LineBeg>
+      <LineEnd>228</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos3>ClearFieldBits</MethodPos3>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>229</LineBeg>
+      <LineEnd>257</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos4>SetFieldBits</MethodPos4>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>258</LineBeg>
+      <LineEnd>286</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos5>ToggleFieldBits</MethodPos5>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>287</LineBeg>
+      <LineEnd>315</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos6>Interrupt</MethodPos6>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>316</LineBeg>
+      <LineEnd>328</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos7>Init</MethodPos7>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>109</LineBeg>
+      <LineEnd>171</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos8>SetFieldValue</MethodPos8>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>172</LineBeg>
+      <LineEnd>217</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos9>GetFieldValue</MethodPos9>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>218</LineBeg>
+      <LineEnd>261</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos10>ClearFieldBits</MethodPos10>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>262</LineBeg>
+      <LineEnd>304</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos11>SetFieldBits</MethodPos11>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>305</LineBeg>
+      <LineEnd>347</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos12>ToggleFieldBits</MethodPos12>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>348</LineBeg>
+      <LineEnd>390</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos13>Interrupt</MethodPos13>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>391</LineBeg>
+      <LineEnd>415</LineEnd>
+    </MethodPos>
+    <GenExtraFilesCount>1</GenExtraFilesCount>
+    <ExtraFile0>Documentation\doxygen\PUSH_BUTTON_SEND_component.txt</ExtraFile0>
+  </ComponentID_42>
+  <ComponentID_43>
+    <Generated>true</Generated>
+    <GenCompName>PUSH_BUTTON_REC</GenCompName>
+    <GenComponentVersion>01.128</GenComponentVersion>
+    <GenDriverVersion>01.08</GenDriverVersion>
+    <GenEventModule>Events</GenEventModule>
+    <HeaderAge>1220480825</HeaderAge>
+    <CodeAge>1220480825</CodeAge>
+    <AsemblAge>-1</AsemblAge>
+    <GenNumMethods>27</GenNumMethods>
+    <Init>true</Init>
+    <Deinit>false</Deinit>
+    <SetEventMask>false</SetEventMask>
+    <GetEventMask>false</GetEventMask>
+    <SetPortEventCondition>false</SetPortEventCondition>
+    <GetPortEventStatus>false</GetPortEventStatus>
+    <SetFieldEventCondition>false</SetFieldEventCondition>
+    <GetFieldEventStatus>false</GetFieldEventStatus>
+    <SetPortValue>false</SetPortValue>
+    <GetPortValue>false</GetPortValue>
+    <GetPortOutputValue>false</GetPortOutputValue>
+    <ClearPortBits>false</ClearPortBits>
+    <SetPortBits>false</SetPortBits>
+    <TogglePortBits>false</TogglePortBits>
+    <SetPortInputDirection>false</SetPortInputDirection>
+    <SetPortOutputDirection>false</SetPortOutputDirection>
+    <SetFieldValue>true</SetFieldValue>
+    <GetFieldValue>true</GetFieldValue>
+    <GetFieldOutputValue>false</GetFieldOutputValue>
+    <ClearFieldBits>true</ClearFieldBits>
+    <SetFieldBits>true</SetFieldBits>
+    <ToggleFieldBits>true</ToggleFieldBits>
+    <SetFieldInputDirection>false</SetFieldInputDirection>
+    <SetFieldOutputDirection>false</SetFieldOutputDirection>
+    <SetOperationMode>false</SetOperationMode>
+    <GetDriverState>false</GetDriverState>
+    <ConnectPin>false</ConnectPin>
+    <GenNumEvents>2</GenNumEvents>
+    <OnPortEvent_Selected>3</OnPortEvent_Selected>
+    <OnPortEvent_Name>PUSH_BUTTON_REC_OnPortEvent</OnPortEvent_Name>
+    <OnPortEvent_Priority>interrupts disabled</OnPortEvent_Priority>
+    <OnFieldEvent_Selected>1</OnFieldEvent_Selected>
+    <OnFieldEvent_Name>PUSH_BUTTON_REC_OnFieldEvent</OnFieldEvent_Name>
+    <OnFieldEvent_Priority>interrupts disabled</OnFieldEvent_Priority>
+    <ISR_PortInterruptISRHandle />
+    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+    <GenMethodPos>14</GenMethodPos>
+    <MethodPos>
+      <MethodPos0>Init</MethodPos0>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>156</LineBeg>
+      <LineEnd>176</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos1>SetFieldValue</MethodPos1>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>177</LineBeg>
+      <LineEnd>202</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos2>GetFieldValue</MethodPos2>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>203</LineBeg>
+      <LineEnd>228</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos3>ClearFieldBits</MethodPos3>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>229</LineBeg>
+      <LineEnd>257</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos4>SetFieldBits</MethodPos4>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>258</LineBeg>
+      <LineEnd>286</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos5>ToggleFieldBits</MethodPos5>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>287</LineBeg>
+      <LineEnd>315</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos6>Interrupt</MethodPos6>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>316</LineBeg>
+      <LineEnd>328</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos7>Init</MethodPos7>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>109</LineBeg>
+      <LineEnd>171</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos8>SetFieldValue</MethodPos8>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>172</LineBeg>
+      <LineEnd>217</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos9>GetFieldValue</MethodPos9>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>218</LineBeg>
+      <LineEnd>261</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos10>ClearFieldBits</MethodPos10>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>262</LineBeg>
+      <LineEnd>304</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos11>SetFieldBits</MethodPos11>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>305</LineBeg>
+      <LineEnd>347</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos12>ToggleFieldBits</MethodPos12>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>348</LineBeg>
+      <LineEnd>390</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos13>Interrupt</MethodPos13>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>391</LineBeg>
+      <LineEnd>415</LineEnd>
+    </MethodPos>
+    <GenExtraFilesCount>1</GenExtraFilesCount>
+    <ExtraFile0>Documentation\doxygen\PUSH_BUTTON_REC_component.txt</ExtraFile0>
+  </ComponentID_43>
+  <ComponentID_44>
+    <Generated>true</Generated>
+    <GenCompName>DIRECTION</GenCompName>
+    <GenComponentVersion>01.128</GenComponentVersion>
+    <GenDriverVersion>01.08</GenDriverVersion>
+    <GenEventModule>Events</GenEventModule>
+    <HeaderAge>1220480825</HeaderAge>
+    <CodeAge>1220480825</CodeAge>
+    <AsemblAge>-1</AsemblAge>
+    <GenNumMethods>27</GenNumMethods>
+    <Init>true</Init>
+    <Deinit>false</Deinit>
+    <SetEventMask>false</SetEventMask>
+    <GetEventMask>false</GetEventMask>
+    <SetPortEventCondition>false</SetPortEventCondition>
+    <GetPortEventStatus>false</GetPortEventStatus>
+    <SetFieldEventCondition>false</SetFieldEventCondition>
+    <GetFieldEventStatus>false</GetFieldEventStatus>
+    <SetPortValue>false</SetPortValue>
+    <GetPortValue>false</GetPortValue>
+    <GetPortOutputValue>false</GetPortOutputValue>
+    <ClearPortBits>false</ClearPortBits>
+    <SetPortBits>false</SetPortBits>
+    <TogglePortBits>false</TogglePortBits>
+    <SetPortInputDirection>false</SetPortInputDirection>
+    <SetPortOutputDirection>false</SetPortOutputDirection>
+    <SetFieldValue>true</SetFieldValue>
+    <GetFieldValue>true</GetFieldValue>
+    <GetFieldOutputValue>false</GetFieldOutputValue>
+    <ClearFieldBits>true</ClearFieldBits>
+    <SetFieldBits>true</SetFieldBits>
+    <ToggleFieldBits>true</ToggleFieldBits>
+    <SetFieldInputDirection>false</SetFieldInputDirection>
+    <SetFieldOutputDirection>false</SetFieldOutputDirection>
+    <SetOperationMode>false</SetOperationMode>
+    <GetDriverState>false</GetDriverState>
+    <ConnectPin>false</ConnectPin>
+    <GenNumEvents>2</GenNumEvents>
+    <OnPortEvent_Selected>3</OnPortEvent_Selected>
+    <OnPortEvent_Name>DIRECTION_OnPortEvent</OnPortEvent_Name>
+    <OnPortEvent_Priority>interrupts disabled</OnPortEvent_Priority>
+    <OnFieldEvent_Selected>1</OnFieldEvent_Selected>
+    <OnFieldEvent_Name>DIRECTION_OnFieldEvent</OnFieldEvent_Name>
+    <OnFieldEvent_Priority>interrupts disabled</OnFieldEvent_Priority>
+    <ISR_PortInterruptISRHandle />
+    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+    <GenMethodPos>14</GenMethodPos>
+    <MethodPos>
+      <MethodPos0>Init</MethodPos0>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>169</LineBeg>
+      <LineEnd>189</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos1>SetFieldValue</MethodPos1>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>190</LineBeg>
+      <LineEnd>215</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos2>GetFieldValue</MethodPos2>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>216</LineBeg>
+      <LineEnd>241</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos3>ClearFieldBits</MethodPos3>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>242</LineBeg>
+      <LineEnd>270</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos4>SetFieldBits</MethodPos4>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>271</LineBeg>
+      <LineEnd>299</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos5>ToggleFieldBits</MethodPos5>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>300</LineBeg>
+      <LineEnd>328</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos6>Interrupt</MethodPos6>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>329</LineBeg>
+      <LineEnd>341</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos7>Init</MethodPos7>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>118</LineBeg>
+      <LineEnd>195</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos8>SetFieldValue</MethodPos8>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>196</LineBeg>
+      <LineEnd>254</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos9>GetFieldValue</MethodPos9>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>255</LineBeg>
+      <LineEnd>308</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos10>ClearFieldBits</MethodPos10>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>309</LineBeg>
+      <LineEnd>358</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos11>SetFieldBits</MethodPos11>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>359</LineBeg>
+      <LineEnd>408</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos12>ToggleFieldBits</MethodPos12>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>409</LineBeg>
+      <LineEnd>458</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos13>Interrupt</MethodPos13>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>459</LineBeg>
+      <LineEnd>483</LineEnd>
+    </MethodPos>
+    <GenExtraFilesCount>1</GenExtraFilesCount>
+    <ExtraFile0>Documentation\doxygen\DIRECTION_component.txt</ExtraFile0>
+  </ComponentID_44>
   <UsedSrcFiles>
     <SrcFile0>Drivers\Common\CheckRegBits8_Rst.prg=1183486427</SrcFile0>
     <SrcFile1>Drivers\Kinetis\Init_FTFL_FlashConfig_KINETIS.prg=1183486058</SrcFile1>

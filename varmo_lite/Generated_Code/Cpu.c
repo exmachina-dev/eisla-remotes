@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 01:42, # CodeGen: 35
+**     Date/Time   : 2016-05-31, 01:57, # CodeGen: 38
 **     Abstract    :
 **
 **     Settings    :
@@ -318,6 +318,9 @@
 #include "LED_STATUS_4.h"
 #include "BitIoLdd5.h"
 #include "ENCODER.h"
+#include "PUSH_BUTTON_SEND.h"
+#include "PUSH_BUTTON_REC.h"
+#include "DIRECTION.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -343,6 +346,24 @@ volatile uint8_t SR_lock = 0x00U;      /* Lock */
 ** ===================================================================
 */
 void Cpu_SetBASEPRI(uint32_t Level);
+
+/*
+** ===================================================================
+**     Method      :  Cpu_Cpu_ivINT_PORTC (component MK20DX256LH7)
+**
+**     Description :
+**         This ISR services the ivINT_PORTC interrupt shared by several 
+**         components.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
+PE_ISR(Cpu_ivINT_PORTC)
+{
+  ENCODER_Interrupt();                 /* Call the service routine */
+  PUSH_BUTTON_SEND_Interrupt();        /* Call the service routine */
+  PUSH_BUTTON_REC_Interrupt();         /* Call the service routine */
+  DIRECTION_Interrupt();               /* Call the service routine */
+}
 
 /*
 ** ===================================================================

@@ -14,6 +14,8 @@ Generated_Code/Cpu.o: ../Generated_Code/Cpu.c \
  ../Generated_Code/LED_STATUS_4.h ../Generated_Code/BitIoLdd5.h \
  ../Generated_Code/ENCODER.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PDD.h \
+ ../Generated_Code/PUSH_BUTTON_SEND.h ../Generated_Code/PUSH_BUTTON_REC.h \
+ ../Generated_Code/DIRECTION.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/Events.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PE_Types.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PE_Error.h \
@@ -30,7 +32,10 @@ Generated_Code/Cpu.o: ../Generated_Code/Cpu.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd4.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/LED_STATUS_4.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd5.h \
- C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ENCODER.h
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ENCODER.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_SEND.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_REC.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/DIRECTION.h
 
 ../Generated_Code/LED_DEBUG.h:
 
@@ -76,6 +81,12 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/FTM_PDD
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PDD.h:
 
+../Generated_Code/PUSH_BUTTON_SEND.h:
+
+../Generated_Code/PUSH_BUTTON_REC.h:
+
+../Generated_Code/DIRECTION.h:
+
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/Events.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PE_Types.h:
@@ -109,3 +120,9 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/LED_STAT
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/BitIoLdd5.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ENCODER.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_SEND.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_REC.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/DIRECTION.h:

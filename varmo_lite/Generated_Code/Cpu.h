@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 01:42, # CodeGen: 35
+**     Date/Time   : 2016-05-31, 01:57, # CodeGen: 38
 **     Abstract    :
 **
 **     Settings    :
@@ -146,6 +146,19 @@ extern volatile uint8_t SR_reg;        /* Current FAULTMASK register */
 /*lint -esym(765,SR_lock) Disable MISRA rule (8.10) checking for symbols (SR_lock). The SR_reg is used in inline assembler. */
 extern volatile uint8_t SR_lock;
 
+
+/* {Default RTOS Adapter} ISR function prototype */
+PE_ISR(Cpu_ivINT_PORTC);
+/*
+** ===================================================================
+**     Method      :  Cpu_Cpu_ivINT_PORTC (component MK20DX256LH7)
+**
+**     Description :
+**         This ISR services the ivINT_PORTC interrupt shared by several 
+**         components.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
 
 /*
 ** ===================================================================

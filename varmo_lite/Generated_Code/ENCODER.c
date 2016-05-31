@@ -7,7 +7,7 @@
 **     Version     : Component 01.128, Driver 01.08, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 01:44, # CodeGen: 37
+**     Date/Time   : 2016-05-31, 01:57, # CodeGen: 38
 **     Abstract    :
 **         The HAL GPIO component will provide a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -460,7 +460,7 @@ void ENCODER_ToggleFieldBits(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField 
 **         This method is internal. It is used by Processor Expert only.
 ** ===================================================================
 */
-PE_ISR(ENCODER_Interrupt)
+void ENCODER_Interrupt(void)
 {
   /* {Default RTOS Adapter} ISR parameter is passed through the global variable */
   ENCODER_TDeviceDataPtr DeviceDataPrv = INT_PORTC__DEFAULT_RTOS_ISRPARAM;
@@ -469,8 +469,10 @@ PE_ISR(ENCODER_Interrupt)
   State = (ENCODER_TPortValue)(PORT_PDD_GetInterruptFlags(ENCODER_PORTCONTROL_BASE_ADDRESS)
           & ((ENCODER_TPortValue)ENCODER_ALLOCATED_PINS_MASK)); /* Retrieve flags */
   DeviceDataPrv->EventFlags |= State;
-  PORT_PDD_ClearInterruptFlags(ENCODER_PORTCONTROL_BASE_ADDRESS, State); /* Clears flags */
-  ENCODER_OnPortEvent(DeviceDataPrv->UserData); /* Call OnPortEvent event */
+  if (State) {
+    PORT_PDD_ClearInterruptFlags(ENCODER_PORTCONTROL_BASE_ADDRESS, State); /* Clears flags */
+    ENCODER_OnPortEvent(DeviceDataPrv->UserData); /* Call OnPortEvent event */
+  }
 }
 
 /* END ENCODER. */

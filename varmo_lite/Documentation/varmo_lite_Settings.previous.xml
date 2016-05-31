@@ -622,7 +622,7 @@ PE_DEBUGHALT();
       </boolgroup>
       <list name="Bit fields" v="2">
         <group name="Bit field">
-          <Field_name v="ENC_B" />
+          <Field_name v="ENCODER_B" />
           <list name="Pins" v="1">
             <group name="Pin">
               <Pin v="CMP0_IN1/PTC7/SPI0_SIN/USB_SOF_OUT/I2S0_RX_FS" />

@@ -7,7 +7,7 @@
 **     Version     : Component 01.128, Driver 01.08, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 01:44, # CodeGen: 37
+**     Date/Time   : 2016-05-31, 01:57, # CodeGen: 38
 **     Abstract    :
 **         The HAL GPIO component will provide a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -341,7 +341,7 @@ void ENCODER_ToggleFieldBits(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField 
 ** ===================================================================
 */
 /* {Default RTOS Adapter} ISR function prototype */
-PE_ISR(ENCODER_Interrupt);
+void ENCODER_Interrupt(void);
 
 /* END ENCODER. */
 
