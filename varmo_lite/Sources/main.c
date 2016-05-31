@@ -32,7 +32,7 @@
 #include "Events.h"
 #include "LED_DEBUG.h"
 #include "BitIoLdd1.h"
-#include "TU1.h"
+#include "T_500ms.h"
 #include "LED_STATUS_1.h"
 #include "BitIoLdd2.h"
 #include "LED_STATUS_2.h"
@@ -48,6 +48,7 @@
 #include "ExtIntLdd2.h"
 #include "DIRECTION_2.h"
 #include "ExtIntLdd3.h"
+#include "T_100ms.h"
 
 //#include "LCD.h"
 /* Including shared modules, which are used for whole project */
@@ -59,6 +60,7 @@
 
 
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
+
 int main(void)
 /*lint -restore Enable MISRA rule (6.3) checking. */
 {

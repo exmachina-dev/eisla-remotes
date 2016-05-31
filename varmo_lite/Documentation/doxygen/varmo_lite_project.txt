@@ -29,7 +29,7 @@
 
 \page page_components Components 
 - \subpage BitIoLdd1
-- \subpage TU1
+- \subpage T_500ms
 - \subpage BitIoLdd2
 - \subpage BitIoLdd3
 - \subpage BitIoLdd4
@@ -38,6 +38,7 @@
 - \subpage ExtIntLdd1
 - \subpage ExtIntLdd2
 - \subpage ExtIntLdd3
+- \subpage T_100ms
 
 */
 

@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 20:55, # CodeGen: 48
+**     Date/Time   : 2016-05-31, 21:24, # CodeGen: 49
 **     Abstract    :
 **
 **     Settings    :
@@ -57,7 +57,7 @@
   #include "Cpu.h"
   #include "LED_DEBUG.h"
   #include "BitIoLdd1.h"
-  #include "TU1.h"
+  #include "T_500ms.h"
   #include "LED_STATUS_1.h"
   #include "BitIoLdd2.h"
   #include "LED_STATUS_2.h"
@@ -73,6 +73,7 @@
   #include "ExtIntLdd2.h"
   #include "DIRECTION_2.h"
   #include "ExtIntLdd3.h"
+  #include "T_100ms.h"
   #include "Events.h"
 
 
@@ -170,8 +171,8 @@
     (tIsrFunc)&Cpu_Interrupt,          /* 0x4B  0x0000012C   -   ivINT_CMP0                     unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x4C  0x00000130   -   ivINT_CMP1                     unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x4D  0x00000134   -   ivINT_CMP2                     unused by PE */
-    (tIsrFunc)&TU1_Interrupt,          /* 0x4E  0x00000138   8   ivINT_FTM0                     used by PE */
-    (tIsrFunc)&Cpu_Interrupt,          /* 0x4F  0x0000013C   -   ivINT_FTM1                     unused by PE */
+    (tIsrFunc)&T_500ms_Interrupt,      /* 0x4E  0x00000138   8   ivINT_FTM0                     used by PE */
+    (tIsrFunc)&T_100ms_Interrupt,      /* 0x4F  0x0000013C   8   ivINT_FTM1                     used by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x50  0x00000140   -   ivINT_FTM2                     unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x51  0x00000144   -   ivINT_CMT                      unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x52  0x00000148   -   ivINT_RTC                      unused by PE */

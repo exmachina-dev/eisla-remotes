@@ -6,7 +6,7 @@ Generated_Code/PE_LDD.o: ../Generated_Code/PE_LDD.c \
  ../Generated_Code/BitIoLdd1.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/GPIO_PDD.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PDD_Types.h \
- ../Generated_Code/Cpu.h ../Generated_Code/TU1.h \
+ ../Generated_Code/Cpu.h ../Generated_Code/T_500ms.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/FTM_PDD.h \
  ../Generated_Code/LED_STATUS_1.h ../Generated_Code/BitIoLdd2.h \
  ../Generated_Code/LED_STATUS_2.h ../Generated_Code/BitIoLdd3.h \
@@ -16,7 +16,8 @@ Generated_Code/PE_LDD.o: ../Generated_Code/PE_LDD.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PDD.h \
  ../Generated_Code/ENCODER_PUSH.h ../Generated_Code/ExtIntLdd1.h \
  ../Generated_Code/DIRECTION_1.h ../Generated_Code/ExtIntLdd2.h \
- ../Generated_Code/DIRECTION_2.h ../Generated_Code/ExtIntLdd3.h
+ ../Generated_Code/DIRECTION_2.h ../Generated_Code/ExtIntLdd3.h \
+ ../Generated_Code/T_100ms.h
 
 ../Generated_Code/PE_LDD.h:
 
@@ -40,7 +41,7 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PDD_Typ
 
 ../Generated_Code/Cpu.h:
 
-../Generated_Code/TU1.h:
+../Generated_Code/T_500ms.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/FTM_PDD.h:
 
@@ -75,3 +76,5 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PD
 ../Generated_Code/DIRECTION_2.h:
 
 ../Generated_Code/ExtIntLdd3.h:
+
+../Generated_Code/T_100ms.h:

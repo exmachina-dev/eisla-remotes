@@ -740,5 +740,131 @@ PE_DEBUGHALT();
       </event>
     </Events>
   </Bean>
+  <Bean name="DIRECTION_1" type="ExtInt">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="DIRECTION_1" />
+      <Pin v="PTC4/LLWU_P8/SPI0_PCS0/UART1_TX/FTM0_CH3/CMP1_OUT" />
+      <inhrbean type="ExtInt_LDD">
+        <Enabled v="Y" />
+        <Template v="ExtInt_LDD" />
+        <Properties>
+          <Component_name v="ExtIntLdd2" />
+          <Pin v="PTC4/LLWU_P8/SPI0_PCS0/UART1_TX/FTM0_CH3/CMP1_OUT" />
+          <Generate_interrupt_on v="both edges" />
+          <Interrupt v="INT_PORTC" />
+          <Interrupt_priority v="medium priority" />
+          <group name="Initialization">
+            <Enabled_in_init__code v="yes" />
+          </group>
+        </Properties>
+        <Methods>
+          <Init v="generate code" />
+          <Deinit v="don&amp;apos;t generate code" />
+          <Enable v="don&amp;apos;t generate code" />
+          <Disable v="don&amp;apos;t generate code" />
+          <GetVal v="generate code" />
+          <SetEdge v="don&amp;apos;t generate code" />
+          <SetOperationMode v="don&amp;apos;t generate code" />
+          <GetDriverState v="don&amp;apos;t generate code" />
+          <ConnectPin v="don&amp;apos;t generate code" />
+        </Methods>
+        <Events>
+          <Event_module_name v="Events" />
+          <event name="OnInterrupt" v="generate code">
+            <Event_procedure_name v="ExtIntLdd2_OnInterrupt" />
+          </event>
+        </Events>
+      </inhrbean>
+      <Generate_interrupt_on v="both edges" />
+      <Interrupt v="INT_PORTC" />
+      <Interrupt_priority v="medium priority" />
+      <group name="Initialization">
+        <Enabled_in_init__code v="yes" />
+      </group>
+    </Properties>
+    <Methods>
+      <Enable v="don&amp;apos;t generate code" />
+      <Disable v="don&amp;apos;t generate code" />
+      <GetVal v="generate code" />
+      <SetEdge v="don&amp;apos;t generate code" />
+      <ConnectPin v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="OnInterrupt" v="generate code">
+        <Event_procedure_name v="DIRECTION_1_OnInterrupt" />
+        <Priority v="same as interrupt" />
+      </event>
+    </Events>
+  </Bean>
+  <Bean name="DIRECTION_2" type="ExtInt">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="DIRECTION_2" />
+      <Pin v="PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT" />
+      <inhrbean type="ExtInt_LDD">
+        <Enabled v="Y" />
+        <Template v="ExtInt_LDD" />
+        <Properties>
+          <Component_name v="ExtIntLdd3" />
+          <Pin v="PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT" />
+          <Generate_interrupt_on sel_value="rising edge">
+            
+rising or falling edge
+
+            <EmptySection_DummyValue />
+          </Generate_interrupt_on>
+          <Interrupt v="INT_PORTC" />
+          <Interrupt_priority v="medium priority" />
+          <group name="Initialization">
+            <Enabled_in_init__code v="yes" />
+          </group>
+        </Properties>
+        <Methods>
+          <Init v="generate code" />
+          <Deinit v="don&amp;apos;t generate code" />
+          <Enable v="don&amp;apos;t generate code" />
+          <Disable v="don&amp;apos;t generate code" />
+          <GetVal v="generate code" />
+          <SetEdge v="don&amp;apos;t generate code" />
+          <SetOperationMode v="don&amp;apos;t generate code" />
+          <GetDriverState v="don&amp;apos;t generate code" />
+          <ConnectPin v="don&amp;apos;t generate code" />
+        </Methods>
+        <Events>
+          <Event_module_name v="Events" />
+          <event name="OnInterrupt" v="generate code">
+            <Event_procedure_name v="ExtIntLdd3_OnInterrupt" />
+          </event>
+        </Events>
+      </inhrbean>
+      <Generate_interrupt_on sel_value="rising edge">
+        
+rising or falling edge
+
+        <EmptySection_DummyValue />
+      </Generate_interrupt_on>
+      <Interrupt v="INT_PORTC" />
+      <Interrupt_priority v="medium priority" />
+      <group name="Initialization">
+        <Enabled_in_init__code v="yes" />
+      </group>
+    </Properties>
+    <Methods>
+      <Enable v="don&amp;apos;t generate code" />
+      <Disable v="don&amp;apos;t generate code" />
+      <GetVal v="generate code" />
+      <SetEdge v="don&amp;apos;t generate code" />
+      <ConnectPin v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="OnInterrupt" v="generate code">
+        <Event_procedure_name v="DIRECTION_2_OnInterrupt" />
+        <Priority v="same as interrupt" />
+      </event>
+    </Events>
+  </Bean>
 </PE_PROJECT_SETTINGS_DOCUMENTATION>
 

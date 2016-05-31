@@ -19,8 +19,8 @@ Module "LED_DEBUG" (component BitIO)
    - LED_DEBUG_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
 
-Module "TU1"       (component TimerUnit_LDD)
-   - TU1_Init -Initializes the device. Allocates memory for the device data structure, allocates interrupt vectors and sets 
+Module "T_500ms"   (component TimerUnit_LDD)
+   - T_500ms_Init -Initializes the device. Allocates memory for the device data structure, allocates interrupt vectors and sets 
                 interrupt priority, sets pin routing, sets timing, etc. If the property <"Enable in init. code"> is set to 
                 "yes" value then the device is also enabled (see the description of the <Enable> method). In this case the 
                 <Enable> method is not necessary and needn't to be generated. This method can be called only once. Before the 
@@ -102,6 +102,17 @@ Module "DIRECTION_1" (component ExtInt)
 
 Module "DIRECTION_2" (component ExtInt)
    - DIRECTION_2_GetVal -Returns the actual value of the input pin of the component.
+
+Module "T_100ms"   (component TimerUnit_LDD)
+   - T_100ms_Init -Initializes the device. Allocates memory for the device data structure, allocates interrupt vectors and sets 
+                interrupt priority, sets pin routing, sets timing, etc. If the property <"Enable in init. code"> is set to 
+                "yes" value then the device is also enabled (see the description of the <Enable> method). In this case the 
+                <Enable> method is not necessary and needn't to be generated. This method can be called only once. Before the 
+                second call of Init the <Deinit> must be called first.
+   - T_100ms_Enable -Enables the component - it starts the signal generation. Events may be generated (see SetEventMask). The 
+                method is not available if the counter can't be disabled/enabled by HW.
+   - T_100ms_Disable -Disables the component - it stops signal generation and events calling. The method is not available if 
+                the counter can't be disabled/enabled by HW.
 
 Module "Cpu"       (component MK20DX256LH7)
 

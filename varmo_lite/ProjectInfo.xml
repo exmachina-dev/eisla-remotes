@@ -69,7 +69,8 @@
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_3.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_STATUS_4.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\PE_LDD.c</PathName>
-      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\TU1.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\T_100ms.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\T_500ms.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\Vectors.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Project_Settings\Startup_Code\startup.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\Events.c</PathName>
@@ -100,7 +101,8 @@
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\PE_Error.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\PE_LDD.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\PE_Types.h</PathName>
-      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\TU1.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\T_100ms.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\T_500ms.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\Events.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\display.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Static_Code\IO_Map\MK20D7.h</PathName>

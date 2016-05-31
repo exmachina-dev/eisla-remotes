@@ -7,7 +7,7 @@
 **     Version     : Component 02.156, Driver 01.02, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 19:29, # CodeGen: 47
+**     Date/Time   : 2016-05-31, 21:24, # CodeGen: 49
 **     Abstract    :
 **         This component, "ExtInt_LDD", provide a low level API 
 **         for unified access of external interrupts handling
@@ -18,7 +18,7 @@
 **          Component name                                 : ExtIntLdd1
 **          Pin                                            : ADC1_SE5b/CMP0_IN3/PTC9/I2S0_RX_BCLK/FTM2_FLT0
 **          Pin signal                                     : PUSH
-**          Generate interrupt on                          : falling edge
+**          Generate interrupt on                          : both edges
 **          Interrupt                                      : INT_PORTC
 **          Interrupt priority                             : medium priority
 **          Initialization                                 : 

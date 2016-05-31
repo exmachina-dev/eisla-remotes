@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 20:55, # CodeGen: 48
+**     Date/Time   : 2016-05-31, 21:24, # CodeGen: 49
 **     Abstract    :
 **
 **     Settings    :
@@ -308,7 +308,7 @@
 /* {Default RTOS Adapter} No RTOS includes */
 #include "LED_DEBUG.h"
 #include "BitIoLdd1.h"
-#include "TU1.h"
+#include "T_500ms.h"
 #include "LED_STATUS_1.h"
 #include "BitIoLdd2.h"
 #include "LED_STATUS_2.h"
@@ -324,6 +324,7 @@
 #include "ExtIntLdd2.h"
 #include "DIRECTION_2.h"
 #include "ExtIntLdd3.h"
+#include "T_100ms.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -565,8 +566,8 @@ void PE_low_level_init(void)
   GPIOC_PDDR &= (uint32_t)~(uint32_t)(GPIO_PDDR_PDD(0x0230));
   /* ### BitIO_LDD "BitIoLdd1" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)BitIoLdd1_Init(NULL);
-  /* ### TimerUnit_LDD "TU1" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
-  (void)TU1_Init(NULL);
+  /* ### TimerUnit_LDD "T_500ms" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)T_500ms_Init(NULL);
   /* ### BitIO_LDD "BitIoLdd2" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)BitIoLdd2_Init(NULL);
   /* ### BitIO_LDD "BitIoLdd3" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
@@ -583,6 +584,8 @@ void PE_low_level_init(void)
   (void)ExtIntLdd2_Init(NULL);
   /* ### ExtInt_LDD "ExtIntLdd3" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)ExtIntLdd3_Init(NULL);
+  /* ### TimerUnit_LDD "T_100ms" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)T_100ms_Init(NULL);
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

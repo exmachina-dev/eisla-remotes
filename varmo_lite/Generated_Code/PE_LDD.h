@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 20:55, # CodeGen: 48
+**     Date/Time   : 2016-05-31, 21:24, # CodeGen: 49
 **     Abstract    :
 **
 **     Settings    :
@@ -63,7 +63,7 @@
 #include "PE_Const.h"
 #include "LED_DEBUG.h"
 #include "BitIoLdd1.h"
-#include "TU1.h"
+#include "T_500ms.h"
 #include "LED_STATUS_1.h"
 #include "BitIoLdd2.h"
 #include "LED_STATUS_2.h"
@@ -79,6 +79,7 @@
 #include "ExtIntLdd2.h"
 #include "DIRECTION_2.h"
 #include "ExtIntLdd3.h"
+#include "T_100ms.h"
 
 
 /*

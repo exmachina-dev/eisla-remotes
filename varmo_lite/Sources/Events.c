@@ -40,6 +40,9 @@ extern "C" {
 
 int i;
 int encoder=1000;
+bool FLAG_PUSH_SHORT =0;
+bool FLAG_PUSH_LONG = 0;
+short counter_100ms = 0;
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
@@ -63,9 +66,9 @@ void Cpu_OnNMIINT(void)
 
 /*
 ** ===================================================================
-**     Event       :  TU1_OnCounterRestart (module Events)
+**     Event       :  T_500ms_OnCounterRestart (module Events)
 **
-**     Component   :  TU1 [TimerUnit_LDD]
+**     Component   :  T_500ms [TimerUnit_LDD]
 */
 /*!
 **     @brief
@@ -80,12 +83,44 @@ void Cpu_OnNMIINT(void)
 **                           the parameter of Init method.
 */
 /* ===================================================================*/
-void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
+void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
 	//i++;
 	//led_init(i);
 
 	//LED_DEBUG_NegVal();
+}
+
+/*
+** ===================================================================
+**     Event       :  T_100ms_OnCounterRestart (module Events)
+**
+**     Component   :  T_100ms [TimerUnit_LDD]
+*/
+/*!
+**     @brief
+**         Called if counter overflow/underflow or counter is
+**         reinitialized by modulo or compare register matching.
+**         OnCounterRestart event and Timer unit must be enabled. See
+**         [SetEventMask] and [GetEventMask] methods. This event is
+**         available only if a [Interrupt] is enabled.
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. The pointer passed as
+**                           the parameter of Init method.
+*/
+/* ===================================================================*/
+void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
+{
+	counter_100ms += 1;
+	if (counter_100ms == 5){
+		FLAG_PUSH_LONG = 1;
+		T_100ms_Disable(&UserDataPtr);
+		counter_100ms =0;
+		LED_STATUS_2_PutVal(0);
+		LED_STATUS_3_PutVal(1);
+		LED_STATUS_4_PutVal(0);
+	}
 }
 
 /*
@@ -133,8 +168,24 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 */
 void ENCODER_PUSH_OnInterrupt(void)
 {
+	if (ENCODER_PUSH_GetVal() == 0){ //Encoder Pushed
+		FLAG_PUSH_SHORT = 0;
+		FLAG_PUSH_LONG = 0;
+		LED_STATUS_2_PutVal(1);
+		LED_STATUS_3_PutVal(0);
+		LED_STATUS_4_PutVal(0);
+		counter_100ms = 0;
+		T_100ms_Enable(T_100ms_DeviceData);
+	}
+	else if (ENCODER_PUSH_GetVal() == 1 && FLAG_PUSH_LONG == 0){
+		T_100ms_Disable(T_100ms_DeviceData);
+		counter_100ms = 0;
+		FLAG_PUSH_SHORT = 1;
+		LED_STATUS_2_PutVal(0);
+		LED_STATUS_3_PutVal(0);
+		LED_STATUS_4_PutVal(1);
+	}
 	LED_DEBUG_NegVal();
-	/* Write your code here ... */
 }
 
 /*
@@ -180,6 +231,7 @@ void DIRECTION_1_OnInterrupt(void)
 		//MOTOR OFF
 	}
 }
+
 
 /* END Events */
 

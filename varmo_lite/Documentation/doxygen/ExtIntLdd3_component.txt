@@ -33,7 +33,7 @@ by the component.
 <td class="regNotResetVal">0x02000000</td>
  <td>NVICISER2 register, peripheral ExtIntLdd3.</td></tr>
 <tr><td>0x4004B024</td><td>PORTC_PCR9</td>
-<td class="regNotResetVal">0x010A0100</td>
+<td class="regNotResetVal">0x010B0100</td>
  <td>PORTC_PCR9 register, peripheral ExtIntLdd3.</td></tr>
 <tr><td>0x4004B010</td><td>PORTC_PCR4</td>
 <td class="regNotResetVal">0x010B0100</td>
@@ -319,7 +319,7 @@ registers of the peripheral(s) configured by the component.
         
 </div>
 <table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004B024</td></tr>
-<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x010A0100</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x010B0100</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
 <tr><td>24</td><td>ISF</td><td>0x01</td><td>Interrupt Status Flag</td>

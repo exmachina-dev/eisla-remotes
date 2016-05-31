@@ -35,7 +35,7 @@
 #include "IO_Map.h"
 #include "LED_DEBUG.h"
 #include "BitIoLdd1.h"
-#include "TU1.h"
+#include "T_500ms.h"
 #include "LED_STATUS_1.h"
 #include "BitIoLdd2.h"
 #include "LED_STATUS_2.h"
@@ -51,6 +51,7 @@
 #include "ExtIntLdd2.h"
 #include "DIRECTION_2.h"
 #include "ExtIntLdd3.h"
+#include "T_100ms.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -74,9 +75,9 @@ void Cpu_OnNMIINT(void);
 
 /*
 ** ===================================================================
-**     Event       :  TU1_OnCounterRestart (module Events)
+**     Event       :  T_500ms_OnCounterRestart (module Events)
 **
-**     Component   :  TU1 [TimerUnit_LDD]
+**     Component   :  T_500ms [TimerUnit_LDD]
 */
 /*!
 **     @brief
@@ -91,7 +92,7 @@ void Cpu_OnNMIINT(void);
 **                           the parameter of Init method.
 */
 /* ===================================================================*/
-void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr);
+void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr);
 
 /*
 ** ===================================================================
@@ -174,6 +175,27 @@ void DIRECTION_1_OnInterrupt(void);
 **     Returns     : Nothing
 ** ===================================================================
 */
+
+/*
+** ===================================================================
+**     Event       :  T_100ms_OnCounterRestart (module Events)
+**
+**     Component   :  T_100ms [TimerUnit_LDD]
+*/
+/*!
+**     @brief
+**         Called if counter overflow/underflow or counter is
+**         reinitialized by modulo or compare register matching.
+**         OnCounterRestart event and Timer unit must be enabled. See
+**         [SetEventMask] and [GetEventMask] methods. This event is
+**         available only if a [Interrupt] is enabled.
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. The pointer passed as
+**                           the parameter of Init method.
+*/
+/* ===================================================================*/
+void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr);
 
 /* END Events */
 

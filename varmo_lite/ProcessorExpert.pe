@@ -29,7 +29,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>54</ProjectCompNumb>
+    <ProjectCompNumb>55</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>true</AssignInitComponentNameToPrph>
@@ -23430,7 +23430,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Index>2</Index>
+        <Index>3</Index>
       </ItemState>
       <ItemState>
         <ItemSymbol>HCS08grp</ItemSymbol>
@@ -25186,6 +25186,7 @@
         <ListItemCount>0</ListItemCount>
         <UserReadOnly>false</UserReadOnly>
         <Expanded>true</Expanded>
+        <Index>0</Index>
       </ItemState>
       <ItemState>
         <ItemSymbol>_InitGrp</ItemSymbol>
