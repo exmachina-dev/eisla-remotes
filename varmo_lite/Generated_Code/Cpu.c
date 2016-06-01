@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 21:24, # CodeGen: 49
+**     Date/Time   : 2016-06-01, 16:11, # CodeGen: 51
 **     Abstract    :
 **
 **     Settings    :
@@ -325,6 +325,8 @@
 #include "DIRECTION_2.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
+#include "LCD.h"
+#include "IntI2cLdd1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -429,10 +431,11 @@ void __init_hardware(void)
   SIM_CLKDIV1 = SIM_CLKDIV1_OUTDIV1(0x00) |
                 SIM_CLKDIV1_OUTDIV2(0x01) |
                 SIM_CLKDIV1_OUTDIV4(0x03); /* Set the system prescalers to safe value */
-  /* SIM_SCGC5: PORTE=1,PORTD=1,PORTC=1,PORTA=1 */
+  /* SIM_SCGC5: PORTE=1,PORTD=1,PORTC=1,PORTB=1,PORTA=1 */
   SIM_SCGC5 |= SIM_SCGC5_PORTE_MASK |
                SIM_SCGC5_PORTD_MASK |
                SIM_SCGC5_PORTC_MASK |
+               SIM_SCGC5_PORTB_MASK |
                SIM_SCGC5_PORTA_MASK;   /* Enable clock gate for ports to enable pin routing */
   if ((PMC_REGSC & PMC_REGSC_ACKISO_MASK) != 0x0U) {
     /* PMC_REGSC: ACKISO=1 */
@@ -586,6 +589,8 @@ void PE_low_level_init(void)
   (void)ExtIntLdd3_Init(NULL);
   /* ### TimerUnit_LDD "T_100ms" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)T_100ms_Init(NULL);
+  /* ### InternalI2C "LCD" init code ... */
+  LCD_Init();
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

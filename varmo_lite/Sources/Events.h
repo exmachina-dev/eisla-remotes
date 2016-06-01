@@ -52,6 +52,8 @@
 #include "DIRECTION_2.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
+#include "LCD.h"
+#include "IntI2cLdd1.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -196,6 +198,38 @@ void DIRECTION_1_OnInterrupt(void);
 */
 /* ===================================================================*/
 void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr);
+
+/*
+** ===================================================================
+**     Event       :  LCD_OnReceiveData (module Events)
+**
+**     Component   :  LCD [InternalI2C]
+**     Description :
+**         This event is invoked when I2C finishes the reception of the
+**         data successfully. This event is not available for the SLAVE
+**         mode and if both RecvChar and RecvBlock are disabled. This
+**         event is enabled only if interrupts/events are enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void LCD_OnReceiveData(void);
+
+/*
+** ===================================================================
+**     Event       :  LCD_OnTransmitData (module Events)
+**
+**     Component   :  LCD [InternalI2C]
+**     Description :
+**         This event is invoked when I2C finishes the transmission of
+**         the data successfully. This event is not available for the
+**         SLAVE mode and if both SendChar and SendBlock are disabled.
+**         This event is enabled only if interrupts/events are enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void LCD_OnTransmitData(void);
 
 /* END Events */
 

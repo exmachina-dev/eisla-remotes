@@ -41,6 +41,9 @@ Generated_Code/T_500ms.o: ../Generated_Code/T_500ms.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd3.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd3.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/T_100ms.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/LCD.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/IntI2cLdd1.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/IntI2cLdd1.h \
  ../Generated_Code/T_500ms.h ../Generated_Code/IO_Map.h
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/Events.h:
@@ -126,6 +129,12 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLd
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd3.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/T_100ms.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/LCD.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/IntI2cLdd1.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/IntI2cLdd1.h:
 
 ../Generated_Code/T_500ms.h:
 

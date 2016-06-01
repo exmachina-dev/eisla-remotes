@@ -809,12 +809,7 @@ PE_DEBUGHALT();
         <Properties>
           <Component_name v="ExtIntLdd3" />
           <Pin v="PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT" />
-          <Generate_interrupt_on sel_value="rising edge">
-            
-rising or falling edge
-
-            <EmptySection_DummyValue />
-          </Generate_interrupt_on>
+          <Generate_interrupt_on v="both edges" />
           <Interrupt v="INT_PORTC" />
           <Interrupt_priority v="medium priority" />
           <group name="Initialization">
@@ -839,12 +834,7 @@ rising or falling edge
           </event>
         </Events>
       </inhrbean>
-      <Generate_interrupt_on sel_value="rising edge">
-        
-rising or falling edge
-
-        <EmptySection_DummyValue />
-      </Generate_interrupt_on>
+      <Generate_interrupt_on v="both edges" />
       <Interrupt v="INT_PORTC" />
       <Interrupt_priority v="medium priority" />
       <group name="Initialization">

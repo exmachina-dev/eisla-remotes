@@ -17,7 +17,8 @@ Generated_Code/PE_LDD.o: ../Generated_Code/PE_LDD.c \
  ../Generated_Code/ENCODER_PUSH.h ../Generated_Code/ExtIntLdd1.h \
  ../Generated_Code/DIRECTION_1.h ../Generated_Code/ExtIntLdd2.h \
  ../Generated_Code/DIRECTION_2.h ../Generated_Code/ExtIntLdd3.h \
- ../Generated_Code/T_100ms.h
+ ../Generated_Code/T_100ms.h ../Generated_Code/LCD.h \
+ ../Generated_Code/IntI2cLdd1.h
 
 ../Generated_Code/PE_LDD.h:
 
@@ -78,3 +79,7 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PD
 ../Generated_Code/ExtIntLdd3.h:
 
 ../Generated_Code/T_100ms.h:
+
+../Generated_Code/LCD.h:
+
+../Generated_Code/IntI2cLdd1.h:

@@ -49,6 +49,8 @@
 #include "DIRECTION_2.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
+#include "LCD.h"
+#include "IntI2cLdd1.h"
 
 //#include "LCD.h"
 /* Including shared modules, which are used for whole project */

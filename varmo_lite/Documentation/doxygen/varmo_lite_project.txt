@@ -39,6 +39,7 @@
 - \subpage ExtIntLdd2
 - \subpage ExtIntLdd3
 - \subpage T_100ms
+- \subpage IntI2cLdd1
 
 */
 

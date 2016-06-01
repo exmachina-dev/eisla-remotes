@@ -17,6 +17,8 @@ C_SRCS += \
 ../Generated_Code/ExtIntLdd1.c \
 ../Generated_Code/ExtIntLdd2.c \
 ../Generated_Code/ExtIntLdd3.c \
+../Generated_Code/IntI2cLdd1.c \
+../Generated_Code/LCD.c \
 ../Generated_Code/LED_DEBUG.c \
 ../Generated_Code/LED_STATUS_1.c \
 ../Generated_Code/LED_STATUS_2.c \
@@ -41,6 +43,8 @@ OBJS += \
 ./Generated_Code/ExtIntLdd1.o \
 ./Generated_Code/ExtIntLdd2.o \
 ./Generated_Code/ExtIntLdd3.o \
+./Generated_Code/IntI2cLdd1.o \
+./Generated_Code/LCD.o \
 ./Generated_Code/LED_DEBUG.o \
 ./Generated_Code/LED_STATUS_1.o \
 ./Generated_Code/LED_STATUS_2.o \
@@ -65,6 +69,8 @@ C_DEPS += \
 ./Generated_Code/ExtIntLdd1.d \
 ./Generated_Code/ExtIntLdd2.d \
 ./Generated_Code/ExtIntLdd3.d \
+./Generated_Code/IntI2cLdd1.d \
+./Generated_Code/LCD.d \
 ./Generated_Code/LED_DEBUG.d \
 ./Generated_Code/LED_STATUS_1.d \
 ./Generated_Code/LED_STATUS_2.d \
