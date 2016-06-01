@@ -7,7 +7,7 @@
 **     Version     : Component 01.016, Driver 01.07, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-01, 16:11, # CodeGen: 51
+**     Date/Time   : 2016-06-02, 00:17, # CodeGen: 55
 **     Abstract    :
 **          This component encapsulates the internal I2C communication
 **          interface. The implementation of the interface is based
@@ -45,7 +45,7 @@
 **              SCL pin                                    : 
 **                SCL pin                                  : ADC0_SE8/ADC1_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/FTM1_CH0/FTM1_QD_PHA
 **                SCL pin signal                           : 
-**              High drive select                          : Disabled
+**              High drive select                          : Enabled
 **              Input Glitch filter                        : 0
 **            Internal frequency (multiplier factor)       : 47.988736 MHz
 **            Bits 0-2 of Frequency divider register       : 111
@@ -356,8 +356,8 @@ LDD_TDeviceData* IntI2cLdd1_Init(LDD_TUserData *UserDataPtr)
   NVICIP24 = NVIC_IP_PRI24(0x80);
   /* NVICISER0: SETENA|=0x01000000 */
   NVICISER0 |= NVIC_ISER_SETENA(0x01000000);
-  /* I2C0_C2: GCAEN=0,ADEXT=0,HDRS=0,SBRC=0,RMEN=0,AD=0 */
-  I2C0_C2 = I2C_C2_AD(0x00);
+  /* I2C0_C2: GCAEN=0,ADEXT=0,HDRS=1,SBRC=0,RMEN=0,AD=0 */
+  I2C0_C2 = (I2C_C2_HDRS_MASK | I2C_C2_AD(0x00));
   /* I2C0_FLT: ??=0,??=0,??=0,FLT=0 */
   I2C0_FLT = I2C_FLT_FLT(0x00);        /* Set glitch filter register */
   /* I2C0_SMB: FACK=0,ALERTEN=0,SIICAEN=0,TCKSEL=0,SLTF=1,SHTF1=0,SHTF2=0,SHTF2IE=0 */

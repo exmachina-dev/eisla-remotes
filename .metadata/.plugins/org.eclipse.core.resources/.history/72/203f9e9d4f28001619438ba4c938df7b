@@ -1,0 +1,27 @@
+#include "menu.h"
+#include <stdlib.h>
+
+// *********************************************************
+// MenuComponent
+// *********************************************************
+
+MenuComponent::MenuComponent(const char* name) : _name(name)
+{
+}
+
+const char* MenuComponent::get_name() const
+{
+    return _name;
+}
+
+String& MenuComponent::get_composite_name(String& buffer) const
+{
+    // this replaces the content of buffer
+    buffer = _name;
+    return buffer;
+}
+
+void MenuComponent::set_name(const char* name)
+{
+    _name = name;
+}

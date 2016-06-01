@@ -50,7 +50,7 @@ by the component.
 <td class="regNotResetVal">0x01000000</td>
  <td>NVICISER0 register, peripheral IntI2cLdd1.</td></tr>
 <tr><td>0x40066005</td><td>I2C0_C2</td>
-<td class="regResetVal">0x00000000</td>
+<td class="regNotResetVal">0x00000020</td>
  <td>I2C0_C2 register, peripheral IntI2cLdd1.</td></tr>
 <tr><td>0x40066006</td><td>I2C0_FLT</td>
 <td class="regResetVal">0x00000000</td>
@@ -402,12 +402,12 @@ registers of the peripheral(s) configured by the component.
         
 </div>
 <table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x40066005</td></tr>
-<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000000</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000020</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
 <tr><td>7</td><td>GCAEN</td><td>0x00</td><td>General call address enable</td>
 <tr><td>6</td><td>ADEXT</td><td>0x00</td><td>Address extension</td>
-<tr><td>5</td><td>HDRS</td><td>0x00</td><td>High drive select</td>
+<tr><td>5</td><td>HDRS</td><td>0x01</td><td>High drive select</td>
 <tr><td>4</td><td>SBRC</td><td>0x00</td><td>Slave baud rate control</td>
 <tr><td>3</td><td>RMEN</td><td>0x00</td><td>Range address matching enable</td>
 <tr><td>0 - 2</td><td>AD</td><td>0x00</td><td>Slave address</td>
@@ -519,7 +519,7 @@ registers of the peripheral(s) configured by the component.
 **              SCL pin                                    : 
 **                SCL pin                                  : ADC0_SE8/ADC1_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/FTM1_CH0/FTM1_QD_PHA
 **                SCL pin signal                           : 
-**              High drive select                          : Disabled
+**              High drive select                          : Enabled
 **              Input Glitch filter                        : 0
 **            Internal frequency (multiplier factor)       : 47.988736 MHz
 **            Bits 0-2 of Frequency divider register       : 111

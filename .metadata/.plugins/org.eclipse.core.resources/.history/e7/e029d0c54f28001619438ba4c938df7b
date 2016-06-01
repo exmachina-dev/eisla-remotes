@@ -1,0 +1,48 @@
+/*
+ * menu.h
+ *
+ *  Created on: 2016-06-02
+ *      Author: Adrian
+ */
+
+#ifndef MENU_H_
+#define MENU_H_
+
+class MenuSystem;
+
+class MenuComponent
+{
+    friend class MenuSystem;
+public:
+    MenuComponent(const char* name);
+
+    void set_name(const char* name);
+
+
+    /**
+     * Gets the original name
+     *
+     * Returns the original name assigned in the constructor or via set_name.
+     */
+    const char* get_name() const;
+
+    virtual MenuComponent* select() = 0;
+    virtual void reset() = 0;
+
+    /**
+     * Returns true if the MenuComponent's value is being edited; false
+     * otherwise.
+     */
+    virtual bool is_editing_value() const { return false; }
+
+protected:
+    virtual bool next_value() { return false; }
+    virtual bool prev_value() { return false; }
+
+    const char* _name;
+};
+
+
+
+
+#endif /* MENU_H_ */

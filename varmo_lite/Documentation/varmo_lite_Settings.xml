@@ -962,7 +962,7 @@ PE_DEBUGHALT();
               <group name="SCL pin">
                 <SCL_pin v="ADC0_SE8/ADC1_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/FTM1_CH0/FTM1_QD_PHA" />
               </group>
-              <High_drive_select v="Disabled" />
+              <High_drive_select v="Enabled" />
               <Input_Glitch_filter v="0" />
             </group>
             <Internal_frequency__multiplier_factor_ v="47.988736 MHz" />
@@ -1056,7 +1056,7 @@ PE_DEBUGHALT();
       </boolgroup>
       <boolgroup name="MASTER mode" v="Enabled">
         <Polling_trials v="2000" />
-        <Automatic_stop_condition v="no" />
+        <Automatic_stop_condition v="yes" />
         <group name="Initialization">
           <Address_mode v="7-bit addressing" />
           <Target_slave_address_init v="112" />
@@ -1066,7 +1066,7 @@ PE_DEBUGHALT();
       <group name="Data and Clock">
         <SDA_pin v="ADC0_SE9/ADC1_SE9/TSI0_CH6/PTB1/I2C0_SDA/FTM1_CH1/FTM1_QD_PHB" />
         <SCL_pin v="ADC0_SE8/ADC1_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/FTM1_CH0/FTM1_QD_PHA" />
-        <High_drive_select v="Disabled" />
+        <High_drive_select v="Enabled" />
       </group>
       <Internal_frequency__multiplier_factor_ v="47.988736 MHz" />
       <Bits_0_2_of_Frequency_divider_register v="111" />
@@ -1095,7 +1095,7 @@ PE_DEBUGHALT();
       <RecvChar v="generate code" />
       <SendBlock v="generate code" />
       <RecvBlock v="generate code" />
-      <SendStop v="generate code" />
+      <SendStop v="don&amp;apos;t generate code" />
       <ClearTxBuf v="don&amp;apos;t generate code" />
       <ClearRxBuf v="don&amp;apos;t generate code" />
       <GetCharsInTxBuf v="generate code" />

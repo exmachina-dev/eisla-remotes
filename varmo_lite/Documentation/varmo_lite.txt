@@ -152,9 +152,6 @@ Module "LCD"       (component InternalI2C)
                 of transmission must be tested by means of events (OnReceiveData, OnError or OnArbitLost). In case of 
                 successful transmission, received data is ready after OnReceiveData event is called.   When working as a SLAVE, 
                 this method reads a block of characters from the input slave buffer.
-   - LCD_SendStop -If the "Automatic stop condition" property value is 'no', this method sends a valid stop condition to the 
-                serial data line of the I2C bus to terminate the communication on the bus after using send methods. This method 
-                is enabled only if "Automatic stop condition" property is set to 'no'.
    - LCD_GetCharsInTxBuf -Returns number of characters in the output buffer. In SLAVE mode returns the number of characters in 
                 the internal slave output buffer. In MASTER mode returns number of characters to be sent from the user buffer 
                 (passed by SendBlock method).  This method is not supported in polling mode.
