@@ -74,21 +74,27 @@ int main(void)
 
 
   /* Write your code here */
+  LCD_SelectSlave(0x70);
 
+  LCD_SendChar(0x0);
+
+  byte error = LCD_SendStop();
+  /*
+  if (error == ERR_OK){
+	  LED_STATUS_1_PutVal(1);
+  }
+  else if (error == ERR_BUSOFF){
+	  LED_STATUS_2_PutVal(1);
+  }
+  else if (error == ERR_SPEED){
+	  LED_STATUS_3_PutVal(1);
+  }
+  else if (error == ERR_DISABLED){
+	  LED_STATUS_4_PutVal(1);
+  }*/
   for(;;){
-	  /*byte error = LCD_SelectSlave(0x1110000);
-	  /*if (error == ERR_OK){
-		  LED_STATUS_1_PutVal(1);
-	  }
-	  else if (error == ERR_BUSY){
-		  LED_STATUS_2_PutVal(1);
-	  }
-	  else if (error == ERR_SPEED){
-		  LED_STATUS_3_PutVal(1);
-	  }
-	  else if (error == ERR_DISABLED){
-		  LED_STATUS_3_PutVal(1);
-	  }
+
+	  /*
 	  bool mode = LCD_GetMode();
 	  if (mode){
 		  //master mode
@@ -97,20 +103,25 @@ int main(void)
 	  else{
 		  //slave mode
 		  LED_STATUS_4_PutVal(0);
-	  }*/
-	  byte error = LCD_SendChar(0x0);
-	  if (error == ERR_OK){
-		  LED_STATUS_1_PutVal(1);
 	  }
-	  else if (error == ERR_BUSY){
-		  LED_STATUS_2_PutVal(1);
-	  }
-	  else if (error == ERR_SPEED){
-		  LED_STATUS_3_PutVal(1);
-	  }
-	  else if (error == ERR_DISABLED){
-		  LED_STATUS_3_PutVal(1);
-	  }
+
+	  LCD_SelectSlave(0x1110000);
+	  LCD_SendChar(0x0);
+
+	  /*
+	  LCD_SelectSlave(0x1110000);
+	  LCD_SendChar(0x38);
+
+	  LCD_SendChar(0x39);
+	  LCD_SendChar(0x14);
+	  LCD_SendChar(0x73);
+	  LCD_SendChar(0x5E);
+	  LCD_SendChar(0x6D);
+	  LCD_SendChar(0x0C);
+	  LCD_SendChar(0x01);
+	  LCD_SendChar(0x06);*/
+
+
   }
 
 

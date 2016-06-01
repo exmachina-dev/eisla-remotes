@@ -44,7 +44,8 @@ Generated_Code/LCD.o: ../Generated_Code/LCD.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/LCD.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/IntI2cLdd1.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/IntI2cLdd1.h \
- ../Generated_Code/LCD.h
+ ../Generated_Code/LCD.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/I2C_PDD.h
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/Events.h:
 
@@ -137,3 +138,5 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/IntI2cLd
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/IntI2cLdd1.h:
 
 ../Generated_Code/LCD.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/I2C_PDD.h:

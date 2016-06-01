@@ -1056,7 +1056,7 @@ PE_DEBUGHALT();
       </boolgroup>
       <boolgroup name="MASTER mode" v="Enabled">
         <Polling_trials v="2000" />
-        <Automatic_stop_condition v="yes" />
+        <Automatic_stop_condition v="no" />
         <group name="Initialization">
           <Address_mode v="7-bit addressing" />
           <Target_slave_address_init v="112" />
@@ -1095,7 +1095,7 @@ PE_DEBUGHALT();
       <RecvChar v="generate code" />
       <SendBlock v="generate code" />
       <RecvBlock v="generate code" />
-      <SendStop v="don&amp;apos;t generate code" />
+      <SendStop v="generate code" />
       <ClearTxBuf v="don&amp;apos;t generate code" />
       <ClearRxBuf v="don&amp;apos;t generate code" />
       <GetCharsInTxBuf v="generate code" />

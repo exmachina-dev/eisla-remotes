@@ -251,7 +251,10 @@ void DIRECTION_2_OnInterrupt(void)
 */
 void LCD_OnReceiveData(void)
 {
-  /* Write your code here ... */
+	LED_STATUS_1_PutVal(1);
+	LED_STATUS_2_PutVal(0);
+	LED_STATUS_3_PutVal(1);
+	LED_STATUS_4_PutVal(0);
 }
 
 /*
@@ -270,7 +273,10 @@ void LCD_OnReceiveData(void)
 */
 void LCD_OnTransmitData(void)
 {
-  /* Write your code here ... */
+	LED_STATUS_1_PutVal(0);
+	LED_STATUS_2_PutVal(1);
+	LED_STATUS_3_PutVal(0);
+	LED_STATUS_4_PutVal(1);
 }
 
 /* END Events */
