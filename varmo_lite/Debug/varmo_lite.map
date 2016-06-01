@@ -1351,12 +1351,12 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
  .text.ENCODER_PUSH_OnInterrupt
                 0x00000594       0x7c ./Sources/Events.o
                 0x00000594                ENCODER_PUSH_OnInterrupt
- .text.DIRECTION_2_OnInterrupt
-                0x00000610       0x64 ./Sources/Events.o
-                0x00000610                DIRECTION_2_OnInterrupt
  .text.DIRECTION_1_OnInterrupt
+                0x00000610       0x64 ./Sources/Events.o
+                0x00000610                DIRECTION_1_OnInterrupt
+ .text.DIRECTION_2_OnInterrupt
                 0x00000674       0x64 ./Sources/Events.o
-                0x00000674                DIRECTION_1_OnInterrupt
+                0x00000674                DIRECTION_2_OnInterrupt
  .text.main     0x000006d8        0xc ./Sources/main.o
                 0x000006d8                main
  .text.__copy_rom_section

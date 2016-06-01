@@ -40,5 +40,3 @@ void led_init(int);
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif
-
-#endif

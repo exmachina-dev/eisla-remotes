@@ -182,32 +182,6 @@ void ENCODER_PUSH_OnInterrupt(void)
 
 /*
 ** ===================================================================
-**     Event       :  DIRECTION_2_OnInterrupt (module Events)
-**
-**     Component   :  DIRECTION_2 [ExtInt]
-**     Description :
-**         This event is called when an active signal edge/level has
-**         occurred.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void DIRECTION_2_OnInterrupt(void)
-{
-	if (DIRECTION_2_GetVal() == 0) {
-		LED_STATUS_2_PutVal(1);
-		LED_STATUS_3_PutVal(0);
-		LED_STATUS_4_PutVal(0);
-	}
-	else{
-		LED_STATUS_2_PutVal(0);
-		LED_STATUS_3_PutVal(1);
-		LED_STATUS_4_PutVal(0);
-	}
-}
-
-/*
-** ===================================================================
 **     Event       :  DIRECTION_1_OnInterrupt (module Events)
 **
 **     Component   :  DIRECTION_1 [ExtInt]
@@ -221,17 +195,46 @@ void DIRECTION_2_OnInterrupt(void)
 void DIRECTION_1_OnInterrupt(void)
 {
 	if (DIRECTION_1_GetVal() == 0) {
+		//SENS 1
 		LED_STATUS_2_PutVal(0);
 		LED_STATUS_3_PutVal(0);
 		LED_STATUS_4_PutVal(1);
 	}
 	else{
+		//MOTOR OFF
 		LED_STATUS_2_PutVal(0);
 		LED_STATUS_3_PutVal(1);
 		LED_STATUS_4_PutVal(0);
 	}
 }
 
+/*
+** ===================================================================
+**     Event       :  DIRECTION_2_OnInterrupt (module Events)
+**
+**     Component   :  DIRECTION_2 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void DIRECTION_2_OnInterrupt(void)
+{
+	if (DIRECTION_2_GetVal() == 0) {
+		//SENS 2
+		LED_STATUS_2_PutVal(1);
+		LED_STATUS_3_PutVal(0);
+		LED_STATUS_4_PutVal(0);
+	}
+	else{
+		//MOTOR OFF
+		LED_STATUS_2_PutVal(0);
+		LED_STATUS_3_PutVal(1);
+		LED_STATUS_4_PutVal(0);
+	}
+}
 
 /* END Events */
 

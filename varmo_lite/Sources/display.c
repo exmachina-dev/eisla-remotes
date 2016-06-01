@@ -61,3 +61,7 @@ void led_init(int i){
 		LED_STATUS_4_PutVal(1);
 	}
 }
+
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif
