@@ -74,7 +74,15 @@ int main(void)
 
 
   /* Write your code here */
-
+  bool mode = LCD_GetMode();
+  if (mode){
+	  //master mode
+	  LED_STATUS_4_PutVal(1);
+  }
+  else{
+	  //slave mode
+	  LED_STATUS_4_PutVal(0);
+  }
   for(;;){
 	  byte error = LCD_SelectSlave(0x1110000);
 	  /*if (error == ERR_OK){
@@ -89,15 +97,6 @@ int main(void)
 	  else if (error == ERR_DISABLED){
 		  LED_STATUS_3_PutVal(1);
 	  }*/
-	  bool mode = LCD_GetMode();
-	  if (mode){
-		  //master mode
-		  LED_STATUS_4_PutVal(1);
-	  }
-	  else{
-		  //slave mode
-		  LED_STATUS_4_PutVal(0);
-	  }
 
   }
 
