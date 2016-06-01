@@ -88,7 +88,7 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 	//i++;
 	//led_init(i);
 
-	LED_DEBUG_NegVal();
+	//LED_DEBUG_NegVal();
 }
 
 /*
@@ -117,6 +117,7 @@ void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 		FLAG_PUSH_LONG = 1;
 		T_100ms_Disable(&UserDataPtr);
 		counter_100ms =0;
+
 	}
 }
 
@@ -148,7 +149,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 			encoder += 1;
 		}
 	}
-	//LED_STATUS_1_NegVal();
+	LED_STATUS_1_NegVal();
 }
 
 /*
@@ -195,15 +196,15 @@ void DIRECTION_1_OnInterrupt(void)
 {
 	if (DIRECTION_1_GetVal() == 0) {
 		//SENS 1
-		/*LED_STATUS_2_PutVal(0);
+		LED_STATUS_2_PutVal(0);
 		LED_STATUS_3_PutVal(0);
-		LED_STATUS_4_PutVal(1);*/
+		LED_STATUS_4_PutVal(1);
 	}
 	else{
 		//MOTOR OFF
-		/*LED_STATUS_2_PutVal(0);
+		LED_STATUS_2_PutVal(0);
 		LED_STATUS_3_PutVal(1);
-		LED_STATUS_4_PutVal(0);*/
+		LED_STATUS_4_PutVal(0);
 	}
 }
 
@@ -223,15 +224,15 @@ void DIRECTION_2_OnInterrupt(void)
 {
 	if (DIRECTION_2_GetVal() == 0) {
 		//SENS 2
-		/*LED_STATUS_2_PutVal(1);
+		LED_STATUS_2_PutVal(1);
 		LED_STATUS_3_PutVal(0);
-		LED_STATUS_4_PutVal(0);*/
+		LED_STATUS_4_PutVal(0);
 	}
 	else{
 		//MOTOR OFF
-		/*LED_STATUS_2_PutVal(0);
+		LED_STATUS_2_PutVal(0);
 		LED_STATUS_3_PutVal(1);
-		LED_STATUS_4_PutVal(0);*/
+		LED_STATUS_4_PutVal(0);
 	}
 }
 
