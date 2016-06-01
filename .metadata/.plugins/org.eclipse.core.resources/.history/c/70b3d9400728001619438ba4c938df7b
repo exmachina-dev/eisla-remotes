@@ -98,19 +98,7 @@ int main(void)
 		  //slave mode
 		  LED_STATUS_4_PutVal(0);
 	  }*/
-	  byte error = LCD_SendChar(0x0);
-	  if (error == ERR_OK){
-		  LED_STATUS_1_PutVal(1);
-	  }
-	  else if (error == ERR_BUSY){
-		  LED_STATUS_2_PutVal(1);
-	  }
-	  else if (error == ERR_SPEED){
-		  LED_STATUS_3_PutVal(1);
-	  }
-	  else if (error == ERR_DISABLED){
-		  LED_STATUS_3_PutVal(1);
-	  }
+
   }
 
 
