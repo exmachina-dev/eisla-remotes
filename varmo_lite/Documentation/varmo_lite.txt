@@ -53,6 +53,8 @@ Module "LED_STATUS_2" (component BitIO)
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_2_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
+   - LED_STATUS_2_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
+                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_3" (component BitIO)
    - LED_STATUS_3_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
@@ -162,6 +164,12 @@ Module "LCD"       (component InternalI2C)
                 method directs to or from selected device, until a new slave device is selected by this method. This method is 
                 not available for the SLAVE mode.
    - LCD_GetMode -This method returns the actual operating mode of this component.
+
+Module "PUSH_BUTTON_SEND" (component ExtInt)
+   - PUSH_BUTTON_SEND_GetVal -Returns the actual value of the input pin of the component.
+
+Module "PUSH_BUTTON_REC" (component ExtInt)
+   - PUSH_BUTTON_REC_GetVal -Returns the actual value of the input pin of the component.
 
 Module "Cpu"       (component MK20DX256LH7)
 

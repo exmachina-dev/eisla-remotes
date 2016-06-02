@@ -17,6 +17,8 @@ C_SRCS += \
 ../Generated_Code/ExtIntLdd1.c \
 ../Generated_Code/ExtIntLdd2.c \
 ../Generated_Code/ExtIntLdd3.c \
+../Generated_Code/ExtIntLdd4.c \
+../Generated_Code/ExtIntLdd5.c \
 ../Generated_Code/IntI2cLdd1.c \
 ../Generated_Code/LCD.c \
 ../Generated_Code/LED_DEBUG.c \
@@ -25,6 +27,8 @@ C_SRCS += \
 ../Generated_Code/LED_STATUS_3.c \
 ../Generated_Code/LED_STATUS_4.c \
 ../Generated_Code/PE_LDD.c \
+../Generated_Code/PUSH_BUTTON_REC.c \
+../Generated_Code/PUSH_BUTTON_SEND.c \
 ../Generated_Code/T_100ms.c \
 ../Generated_Code/T_500ms.c \
 ../Generated_Code/Vectors.c 
@@ -43,6 +47,8 @@ OBJS += \
 ./Generated_Code/ExtIntLdd1.o \
 ./Generated_Code/ExtIntLdd2.o \
 ./Generated_Code/ExtIntLdd3.o \
+./Generated_Code/ExtIntLdd4.o \
+./Generated_Code/ExtIntLdd5.o \
 ./Generated_Code/IntI2cLdd1.o \
 ./Generated_Code/LCD.o \
 ./Generated_Code/LED_DEBUG.o \
@@ -51,6 +57,8 @@ OBJS += \
 ./Generated_Code/LED_STATUS_3.o \
 ./Generated_Code/LED_STATUS_4.o \
 ./Generated_Code/PE_LDD.o \
+./Generated_Code/PUSH_BUTTON_REC.o \
+./Generated_Code/PUSH_BUTTON_SEND.o \
 ./Generated_Code/T_100ms.o \
 ./Generated_Code/T_500ms.o \
 ./Generated_Code/Vectors.o 
@@ -69,6 +77,8 @@ C_DEPS += \
 ./Generated_Code/ExtIntLdd1.d \
 ./Generated_Code/ExtIntLdd2.d \
 ./Generated_Code/ExtIntLdd3.d \
+./Generated_Code/ExtIntLdd4.d \
+./Generated_Code/ExtIntLdd5.d \
 ./Generated_Code/IntI2cLdd1.d \
 ./Generated_Code/LCD.d \
 ./Generated_Code/LED_DEBUG.d \
@@ -77,6 +87,8 @@ C_DEPS += \
 ./Generated_Code/LED_STATUS_3.d \
 ./Generated_Code/LED_STATUS_4.d \
 ./Generated_Code/PE_LDD.d \
+./Generated_Code/PUSH_BUTTON_REC.d \
+./Generated_Code/PUSH_BUTTON_SEND.d \
 ./Generated_Code/T_100ms.d \
 ./Generated_Code/T_500ms.d \
 ./Generated_Code/Vectors.d 

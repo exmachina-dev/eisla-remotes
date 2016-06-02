@@ -54,6 +54,10 @@
 #include "T_100ms.h"
 #include "LCD.h"
 #include "IntI2cLdd1.h"
+#include "PUSH_BUTTON_SEND.h"
+#include "ExtIntLdd4.h"
+#include "PUSH_BUTTON_REC.h"
+#include "ExtIntLdd5.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -230,6 +234,34 @@ void LCD_OnReceiveData(void);
 ** ===================================================================
 */
 void LCD_OnTransmitData(void);
+
+void PUSH_BUTTON_SEND_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  PUSH_BUTTON_SEND_OnInterrupt (module Events)
+**
+**     Component   :  PUSH_BUTTON_SEND [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void PUSH_BUTTON_REC_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  PUSH_BUTTON_REC_OnInterrupt (module Events)
+**
+**     Component   :  PUSH_BUTTON_REC [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
 
 /* END Events */
 

@@ -279,6 +279,40 @@ void LCD_OnTransmitData(void)
 	LED_STATUS_4_PutVal(1);
 }
 
+/*
+** ===================================================================
+**     Event       :  PUSH_BUTTON_SEND_OnInterrupt (module Events)
+**
+**     Component   :  PUSH_BUTTON_SEND [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void PUSH_BUTTON_SEND_OnInterrupt(void)
+{
+	LED_STATUS_1_NegVal();
+}
+
+/*
+** ===================================================================
+**     Event       :  PUSH_BUTTON_REC_OnInterrupt (module Events)
+**
+**     Component   :  PUSH_BUTTON_REC [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void PUSH_BUTTON_REC_OnInterrupt(void)
+{
+	LED_STATUS_2_NegVal();
+}
+
 /* END Events */
 
 #ifdef __cplusplus
