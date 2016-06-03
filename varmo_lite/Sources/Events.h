@@ -47,12 +47,12 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
-#include "DIRECTION_1.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd2.h"
-#include "DIRECTION_2.h"
+#include "LEVER_DIR2.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
-#include "LCD.h"
+#include "I2C0.h"
 #include "IntI2cLdd1.h"
 #include "PUSH_BUTTON_SEND.h"
 #include "ExtIntLdd4.h"
@@ -154,12 +154,12 @@ void ENCODER_PUSH_OnInterrupt(void);
 ** ===================================================================
 */
 
-void DIRECTION_2_OnInterrupt(void);
+void LEVER_DIR2_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  DIRECTION_2_OnInterrupt (module Events)
+**     Event       :  LEVER_DIR2_OnInterrupt (module Events)
 **
-**     Component   :  DIRECTION_2 [ExtInt]
+**     Component   :  LEVER_DIR2 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
@@ -168,12 +168,12 @@ void DIRECTION_2_OnInterrupt(void);
 ** ===================================================================
 */
 
-void DIRECTION_1_OnInterrupt(void);
+void LEVER_DIR1_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  DIRECTION_1_OnInterrupt (module Events)
+**     Event       :  LEVER_DIR1_OnInterrupt (module Events)
 **
-**     Component   :  DIRECTION_1 [ExtInt]
+**     Component   :  LEVER_DIR1 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
@@ -205,9 +205,9 @@ void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr);
 
 /*
 ** ===================================================================
-**     Event       :  LCD_OnReceiveData (module Events)
+**     Event       :  I2C0_OnReceiveData (module Events)
 **
-**     Component   :  LCD [InternalI2C]
+**     Component   :  I2C0 [InternalI2C]
 **     Description :
 **         This event is invoked when I2C finishes the reception of the
 **         data successfully. This event is not available for the SLAVE
@@ -217,13 +217,13 @@ void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr);
 **     Returns     : Nothing
 ** ===================================================================
 */
-void LCD_OnReceiveData(void);
+void I2C0_OnReceiveData(void);
 
 /*
 ** ===================================================================
-**     Event       :  LCD_OnTransmitData (module Events)
+**     Event       :  I2C0_OnTransmitData (module Events)
 **
-**     Component   :  LCD [InternalI2C]
+**     Component   :  I2C0 [InternalI2C]
 **     Description :
 **         This event is invoked when I2C finishes the transmission of
 **         the data successfully. This event is not available for the
@@ -233,7 +233,7 @@ void LCD_OnReceiveData(void);
 **     Returns     : Nothing
 ** ===================================================================
 */
-void LCD_OnTransmitData(void);
+void I2C0_OnTransmitData(void);
 
 void PUSH_BUTTON_SEND_OnInterrupt(void);
 /*
@@ -262,6 +262,21 @@ void PUSH_BUTTON_REC_OnInterrupt(void);
 **     Returns     : Nothing
 ** ===================================================================
 */
+
+/*
+** ===================================================================
+**     Event       :  I2C0_OnArbitLost (module Events)
+**
+**     Component   :  I2C0 [InternalI2C]
+**     Description :
+**         This event is called when the master lost the bus
+**         arbitration or the device detects an error on the bus. This
+**         event is enabled only if interrupts/events are enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void I2C0_OnArbitLost(void);
 
 /* END Events */
 

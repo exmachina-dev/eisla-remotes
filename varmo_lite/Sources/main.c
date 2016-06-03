@@ -4,7 +4,7 @@
 **     Processor   : MK20DX256VLH7
 **     Version     : Driver 01.01
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-30, 15:08, # CodeGen: 0
+**     Date/Time   : 2016-06-03, 16:50, # CodeGen: 62
 **     Abstract    :
 **         Main module.
 **         This module contains user's application code.
@@ -44,19 +44,17 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
-#include "DIRECTION_1.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd2.h"
-#include "DIRECTION_2.h"
+#include "LEVER_DIR2.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
-#include "LCD.h"
+#include "I2C0.h"
 #include "IntI2cLdd1.h"
 #include "PUSH_BUTTON_SEND.h"
 #include "ExtIntLdd4.h"
 #include "PUSH_BUTTON_REC.h"
 #include "ExtIntLdd5.h"
-
-//#include "LCD.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -64,9 +62,7 @@
 #include "IO_Map.h"
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
-
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
-
 int main(void)
 /*lint -restore Enable MISRA rule (6.3) checking. */
 {
@@ -76,11 +72,8 @@ int main(void)
   PE_low_level_init();
   /*** End of Processor Expert internal initialization.                    ***/
 
-
-  for(;;){
-
-  }
-
+  /* Write your code here */
+  /* For example: for(;;) { } */
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/

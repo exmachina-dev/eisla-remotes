@@ -7,7 +7,7 @@
 **     Version     : Component 01.016, Driver 01.07, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-02, 00:17, # CodeGen: 55
+**     Date/Time   : 2016-06-03, 17:47, # CodeGen: 64
 **     Abstract    :
 **          This component encapsulates the internal I2C communication
 **          interface. The implementation of the interface is based
@@ -71,7 +71,7 @@
 **              OnSlaveGeneralCallAddr                     : Disabled
 **              OnSlaveSmBusCallAddr                       : Disabled
 **              OnSlaveSmBusAlertResponse                  : Disabled
-**              OnError                                    : Disabled
+**              OnError                                    : Enabled
 **          CPU clock/configuration selection              : 
 **            Clock configuration 0                        : This component enabled
 **            Clock configuration 1                        : This component disabled
@@ -88,6 +88,8 @@
 **         MasterReceiveBlock       - LDD_TError IntI2cLdd1_MasterReceiveBlock(LDD_TDeviceData *DeviceDataPtr,...
 **         MasterGetReceivedDataNum - LDD_I2C_TSize IntI2cLdd1_MasterGetReceivedDataNum(LDD_TDeviceData...
 **         SelectSlaveDevice        - LDD_TError IntI2cLdd1_SelectSlaveDevice(LDD_TDeviceData *DeviceDataPtr,...
+**         GetError                 - LDD_TError IntI2cLdd1_GetError(LDD_TDeviceData *DeviceDataPtr,...
+**         CheckBus                 - LDD_TError IntI2cLdd1_CheckBus(LDD_TDeviceData *DeviceDataPtr,...
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -148,7 +150,7 @@
 
 /* MODULE IntI2cLdd1. */
 
-#include "LCD.h"
+#include "I2C0.h"
 #include "IntI2cLdd1.h"
 #include "PORT_PDD.h"
 #include "I2C_PDD.h"
@@ -177,6 +179,7 @@ typedef struct {
                                        /*       4 - 10-bit addr flag */
                                        /*       5 - 7-bit addr flag */
   LDD_I2C_TSendStop SendStop;          /* Enable/Disable generate send stop condition after transmission */
+  LDD_I2C_TErrorMask ErrorMask;        /* Variable for errors mask value */
   uint8_t SlaveAddr;                   /* Variable for Slave address */
   uint8_t SlaveAddrHigh;               /* Variable for High byte of the Slave address (10-bit address) */
   LDD_I2C_TSize InpLenM;               /* The counter of input bufer's content */
@@ -195,7 +198,7 @@ static IntI2cLdd1_TDeviceData DeviceDataPrv__DEFAULT_RTOS_ALLOC;
 /* {Default RTOS Adapter} Global variable used for passing a parameter into ISR */
 static IntI2cLdd1_TDeviceDataPtr INT_I2C0__DEFAULT_RTOS_ISRPARAM;
 
-#define AVAILABLE_EVENTS_MASK (LDD_I2C_ON_MASTER_BLOCK_SENT | LDD_I2C_ON_MASTER_BLOCK_RECEIVED)
+#define AVAILABLE_EVENTS_MASK (LDD_I2C_ON_MASTER_BLOCK_SENT | LDD_I2C_ON_MASTER_BLOCK_RECEIVED | LDD_I2C_ON_ERROR)
 
 /*
 ** ===================================================================
@@ -212,6 +215,7 @@ PE_ISR(IntI2cLdd1_Interrupt)
 {
   /* {Default RTOS Adapter} ISR parameter is passed through the global variable */
   IntI2cLdd1_TDeviceDataPtr DeviceDataPrv = INT_I2C0__DEFAULT_RTOS_ISRPARAM;
+  LDD_I2C_TErrorMask ErrorMask = 0x00U; /* Temporary variable for error mask */
   register uint8_t Status;             /* Temporary variable for status register */
 
   Status = I2C_PDD_ReadStatusReg(I2C0_BASE_PTR); /* Safe status register */
@@ -225,6 +229,7 @@ PE_ISR(IntI2cLdd1_Interrupt)
         DeviceDataPrv->InpLenM = 0x00U; /* No character for reception */
         DeviceDataPrv->SerFlag &= (uint8_t)~(MASTER_IN_PROGRES); /* No character for sending or reception */
         DeviceDataPrv->SerFlag |= (ADDR_COMPLETE | REP_ADDR_COMPLETE); /* Set the flag */
+        ErrorMask |= LDD_I2C_MASTER_NACK; /* Set the Master Nack error mask */
       } else {
         if ((DeviceDataPrv->SerFlag & ADDR_COMPLETE) != 0x00U) { /* If 10-bit addr has been completed */
           if (DeviceDataPrv->OutLenM != 0x00U) { /* Is any char. for transmitting? */
@@ -284,7 +289,12 @@ PE_ISR(IntI2cLdd1_Interrupt)
       DeviceDataPrv->SendStop = LDD_I2C_SEND_STOP; /* Set variable for sending stop condition (for master mode) */
       DeviceDataPrv->SerFlag &= (uint8_t)~(MASTER_IN_PROGRES); /* Any character is not for sent or reception*/
       I2C_PDD_SetTransmitMode(I2C0_BASE_PTR, I2C_PDD_RX_DIRECTION); /* Switch to Rx mode */
+      ErrorMask |= LDD_I2C_ARBIT_LOST; /* Set the ArbitLost error mask */
     }
+  }
+  if (ErrorMask != 0x00U) {            /* Is any error mask set? */
+    DeviceDataPrv->ErrorMask |= ErrorMask; /* Update list of error mask value */
+    IntI2cLdd1_OnError(DeviceDataPrv->UserData); /* If yes then invoke user event */
   }
 }
 
@@ -330,6 +340,7 @@ LDD_TDeviceData* IntI2cLdd1_Init(LDD_TUserData *UserDataPtr)
   DeviceDataPrv->InpLenM = 0x00U;      /* Set zero counter of data of reception */
   DeviceDataPrv->OutByteMNum = 0x00U;  /* Set zero length of output bufer's content */
   DeviceDataPrv->OutLenM = 0x00U;      /* Set zero counter of data of transmission */
+  DeviceDataPrv->ErrorMask = 0x00U;    /* Clear variable for errors mask value */
   /* SIM_SCGC4: I2C0=1 */
   SIM_SCGC4 |= SIM_SCGC4_I2C0_MASK;
   /* I2C0_C1: IICEN=0,IICIE=0,MST=0,TX=0,TXAK=0,RSTA=0,WUEN=0,DMAEN=0 */
@@ -679,6 +690,73 @@ LDD_TError IntI2cLdd1_SelectSlaveDevice(LDD_TDeviceData *DeviceDataPtr, LDD_I2C_
       return ERR_PARAM_ADDRESS_TYPE;   /* If value of address type is invalid, return error */
   }
   return ERR_OK;                       /* OK */
+}
+
+/*
+** ===================================================================
+**     Method      :  IntI2cLdd1_GetError (component I2C_LDD)
+*/
+/*!
+**     @brief
+**         Returns value of error mask, e.g. LDD_I2C_ARBIT_LOST.
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by <Init> method.
+**     @param
+**         ErrorMaskPtr    - Pointer to a variable
+**                           where errors value mask will be stored.
+**     @return
+**                         - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_DISABLED -  Device is disabled
+**                           ERR_SPEED - This device does not work in
+**                           the active clock configuration
+*/
+/* ===================================================================*/
+LDD_TError IntI2cLdd1_GetError(LDD_TDeviceData *DeviceDataPtr, LDD_I2C_TErrorMask *ErrorMaskPtr)
+{
+  IntI2cLdd1_TDeviceData *DeviceDataPrv = (IntI2cLdd1_TDeviceData *)DeviceDataPtr;
+
+  /* {Default RTOS Adapter} Critical section begin, general PE function is used */
+  EnterCritical();
+  *ErrorMaskPtr = DeviceDataPrv->ErrorMask; /* Return last value of error mask */
+  DeviceDataPrv->ErrorMask = 0x00U;
+  /* {Default RTOS Adapter} Critical section end, general PE function is used */
+  ExitCritical();
+  return ERR_OK;
+}
+
+/*
+** ===================================================================
+**     Method      :  IntI2cLdd1_CheckBus (component I2C_LDD)
+*/
+/*!
+**     @brief
+**         This method returns the status of the bus. If the START
+**         condition has been detected, the method returns LDD_I2C_BUSY.
+**         If the STOP condition has been detected, the method returns
+**         LDD_I2C_IDLE.
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by <Init> method.
+**     @param
+**         BusStatePtr     - Pointer to a variable,
+**                           where value of status is stored.
+**     @return
+**                         - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_DISABLED -  Device is disabled
+**                           ERR_SPEED - This device does not work in
+**                           the active clock configuration
+*/
+/* ===================================================================*/
+LDD_TError IntI2cLdd1_CheckBus(LDD_TDeviceData *DeviceDataPtr, LDD_I2C_TBusState *BusStatePtr)
+{
+  IntI2cLdd1_TDeviceData *DeviceDataPrv = (IntI2cLdd1_TDeviceData *)DeviceDataPtr;
+
+  (void)DeviceDataPrv;                 /* Suppress unused variable warning if needed */
+  *BusStatePtr = (LDD_I2C_TBusState)((I2C_PDD_GetBusStatus(I2C0_BASE_PTR) == I2C_PDD_BUS_BUSY)?LDD_I2C_BUSY:LDD_I2C_IDLE); /* Return value of Busy bit in status register */
+  return ERR_OK;
 }
 
 /* END IntI2cLdd1. */

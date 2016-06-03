@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-02, 18:29, # CodeGen: 59
+**     Date/Time   : 2016-06-03, 16:39, # CodeGen: 61
 **     Abstract    :
 **
 **     Settings    :
@@ -320,12 +320,12 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
-#include "DIRECTION_1.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd2.h"
-#include "DIRECTION_2.h"
+#include "LEVER_DIR2.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
-#include "LCD.h"
+#include "I2C0.h"
 #include "IntI2cLdd1.h"
 #include "PUSH_BUTTON_SEND.h"
 #include "ExtIntLdd4.h"
@@ -595,8 +595,8 @@ void PE_low_level_init(void)
   (void)ExtIntLdd3_Init(NULL);
   /* ### TimerUnit_LDD "T_100ms" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)T_100ms_Init(NULL);
-  /* ### InternalI2C "LCD" init code ... */
-  LCD_Init();
+  /* ### InternalI2C "I2C0" init code ... */
+  I2C0_Init();
   /* ### ExtInt_LDD "ExtIntLdd4" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)ExtIntLdd4_Init(NULL);
   /* ### ExtInt_LDD "ExtIntLdd5" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */

@@ -52,7 +52,7 @@ all: varmo_lite.elf secondary-outputs
 varmo_lite.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM C++ Linker'
-	arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Project_Settings/Linker_Files/ProcessorExpert.ld" -Xlinker --gc-sections -L"C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Project_Settings/Linker_Files" -Wl,-Map,"varmo_lite.map" -specs=nano.specs -specs=nosys.specs -o "varmo_lite.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "D:/Users/WillyKaze/repos/eisla-remotes/varmo_lite/Project_Settings/Linker_Files/ProcessorExpert.ld" -Xlinker --gc-sections -L"D:/Users/WillyKaze/repos/eisla-remotes/varmo_lite/Project_Settings/Linker_Files" -Wl,-Map,"varmo_lite.map" -specs=nano.specs -specs=nosys.specs -o "varmo_lite.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

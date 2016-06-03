@@ -450,7 +450,7 @@ PE_DEBUGHALT();
           <PutVal v="generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
-          <NegVal v="don&amp;apos;t generate code" />
+          <NegVal v="generate code" />
           <ConnectPin v="don&amp;apos;t generate code" />
           <GetRawVal v="don&amp;apos;t generate code" />
         </Methods>
@@ -475,7 +475,7 @@ PE_DEBUGHALT();
       <PutVal v="generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
-      <NegVal v="don&amp;apos;t generate code" />
+      <NegVal v="generate code" />
       <ConnectPin v="don&amp;apos;t generate code" />
       <GetRawVal v="don&amp;apos;t generate code" />
     </Methods>
@@ -740,10 +740,10 @@ PE_DEBUGHALT();
       </event>
     </Events>
   </Bean>
-  <Bean name="DIRECTION_1" type="ExtInt">
+  <Bean name="LEVER_DIR1" type="ExtInt">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="DIRECTION_1" />
+      <Component_name v="LEVER_DIR1" />
       <Pin v="PTC4/LLWU_P8/SPI0_PCS0/UART1_TX/FTM0_CH3/CMP1_OUT" />
       <inhrbean type="ExtInt_LDD">
         <Enabled v="Y" />
@@ -793,15 +793,15 @@ PE_DEBUGHALT();
     <Events>
       <Event_module_name v="Events" />
       <event name="OnInterrupt" v="generate code">
-        <Event_procedure_name v="DIRECTION_1_OnInterrupt" />
+        <Event_procedure_name v="LEVER_DIR1_OnInterrupt" />
         <Priority v="same as interrupt" />
       </event>
     </Events>
   </Bean>
-  <Bean name="DIRECTION_2" type="ExtInt">
+  <Bean name="LEVER_DIR2" type="ExtInt">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="DIRECTION_2" />
+      <Component_name v="LEVER_DIR2" />
       <Pin v="PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT" />
       <inhrbean type="ExtInt_LDD">
         <Enabled v="Y" />
@@ -851,7 +851,7 @@ PE_DEBUGHALT();
     <Events>
       <Event_module_name v="Events" />
       <event name="OnInterrupt" v="generate code">
-        <Event_procedure_name v="DIRECTION_2_OnInterrupt" />
+        <Event_procedure_name v="LEVER_DIR2_OnInterrupt" />
         <Priority v="same as interrupt" />
       </event>
     </Events>
@@ -933,10 +933,10 @@ PE_DEBUGHALT();
       <event name="OnChannel7" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
-  <Bean name="LCD" type="InternalI2C">
+  <Bean name="I2C0" type="InternalI2C">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="LCD" />
+      <Component_name v="I2C0" />
       <inhrbean type="I2C_LDD">
         <Enabled v="Y" />
         <Properties>
@@ -1056,7 +1056,7 @@ PE_DEBUGHALT();
       </boolgroup>
       <boolgroup name="MASTER mode" v="Enabled">
         <Polling_trials v="2000" />
-        <Automatic_stop_condition v="yes" />
+        <Automatic_stop_condition v="no" />
         <group name="Initialization">
           <Address_mode v="7-bit addressing" />
           <Target_slave_address_init v="112" />
@@ -1095,7 +1095,7 @@ PE_DEBUGHALT();
       <RecvChar v="generate code" />
       <SendBlock v="generate code" />
       <RecvBlock v="generate code" />
-      <SendStop v="don&amp;apos;t generate code" />
+      <SendStop v="generate code" />
       <ClearTxBuf v="don&amp;apos;t generate code" />
       <ClearRxBuf v="don&amp;apos;t generate code" />
       <GetCharsInTxBuf v="generate code" />
@@ -1115,11 +1115,11 @@ PE_DEBUGHALT();
       <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
       <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
       <event name="OnReceiveData" v="generate code">
-        <Event_procedure_name v="LCD_OnReceiveData" />
+        <Event_procedure_name v="I2C0_OnReceiveData" />
         <Priority v="same as interrupt" />
       </event>
       <event name="OnTransmitData" v="generate code">
-        <Event_procedure_name v="LCD_OnTransmitData" />
+        <Event_procedure_name v="I2C0_OnTransmitData" />
         <Priority v="same as interrupt" />
       </event>
       <event name="OnByteTransfer" v="don&amp;apos;t generate code" />
