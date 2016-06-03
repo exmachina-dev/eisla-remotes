@@ -50,7 +50,10 @@ Sources/Events.o: ../Sources/Events.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd4.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_REC.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd5.h \
- C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd5.h
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd5.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ESW3.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/Cpu.h:
 
@@ -155,3 +158,9 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUT
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd5.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd5.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ESW3.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h:

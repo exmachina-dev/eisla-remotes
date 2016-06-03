@@ -20,7 +20,8 @@ Generated_Code/PE_LDD.o: ../Generated_Code/PE_LDD.c \
  ../Generated_Code/T_100ms.h ../Generated_Code/LCD.h \
  ../Generated_Code/IntI2cLdd1.h ../Generated_Code/PUSH_BUTTON_SEND.h \
  ../Generated_Code/ExtIntLdd4.h ../Generated_Code/PUSH_BUTTON_REC.h \
- ../Generated_Code/ExtIntLdd5.h
+ ../Generated_Code/ExtIntLdd5.h ../Generated_Code/ESW3.h \
+ ../Generated_Code/ASerialLdd1.h
 
 ../Generated_Code/PE_LDD.h:
 
@@ -93,3 +94,7 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PD
 ../Generated_Code/PUSH_BUTTON_REC.h:
 
 ../Generated_Code/ExtIntLdd5.h:
+
+../Generated_Code/ESW3.h:
+
+../Generated_Code/ASerialLdd1.h:

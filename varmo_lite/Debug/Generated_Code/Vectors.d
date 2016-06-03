@@ -20,7 +20,8 @@ Generated_Code/Vectors.o: ../Generated_Code/Vectors.c \
  ../Generated_Code/T_100ms.h ../Generated_Code/LCD.h \
  ../Generated_Code/IntI2cLdd1.h ../Generated_Code/PUSH_BUTTON_SEND.h \
  ../Generated_Code/ExtIntLdd4.h ../Generated_Code/PUSH_BUTTON_REC.h \
- ../Generated_Code/ExtIntLdd5.h \
+ ../Generated_Code/ExtIntLdd5.h ../Generated_Code/ESW3.h \
+ ../Generated_Code/ASerialLdd1.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/Events.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PE_Types.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PE_Error.h \
@@ -50,7 +51,9 @@ Generated_Code/Vectors.o: ../Generated_Code/Vectors.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_SEND.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd4.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_REC.h \
- C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd5.h
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd5.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ESW3.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h
 
 ../Generated_Code/Cpu.h:
 
@@ -122,6 +125,10 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/PDD/PORT_PD
 
 ../Generated_Code/ExtIntLdd5.h:
 
+../Generated_Code/ESW3.h:
+
+../Generated_Code/ASerialLdd1.h:
+
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/Events.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PE_Types.h:
@@ -181,3 +188,7 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLd
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/PUSH_BUTTON_REC.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ExtIntLdd5.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ESW3.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h:

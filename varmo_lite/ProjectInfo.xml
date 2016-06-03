@@ -50,6 +50,7 @@
   </PATHS>
   <FILES>
     <GeneratedCs>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ASerialLdd1.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd1.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd2.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd3.c</PathName>
@@ -60,6 +61,7 @@
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\DIRECTION_2.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ENCODER.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ENCODER_PUSH.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ESW3.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd1.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd2.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd3.c</PathName>
@@ -82,8 +84,10 @@
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\Events.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\display.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\main.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\protocol.c</PathName>
     </GeneratedCs>
     <GeneratedHs>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ASerialLdd1.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd1.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd2.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd3.h</PathName>
@@ -94,6 +98,7 @@
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\DIRECTION_2.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ENCODER.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ENCODER_PUSH.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ESW3.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd1.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd2.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd3.h</PathName>
@@ -117,6 +122,8 @@
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\T_500ms.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\Events.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\display.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\menu.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\protocol.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Static_Code\IO_Map\MK20D7.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Static_Code\PDD\ADC_PDD.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Static_Code\PDD\CAN_PDD.h</PathName>

@@ -55,6 +55,8 @@
 #include "ExtIntLdd4.h"
 #include "PUSH_BUTTON_REC.h"
 #include "ExtIntLdd5.h"
+#include "ESW3.h"
+#include "ASerialLdd1.h"
 
 //#include "LCD.h"
 /* Including shared modules, which are used for whole project */
@@ -65,6 +67,9 @@
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 
 int main(void)
@@ -94,6 +99,9 @@ int main(void)
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 /* END main */
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif
 /*!
 ** @}
 */
