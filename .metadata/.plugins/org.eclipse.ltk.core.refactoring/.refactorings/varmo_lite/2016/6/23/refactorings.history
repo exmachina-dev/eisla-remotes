@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;varmo_lite/Sources/menu&apos; to &apos;menu.cpp&apos;" description="Rename resource &apos;menu&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Sources/menu" name="menu.cpp" stamp="1464823116948" updateReferences="true"/>
-</session>
