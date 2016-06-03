@@ -1,2 +1,5 @@
 build*
 *.sublime-workspace
+*.o
+*.d
+.metadata/
