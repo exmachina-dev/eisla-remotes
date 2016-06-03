@@ -8,6 +8,9 @@
 #ifndef PROTOCOL_H_
 #define PROTOCOL_H_
 
+#include "ESW3.h"
+#include "ASerialLdd1.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -36,7 +39,7 @@ const char *Stop = "machine.command.cancel";
 
 
 //FONCTION
-byte send();
+void send();
 
 #ifdef __cplusplus
 }  /* extern "C" */

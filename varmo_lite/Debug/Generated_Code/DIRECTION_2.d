@@ -53,6 +53,7 @@ Generated_Code/DIRECTION_2.o: ../Generated_Code/DIRECTION_2.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ESW3.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/protocol.h \
  ../Generated_Code/DIRECTION_2.h
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/Events.h:
@@ -162,5 +163,7 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ESW3.h:
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/protocol.h:
 
 ../Generated_Code/DIRECTION_2.h:

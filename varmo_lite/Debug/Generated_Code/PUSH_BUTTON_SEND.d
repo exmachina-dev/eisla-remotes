@@ -53,6 +53,7 @@ Generated_Code/PUSH_BUTTON_SEND.o: ../Generated_Code/PUSH_BUTTON_SEND.c \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ESW3.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h \
  C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h \
+ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/protocol.h \
  ../Generated_Code/PUSH_BUTTON_SEND.h
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/Events.h:
@@ -162,5 +163,7 @@ C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ESW3.h:
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h:
 
 C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code/ASerialLdd1.h:
+
+C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources/protocol.h:
 
 ../Generated_Code/PUSH_BUTTON_SEND.h:

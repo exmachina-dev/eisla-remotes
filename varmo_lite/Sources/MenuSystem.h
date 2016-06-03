@@ -6,6 +6,10 @@
 #ifndef MENUSYSTEM_H
 #define MENUSYSTEM_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 class MenuSystem;
 
 class MenuComponent
@@ -109,8 +113,7 @@ private:
 };
 
 
-class MenuSystem
-{
+class MenuSystem {
 public:
     MenuSystem();
 
@@ -129,5 +132,8 @@ private:
     Menu* _p_curr_menu;
 };
 
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif
 
 #endif

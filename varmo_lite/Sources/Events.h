@@ -61,6 +61,8 @@
 #include "ESW3.h"
 #include "ASerialLdd1.h"
 
+#include "protocol.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif 

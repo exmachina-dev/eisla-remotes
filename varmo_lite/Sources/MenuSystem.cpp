@@ -13,6 +13,9 @@
 #include "MenuSystem.h"
 #include <stdlib.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 // *********************************************************
 // MenuComponent
@@ -308,5 +311,8 @@ Menu const* MenuSystem::get_current_menu() const
     return _p_curr_menu;
 }
 
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif
 
 

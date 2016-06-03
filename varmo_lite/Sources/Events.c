@@ -34,6 +34,8 @@
 #include "LED_STATUS_3.h"
 #include "LED_STATUS_4.h"
 
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif 
@@ -87,7 +89,7 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
 	//i++;
 	//led_init(i);
-
+	send();
 	LED_DEBUG_NegVal();
 }
 

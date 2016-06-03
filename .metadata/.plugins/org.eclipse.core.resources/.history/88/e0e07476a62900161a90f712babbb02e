@@ -1,0 +1,14 @@
+#include "protocol.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void send(){
+	temp = &Get;
+	ESW3_SendBlock(&Get, 11,1);
+}
+
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif
