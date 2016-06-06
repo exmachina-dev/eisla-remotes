@@ -457,7 +457,7 @@ registers of the peripheral(s) configured by the component.
 \code
 **          Component name                                 : ExtIntLdd3
 **          Pin                                            : PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT
-**          Pin signal                                     : DIR_2
+**          Pin signal                                     : LEVER_DIR2
 **          Generate interrupt on                          : both edges
 **          Interrupt                                      : INT_PORTC
 **          Interrupt priority                             : medium priority

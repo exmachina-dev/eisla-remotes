@@ -3,7 +3,11 @@
   <Header>
     <Name>varmo_lite</Name>
     <SavedBy>Adrian</SavedBy>
+<<<<<<< HEAD
     <ModificationStamp>57</ModificationStamp>
+=======
+    <ModificationStamp>61</ModificationStamp>
+>>>>>>> BR
     <Date>2016-05-30</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1550-0615</PEversion>
@@ -23704,7 +23708,7 @@
     <Repository>file:/${ProcessorExpert_loc}/Repositories/Kinetis_Repository</Repository>
     <ComponentUUID>com.freescale.processorexpert.extint</ComponentUUID>
     <BeanType>ExtInt</BeanType>
-    <Name>DIRECTION_1</Name>
+    <Name>LEVER_DIR1</Name>
     <CompNumb>49</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
@@ -23719,7 +23723,7 @@
         <ItemSymbol>DeviceName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>DIRECTION_1</Value>
+        <Value>LEVER_DIR1</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>_Pin</ItemSymbol>
@@ -24240,7 +24244,7 @@
         <ItemSymbol>OnInterruptName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>DIRECTION_1_OnInterrupt</Value>
+        <Value>LEVER_DIR1_OnInterrupt</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnInterruptPriority</ItemSymbol>
@@ -24267,7 +24271,7 @@
         <ItemSymbol>OnTriggerInterruptName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>DIRECTION_1_OnTriggerInterrupt</Value>
+        <Value>LEVER_DIR1_OnTriggerInterrupt</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnTriggerInterruptPriority</ItemSymbol>
@@ -24281,7 +24285,7 @@
     <Repository>file:/${ProcessorExpert_loc}/Repositories/Kinetis_Repository</Repository>
     <ComponentUUID>com.freescale.processorexpert.extint</ComponentUUID>
     <BeanType>ExtInt</BeanType>
-    <Name>DIRECTION_2</Name>
+    <Name>LEVER_DIR2</Name>
     <CompNumb>51</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
@@ -24296,7 +24300,7 @@
         <ItemSymbol>DeviceName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>DIRECTION_2</Value>
+        <Value>LEVER_DIR2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>_Pin</ItemSymbol>
@@ -24309,7 +24313,7 @@
         <ItemSymbol>PinSignal</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>DIR_2</Value>
+        <Value>LEVER_DIR2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>FeatureCondGrpLDD</ItemSymbol>
@@ -24817,7 +24821,7 @@
         <ItemSymbol>OnInterruptName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>DIRECTION_2_OnInterrupt</Value>
+        <Value>LEVER_DIR2_OnInterrupt</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnInterruptPriority</ItemSymbol>
@@ -24844,7 +24848,7 @@
         <ItemSymbol>OnTriggerInterruptName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>DIRECTION_2_OnTriggerInterrupt</Value>
+        <Value>LEVER_DIR2_OnTriggerInterrupt</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnTriggerInterruptPriority</ItemSymbol>
@@ -25782,7 +25786,7 @@
     <Repository>file:/${ProcessorExpert_loc}/Repositories/Kinetis_Repository</Repository>
     <ComponentUUID>com.freescale.processorexpert.internali2c</ComponentUUID>
     <BeanType>InternalI2C</BeanType>
-    <Name>LCD</Name>
+    <Name>I2C0</Name>
     <CompNumb>57</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
@@ -25797,7 +25801,7 @@
         <ItemSymbol>DeviceName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD</Value>
+        <Value>I2C0</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>FeatCondGrpAdcLDD</ItemSymbol>
@@ -26173,24 +26177,24 @@
             </ItemState>
             <ItemState>
               <ItemSymbol>SCLfreq</ItemSymbol>
-              <Value>99.977 kHz</Value>
+              <Value>999.765 kHz</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>SclOutputFrequency</ItemSymbol>
               <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-              <Value>0.099977</Value>
+              <Value>0.999765</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>SDAhold</ItemSymbol>
-              <Value>1.354 us</Value>
+              <Value>0.188 us</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>SCLStartHold</ItemSymbol>
-              <Value>4.959 us</Value>
+              <Value>0.375 us</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>SCLStopHold</ItemSymbol>
-              <Value>5.022 us</Value>
+              <Value>0.521 us</Value>
             </ItemState>
             <ItemState>
               <ItemSymbol>SMBusGrp</ItemSymbol>
@@ -27076,8 +27080,8 @@
               <ReadOnly>true</ReadOnly>
               <UserReadOnly>false</UserReadOnly>
               <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-              <Value>false</Value>
-              <Expanded>false</Expanded>
+              <Value>true</Value>
+              <Expanded>true</Expanded>
               <LastSelection>false</LastSelection>
               <LastUserSel>no</LastUserSel>
             </ItemState>
@@ -27329,8 +27333,8 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Index>0</Index>
-        <Value>true</Value>
+        <Index>1</Index>
+        <Value>false</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>56F803xGrp3</ItemSymbol>
@@ -27695,8 +27699,8 @@
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
         <TypeSpecNameState>typeHCS08ShiftTap</TypeSpecNameState>
-        <Index>7</Index>
-        <EnumSymbVal>7</EnumSymbVal>
+        <Index>0</Index>
+        <EnumSymbVal>0</EnumSymbVal>
       </ItemState>
       <ItemState>
         <ItemSymbol>PrescShift</ItemSymbol>
@@ -27704,16 +27708,16 @@
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
         <TypeSpecNameState>typeHCS08ShiftTap</TypeSpecNameState>
-        <Index>4</Index>
-        <EnumSymbVal>4</EnumSymbVal>
+        <Index>2</Index>
+        <EnumSymbVal>2</EnumSymbVal>
       </ItemState>
       <ItemState>
         <ItemSymbol>SCLfreq</ItemSymbol>
-        <Value>99.977 kHz</Value>
+        <Value>999.765 kHz</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>SDAhold</ItemSymbol>
-        <Value>1.354 us</Value>
+        <Value>0.188 us</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>56F803xGrp5</ItemSymbol>
@@ -28172,10 +28176,10 @@
         <ReadOnly>true</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Index>1</Index>
-        <Value>false</Value>
+        <Index>0</Index>
+        <Value>true</Value>
         <LastSelection>false</LastSelection>
-        <LastUserSel>never</LastUserSel>
+        <LastUserSel>always</LastUserSel>
         <UsrMethodName>SendStop</UsrMethodName>
       </ItemState>
       <ItemState>
@@ -28433,7 +28437,7 @@
         <ItemSymbol>BeforeNewSpeedName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_BeforeNewSpeed</Value>
+        <Value>I2C0_BeforeNewSpeed</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AfterNewSpeed</ItemSymbol>
@@ -28449,7 +28453,7 @@
         <ItemSymbol>AfterNewSpeedName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_AfterNewSpeed</Value>
+        <Value>I2C0_AfterNewSpeed</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnReceiveData</ItemSymbol>
@@ -28465,7 +28469,7 @@
         <ItemSymbol>OnReceiveDataName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnReceiveData</Value>
+        <Value>I2C0_OnReceiveData</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnReceiveDataPriority</ItemSymbol>
@@ -28487,7 +28491,7 @@
         <ItemSymbol>OnTransmitDataName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnTransmitData</Value>
+        <Value>I2C0_OnTransmitData</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnTransmitDataPriority</ItemSymbol>
@@ -28509,7 +28513,7 @@
         <ItemSymbol>OnByteTransferName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnByteTransfer</Value>
+        <Value>I2C0_OnByteTransfer</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnByteTransferPriority</ItemSymbol>
@@ -28531,7 +28535,7 @@
         <ItemSymbol>OnReadReqName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnReadReq</Value>
+        <Value>I2C0_OnReadReq</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnReadReqPriority</ItemSymbol>
@@ -28558,7 +28562,7 @@
         <ItemSymbol>OnReadFinishedName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnReadFinished</Value>
+        <Value>I2C0_OnReadFinished</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnReadFinishedPriority</ItemSymbol>
@@ -28580,7 +28584,7 @@
         <ItemSymbol>OnWriteReqName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnWriteReq</Value>
+        <Value>I2C0_OnWriteReq</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnWriteReqPriority</ItemSymbol>
@@ -28602,7 +28606,7 @@
         <ItemSymbol>OnRxCharName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnRxChar</Value>
+        <Value>I2C0_OnRxChar</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnRxCharPriority</ItemSymbol>
@@ -28624,7 +28628,7 @@
         <ItemSymbol>OnTxCharName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnTxChar</Value>
+        <Value>I2C0_OnTxChar</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnTxCharPriority</ItemSymbol>
@@ -28646,7 +28650,7 @@
         <ItemSymbol>OnFreeTxBufName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnFreeTxBuf</Value>
+        <Value>I2C0_OnFreeTxBuf</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnFreeTxBufPriority</ItemSymbol>
@@ -28668,7 +28672,7 @@
         <ItemSymbol>OnFullRxBufName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnFullRxBuf</Value>
+        <Value>I2C0_OnFullRxBuf</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnFullRxBufPriority</ItemSymbol>
@@ -28681,16 +28685,16 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Value>false</Value>
+        <Value>true</Value>
         <Expanded>false</Expanded>
         <LastSelection>false</LastSelection>
-        <LastUserSel>no</LastUserSel>
+        <LastUserSel>yes</LastUserSel>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnArbitLostName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnArbitLost</Value>
+        <Value>I2C0_OnArbitLost</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnArbitLostPriority</ItemSymbol>
@@ -28712,7 +28716,7 @@
         <ItemSymbol>OnNACKName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnNACK</Value>
+        <Value>I2C0_OnNACK</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnNACKPriority</ItemSymbol>
@@ -28734,7 +28738,7 @@
         <ItemSymbol>OnErrorName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnError</Value>
+        <Value>I2C0_OnError</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnErrorPriority</ItemSymbol>
@@ -28761,7 +28765,7 @@
         <ItemSymbol>OnCRCerrorName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnCRCerror</Value>
+        <Value>I2C0_OnCRCerror</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnCRCerrorPriority</ItemSymbol>
@@ -28788,7 +28792,7 @@
         <ItemSymbol>OnTxEmptyCharName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnTxEmptyChar</Value>
+        <Value>I2C0_OnTxEmptyChar</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnTxEmptyCharPriority</ItemSymbol>
@@ -28815,7 +28819,7 @@
         <ItemSymbol>OnTxAbortName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnTxAbort</Value>
+        <Value>I2C0_OnTxAbort</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnTxAbortPriority</ItemSymbol>
@@ -28837,7 +28841,7 @@
         <ItemSymbol>OnStartName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnStart</Value>
+        <Value>I2C0_OnStart</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnStartPriority</ItemSymbol>
@@ -28859,7 +28863,7 @@
         <ItemSymbol>OnStopName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnStop</Value>
+        <Value>I2C0_OnStop</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnStopPriority</ItemSymbol>
@@ -28886,7 +28890,7 @@
         <ItemSymbol>OnGeneralCallName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnGeneralCall</Value>
+        <Value>I2C0_OnGeneralCall</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnGeneralCallPriority</ItemSymbol>
@@ -28913,7 +28917,7 @@
         <ItemSymbol>OnSCLlowTimeoutName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnSCLlowTimeout</Value>
+        <Value>I2C0_OnSCLlowTimeout</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnSCLlowTimeoutPriority</ItemSymbol>
@@ -28940,7 +28944,7 @@
         <ItemSymbol>OnSDAlowTimeoutName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnSDAlowTimeout</Value>
+        <Value>I2C0_OnSDAlowTimeout</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnSDAlowTimeoutPriority</ItemSymbol>
@@ -28962,7 +28966,7 @@
         <ItemSymbol>OnSecondAddrName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnSecondAddr</Value>
+        <Value>I2C0_OnSecondAddr</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnSecondAddrPriority</ItemSymbol>
@@ -28984,7 +28988,7 @@
         <ItemSymbol>OnAlertResponseName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnAlertResponse</Value>
+        <Value>I2C0_OnAlertResponse</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnAlertResponsePriority</ItemSymbol>
@@ -29012,7 +29016,7 @@
         <ItemSymbol>OnBusStartDetectedName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnBusStartDetected</Value>
+        <Value>I2C0_OnBusStartDetected</Value>
         <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
       </ItemState>
       <ItemState>
@@ -29042,7 +29046,7 @@
         <ItemSymbol>OnBusStopDetectedName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LCD_OnBusStopDetected</Value>
+        <Value>I2C0_OnBusStopDetected</Value>
         <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
       </ItemState>
       <ItemState>

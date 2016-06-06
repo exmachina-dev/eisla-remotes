@@ -6,7 +6,11 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
+<<<<<<< HEAD
 **     Date/Time   : 2016-06-03, 16:19, # CodeGen: 61
+=======
+**     Date/Time   : 2016-06-03, 16:39, # CodeGen: 61
+>>>>>>> BR
 **     Abstract    :
 **
 **     Settings    :
@@ -69,12 +73,12 @@
   #include "ENCODER.h"
   #include "ENCODER_PUSH.h"
   #include "ExtIntLdd1.h"
-  #include "DIRECTION_1.h"
+  #include "LEVER_DIR1.h"
   #include "ExtIntLdd2.h"
-  #include "DIRECTION_2.h"
+  #include "LEVER_DIR2.h"
   #include "ExtIntLdd3.h"
   #include "T_100ms.h"
-  #include "LCD.h"
+  #include "I2C0.h"
   #include "IntI2cLdd1.h"
   #include "PUSH_BUTTON_SEND.h"
   #include "ExtIntLdd4.h"

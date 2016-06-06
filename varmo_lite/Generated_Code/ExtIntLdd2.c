@@ -7,7 +7,7 @@
 **     Version     : Component 02.156, Driver 01.02, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 20:55, # CodeGen: 48
+**     Date/Time   : 2016-06-03, 16:39, # CodeGen: 61
 **     Abstract    :
 **         This component, "ExtInt_LDD", provide a low level API 
 **         for unified access of external interrupts handling
@@ -76,7 +76,7 @@
 
 /* MODULE ExtIntLdd2. */
 
-#include "DIRECTION_1.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd2.h"
 /* {Default RTOS Adapter} No RTOS includes */
 
