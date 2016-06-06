@@ -7,7 +7,7 @@
 **     Version     : Component 01.016, Driver 01.07, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 17:47, # CodeGen: 64
+**     Date/Time   : 2016-06-03, 18:26, # CodeGen: 65
 **     Abstract    :
 **          This component encapsulates the internal I2C communication
 **          interface. The implementation of the interface is based
@@ -48,12 +48,12 @@
 **              High drive select                          : Enabled
 **              Input Glitch filter                        : 0
 **            Internal frequency (multiplier factor)       : 47.988736 MHz
-**            Bits 0-2 of Frequency divider register       : 111
-**            Bits 3-5 of Frequency divider register       : 100
-**            SCL frequency                                : 99.977 kHz
-**            SDA Hold                                     : 1.354 us
-**            SCL start Hold                               : 4.959 us
-**            SCL stop Hold                                : 5.022 us
+**            Bits 0-2 of Frequency divider register       : 000
+**            Bits 3-5 of Frequency divider register       : 010
+**            SCL frequency                                : 999.765 kHz
+**            SDA Hold                                     : 0.188 us
+**            SCL start Hold                               : 0.375 us
+**            SCL stop Hold                                : 0.521 us
 **            Control acknowledge bit                      : Disabled
 **            Low timeout                                  : Disabled
 **          Initialization                                 : 
@@ -373,8 +373,8 @@ LDD_TDeviceData* IntI2cLdd1_Init(LDD_TUserData *UserDataPtr)
   I2C0_FLT = I2C_FLT_FLT(0x00);        /* Set glitch filter register */
   /* I2C0_SMB: FACK=0,ALERTEN=0,SIICAEN=0,TCKSEL=0,SLTF=1,SHTF1=0,SHTF2=0,SHTF2IE=0 */
   I2C0_SMB = I2C_SMB_SLTF_MASK;
-  /* I2C0_F: MULT=0,ICR=0x27 */
-  I2C0_F = (I2C_F_MULT(0x00) | I2C_F_ICR(0x27)); /* Set prescaler bits */
+  /* I2C0_F: MULT=0,ICR=0x10 */
+  I2C0_F = (I2C_F_MULT(0x00) | I2C_F_ICR(0x10)); /* Set prescaler bits */
   I2C_PDD_EnableDevice(I2C0_BASE_PTR, PDD_ENABLE); /* Enable device */
   I2C_PDD_EnableInterrupt(I2C0_BASE_PTR); /* Enable interrupt */
   /* Registration of the device structure */

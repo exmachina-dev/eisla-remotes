@@ -7,7 +7,7 @@
 **     Version     : Component 01.287, Driver 01.01, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 17:47, # CodeGen: 64
+**     Date/Time   : 2016-06-03, 18:26, # CodeGen: 65
 **     Abstract    :
 **          This component encapsulates the internal I2C communication 
 **          interface. The implementation of the interface is based 
@@ -48,10 +48,10 @@
 **            SCL pin signal                               : 
 **            High drive select                            : Enabled
 **          Internal frequency (multiplier factor)         : 47.988736 MHz
-**          Bits 0-2 of Frequency divider register         : 111
-**          Bits 3-5 of Frequency divider register         : 100
-**          SCL frequency                                  : 99.977 kHz
-**          SDA Hold                                       : 1.354 us
+**          Bits 0-2 of Frequency divider register         : 000
+**          Bits 3-5 of Frequency divider register         : 010
+**          SCL frequency                                  : 999.765 kHz
+**          SDA Hold                                       : 0.188 us
 **          Noise (glitch) filter                          : 0
 **          Low timeout                                    : Disabled
 **          Wake-up                                        : Disabled
