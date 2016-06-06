@@ -989,7 +989,7 @@ PE_DEBUGHALT();
               <OnSlaveGeneralCallAddr v="Disabled" />
               <OnSlaveSmBusCallAddr v="Disabled" />
               <OnSlaveSmBusAlertResponse v="Disabled" />
-              <OnError v="Disabled" />
+              <OnError v="Enabled" />
             </group>
           </group>
         </Properties>
@@ -1018,8 +1018,8 @@ PE_DEBUGHALT();
           <SlaveCancelReceptionBlock v="don&amp;apos;t generate code" />
           <SelectSlaveDevice v="generate code" />
           <SendAcknowledge v="don&amp;apos;t generate code" />
-          <GetError v="don&amp;apos;t generate code" />
-          <CheckBus v="don&amp;apos;t generate code" />
+          <GetError v="generate code" />
+          <CheckBus v="generate code" />
           <GetStats v="don&amp;apos;t generate code" />
           <ClearStats v="don&amp;apos;t generate code" />
           <Main v="don&amp;apos;t generate code" />
@@ -1044,7 +1044,9 @@ PE_DEBUGHALT();
           <event name="OnSlaveGeneralCallAddr" v="don&amp;apos;t generate code" />
           <event name="OnSlaveSmBusCallAddr" v="don&amp;apos;t generate code" />
           <event name="OnSlaveSmBusAlertResponse" v="don&amp;apos;t generate code" />
-          <event name="OnError" v="don&amp;apos;t generate code" />
+          <event name="OnError" v="generate code">
+            <Event_procedure_name v="IntI2cLdd1_OnError" />
+          </event>
         </Events>
       </inhrbean>
       <I2C_channel v="I2C0" />
@@ -1129,7 +1131,10 @@ PE_DEBUGHALT();
       <event name="OnTxChar" v="don&amp;apos;t generate code" />
       <event name="OnFreeTxBuf" v="don&amp;apos;t generate code" />
       <event name="OnFullRxBuf" v="don&amp;apos;t generate code" />
-      <event name="OnArbitLost" v="don&amp;apos;t generate code" />
+      <event name="OnArbitLost" v="generate code">
+        <Event_procedure_name v="I2C0_OnArbitLost" />
+        <Priority v="same as interrupt" />
+      </event>
       <event name="OnNACK" v="don&amp;apos;t generate code" />
       <event name="OnError" v="don&amp;apos;t generate code" />
       <event name="OnTxEmptyChar" v="don&amp;apos;t generate code" />
