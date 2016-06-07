@@ -508,12 +508,12 @@ void PCA_Init(void)
 **         disabled.
 **         This method is internal. It is used by Processor Expert only.
 ** ===================================================================
-*/
+*//*
 void IntI2cLdd1_OnMasterBlockSent(LDD_TUserData *UserDataPtr)
 {
   (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
-  PCA_OnTransmitData();                /* Invoke user event */
-}
+  //PCA_OnTransmitData();                /* Invoke user event */
+//}
 
 /*
 ** ===================================================================
@@ -526,12 +526,12 @@ void IntI2cLdd1_OnMasterBlockSent(LDD_TUserData *UserDataPtr)
 **         disabled.
 **         This method is internal. It is used by Processor Expert only.
 ** ===================================================================
-*/
+*//*
 void IntI2cLdd1_OnMasterBlockReceived(LDD_TUserData *UserDataPtr)
 {
   (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
-  PCA_OnReceiveData();                 /* Invoke user event */
-}
+//  PCA_OnReceiveData();                 /* Invoke user event */
+//}
 
 
 /* END PCA. */
