@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../Sources/LCD.cpp \
+../Sources/MenuSysteme.cpp \
 ../Sources/PCA9670.cpp 
 
 C_SRCS += \
@@ -14,6 +15,7 @@ C_SRCS += \
 OBJS += \
 ./Sources/Events.o \
 ./Sources/LCD.o \
+./Sources/MenuSysteme.o \
 ./Sources/PCA9670.o \
 ./Sources/main.o 
 
@@ -23,6 +25,7 @@ C_DEPS += \
 
 CPP_DEPS += \
 ./Sources/LCD.d \
+./Sources/MenuSysteme.d \
 ./Sources/PCA9670.d 
 
 
