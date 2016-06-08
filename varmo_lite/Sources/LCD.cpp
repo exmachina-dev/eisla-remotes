@@ -129,6 +129,16 @@ void LCD_Cursor_On_At(uint8_t line, uint8_t x){
 	LCD_Cursor_On();
 }
 
+void LCD_Write(uint8_t value){
+	LCD_command(GotoXYCmd);
+	I2C0_SendChar(value);	
+}
+
+void LCD_Write(uint8_t* buffer, uint8_t size){
+	LCD_command(GotoXYCmd);
+	I2C0_SendBlock((uint8_t * )buffer, size);
+}
+
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif
