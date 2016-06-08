@@ -77,6 +77,53 @@ void LCD_Init() {
 	}
 }
 
+void LCD_command(uint8_t value){
+	(void)I2C0_SelectSlave(PCA9665_ADDR);
+	
+	if (I2C0_GetMode()) { // Check for master mode
+		I2C0_SendChar(PCA9665_ADDR);
+		I2C0_SendChar(value);
+	}
+}
+
+/* Clear the display*/
+void LCD_Clear() {
+	LCD_command(ClearDisplayCmd);
+}
+
+/*LCD Cursor On */
+void LCD_Cursor_On(){
+	LCD_command(CursorOnCmd);
+}
+
+/*LCD Cursor Off*/
+void LCD_Cursor_Off(){
+	LCD_command(CursorOffCmd);
+}
+
+/*LCD return cursor home*/
+void LCD_Cursor_Hone(){
+	LCD_command(ReturnHomeCmd);
+}
+
+/*LCD Set Cursor*/
+void LCD_Set_Cursor(uint8_t line, uint8_t x){
+	uint8_t RAM_Adr;
+	if (line == 0){
+		RAM_Adr = (Line1Offset + x);
+	}
+	else if (line == 1){
+		RAM_Adr = (Line2Offset + x);
+	}
+	else if (line == 2){
+		RAM_Adr = (Line3Offset + x);
+	}
+	else if (line == 3){
+		RAM_Adr = (Line4Offset + x);
+	}
+	LCD_command(GotoXYCmd|RAM_Adr)
+}
+
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif
