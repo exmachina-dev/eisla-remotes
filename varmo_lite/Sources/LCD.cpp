@@ -79,7 +79,7 @@ void LCD_Init() {
 
 void LCD_command(uint8_t value){
 	(void)I2C0_SelectSlave(PCA9665_ADDR);
-	
+
 	if (I2C0_GetMode()) { // Check for master mode
 		I2C0_SendChar(PCA9665_ADDR);
 		I2C0_SendChar(value);
@@ -122,6 +122,11 @@ void LCD_Set_Cursor(uint8_t line, uint8_t x){
 		RAM_Adr = (Line4Offset + x);
 	}
 	LCD_command(GotoXYCmd|RAM_Adr)
+}
+
+void LCD_Cursor_On_At(uint8_t line, uint8_t x){
+	LCD_Set_Cursor(line, x);
+	LCD_Cursor_On();
 }
 
 #ifdef __cplusplus
