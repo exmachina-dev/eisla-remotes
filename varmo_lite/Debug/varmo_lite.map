@@ -332,6 +332,78 @@ Discarded input sections
  .debug_macro   0x00000000       0x12 ./Sources/main.o
  .debug_macro   0x00000000       0x34 ./Sources/main.o
  .debug_macro   0x00000000       0x34 ./Sources/main.o
+ .group         0x00000000       0x10 ./Sources/menu.o
+ .group         0x00000000        0x8 ./Sources/menu.o
+ .text          0x00000000        0x0 ./Sources/menu.o
+ .data          0x00000000        0x0 ./Sources/menu.o
+ .bss           0x00000000        0x0 ./Sources/menu.o
+ .text._ZN4menuC2Ev
+                0x00000000       0x1c ./Sources/menu.o
+ .ARM.extab.text._ZN4menuC2Ev
+                0x00000000        0x0 ./Sources/menu.o
+ .ARM.exidx.text._ZN4menuC2Ev
+                0x00000000        0x8 ./Sources/menu.o
+ .text._Z9init_menuPcP8sub_menu
+                0x00000000       0x28 ./Sources/menu.o
+ .ARM.extab.text._Z9init_menuPcP8sub_menu
+                0x00000000        0x0 ./Sources/menu.o
+ .ARM.exidx.text._Z9init_menuPcP8sub_menu
+                0x00000000        0x8 ./Sources/menu.o
+ .text._Z13init_sub_menuPcb
+                0x00000000       0x24 ./Sources/menu.o
+ .ARM.extab.text._Z13init_sub_menuPcb
+                0x00000000        0x0 ./Sources/menu.o
+ .ARM.exidx.text._Z13init_sub_menuPcb
+                0x00000000        0x8 ./Sources/menu.o
+ .text._Z13init_sub_menuPcbPFvvE
+                0x00000000       0x38 ./Sources/menu.o
+ .ARM.extab.text._Z13init_sub_menuPcbPFvvE
+                0x00000000        0x0 ./Sources/menu.o
+ .ARM.exidx.text._Z13init_sub_menuPcbPFvvE
+                0x00000000        0x8 ./Sources/menu.o
+ .text._Z10print_menuiiP4menu
+                0x00000000       0x48 ./Sources/menu.o
+ .ARM.extab.text._Z10print_menuiiP4menu
+                0x00000000        0x0 ./Sources/menu.o
+ .ARM.exidx.text._Z10print_menuiiP4menu
+                0x00000000        0x8 ./Sources/menu.o
+ .text._Z14print_sub_menuiiP8sub_menu
+                0x00000000       0x48 ./Sources/menu.o
+ .ARM.extab.text._Z14print_sub_menuiiP8sub_menu
+                0x00000000        0x0 ./Sources/menu.o
+ .ARM.exidx.text._Z14print_sub_menuiiP8sub_menu
+                0x00000000        0x8 ./Sources/menu.o
+ .text._Z11menu_selectiiP4menu
+                0x00000000       0x3c ./Sources/menu.o
+ .ARM.extab.text._Z11menu_selectiiP4menu
+                0x00000000        0x0 ./Sources/menu.o
+ .ARM.exidx.text._Z11menu_selectiiP4menu
+                0x00000000        0x8 ./Sources/menu.o
+ .text._Z15sub_menu_selectiiP8sub_menu
+                0x00000000       0x58 ./Sources/menu.o
+ .ARM.extab.text._Z15sub_menu_selectiiP8sub_menu
+                0x00000000        0xc ./Sources/menu.o
+ .ARM.exidx.text._Z15sub_menu_selectiiP8sub_menu
+                0x00000000        0x8 ./Sources/menu.o
+ .text._Z9menu_backiP4menu
+                0x00000000       0x54 ./Sources/menu.o
+ .ARM.extab.text._Z9menu_backiP4menu
+                0x00000000        0x0 ./Sources/menu.o
+ .ARM.exidx.text._Z9menu_backiP4menu
+                0x00000000        0x8 ./Sources/menu.o
+ .debug_info    0x00000000      0x407 ./Sources/menu.o
+ .debug_abbrev  0x00000000      0x166 ./Sources/menu.o
+ .debug_aranges
+                0x00000000       0x60 ./Sources/menu.o
+ .debug_ranges  0x00000000       0x50 ./Sources/menu.o
+ .debug_macro   0x00000000       0x15 ./Sources/menu.o
+ .debug_macro   0x00000000      0x86e ./Sources/menu.o
+ .debug_line    0x00000000      0x132 ./Sources/menu.o
+ .debug_str     0x00000000     0x25e8 ./Sources/menu.o
+ .comment       0x00000000       0x71 ./Sources/menu.o
+ .ARM.attributes
+                0x00000000       0x33 ./Sources/menu.o
+ .debug_frame   0x00000000      0x11c ./Sources/menu.o
  .group         0x00000000        0x8 ./Project_Settings/Startup_Code/startup.o
  .group         0x00000000        0x8 ./Project_Settings/Startup_Code/startup.o
  .group         0x00000000        0x8 ./Project_Settings/Startup_Code/startup.o
@@ -2151,6 +2223,7 @@ LOAD ./Sources/Events.o
 LOAD ./Sources/LCD.o
 LOAD ./Sources/PCA9670.o
 LOAD ./Sources/main.o
+LOAD ./Sources/menu.o
 LOAD ./Project_Settings/Startup_Code/startup.o
 LOAD ./Generated_Code/BitIoLdd1.o
 LOAD ./Generated_Code/BitIoLdd2.o
