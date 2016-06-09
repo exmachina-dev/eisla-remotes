@@ -1,28 +1,24 @@
 #include <stdio.h>
 
-typedef struct sub_menu;
-typedef struct menu;
-
-struct sub_menu{
+typedef struct sub_menu{
   char *name;
   bool select;
   bool item;
   void (*function)();
-};
+}sub_menu;
 
-struct menu {
+typedef struct menu {
   char *name;
-  bool menu_select = 0;
+  bool menu_select;
   sub_menu *sub;
   int size;/*
   float parameter_1;
   float parameter_2;
   float parameter_3;
   float parameter_4;*/
-};
+}menu;
 
-
-struct menu init_menu(char *, sub_menu []);
+menu init_menu(char *, sub_menu []);
 sub_menu init_sub_menu(char *, bool, void (*)());
 sub_menu init_sub_menu(char *, bool);
 void print_menu(int, int , menu []);
