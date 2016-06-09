@@ -19,7 +19,7 @@
         <Line>PE_Const</Line>
         <Line>IO_Map</Line>
       </GenSharedModules>
-      <ShrdHeaderAge0>1221033249</ShrdHeaderAge0>
+      <ShrdHeaderAge0>1221038792</ShrdHeaderAge0>
       <ShrdCodeAge0>-1</ShrdCodeAge0>
       <ShrdAsemblAge0>-1</ShrdAsemblAge0>
       <ShrdHeaderAge1>1220453520</ShrdHeaderAge1>
@@ -58,10 +58,10 @@
       </GenExtraFiles>
       <GenExtraFileSrcDir21>lib\Kinetis\startup\</GenExtraFileSrcDir21>
       <GenExtraFileSrcDir17>Repositories\lib\doxygen\</GenExtraFileSrcDir17>
-      <XtraAge18>1221033249</XtraAge18>
-      <XtraAge19>1221033249</XtraAge19>
-      <XtraAge21>1220442375</XtraAge21>
-      <XtraAge22>1221033249</XtraAge22>
+      <XtraAge18>1221038792</XtraAge18>
+      <XtraAge19>1221038792</XtraAge19>
+      <XtraAge21>1221099532</XtraAge21>
+      <XtraAge22>1221038792</XtraAge22>
       <GenExtraFileType22>4</GenExtraFileType22>
       <GenExtraFileType21>5</GenExtraFileType21>
       <GenExtraFileType20>4</GenExtraFileType20>
@@ -542,7 +542,7 @@
     <GenDriverVersion>01.04</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
     <HeaderAge>1220515930</HeaderAge>
-    <CodeAge>1221033249</CodeAge>
+    <CodeAge>1221038792</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetClockConfiguration>false</SetClockConfiguration>

@@ -121,7 +121,7 @@ void LCD_Set_Cursor(uint8_t line, uint8_t x){
 	else if (line == 3){
 		RAM_Adr = (Line4Offset + x);
 	}
-	LCD_command(GotoXYCmd|RAM_Adr)
+	LCD_command(GotoXYCmd|RAM_Adr);
 }
 
 void LCD_Cursor_On_At(uint8_t line, uint8_t x){
@@ -133,11 +133,11 @@ void LCD_Write(uint8_t value){
 	LCD_command(GotoXYCmd);
 	I2C0_SendChar(value);	
 }
-
-void LCD_Write(uint8_t* buffer, uint8_t size){
+/*
+void LCD_Write_Block(uint8_t* buffer, uint8_t size){
 	LCD_command(GotoXYCmd);
-	I2C0_SendBlock((uint8_t * )buffer, size);
-}
+	I2C0_SendBlock((uint8_t * )buffer, size, size);
+}*/
 
 #ifdef __cplusplus
 }  /* extern "C" */

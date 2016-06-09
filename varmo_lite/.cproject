@@ -60,6 +60,10 @@
 									<listOptionValue builtIn="false" value="C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/IO_Map"/>
 									<listOptionValue builtIn="false" value="C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources"/>
 									<listOptionValue builtIn="false" value="C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Static_Code/PDD&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Static_Code/IO_Map&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Sources&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Generated_Code&quot;"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.1363332664" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
@@ -69,6 +73,10 @@
 									<listOptionValue builtIn="false" value="C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Static_Code/IO_Map"/>
 									<listOptionValue builtIn="false" value="C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Sources"/>
 									<listOptionValue builtIn="false" value="C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Generated_Code"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Static_Code/PDD&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Static_Code/IO_Map&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Sources&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Generated_Code&quot;"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input.1195497299" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.compiler.input"/>
 							</tool>
@@ -77,7 +85,7 @@
 							</tool>
 							<tool id="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.linker.286807069" name="Cross ARM C++ Linker" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.cpp.linker">
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.linker.gcsections.1290588715" name="Remove unused sections (-Xlinker --gc-sections)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.linker.gcsections" value="true" valueType="boolean"/>
-								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.linker.paths.1439445165" name="Library search path (-L)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.linker.paths" valueType="libPaths"/>
+								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.linker.paths.1439445165" name="Library search path (-L)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.linker.paths"/>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.linker.scriptfile.1049779591" name="Script files (-T)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.cpp.linker.scriptfile" valueType="stringList">
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Project_Settings/Linker_Files/ProcessorExpert.ld&quot;"/>
 								</option>
