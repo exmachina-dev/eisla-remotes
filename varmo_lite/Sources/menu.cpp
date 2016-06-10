@@ -8,19 +8,15 @@ menu init_menu(char *name, sub_menu array[]){
 	return temp;
 }
 
-sub_menu init_sub_menu(char *name, bool item){
-	sub_menu temp;
-	temp.name = name;
-
-	return temp;
-}
-
 sub_menu init_sub_menu(char *name, bool item, void (*function)()){
 	sub_menu temp;
 	temp.name = name;
 	if (item == 1){
 		temp.function = function;
 		temp.item = 1;
+	}
+	else{
+		temp.function = void_function;
 	}
 	return temp;
 }
@@ -91,3 +87,5 @@ int menu_back(int size_array, menu array[]){
 	print_menu(pointer, size_array, array);
 	return pointer;
 }
+
+void void_function(){}

@@ -31,11 +31,15 @@
 #include "LED_STATUS_3.h"
 #include "LED_STATUS_4.h"
 
+#include "menu.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void led_init(int);
+
+void menu_init();
 
 #ifdef __cplusplus
 }  /* extern "C" */
