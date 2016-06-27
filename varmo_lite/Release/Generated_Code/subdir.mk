@@ -4,11 +4,14 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Generated_Code/AS1.c \
+../Generated_Code/ASerialLdd1.c \
 ../Generated_Code/BitIoLdd1.c \
 ../Generated_Code/BitIoLdd2.c \
 ../Generated_Code/BitIoLdd3.c \
 ../Generated_Code/BitIoLdd4.c \
 ../Generated_Code/BitIoLdd5.c \
+../Generated_Code/CS1.c \
 ../Generated_Code/Cpu.c \
 ../Generated_Code/ENCODER.c \
 ../Generated_Code/ENCODER_PUSH.c \
@@ -37,11 +40,14 @@ C_SRCS += \
 ../Generated_Code/WAIT1.c 
 
 OBJS += \
+./Generated_Code/AS1.o \
+./Generated_Code/ASerialLdd1.o \
 ./Generated_Code/BitIoLdd1.o \
 ./Generated_Code/BitIoLdd2.o \
 ./Generated_Code/BitIoLdd3.o \
 ./Generated_Code/BitIoLdd4.o \
 ./Generated_Code/BitIoLdd5.o \
+./Generated_Code/CS1.o \
 ./Generated_Code/Cpu.o \
 ./Generated_Code/ENCODER.o \
 ./Generated_Code/ENCODER_PUSH.o \
@@ -70,11 +76,14 @@ OBJS += \
 ./Generated_Code/WAIT1.o 
 
 C_DEPS += \
+./Generated_Code/AS1.d \
+./Generated_Code/ASerialLdd1.d \
 ./Generated_Code/BitIoLdd1.d \
 ./Generated_Code/BitIoLdd2.d \
 ./Generated_Code/BitIoLdd3.d \
 ./Generated_Code/BitIoLdd4.d \
 ./Generated_Code/BitIoLdd5.d \
+./Generated_Code/CS1.d \
 ./Generated_Code/Cpu.d \
 ./Generated_Code/ENCODER.d \
 ./Generated_Code/ENCODER_PUSH.d \

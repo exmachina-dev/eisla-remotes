@@ -9,7 +9,7 @@
 #define SOURCES_PROTOCOL_H_
 
 #include "stdint.h"
-#include <stdio.h>
+//#include <stdio.h>
 
 #include "AS1.h"
 
@@ -37,6 +37,8 @@ const char *Control_Mode = "machine.command.control_mode";
 const char *Device_serial_num = "machine.serialnumber";
 const char *Stop = "machine.command.cancel";
 
+
+
 typedef union {
    struct {
       unsigned int int0;
@@ -50,16 +52,21 @@ typedef union {
     } toBool;
 } binaryRepr;
 
-typedef struct protocol_setting {
-	char *PROTOCOL;
-	char *SERIAL_NUMBER; // Month/Year/VARM/Serie
-	char  *END;
-	char DELIMITATOR;
-}protocol_setting;
+struct protocol_setting {
+	const char *PROTOCOL;
+	const char *SERIAL_NUMBER; // Month/Year/VARM/Serie
+	const char *END;
+	const char DELIMITATOR;
+}protocol_setting = {"ExmEisla" , "0716VARMO0001", "\r\n", ':'} ;
 
-protocol_setting define_protocol_setting();
+/*
+struct {
+    const char* string;
+} myAnonymousStruct = { "some text" };*/
 
-void serial_send_block(protocol_setting, char*, char*);
+//protocol_setting define_protocol_setting(char*);
+
+void serial_send_block(char*, char*);
 void serial_send_string(char*);
 void serial_send_char(char);
 binaryRepr format_length(int);

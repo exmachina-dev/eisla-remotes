@@ -5,8 +5,10 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
 ../Sources/LCD.cpp \
-../Sources/MenuSystem.cpp \
-../Sources/PCA9670.cpp 
+../Sources/PCA9670.cpp \
+../Sources/display.cpp \
+../Sources/menu.cpp \
+../Sources/protocol.cpp 
 
 C_SRCS += \
 ../Sources/Events.c \
@@ -15,9 +17,11 @@ C_SRCS += \
 OBJS += \
 ./Sources/Events.o \
 ./Sources/LCD.o \
-./Sources/MenuSystem.o \
 ./Sources/PCA9670.o \
-./Sources/main.o 
+./Sources/display.o \
+./Sources/main.o \
+./Sources/menu.o \
+./Sources/protocol.o 
 
 C_DEPS += \
 ./Sources/Events.d \
@@ -25,8 +29,10 @@ C_DEPS += \
 
 CPP_DEPS += \
 ./Sources/LCD.d \
-./Sources/MenuSystem.d \
-./Sources/PCA9670.d 
+./Sources/PCA9670.d \
+./Sources/display.d \
+./Sources/menu.d \
+./Sources/protocol.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

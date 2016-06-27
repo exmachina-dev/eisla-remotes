@@ -39,6 +39,8 @@
 #include "Cpu.h"
 #include "Events.h"
 
+//#include "protocol.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif 
@@ -139,7 +141,9 @@ void I2C0_OnTransmitData(void)
 /* ===================================================================*/
 void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-  /* Write your code here ... */
+
+	//test_protocol();
+	/* Write your code here ... */
 }
 
 /*

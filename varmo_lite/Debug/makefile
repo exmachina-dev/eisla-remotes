@@ -11,6 +11,7 @@ RM := rm -rf
 -include Sources/subdir.mk
 -include Project_Settings/Startup_Code/subdir.mk
 -include Generated_Code/subdir.mk
+-include .settings/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -44,6 +45,12 @@ endif
 -include ../makefile.defs
 
 # Add inputs and outputs from these tool invocations to the build variables 
+SECONDARY_FLASH += \
+varmo_lite.hex \
+
+SECONDARY_SIZE += \
+varmo_lite.siz \
+
 
 # All Target
 all: varmo_lite.elf secondary-outputs
@@ -52,16 +59,28 @@ all: varmo_lite.elf secondary-outputs
 varmo_lite.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM C++ Linker'
-	arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "C:/Users/Adrian/Documents/repos/eisla-remotes/varmo_lite/Project_Settings/Linker_Files/ProcessorExpert.ld" -Xlinker --gc-sections -Wl,-Map,"varmo_lite.map" -specs=nano.specs -specs=nosys.specs -o "varmo_lite.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-g++ -mcpu=cortex-m3 -mthumb -O2  -g -Wl,-Map,"varmo_lite.map" -o "varmo_lite.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
+	@echo ' '
+
+varmo_lite.hex: varmo_lite.elf
+	@echo 'Invoking: Cross ARM GNU Create Flash Image'
+	arm-none-eabi-objcopy -O ihex "varmo_lite.elf"  "varmo_lite.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+varmo_lite.siz: varmo_lite.elf
+	@echo 'Invoking: Cross ARM GNU Print Size'
+	arm-none-eabi-size --format=berkeley "varmo_lite.elf"
+	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(C++_DEPS)$(OBJS)$(C_DEPS)$(ASM_DEPS)$(CC_DEPS)$(CPP_DEPS)$(CXX_DEPS)$(C_UPPER_DEPS)$(S_UPPER_DEPS) varmo_lite.elf
+	-$(RM) $(SECONDARY_SIZE)$(C++_DEPS)$(OBJS)$(C_DEPS)$(ASM_DEPS)$(CC_DEPS)$(SECONDARY_FLASH)$(CPP_DEPS)$(CXX_DEPS)$(C_UPPER_DEPS)$(S_UPPER_DEPS) varmo_lite.elf
 	-@echo ' '
 
-secondary-outputs:
+secondary-outputs: $(SECONDARY_FLASH) $(SECONDARY_SIZE)
 
 .PHONY: all clean dependents
 .SECONDARY:
