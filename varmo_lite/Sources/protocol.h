@@ -48,9 +48,6 @@ typedef union {
       uint8_t bool2;
       uint8_t bool3;
     } toBool;
-    float toFloat;
-    char toChar[4];
-    uint8_t toBytes[4];
 } binaryRepr;
 
 typedef struct protocol_setting {
@@ -65,6 +62,7 @@ protocol_setting define_protocol_setting();
 void serial_send_block(protocol_setting, char*, char*);
 void serial_send_string(char*);
 void serial_send_char(char);
+binaryRepr format_length(int);
 
 #ifdef __cplusplus
 }  /* extern "C" */

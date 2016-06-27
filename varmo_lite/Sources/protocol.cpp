@@ -22,7 +22,13 @@ protocol_setting define_protocol_setting(){
 
 void serial_send_block(protocol_setting setting, char* data1, char* data2)
 {
+	int length = sizeof(setting) + sizeof(data1) + sizeof(data2);
+
+	binaryRepr length_block = format_length(length);
+
 	serial_send_string(setting.PROTOCOL);
+	serial_send_char(length_block.toInt.int1);
+	serial_send_char(length_block.toInt.int0);
 	serial_send_string(setting.SERIAL_NUMBER);
 	serial_send_string(data1);
 	serial_send_char(setting.DELIMITATOR);
@@ -49,6 +55,22 @@ void serial_send_string(char* string){
 void serial_send_char(char character){
 	AS1_SendChar(character);
 }
+
+binaryRepr format_length(int length){
+   binaryRepr data_size;
+
+   if (length<255){
+      data_size.toInt.int0 = length;
+      data_size.toInt.int1 = 0x00;
+    }
+    else if (length > 255) {
+      data_size.toInt.int0 = (length&0x00FF);
+      data_size.toInt.int1 = (length&0XFF00) >> 8;
+    }
+
+   return data_size;
+}
+
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif
