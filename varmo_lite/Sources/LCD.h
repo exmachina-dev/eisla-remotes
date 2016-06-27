@@ -1,3 +1,6 @@
+#ifndef SOURCES_LCD_H_
+#define SOURCES_LCD_H_
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -16,3 +19,5 @@ void LCD_Write(uint8_t);
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif
+
+#endif /* SOURCES_LCD_H_ */

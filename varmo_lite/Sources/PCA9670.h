@@ -8,8 +8,15 @@
 #ifndef SOURCES_PCA9670_H_
 #define SOURCES_PCA9670_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
+
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif
 
 
 #endif /* SOURCES_PCA9670_H_ */

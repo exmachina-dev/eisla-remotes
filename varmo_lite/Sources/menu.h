@@ -1,21 +1,31 @@
 #include <stdio.h>
 
+#ifndef SOURCES_MENU_H_
+#define SOURCES_MENU_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct sub_menu2{
+  char *name;
+  bool select;
+  bool item;
+  void (*function)();
+}sub_menu2;
+
 typedef struct sub_menu{
   char *name;
   bool select;
   bool item;
   void (*function)();
+  sub_menu2 *sub;
 }sub_menu;
 
 typedef struct menu {
   char *name;
   bool menu_select;
   sub_menu *sub;
-  /*
-  float parameter_1;
-  float parameter_2;
-  float parameter_3;
-  float parameter_4;*/
 }menu;
 
 menu init_menu(char *, sub_menu []);
@@ -26,3 +36,10 @@ int menu_select(int, int, menu []);
 int sub_menu_select(int , int , sub_menu []);
 int menu_back(int, menu []);
 void void_function(void);
+
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif
+
+#endif /* SOURCES_MENU_H_ */
+

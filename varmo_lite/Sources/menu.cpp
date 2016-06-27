@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include ".\menu.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 menu init_menu(char *name, sub_menu array[]){
 	menu temp;
 	temp.name = name;
@@ -89,3 +93,8 @@ int menu_back(int size_array, menu array[]){
 }
 
 void void_function(){}
+
+
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif
