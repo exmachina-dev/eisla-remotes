@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 16:39, # CodeGen: 61
+**     Date/Time   : 2016-06-27, 09:58, # CodeGen: 75
 **     Abstract    :
 **
 **     Settings    :
@@ -86,6 +86,10 @@
 #include "ExtIntLdd4.h"
 #include "PUSH_BUTTON_REC.h"
 #include "ExtIntLdd5.h"
+#include "KSDK1.h"
+#include "CS1.h"
+#include "AS1.h"
+#include "ASerialLdd1.h"
 
 
 /*

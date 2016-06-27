@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 16:39, # CodeGen: 61
+**     Date/Time   : 2016-06-27, 09:58, # CodeGen: 75
 **     Abstract    :
 **
 **     Settings    :
@@ -331,6 +331,10 @@
 #include "ExtIntLdd4.h"
 #include "PUSH_BUTTON_REC.h"
 #include "ExtIntLdd5.h"
+#include "KSDK1.h"
+#include "CS1.h"
+#include "AS1.h"
+#include "ASerialLdd1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -601,6 +605,11 @@ void PE_low_level_init(void)
   (void)ExtIntLdd4_Init(NULL);
   /* ### ExtInt_LDD "ExtIntLdd5" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)ExtIntLdd5_Init(NULL);
+  /* ### KinetisSDK "KSDK1" init code ... */
+  /* Write code here ... */
+  /* ### CriticalSection "CS1" init code ... */
+  /* ### Asynchro serial "AS1" init code ... */
+  AS1_Init();
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

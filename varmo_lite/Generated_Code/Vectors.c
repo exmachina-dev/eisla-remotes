@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 16:39, # CodeGen: 61
+**     Date/Time   : 2016-06-27, 09:58, # CodeGen: 75
 **     Abstract    :
 **
 **     Settings    :
@@ -80,6 +80,10 @@
   #include "ExtIntLdd4.h"
   #include "PUSH_BUTTON_REC.h"
   #include "ExtIntLdd5.h"
+  #include "KSDK1.h"
+  #include "CS1.h"
+  #include "AS1.h"
+  #include "ASerialLdd1.h"
   #include "Events.h"
 
 
@@ -160,8 +164,8 @@
     (tIsrFunc)&Cpu_Interrupt,          /* 0x3A  0x000000E8   -   ivINT_Reserved58               unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x3B  0x000000EC   -   ivINT_Reserved59               unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x3C  0x000000F0   -   ivINT_UART0_LON                unused by PE */
-    (tIsrFunc)&Cpu_Interrupt,          /* 0x3D  0x000000F4   -   ivINT_UART0_RX_TX              unused by PE */
-    (tIsrFunc)&Cpu_Interrupt,          /* 0x3E  0x000000F8   -   ivINT_UART0_ERR                unused by PE */
+    (tIsrFunc)&ASerialLdd1_Interrupt,  /* 0x3D  0x000000F4   8   ivINT_UART0_RX_TX              used by PE */
+    (tIsrFunc)&ASerialLdd1_Interrupt,  /* 0x3E  0x000000F8   8   ivINT_UART0_ERR                used by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x3F  0x000000FC   -   ivINT_UART1_RX_TX              unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x40  0x00000100   -   ivINT_UART1_ERR                unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x41  0x00000104   -   ivINT_UART2_RX_TX              unused by PE */

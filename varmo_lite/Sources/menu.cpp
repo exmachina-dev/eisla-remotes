@@ -26,7 +26,7 @@ sub_menu init_sub_menu(char *name, bool item, void (*function)()){
 }
 
 void print_menu(int pointer, int size_array, menu array[]){
-	int temp = 0;
+  int temp = 0;
   if ((pointer+3) > size_array){
   	temp = size_array-3;
   }
@@ -45,7 +45,7 @@ void print_menu(int pointer, int size_array, menu array[]){
 }
 
 void print_sub_menu(int pointer, int size_array, sub_menu array[]){
-	int temp = 0;
+  int temp = 0;
   if ((pointer+3) > size_array){
   	temp = size_array-3;
   }
