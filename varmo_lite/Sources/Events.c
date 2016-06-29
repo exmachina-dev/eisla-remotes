@@ -364,7 +364,23 @@ void AS1_OnRxChar(void)
 */
 void AS1_OnRxCharExt(AS1_TComData Chr)
 {
-  /* Write your code here ... */
+	if (Chr == '\n'){//}) && in_buffer[cnt-1] == 'r' && cnt !=0){
+			//End of a message
+			char test = in_buffer[cnt-1];
+			int ints = cnt;
+			char* ver = in_buffer;
+			in_buffer[cnt] = Chr;
+			FLAG_MSG_RCV = 1;
+			cnt = 0;
+			LED_STATUS_3_ClrVal();
+			AS1_ClearRxBuf();
+	}
+	else{
+		in_buffer[cnt]= Chr;
+		cnt ++;
+		LED_STATUS_3_SetVal();
+		AS1_ClearRxBuf();
+	}
 }
 
 /*
@@ -399,7 +415,8 @@ void AS1_OnTxChar(void)
 */
 void AS1_OnFullRxBuf(void)
 {
-  /* Write your code here ... */
+	AS1_ClearRxBuf();
+	FLAG_MSG_ERR = 1;
 }
 
 /*

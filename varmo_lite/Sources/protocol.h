@@ -42,6 +42,11 @@ static const char *Control_Mode = "machine.command.control_mode";
 static const char *Device_serial_num = "machine.serialnumber";
 static const char *Stop = "machine.command.cancel";
 
+char in_buffer[127];
+uint8_t cnt;
+bool FLAG_MSG_RCV;
+bool FLAG_MSG_ERR;
+
 typedef union {
 	unsigned int int0;
     struct {

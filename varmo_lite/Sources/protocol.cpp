@@ -47,12 +47,13 @@ void serial_send_block(int n,...)
 			serial_send_string(va_arg(arg, char*));
 		}
 	}
+	va_end(arg);
 
 	serial_send_string(protocol_setting.END);
 }
 
 void serial_send_string(char* string){
-	int nb_character = sizeof(string)/sizeof(string[0]);
+	int nb_character = strlen(string);
 
 	if (nb_character == 1){
 		serial_send_char(string[0]);

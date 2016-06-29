@@ -172,13 +172,13 @@ Module "I2C0"      (component InternalI2C)
                 not available for the SLAVE mode.
    - I2C0_GetMode -This method returns the actual operating mode of this component.
 
-Module "PUSH_BUTTON_SEND" (component ExtInt)
-   - PUSH_BUTTON_SEND_GetVal -Returns the actual value of the input pin of the component.
-
 Module "PUSH_BUTTON_REC" (component ExtInt)
    - PUSH_BUTTON_REC_GetVal -Returns the actual value of the input pin of the component.
 
 Module "KSDK1"     (component KinetisSDK)
+
+Module "PUSH_BUTTON_SEND" (component ExtInt)
+   - PUSH_BUTTON_SEND_GetVal -Returns the actual value of the input pin of the component.
 
 Module "CS1"       (component CriticalSection)
    - CS1_CriticalVariable -Defines a variable if necessary. This is a macro.

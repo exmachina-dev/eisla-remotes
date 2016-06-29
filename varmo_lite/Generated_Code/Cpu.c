@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-27, 09:58, # CodeGen: 75
+**     Date/Time   : 2016-06-29, 16:52, # CodeGen: 82
 **     Abstract    :
 **
 **     Settings    :
@@ -327,11 +327,11 @@
 #include "T_100ms.h"
 #include "I2C0.h"
 #include "IntI2cLdd1.h"
-#include "PUSH_BUTTON_SEND.h"
-#include "ExtIntLdd4.h"
 #include "PUSH_BUTTON_REC.h"
 #include "ExtIntLdd5.h"
 #include "KSDK1.h"
+#include "PUSH_BUTTON_SEND.h"
+#include "ExtIntLdd4.h"
 #include "CS1.h"
 #include "AS1.h"
 #include "ASerialLdd1.h"
@@ -377,8 +377,8 @@ PE_ISR(Cpu_ivINT_PORTC)
   ExtIntLdd1_Interrupt();              /* Call the service routine */
   ExtIntLdd2_Interrupt();              /* Call the service routine */
   ExtIntLdd3_Interrupt();              /* Call the service routine */
-  ExtIntLdd4_Interrupt();              /* Call the service routine */
   ExtIntLdd5_Interrupt();              /* Call the service routine */
+  ExtIntLdd4_Interrupt();              /* Call the service routine */
 }
 
 /*
@@ -601,12 +601,12 @@ void PE_low_level_init(void)
   (void)T_100ms_Init(NULL);
   /* ### InternalI2C "I2C0" init code ... */
   I2C0_Init();
-  /* ### ExtInt_LDD "ExtIntLdd4" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
-  (void)ExtIntLdd4_Init(NULL);
   /* ### ExtInt_LDD "ExtIntLdd5" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)ExtIntLdd5_Init(NULL);
   /* ### KinetisSDK "KSDK1" init code ... */
   /* Write code here ... */
+  /* ### ExtInt_LDD "ExtIntLdd4" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)ExtIntLdd4_Init(NULL);
   /* ### CriticalSection "CS1" init code ... */
   /* ### Asynchro serial "AS1" init code ... */
   AS1_Init();
