@@ -7,7 +7,7 @@
 **     Version     : Component 01.188, Driver 01.12, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-27, 09:58, # CodeGen: 75
+**     Date/Time   : 2016-06-29, 16:08, # CodeGen: 80
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -50,7 +50,7 @@
 **            Event mask                                   : 
 **              OnBlockSent                                : Enabled
 **              OnBlockReceived                            : Enabled
-**              OnTxComplete                               : Disabled
+**              OnTxComplete                               : Enabled
 **              OnError                                    : Enabled
 **              OnBreak                                    : Enabled
 **          CPU clock/configuration selection              : 
@@ -142,6 +142,7 @@ extern "C" {
 #define ASerialLdd1_OnBlockSent_EVENT_ENABLED /*!< OnBlockSent event of the component ASerialLdd1 is enabled (generated) */
 #define ASerialLdd1_OnBreak_EVENT_ENABLED /*!< OnBreak event of the component ASerialLdd1 is enabled (generated) */
 #define ASerialLdd1_OnError_EVENT_ENABLED /*!< OnError event of the component ASerialLdd1 is enabled (generated) */
+#define ASerialLdd1_OnTxComplete_EVENT_ENABLED /*!< OnTxComplete event of the component ASerialLdd1 is enabled (generated) */
 
 #define ENABLED_TX_INT        0x01U    /*!< TX interrupt enabled      */
 #define BREAK_DETECTED        0x02U    /*!< Break detected            */

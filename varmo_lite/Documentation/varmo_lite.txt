@@ -68,6 +68,8 @@ Module "LED_STATUS_3" (component BitIO)
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_3_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
+   - LED_STATUS_3_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
+                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_4" (component BitIO)
    - LED_STATUS_4_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
@@ -81,6 +83,8 @@ Module "LED_STATUS_4" (component BitIO)
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_4_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
+   - LED_STATUS_4_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
+                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "ENCODER"   (component GPIO_LDD)
    - ENCODER_Init -This method initializes the associated peripheral(s) and the component internal variables. The method is 
@@ -191,6 +195,18 @@ Module "AS1"       (component AsynchroSerial)
                 method only stores data into an output buffer. In case of a zero output buffer size, only one character can be 
                 stored. Enabling the component (Enable method) starts the transmission of the stored data. This method is 
                 available only if the transmitter property is enabled.
+   - AS1_RecvBlock -If any data is received, this method returns the block of the data and its length (and incidental error), 
+                otherwise it returns an error code (it does not wait for data).  This method is available only if non-zero 
+                length of the input buffer is defined and the receiver property is enabled.  If less than requested number of 
+                characters is received only the available data is copied from the receive buffer to the user specified 
+                destination. The value ERR_EXEMPTY is returned and the value of variable pointed by the Rcv parameter is set to 
+                the number of received characters.
+   - AS1_SendBlock -Sends a block of characters to the channel.  This method is available only if non-zero length of the output 
+                buffer is defined and the transmitter property is enabled.
+   - AS1_ClearRxBuf -Clears the receive buffer.  This method is available only if non-zero length of the input buffer is 
+                defined and the receiver property is enabled.
+   - AS1_ClearTxBuf -Clears the transmit buffer.  This method is available only if non-zero length of the output buffer is 
+                defined and the receiver property is enabled.
    - AS1_GetCharsInRxBuf -Returns the number of characters in the input buffer. This method is available only if the receiver 
                 property is enabled.
    - AS1_GetCharsInTxBuf -Returns the number of characters in the output buffer. This method is available only if the 

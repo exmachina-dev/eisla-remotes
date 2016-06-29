@@ -7,7 +7,7 @@
 **     Version     : Component 02.611, Driver 01.01, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-27, 09:58, # CodeGen: 75
+**     Date/Time   : 2016-06-29, 16:08, # CodeGen: 80
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -25,8 +25,8 @@
 **            Interrupt TxD priority                       : medium priority
 **            Interrupt Error                              : INT_UART0_ERR
 **            Interrupt Error priority                     : medium priority
-**            Input buffer size                            : 0
-**            Output buffer size                           : 0
+**            Input buffer size                            : 64
+**            Output buffer size                           : 64
 **            Handshake                                    : 
 **              CTS                                        : Disabled
 **              RTS                                        : Disabled
@@ -60,6 +60,10 @@
 **     Contents    :
 **         RecvChar        - byte AS1_RecvChar(AS1_TComData *Chr);
 **         SendChar        - byte AS1_SendChar(AS1_TComData Chr);
+**         RecvBlock       - byte AS1_RecvBlock(AS1_TComData *Ptr, word Size, word *Rcv);
+**         SendBlock       - byte AS1_SendBlock(AS1_TComData *Ptr, word Size, word *Snd);
+**         ClearRxBuf      - byte AS1_ClearRxBuf(void);
+**         ClearTxBuf      - byte AS1_ClearTxBuf(void);
 **         GetCharsInRxBuf - word AS1_GetCharsInRxBuf(void);
 **         GetCharsInTxBuf - word AS1_GetCharsInTxBuf(void);
 **
@@ -146,8 +150,16 @@ static word SerFlag;                   /* Flags for serial communication */
                                        /*       9 - Break detected  */
                                        /*      10 - Unused */
                                        /*      11 - Unused */
+static word AS1_InpLen;                /* Length of input buffer's content */
+static word InpIndexR;                 /* Index for reading from input buffer */
+static word InpIndexW;                 /* Index for writing to input buffer */
+static AS1_TComData InpBuffer[AS1_INP_BUF_SIZE]; /* Input buffer for SCI communication */
 static AS1_TComData BufferRead;        /* Input char for SCI communication */
-static AS1_TComData OutBuffer;         /* Output char for SCI communication */
+static word AS1_OutLen;                /* Length of output bufer's content */
+static word OutIndexR;                 /* Index for reading from output buffer */
+static word OutIndexW;                 /* Index for writing to output buffer */
+static AS1_TComData OutBuffer[AS1_OUT_BUF_SIZE]; /* Output buffer for SCI communication */
+static bool OnFreeTxBufSemaphore;      /* Disable the false calling of the OnFreeTxBuf event */
 
 /*
 ** ===================================================================
@@ -201,14 +213,19 @@ byte AS1_RecvChar(AS1_TComData *Chr)
 {
   byte Result = ERR_OK;                /* Return error code */
 
-  if ((SerFlag & CHAR_IN_RX) == 0U) {  /* Is any char in RX buffer? */
-    return ERR_RXEMPTY;                /* If no then error */
+  if (AS1_InpLen > 0x00U) {            /* Is number of received chars greater than 0? */
+    EnterCritical();                   /* Disable global interrupts */
+    AS1_InpLen--;                      /* Decrease number of received chars */
+    *Chr = InpBuffer[InpIndexR++];     /* Received char */
+    if (InpIndexR >= AS1_INP_BUF_SIZE) { /* Is the index out of the receive buffer? */
+      InpIndexR = 0x00U;               /* Set index to the first item into the receive buffer */
+    }
+    Result = (byte)((SerFlag & (OVERRUN_ERR|COMMON_ERR|FULL_RX))? ERR_COMMON : ERR_OK);
+    SerFlag &= (word)~(word)(OVERRUN_ERR|COMMON_ERR|FULL_RX|CHAR_IN_RX); /* Clear all errors in the status variable */
+    ExitCritical();                    /* Enable global interrupts */
+  } else {
+    return ERR_RXEMPTY;                /* Receiver is empty */
   }
-  EnterCritical();                     /* Disable global interrupts */
-  *Chr = BufferRead;                   /* Received char */
-  Result = (byte)((SerFlag & (OVERRUN_ERR|COMMON_ERR))? ERR_COMMON : ERR_OK);
-  SerFlag &= (word)~(word)(OVERRUN_ERR|COMMON_ERR|CHAR_IN_RX); /* Clear all errors in the status variable */
-  ExitCritical();                      /* Enable global interrupts */
   return Result;                       /* Return error code */
 }
 
@@ -236,13 +253,182 @@ byte AS1_RecvChar(AS1_TComData *Chr)
 */
 byte AS1_SendChar(AS1_TComData Chr)
 {
-  if ((SerFlag & FULL_TX) != 0U) {     /* Is any char is in TX buffer */
+  if (AS1_OutLen == AS1_OUT_BUF_SIZE) { /* Is number of chars in buffer is the same as a size of the transmit buffer */
     return ERR_TXFULL;                 /* If yes then error */
   }
   EnterCritical();                     /* Disable global interrupts */
-  OutBuffer = Chr;                     /* Store char to temporary variable */
-  (void)ASerialLdd1_SendBlock(ASerialLdd1_DeviceDataPtr, (LDD_TData *)&OutBuffer, 1U); /* Send one data byte */
-  SerFlag |= (FULL_TX);                /* Set the flag "full TX buffer" */
+  AS1_OutLen++;                        /* Increase number of bytes in the transmit buffer */
+  OutBuffer[OutIndexW++] = Chr;        /* Store char to buffer */
+  if (OutIndexW >= AS1_OUT_BUF_SIZE) { /* Is the pointer out of the transmit buffer */
+    OutIndexW = 0x00U;                 /* Set index to first item in the transmit buffer */
+  }
+  if ((SerFlag & RUNINT_FROM_TX) == 0U) {
+    SerFlag |= RUNINT_FROM_TX;         /* Set flag "running int from TX"? */
+    (void)ASerialLdd1_SendBlock(ASerialLdd1_DeviceDataPtr, (LDD_TData *)&OutBuffer[OutIndexR], 1U); /* Send one data byte */
+  }
+  ExitCritical();                      /* Enable global interrupts */
+  return ERR_OK;                       /* OK */
+}
+
+/*
+** ===================================================================
+**     Method      :  AS1_RecvBlock (component AsynchroSerial)
+**     Description :
+**         If any data is received, this method returns the block of
+**         the data and its length (and incidental error), otherwise it
+**         returns an error code (it does not wait for data).
+**         This method is available only if non-zero length of the
+**         input buffer is defined and the receiver property is enabled.
+**         If less than requested number of characters is received only
+**         the available data is copied from the receive buffer to the
+**         user specified destination. The value ERR_EXEMPTY is
+**         returned and the value of variable pointed by the Rcv
+**         parameter is set to the number of received characters.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * Ptr             - Pointer to the block of received data
+**         Size            - Size of the block
+**       * Rcv             - Pointer to real number of the received data
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+**                           ERR_RXEMPTY - The receive buffer didn't
+**                           contain the requested number of data. Only
+**                           available data has been returned.
+**                           ERR_COMMON - common error occurred (the
+**                           GetError method can be used for error
+**                           specification)
+** ===================================================================
+*/
+byte AS1_RecvBlock(AS1_TComData *Ptr, word Size, word *Rcv)
+{
+  register word count;                 /* Number of received chars */
+  register byte result = ERR_OK;       /* Last error */
+
+  for (count = 0x00U; count < Size; count++) {
+    switch (AS1_RecvChar(Ptr++)) {     /* Receive data and test the return value*/
+    case ERR_RXEMPTY:                  /* No data in the buffer */
+      if (result == ERR_OK) {          /* If no receiver error reported */
+        result = ERR_RXEMPTY;          /* Return info that requested number of data is not available */
+      }
+     *Rcv = count;                     /* Return number of received chars */
+      return result;
+    case ERR_COMMON:                   /* Receiver error reported */
+      result = ERR_COMMON;             /* Return info that an error was detected */
+      break;
+    default:
+      break;
+    }
+  }
+  *Rcv = count;                        /* Return number of received chars */
+  return result;                       /* OK */
+}
+
+/*
+** ===================================================================
+**     Method      :  AS1_SendBlock (component AsynchroSerial)
+**     Description :
+**         Sends a block of characters to the channel.
+**         This method is available only if non-zero length of the
+**         output buffer is defined and the transmitter property is
+**         enabled.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * Ptr             - Pointer to the block of data to send
+**         Size            - Size of the block
+**       * Snd             - Pointer to number of data that are sent
+**                           (moved to buffer)
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+**                           ERR_TXFULL - It was not possible to send
+**                           requested number of bytes
+** ===================================================================
+*/
+byte AS1_SendBlock(AS1_TComData *Ptr, word Size, word *Snd)
+{
+  word count = 0x00U;                  /* Number of sent chars */
+  AS1_TComData *TmpPtr = Ptr;          /* Temporary output buffer pointer */
+  bool tmpOnFreeTxBufSemaphore = OnFreeTxBufSemaphore; /* Local copy of OnFreeTxBufSemaphore state */
+
+  while ((count < Size) && (AS1_OutLen < AS1_OUT_BUF_SIZE)) { /* While there is some char desired to send left and output buffer is not full do */
+    EnterCritical();                   /* Enter the critical section */
+    OnFreeTxBufSemaphore = TRUE;       /* Set the OnFreeTxBufSemaphore to block OnFreeTxBuf calling */
+    AS1_OutLen++;                      /* Increase number of bytes in the transmit buffer */
+    OutBuffer[OutIndexW++] = *TmpPtr++; /* Store char to buffer */
+    if (OutIndexW >= AS1_OUT_BUF_SIZE) { /* Is the index out of the transmit buffer? */
+      OutIndexW = 0x00U;               /* Set index to the first item in the transmit buffer */
+    }
+    count++;                           /* Increase the count of sent data */
+    if ((count == Size) || (AS1_OutLen == AS1_OUT_BUF_SIZE)) { /* Is the last desired char put into buffer or the buffer is full? */
+      if (!tmpOnFreeTxBufSemaphore) {  /* Was the OnFreeTxBufSemaphore clear before enter the method? */
+        OnFreeTxBufSemaphore = FALSE;  /* If yes then clear the OnFreeTxBufSemaphore */
+      }
+    }
+    if ((SerFlag & RUNINT_FROM_TX) == 0U) {
+      SerFlag |= RUNINT_FROM_TX;       /* Set flag "running int from TX"? */
+      (void)ASerialLdd1_SendBlock(ASerialLdd1_DeviceDataPtr, (LDD_TData *)&OutBuffer[OutIndexR], 1U); /* Send one data byte */
+    }
+    ExitCritical();                    /* Exit the critical section */
+  }
+  *Snd = count;                        /* Return number of sent chars */
+  if (count != Size) {                 /* Is the number of sent chars less then desired number of chars */
+    return ERR_TXFULL;                 /* If yes then error */
+  }
+  return ERR_OK;                       /* OK */
+}
+
+/*
+** ===================================================================
+**     Method      :  AS1_ClearRxBuf (component AsynchroSerial)
+**     Description :
+**         Clears the receive buffer.
+**         This method is available only if non-zero length of the
+**         input buffer is defined and the receiver property is enabled.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte AS1_ClearRxBuf(void)
+{
+  EnterCritical();                     /* Disable global interrupts */
+  AS1_InpLen = 0x00U;                  /* Set number of chars in the transmit buffer to 0 */
+  InpIndexW = 0x00U;                   /* Set index on the first item in the transmit buffer */
+  InpIndexR = 0x00U;
+  ExitCritical();                      /* Enable global interrupts */
+  return ERR_OK;                       /* OK */
+}
+
+/*
+** ===================================================================
+**     Method      :  AS1_ClearTxBuf (component AsynchroSerial)
+**     Description :
+**         Clears the transmit buffer.
+**         This method is available only if non-zero length of the
+**         output buffer is defined and the receiver property is
+**         enabled.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte AS1_ClearTxBuf(void)
+{
+  EnterCritical();                     /* Disable global interrupts */
+  AS1_OutLen = 0x00U;                  /* Set number of chars in the receive buffer to 0 */
+  OutIndexW = 0x00U;                   /* Set index on the first item in the receive buffer */
+  OutIndexR = 0x00U;
   ExitCritical();                      /* Enable global interrupts */
   return ERR_OK;                       /* OK */
 }
@@ -261,7 +447,7 @@ byte AS1_SendChar(AS1_TComData Chr)
 */
 word AS1_GetCharsInRxBuf(void)
 {
-  return (word)(((SerFlag & CHAR_IN_RX) != 0U)? 1U : 0U); /* Return number of chars in receive buffer */
+  return AS1_InpLen;                   /* Return number of chars in receive buffer */
 }
 
 /*
@@ -279,7 +465,7 @@ word AS1_GetCharsInRxBuf(void)
 */
 word AS1_GetCharsInTxBuf(void)
 {
-  return (word)(((SerFlag & FULL_TX) != 0U)? 1U : 0U); /* Return number of chars in the transmitter buffer */
+  return AS1_OutLen;                   /* Return number of chars in the transmitter buffer */
 }
 
 /*
@@ -296,6 +482,12 @@ word AS1_GetCharsInTxBuf(void)
 void AS1_Init(void)
 {
   SerFlag = 0x00U;                     /* Reset flags */
+  AS1_InpLen = 0x00U;                  /* No char in the receive buffer */
+  InpIndexR = 0x00U;                   /* Set index on the first item in the receive buffer */
+  InpIndexW = 0x00U;
+  AS1_OutLen = 0x00U;                  /* No char in the transmit buffer */
+  OutIndexR = 0x00U;                   /* Set index on the first item in the transmit buffer */
+  OutIndexW = 0x00U;
   ASerialLdd1_DeviceDataPtr = ASerialLdd1_Init(NULL); /* Calling init method of the inherited component */
   HWEnDi();                            /* Enable/disable device according to status flags */
 }
@@ -318,15 +510,30 @@ void ASerialLdd1_OnBlockReceived(LDD_TUserData *UserDataPtr)
   register byte Flags = 0U;            /* Temporary variable for flags */
 
   (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
-  if ((SerFlag & CHAR_IN_RX) != 0U) {  /* Is the overrun error flag set? */
-    SerFlag |= OVERRUN_ERR;            /* If yes then set the Error flag for RecvChar/Block method */
-    Flags |= ON_ERROR;                 /* If yes then set the OnError flag */
+  if (AS1_InpLen < AS1_INP_BUF_SIZE) { /* Is number of bytes in the receive buffer lower than size of buffer? */
+    AS1_InpLen++;                      /* Increase number of chars in the receive buffer */
+    InpBuffer[InpIndexW++] = (AS1_TComData)BufferRead; /* Save received char to the receive buffer */
+    if (InpIndexW >= AS1_INP_BUF_SIZE) { /* Is the index out of the receive buffer? */
+      InpIndexW = 0x00U;               /* Set index on the first item into the receive buffer */
+    }
+    Flags |= ON_RX_CHAR;               /* If yes then set the OnRxChar flag */
+    if (AS1_InpLen == AS1_INP_BUF_SIZE) { /* Is number of bytes in the receive buffer equal to the size of buffer? */
+      Flags |= ON_FULL_RX;             /* Set flag "OnFullRxBuf" */
+    }
+  } else {
+    SerFlag |= FULL_RX;                /* Set flag "full RX buffer" */
+    Flags |= ON_ERROR;                 /* Set the OnError flag */
   }
-  SerFlag |= CHAR_IN_RX;               /* Set flag "char in RX buffer" */
   if ((Flags & ON_ERROR) != 0U) {      /* Is any error flag set? */
     AS1_OnError();                     /* Invoke user event */
   } else {
-    AS1_OnRxChar();                    /* Invoke user event */
+    if ((Flags & ON_RX_CHAR) != 0U) {  /* Is OnRxChar flag set? */
+      AS1_OnRxChar();                  /* Invoke user event */
+      AS1_OnRxCharExt((AS1_TComData)BufferRead); /* Invoke user event */
+    }
+    if ((Flags & ON_FULL_RX) != 0U) {  /* Is OnTxChar flag set? */
+      AS1_OnFullRxBuf();               /* Invoke user event */
+    }
   }
   (void)ASerialLdd1_ReceiveBlock(ASerialLdd1_DeviceDataPtr, &BufferRead, 1U); /* Receive one data byte */
 }
@@ -348,12 +555,28 @@ void ASerialLdd1_OnBlockSent(LDD_TUserData *UserDataPtr)
   word OnFlags = 0x00U;                /* Temporary variable for flags */
 
   (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
-  if ((SerFlag & FULL_TX) != 0U) {     /* Is any char already present in the transmit buffer? */
+  if ((SerFlag & RUNINT_FROM_TX) != 0U) { /* Is flag "running int from TX" set? */
     OnFlags |= ON_TX_CHAR;             /* Set flag "OnTxChar" */
   }
-  SerFlag &= (word)~(word)(FULL_TX);   /* Reset flag "full TX buffer" */
+  OutIndexR++;
+  if (OutIndexR >= AS1_OUT_BUF_SIZE) { /* Is the index out of the transmit buffer? */
+    OutIndexR = 0x00U;                 /* Set index on the first item into the transmit buffer */
+  }
+  AS1_OutLen--;                        /* Decrease number of chars in the transmit buffer */
+  if (AS1_OutLen != 0U) {              /* Is number of bytes in the transmit buffer greater then 0? */
+    SerFlag |= RUNINT_FROM_TX;         /* Set flag "running int from TX"? */
+    (void)ASerialLdd1_SendBlock(ASerialLdd1_DeviceDataPtr, (LDD_TData *)&OutBuffer[OutIndexR], 1U); /* Send one data byte */
+  } else {
+    SerFlag &= (byte)~(RUNINT_FROM_TX); /* Clear "running int from TX" and "full TX buff" flags */
+    if (!(OnFreeTxBufSemaphore)) {     /* Is the OnFreeTXBuf flag blocked ?*/
+      OnFlags |= ON_FREE_TX;           /* If not, set the OnFreeTxBuf flag */
+    }
+  }
   if ((OnFlags & ON_TX_CHAR) != 0x00U) { /* Is flag "OnTxChar" set? */
     AS1_OnTxChar();                    /* If yes then invoke user event */
+  }
+  if ((OnFlags & ON_FREE_TX) != 0x00U) { /* Is flag "OnFreeTxBuf" set? */
+    AS1_OnFreeTxBuf();                 /* If yes then invoke user event */
   }
 }
 
@@ -380,6 +603,23 @@ void ASerialLdd1_OnError(LDD_TUserData *UserDataPtr)
     SerFlag |= (((SerialErrorMask & LDD_SERIAL_FRAMING_ERROR) != 0U ) ? FRAMING_ERR : 0U);
   }
   AS1_OnError();                       /* Invoke user event */
+}
+
+/*
+** ===================================================================
+**     Method      :  AS1_ASerialLdd1_OnTxComplete (component AsynchroSerial)
+**
+**     Description :
+**         This event indicates that the transmitter is finished 
+**         transmitting all data, preamble, and break characters and is 
+**         idle.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
+void ASerialLdd1_OnTxComplete(LDD_TUserData *UserDataPtr)
+{
+  (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
+  AS1_OnTxComplete();                  /* Invoke user event */
 }
 
 /*

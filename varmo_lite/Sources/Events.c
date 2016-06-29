@@ -45,7 +45,7 @@ extern "C" {
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
-
+#include "protocol.h"
 /*
 ** ===================================================================
 **     Event       :  PUSH_BUTTON_REC_OnInterrupt (module Events)
@@ -237,7 +237,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 /* ===================================================================*/
 void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-  /* Write your code here ... */
+	test_protocol();
 }
 
 /*
@@ -274,6 +274,28 @@ void Cpu_OnNMIINT(void)
 void I2C0_OnArbitLost(void)
 {
   I2C0_SendStop();
+}
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnTxComplete (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event indicates that the transmitter is finished
+**         transmitting all data, preamble, and break characters and is
+**         idle. It can be used to determine when it is safe to switch
+**         a line driver (e.g. in RS-485 applications).
+**         The event is available only when both <Interrupt
+**         service/event> and <Transmitter> properties are enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnTxComplete(void)
+{
+	LED_STATUS_4_ClrVal();
+	/* Write your code here ... */
 }
 
 /*
@@ -318,6 +340,35 @@ void AS1_OnRxChar(void)
 
 /*
 ** ===================================================================
+**     Event       :  AS1_OnRxCharExt (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called after a correct character is received.
+**         The last received character is passed as a parameter of the
+**         event function.
+**         Nevertheless, the last received character is placed in the
+**         external buffer of the component.
+**         This event is identical in function with the <OnRxChar>
+**         event with a parameter added. It is not recommended to use
+**         both <OnRxChar> and OnRxCharExt events at the same time.
+**         The event is available only when the <Interrupt
+**         service/event> property is enabled and either the <Receiver>
+**         property is enabled or the <SCI output mode> property (if
+**         supported) is set to Single-wire mode.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         Chr             - The last character correctly received.
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnRxCharExt(AS1_TComData Chr)
+{
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
 **     Event       :  AS1_OnTxChar (module Events)
 **
 **     Component   :  AS1 [AsynchroSerial]
@@ -329,7 +380,43 @@ void AS1_OnRxChar(void)
 */
 void AS1_OnTxChar(void)
 {
+	LED_STATUS_4_SetVal();
+	/* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnFullRxBuf (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called when the input buffer is full;
+**         i.e. after reception of the last character 
+**         that was successfully placed into input buffer.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnFullRxBuf(void)
+{
   /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnFreeTxBuf (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called after the last character in output
+**         buffer is transmitted.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnFreeTxBuf(void)
+{
+
 }
 
 /* END Events */

@@ -5,35 +5,50 @@
  *      Author: Adrian
  */
 
+#include "stdint.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
+
 #include "protocol.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-protocol_setting define_protocol_setting(){
-	protocol_setting setting;
-	setting.PROTOCOL= (char*) "ExmEisla";
-	setting.SERIAL_NUMBER = (char*) "0716VARMO0001";
-	setting.DELIMITATOR = ':';
-	setting.END = (char*) "\r\n";
-	return setting;
-}
-
-void serial_send_block(protocol_setting setting, char* data1, char* data2)
+void serial_send_block(int n,...)
 {
-	int length = sizeof(setting) + sizeof(data1) + sizeof(data2);
+	int nb_element = n;
+	va_list arg;
+	va_start(arg, n);
 
-	binaryRepr length_block = format_length(length);
+	binaryRepr length;
 
-	serial_send_string(setting.PROTOCOL);
-	serial_send_char(length_block.toInt.int1);
-	serial_send_char(length_block.toInt.int0);
-	serial_send_string(setting.SERIAL_NUMBER);
-	serial_send_string(data1);
-	serial_send_char(setting.DELIMITATOR);
-	serial_send_string(data2);
-	serial_send_string(setting.END);
+	length.int0 = protocol_setting.length.int0;
+
+	for (int i = 0; i < nb_element; i++){
+		length.int0 += strlen(va_arg(arg, char*));
+	}
+	va_end(arg);
+
+	//binaryRepr length_block = format_length(length);
+	serial_send_string(protocol_setting.PROTOCOL);
+	serial_send_char(length.toUint_8.toUint_8_1);
+	serial_send_char(length.toUint_8.toUint_8_0);
+	serial_send_string(protocol_setting.SERIAL_NUMBER);
+
+	va_start(arg, n);
+	for (int i = 0; i > nb_element; i++){
+		if (i == 0){
+			serial_send_string(va_arg(arg, char*));
+		}
+		else {
+			serial_send_char(protocol_setting.DELIMITATOR);
+			serial_send_string(va_arg(arg, char*));
+		}
+	}
+
+	serial_send_string(protocol_setting.END);
 }
 
 void serial_send_string(char* string){
@@ -56,19 +71,8 @@ void serial_send_char(char character){
 	AS1_SendChar(character);
 }
 
-binaryRepr format_length(int length){
-   binaryRepr data_size;
-
-   if (length<255){
-      data_size.toInt.int0 = length;
-      data_size.toInt.int1 = 0x00;
-    }
-    else if (length > 255) {
-      data_size.toInt.int0 = (length&0x00FF);
-      data_size.toInt.int1 = (length&0XFF00) >> 8;
-    }
-
-   return data_size;
+void test_protocol(){
+	serial_send_block(2, (char*)Get, (char*)Velocity);
 }
 
 #ifdef __cplusplus

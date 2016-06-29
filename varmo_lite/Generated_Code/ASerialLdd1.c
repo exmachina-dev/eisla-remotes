@@ -7,7 +7,7 @@
 **     Version     : Component 01.188, Driver 01.12, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-27, 09:58, # CodeGen: 75
+**     Date/Time   : 2016-06-29, 16:08, # CodeGen: 80
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -50,7 +50,7 @@
 **            Event mask                                   : 
 **              OnBlockSent                                : Enabled
 **              OnBlockReceived                            : Enabled
-**              OnTxComplete                               : Disabled
+**              OnTxComplete                               : Enabled
 **              OnError                                    : Enabled
 **              OnBreak                                    : Enabled
 **          CPU clock/configuration selection              : 
@@ -129,7 +129,7 @@ extern "C" {
 #endif
 
 /*! The mask of available events used to enable/disable events during runtime. */
-#define AVAILABLE_EVENTS_MASK (LDD_SERIAL_ON_BLOCK_RECEIVED | LDD_SERIAL_ON_BLOCK_SENT | LDD_SERIAL_ON_BREAK | LDD_SERIAL_ON_ERROR)
+#define AVAILABLE_EVENTS_MASK (LDD_SERIAL_ON_BLOCK_RECEIVED | LDD_SERIAL_ON_BLOCK_SENT | LDD_SERIAL_ON_BREAK | LDD_SERIAL_ON_TXCOMPLETE | LDD_SERIAL_ON_ERROR)
 
 /* {Default RTOS Adapter} Static object used for simulation of dynamic driver memory allocation */
 static ASerialLdd1_TDeviceData DeviceDataPrv__DEFAULT_RTOS_ALLOC;
@@ -403,6 +403,7 @@ static void InterruptTx(ASerialLdd1_TDeviceDataPtr DeviceDataPrv)
     }
   } else {
     UART_PDD_DisableInterrupt(UART0_BASE_PTR, UART_PDD_INTERRUPT_TRANSMITTER); /* Disable TX interrupt */
+    UART_PDD_EnableInterrupt(UART0_BASE_PTR, UART_PDD_INTERRUPT_TRANSMITTER_COMPLETE); /* Enable TX complete interrupt */
     DeviceDataPrv->SerFlag &= (uint16_t)(~(uint16_t)ENABLED_TX_INT); /* Clear the flag ENABLED_TX_INT */
   }
 }
@@ -460,6 +461,10 @@ PE_ISR(ASerialLdd1_Interrupt)
     if (StatReg & UART_S1_TDRE_MASK) { /* Is the transmitter empty? */
       InterruptTx(DeviceDataPrv);      /* If yes, then invoke the internal service routine. This routine is inlined. */
     }
+  }
+  if ((UART_PDD_GetTxCompleteInterruptMask(UART0_BASE_PTR) != 0U)  && (StatReg & UART_S1_TC_MASK)) { /* Is a transmission completed? */
+    UART_PDD_DisableInterrupt(UART0_BASE_PTR, UART_PDD_INTERRUPT_TRANSMITTER_COMPLETE); /* If yes then disable TX complete interrupt */
+    ASerialLdd1_OnTxComplete(DeviceDataPrv->UserDataPtr); /* If yes then invoke user event */
   }
 }
 

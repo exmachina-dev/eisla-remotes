@@ -513,7 +513,7 @@ PE_DEBUGHALT();
           <PutVal v="generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
-          <NegVal v="don&amp;apos;t generate code" />
+          <NegVal v="generate code" />
           <ConnectPin v="don&amp;apos;t generate code" />
           <GetRawVal v="don&amp;apos;t generate code" />
         </Methods>
@@ -538,7 +538,7 @@ PE_DEBUGHALT();
       <PutVal v="generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
-      <NegVal v="don&amp;apos;t generate code" />
+      <NegVal v="generate code" />
       <ConnectPin v="don&amp;apos;t generate code" />
       <GetRawVal v="don&amp;apos;t generate code" />
     </Methods>
@@ -576,7 +576,7 @@ PE_DEBUGHALT();
           <PutVal v="generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
-          <NegVal v="don&amp;apos;t generate code" />
+          <NegVal v="generate code" />
           <ConnectPin v="don&amp;apos;t generate code" />
           <GetRawVal v="don&amp;apos;t generate code" />
         </Methods>
@@ -601,7 +601,7 @@ PE_DEBUGHALT();
       <PutVal v="generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
-      <NegVal v="don&amp;apos;t generate code" />
+      <NegVal v="generate code" />
       <ConnectPin v="don&amp;apos;t generate code" />
       <GetRawVal v="don&amp;apos;t generate code" />
     </Methods>
@@ -1303,8 +1303,8 @@ PE_DEBUGHALT();
         <Interrupt_TxD_priority v="medium priority" />
         <Interrupt_Error v="INT_UART0_ERR" />
         <Interrupt_Error_priority v="medium priority" />
-        <Input_buffer_size v="0" />
-        <Output_buffer_size v="0" />
+        <Input_buffer_size v="64" />
+        <Output_buffer_size v="64" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
           <boolgroup name="RTS" v="Disabled" />
@@ -1379,7 +1379,7 @@ PE_DEBUGHALT();
               <group name="Event mask">
                 <OnBlockSent v="Enabled" />
                 <OnBlockReceived v="Enabled" />
-                <OnTxComplete v="Disabled" />
+                <OnTxComplete v="Enabled" />
                 <OnError v="Enabled" />
                 <OnBreak v="Enabled" />
               </group>
@@ -1437,7 +1437,9 @@ PE_DEBUGHALT();
             <event name="OnError" v="generate code">
               <Event_procedure_name v="ASerialLdd1_OnError" />
             </event>
-            <event name="OnTxComplete" v="don&amp;apos;t generate code" />
+            <event name="OnTxComplete" v="generate code">
+              <Event_procedure_name v="ASerialLdd1_OnTxComplete" />
+            </event>
           </Events>
         </inhrbean>
       </group>
@@ -1449,10 +1451,10 @@ PE_DEBUGHALT();
       <DisableEvent v="don&amp;apos;t generate code" />
       <RecvChar v="generate code" />
       <SendChar v="generate code" />
-      <RecvBlock v="don&amp;apos;t generate code" />
-      <SendBlock v="don&amp;apos;t generate code" />
-      <ClearRxBuf v="don&amp;apos;t generate code" />
-      <ClearTxBuf v="don&amp;apos;t generate code" />
+      <RecvBlock v="generate code" />
+      <SendBlock v="generate code" />
+      <ClearRxBuf v="generate code" />
+      <ClearTxBuf v="generate code" />
       <CharsInRxBuf v="don&amp;apos;t generate code" />
       <GetCharsInRxBuf v="generate code" />
       <CharsInTxBuf v="don&amp;apos;t generate code" />
@@ -1480,15 +1482,27 @@ PE_DEBUGHALT();
         <Event_procedure_name v="AS1_OnRxChar" />
         <Priority v="same as interrupt" />
       </event>
-      <event name="OnRxCharExt" v="don&amp;apos;t generate code" />
+      <event name="OnRxCharExt" v="generate code">
+        <Event_procedure_name v="AS1_OnRxCharExt" />
+        <Priority v="same as interrupt" />
+      </event>
       <event name="OnTxChar" v="generate code">
         <Event_procedure_name v="AS1_OnTxChar" />
         <Priority v="same as interrupt" />
       </event>
-      <event name="OnFullRxBuf" v="don&amp;apos;t generate code" />
-      <event name="OnFreeTxBuf" v="don&amp;apos;t generate code" />
+      <event name="OnFullRxBuf" v="generate code">
+        <Event_procedure_name v="AS1_OnFullRxBuf" />
+        <Priority v="same as interrupt" />
+      </event>
+      <event name="OnFreeTxBuf" v="generate code">
+        <Event_procedure_name v="AS1_OnFreeTxBuf" />
+        <Priority v="same as interrupt" />
+      </event>
       <event name="OnBreak" v="don&amp;apos;t generate code" />
-      <event name="OnTxComplete" v="don&amp;apos;t generate code" />
+      <event name="OnTxComplete" v="generate code">
+        <Event_procedure_name v="AS1_OnTxComplete" />
+        <Priority v="same as interrupt" />
+      </event>
     </Events>
   </Bean>
 </PE_PROJECT_SETTINGS_DOCUMENTATION>
