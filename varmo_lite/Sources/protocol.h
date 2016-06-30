@@ -24,12 +24,14 @@ static const char *Set = "machine.set";
 
 
 static const char *Velocity = "machine.velocity";
+static const char *Torque = "machine.torque";
+static const char *Position = "machine.position";
 
 static const char *Speed_ref = "machine.velocity_ref";
 static const char *Torque_ref = "machine.torque_ref";
 static const char *Position_ref = "machine.position_ref";
 
-static const char *Position = "machine.position";
+//static const char *Position = "machine.position";
 static const char *Pos_go = "machine.command.go";
 static const char *Go_Home = "machine.command.go_home";
 static const char *Pos_Home = "machine.command.set_home";

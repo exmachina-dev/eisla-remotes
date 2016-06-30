@@ -88,6 +88,7 @@ int main(void)
   FLAG_MSG_OK = 0;
   for(;;){
 	  char msg[cnt];
+	  int nb_data = 0;
 	  if (FLAG_MSG_RCV == 1){
 
 		  binaryRepr size;
@@ -98,6 +99,9 @@ int main(void)
 			  int temp = cnt;
 			  for (int f =0; f<=temp; f++){
 				  msg[f] = in_buffer[f];
+				  if (msg[f] == ':' || msg[f]== '\r'){
+					  nb_data += 1;
+				  }
 				  FLAG_MSG_OK =1;
 			  }
 		  }
@@ -114,13 +118,13 @@ int main(void)
 		  char *data3;
 
 		  int offset = 22;
-		  char chr = msg[offset]; //34
+		  char chr = msg[offset];
 		  char temp[50];
 		  int i = 0;
 		  while (chr != ':' && chr != '\r'){
 			  temp[i] = chr;
 			  i++;
-			  chr = msg[offset + i];//34
+			  chr = msg[offset + i];
 		  }
 
 		  data1 = temp;
@@ -133,26 +137,12 @@ int main(void)
 			  while (chr != ':' && chr != '\r'){
 				  temp[i] = chr;
 				  i++;
-				  chr = msg[offset + i];//34
+				  chr = msg[offset + i];
 			  }
 			  data2 = temp;
 		  }
 		  else {
 			  //only one data
-		  }
-
-		  if (strcmp(data1,Get)){
-			  LED_STATUS_1_SetVal();
-		  }
-		  else {
-			  LED_STATUS_1_ClrVal();
-		  }
-
-		  if (strcmp(data2,Velocity)){
-			  LED_STATUS_2_SetVal();
-		  }
-		  else {
-			  LED_STATUS_2_ClrVal();
 		  }
 		  i= 0;
 		  FLAG_MSG_OK = 0;
