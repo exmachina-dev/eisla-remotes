@@ -109,22 +109,50 @@ int main(void)
 	  }
 
 	  if (FLAG_MSG_OK == 1){
-		  char chr = msg[34]; //22
-		  char temp[50];
-		  //temp = malloc(50);
+		  char *data1;
+		  char *data2;
+		  char *data3;
 
+		  int offset = 22;
+		  char chr = msg[offset]; //34
+		  char temp[50];
 		  int i = 0;
 		  while (chr != ':' && chr != '\r'){
 			  temp[i] = chr;
 			  i++;
-			  chr = msg[34 +i];//22
+			  chr = msg[offset + i];//34
 		  }
-		  char *data1 = temp;
+
+		  data1 = temp;
+
+		  if (chr == ':'){
+			  //several data
+			  offset = i;
+			  i = 0;
+			  char chr = msg[offset];chr = msg[offset];
+			  while (chr != ':' && chr != '\r'){
+				  temp[i] = chr;
+				  i++;
+				  chr = msg[offset + i];//34
+			  }
+			  data2 = temp;
+		  }
+		  else {
+			  //only one data
+		  }
+
 		  if (strcmp(data1,Get)){
 			  LED_STATUS_1_SetVal();
 		  }
 		  else {
+			  LED_STATUS_1_ClrVal();
+		  }
+
+		  if (strcmp(data2,Velocity)){
 			  LED_STATUS_2_SetVal();
+		  }
+		  else {
+			  LED_STATUS_2_ClrVal();
 		  }
 		  i= 0;
 		  FLAG_MSG_OK = 0;
