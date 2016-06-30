@@ -109,15 +109,15 @@ int main(void)
 	  }
 
 	  if (FLAG_MSG_OK == 1){
-		  char chr = msg[22];
+		  char chr = msg[34]; //22
 		  char temp[50];
 		  //temp = malloc(50);
 
 		  int i = 0;
-		  while (chr != ':'){
+		  while (chr != ':' && chr != '\r'){
 			  temp[i] = chr;
 			  i++;
-			  chr = msg[22 +i];
+			  chr = msg[34 +i];//22
 		  }
 		  char *data1 = temp;
 		  if (strcmp(data1,Get)){
