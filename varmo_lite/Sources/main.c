@@ -67,6 +67,8 @@
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include "display.h"
 #include "protocol.h"
+#include <stdio.h>
+#include <stdlib.h>
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)
 /*lint -restore Enable MISRA rule (6.3) checking. */
@@ -79,6 +81,55 @@ int main(void)
 
   /* Write your code here */
   /* For example: for(;;) { } */
+
+  cnt = 0;
+  FLAG_MSG_RCV = 0;
+  FLAG_MSG_ERR = 0;
+  FLAG_MSG_OK = 0;
+  for(;;){
+	  char msg[cnt];
+	  if (FLAG_MSG_RCV == 1){
+
+		  binaryRepr size;
+		  size.toUint_8.toUint_8_1 = in_buffer[8];
+		  size.toUint_8.toUint_8_0 = in_buffer[9];
+		  size.toInt.int0 = (size.toUint_8.toUint_8_1 && 0xFF00) + size.toUint_8.toUint_8_0;
+		  if ( size.toInt.int0 == (cnt + 1)){
+			  int temp = cnt;
+			  for (int f =0; f<=temp; f++){
+				  msg[f] = in_buffer[f];
+				  FLAG_MSG_OK =1;
+			  }
+		  }
+		  else{
+			  FLAG_MSG_ERR = 1;
+		  }
+		  cnt = 0;
+		  FLAG_MSG_RCV = 0;
+	  }
+
+	  if (FLAG_MSG_OK == 1){
+		  char chr = msg[22];
+		  char temp[50];
+		  //temp = malloc(50);
+
+		  int i = 0;
+		  while (chr != ':'){
+			  temp[i] = chr;
+			  i++;
+			  chr = msg[22 +i];
+		  }
+		  char *data1 = temp;
+		  if (strcmp(data1,Get)){
+			  LED_STATUS_1_SetVal();
+		  }
+		  else {
+			  LED_STATUS_2_SetVal();
+		  }
+		  i= 0;
+		  FLAG_MSG_OK = 0;
+	  }
+  }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** RTOS startup code. Macro PEX_RTOS_START is defined by the RTOS component. DON'T MODIFY THIS CODE!!! ***/

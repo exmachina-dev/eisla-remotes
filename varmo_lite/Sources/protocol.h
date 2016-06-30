@@ -46,10 +46,13 @@ char in_buffer[127];
 uint8_t cnt;
 bool FLAG_MSG_RCV;
 bool FLAG_MSG_ERR;
+bool FLAG_MSG_OK;
 
 typedef union {
-	unsigned int int0;
-    struct {
+	struct{
+		int int0;
+	} toInt;
+	struct {
       uint8_t toUint_8_0;
       uint8_t toUint_8_1;
     } toUint_8;
