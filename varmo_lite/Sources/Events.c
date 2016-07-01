@@ -139,7 +139,8 @@ void I2C0_OnTransmitData(void)
 /* ===================================================================*/
 void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-  /* Write your code here ... */
+	test_protocol();
+	/* Write your code here ... */
 }
 
 /*
@@ -237,7 +238,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 /* ===================================================================*/
 void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-	test_protocol();
+	//test_protocol();
 }
 
 /*
@@ -364,6 +365,7 @@ void AS1_OnRxChar(void)
 */
 void AS1_OnRxCharExt(AS1_TComData Chr)
 {
+
 	if (cnt > 0){
 		if (Chr == '\n' && in_buffer[cnt-1] == '\r'){
 				//End of a message
@@ -374,6 +376,7 @@ void AS1_OnRxCharExt(AS1_TComData Chr)
 
 				FLAG_MSG_RCV = 1;
 				LED_STATUS_3_ClrVal();
+
 				AS1_ClearRxBuf();
 		}
 		else{
@@ -393,6 +396,7 @@ void AS1_OnRxCharExt(AS1_TComData Chr)
 		cnt ++;
 		LED_STATUS_3_SetVal();
 	}
+
 }
 
 /*

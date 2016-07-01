@@ -69,6 +69,8 @@
 #include "protocol.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)
 /*lint -restore Enable MISRA rule (6.3) checking. */
@@ -86,6 +88,11 @@ int main(void)
   FLAG_MSG_RCV = 0;
   FLAG_MSG_ERR = 0;
   FLAG_MSG_OK = 0;
+  nb_data = 0;
+
+  int cnt_err = 0;
+  int cnt_ok = 0;
+
   for(;;){
 	  char msg[cnt];
 	  int nb_data = 0;
@@ -97,6 +104,7 @@ int main(void)
 		  size.toInt.int0 = (size.toUint_8.toUint_8_1 && 0xFF00) + size.toUint_8.toUint_8_0;
 		  if ( size.toInt.int0 == (cnt + 1)){
 			  int temp = cnt;
+			  cnt = 0;
 			  for (int f =0; f<=temp; f++){
 				  msg[f] = in_buffer[f];
 				  if (msg[f] == ':' || msg[f]== '\r'){
@@ -106,40 +114,40 @@ int main(void)
 			  }
 		  }
 		  else{
+			  cnt = 0;
 			  FLAG_MSG_ERR = 1;
 		  }
-		  cnt = 0;
 		  FLAG_MSG_RCV = 0;
 	  }
 
 	  if (FLAG_MSG_OK == 1){
-		  char *data1;
-		  char *data2;
-		  char *data3;
 
 		  int offset = 22;
 		  char chr = msg[offset];
-		  char temp[50];
+		  char data1[50];
+		  char data2[50];
 		  int i = 0;
 		  while (chr != ':' && chr != '\r'){
-			  temp[i] = chr;
+			  data1[i] = chr;
 			  i++;
 			  chr = msg[offset + i];
 		  }
-		  temp[i] = '\0';
-		  data1 = temp;
+		  data1[i] = '\0';
+		  //data1 = temp;
 
 		  if (chr == ':'){
 			  //several data
-			  offset += i;
+			  //char temp1[50];
+			  offset += i +1;
 			  i = 0;
 			  char chr = msg[offset];
 			  while (chr != ':' && chr != '\r'){
-				  temp[i] = chr;
+				  data2[i] = chr;
 				  i++;
 				  chr = msg[offset + i];
 			  }
-			  data2 = temp;
+			  data2[i] = '\0';
+			  //data2 = temp1;
 		  }
 		  else {
 			  //only one data
@@ -148,11 +156,14 @@ int main(void)
 		  i= 0;
 		  FLAG_MSG_OK = 0;
 	  }
+	  /*COMMUNICATION ERR*/
 	  if (FLAG_MSG_ERR == 1){
+		  cnt_err += 1;
 		  LED_STATUS_2_SetVal();
 		  FLAG_MSG_ERR = 0;
 	  }
 	  else {
+		  cnt_ok += 1;
 		  LED_STATUS_2_ClrVal();
 	  }
   }

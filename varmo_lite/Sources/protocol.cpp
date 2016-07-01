@@ -81,7 +81,8 @@ void serial_send_char(char character){
 }
 
 void test_protocol(){
-	serial_send_block(2, (char*)Get_OK, (char*)Velocity);
+	serial_send_block(2, (char*)Get_OK, (char*)Velocity_ref);
+	serial_send_block(2, (char*)Set_OK, (char*)Position_ref);
 }
 
 bool msg_processing(int n, ...){
@@ -91,24 +92,19 @@ bool msg_processing(int n, ...){
 	char* data = va_arg(arg, char*);
 
  	if (strcmp(data, Set_OK) == 0){
-		LED_STATUS_2_ClrVal();
 		return 0;
 	}
  	else if (strcmp(data, Set_ERR) == 0){
- 		LED_STATUS_2_SetVal();
  		return 1;
  	}
  	else if (strcmp(data, Get_OK) == 0){
-		LED_STATUS_2_ClrVal();
-		return 0;
+		//return 0;
 	}
  	else if (strcmp(data, Get_ERR) == 0){
- 		LED_STATUS_2_SetVal();
  		return 1;
  	}
 	va_end(arg);
-	LED_STATUS_2_SetVal();
-	return 1;
+	return 0;
 }
 
 #ifdef __cplusplus

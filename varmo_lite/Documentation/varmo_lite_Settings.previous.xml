@@ -870,7 +870,7 @@ PE_DEBUGHALT();
       </enumgroup>
       <enumgroup name="Counter restart" v="On-match">
         <Period_device v="FTM1_MOD" />
-        <Period v="100 ms" />
+        <Period v="5 ms" />
         <boolgroup name="Interrupt" v="Enabled">
           <Interrupt v="INT_FTM1" />
           <Interrupt_priority v="medium priority" />
@@ -1303,8 +1303,8 @@ PE_DEBUGHALT();
         <Interrupt_TxD_priority v="medium priority" />
         <Interrupt_Error v="INT_UART0_ERR" />
         <Interrupt_Error_priority v="medium priority" />
-        <Input_buffer_size v="64" />
-        <Output_buffer_size v="64" />
+        <Input_buffer_size v="127" />
+        <Output_buffer_size v="127" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
           <boolgroup name="RTS" v="Disabled" />

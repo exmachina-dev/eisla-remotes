@@ -27,31 +27,35 @@ static const char *Get_ERR = "machine.get.error";
 static const char *Set_OK = "machine.set.ok";
 static const char *Set_ERR = "machine.set.error";
 
-static const char *Velocity = "machine.velocity";
-static const char *Torque = "machine.torque";
-static const char *Position = "machine.position";
+//static const char *Velocity = "machine.velocity";
+//static const char *Torque = "machine.torque";
+//static const char *Position = "machine.position";
+//static const char *Go_Home = "machine.command.go_home";
 
-static const char *Speed_ref = "machine.velocity_ref";
+static const char *Velocity_ref = "machine.velocity_ref";
 static const char *Torque_ref = "machine.torque_ref";
 static const char *Position_ref = "machine.position_ref";
-
-static const char *Pos_go = "machine.command.go";
-static const char *Go_Home = "machine.command.go_home";
-static const char *Pos_Home = "machine.command.set_home";
-
 static const char *Acceleration = "machine.acceleration";
 static const char *Deceleration = "machine.deceleration";
 
+static const char *Enable = "machine.command.enable";
+static const char *Stop = "machine.command.cancel";
+static const char *Pos_go = "machine.command.go";
+static const char *Set_Home = "machine.command.set_home";
+static const char *Reset = "machine.command.reset";
+
+static const char *Move_Mode = "machine.command.move_mode";
 static const char *Control_Mode = "machine.command.control_mode";
 
 static const char *Device_serial_num = "machine.serialnumber";
-static const char *Stop = "machine.command.cancel";
 
 char in_buffer[127];
 uint8_t cnt;
 bool FLAG_MSG_RCV;
 bool FLAG_MSG_ERR;
 bool FLAG_MSG_OK;
+char msg[100];
+int nb_data;
 
 typedef union {
 	struct{
@@ -75,9 +79,11 @@ void serial_send_block(int, ...);
 void serial_send_string(char*);
 void serial_send_char(char);
 
-void test_protocol();
-
+bool msg_parse(char*);
 bool msg_processing(int n,...);
+
+
+void test_protocol();
 
 #ifdef __cplusplus
 }  /* extern "C" */
