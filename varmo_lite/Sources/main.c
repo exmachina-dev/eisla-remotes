@@ -96,8 +96,9 @@ int main(void)
   for(;;){
 	  char msg[cnt];
 	  int nb_data = 0;
-	  if (FLAG_MSG_RCV == 1){
 
+	  /*Check message received*/
+	  if (FLAG_MSG_RCV == 1){
 		  binaryRepr size;
 		  size.toUint_8.toUint_8_1 = in_buffer[8];
 		  size.toUint_8.toUint_8_0 = in_buffer[9];
@@ -120,40 +121,9 @@ int main(void)
 		  FLAG_MSG_RCV = 0;
 	  }
 
+	  /*Processing msg received*/
 	  if (FLAG_MSG_OK == 1){
-
-		  int offset = 22;
-		  char chr = msg[offset];
-		  char data1[50];
-		  char data2[50];
-		  int i = 0;
-		  while (chr != ':' && chr != '\r'){
-			  data1[i] = chr;
-			  i++;
-			  chr = msg[offset + i];
-		  }
-		  data1[i] = '\0';
-		  //data1 = temp;
-
-		  if (chr == ':'){
-			  //several data
-			  //char temp1[50];
-			  offset += i +1;
-			  i = 0;
-			  char chr = msg[offset];
-			  while (chr != ':' && chr != '\r'){
-				  data2[i] = chr;
-				  i++;
-				  chr = msg[offset + i];
-			  }
-			  data2[i] = '\0';
-			  //data2 = temp1;
-		  }
-		  else {
-			  //only one data
-		  }
-		  FLAG_MSG_ERR = msg_processing(2, data1, data2);
-		  i= 0;
+		  FLAG_MSG_ERR = msg_parse(msg);
 		  FLAG_MSG_OK = 0;
 	  }
 	  /*COMMUNICATION ERR*/
