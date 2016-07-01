@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-29, 16:52, # CodeGen: 82
+**     Date/Time   : 2016-07-01, 15:00, # CodeGen: 92
 **     Abstract    :
 **
 **     Settings    :
@@ -90,6 +90,8 @@
 #include "CS1.h"
 #include "AS1.h"
 #include "ASerialLdd1.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
 
 
 /*

@@ -212,6 +212,17 @@ Module "AS1"       (component AsynchroSerial)
    - AS1_GetCharsInTxBuf -Returns the number of characters in the output buffer. This method is available only if the 
                 transmitter property is enabled.
 
+Module "IFsh1"     (component IntFLASH)
+   - IFsh1_DisableEvent -This method disables all the events except <OnSaveBuffer>, <OnRestoreBuffer> and <OnEraseError>. The 
+                method is available only if any event is enabled.
+   - IFsh1_EnableEvent -This method enables all the events except <OnSaveBuffer>, <OnRestoreBuffer> and <OnEraseError>. The 
+                method is available only if any event is enabled.
+   - IFsh1_SetByteFlash -Writes a byte to an address in FLASH. The operation of this method depends on the "Write method" 
+                property and state of the flash. Please see more details on general info page of the help.
+   - IFsh1_GetByteFlash -Gets byte from an address in FLASH.
+   - IFsh1_SetWordFlash -Writes a word to an address in FLASH. The operation of this method depends on the "Write method" 
+                property and state of the flash. Please see more details on general info page of the help.
+
 Module "Cpu"       (component MK20DX256LH7)
 
 ===================================================================================

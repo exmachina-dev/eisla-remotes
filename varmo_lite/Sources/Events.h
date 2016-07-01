@@ -60,6 +60,8 @@
 #include "ExtIntLdd5.h"
 #include "AS1.h"
 #include "ASerialLdd1.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
 #include "KSDK1.h"
 #include "CS1.h"
 
@@ -401,6 +403,21 @@ void AS1_OnFullRxBuf(void);
 ** ===================================================================
 */
 void AS1_OnFreeTxBuf(void);
+
+/*
+** ===================================================================
+**     Event       :  IFsh1_OnWriteEnd (module Events)
+**
+**     Component   :  IFsh1 [IntFLASH]
+*/
+/*!
+**     @brief
+**         Event is called after a write operation to FLASH memory is
+**         finished (except [SetPage]). This event is available only if
+**         an [Interrupt service/event] is selected.
+*/
+/* ===================================================================*/
+void IFsh1_OnWriteEnd(void);
 
 /* END Events */
 

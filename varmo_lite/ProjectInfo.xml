@@ -67,6 +67,8 @@
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd4.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd5.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\I2C0.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\IFsh1.c</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\IntFlashLdd1.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\IntI2cLdd1.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\KSDK1.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_DEBUG.c</PathName>
@@ -106,7 +108,9 @@
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd4.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ExtIntLdd5.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\I2C0.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\IFsh1.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\IO_Map.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\IntFlashLdd1.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\IntI2cLdd1.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\KSDK1.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\LED_DEBUG.h</PathName>
@@ -129,6 +133,7 @@
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\Events.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\LCD.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\PCA9670.h</PathName>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\cue_eeprom.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\display.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\menu.h</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\protocol.h</PathName>

@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-29, 16:52, # CodeGen: 82
+**     Date/Time   : 2016-07-01, 15:00, # CodeGen: 92
 **     Abstract    :
 **
 **     Settings    :
@@ -84,6 +84,8 @@
   #include "CS1.h"
   #include "AS1.h"
   #include "ASerialLdd1.h"
+  #include "IFsh1.h"
+  #include "IntFlashLdd1.h"
   #include "Events.h"
 
 
@@ -137,8 +139,8 @@
     (tIsrFunc)&Cpu_Interrupt,          /* 0x1F  0x0000007C   -   ivINT_DMA15                    unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x20  0x00000080   -   ivINT_DMA_Error                unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x21  0x00000084   -   ivINT_MCM                      unused by PE */
-    (tIsrFunc)&Cpu_Interrupt,          /* 0x22  0x00000088   -   ivINT_FTFL                     unused by PE */
-    (tIsrFunc)&Cpu_Interrupt,          /* 0x23  0x0000008C   -   ivINT_Read_Collision           unused by PE */
+    (tIsrFunc)&IntFlashLdd1_CommandCompleteInterrupt, /* 0x22  0x00000088   8   ivINT_FTFL                     used by PE */
+    (tIsrFunc)&IntFlashLdd1_CommandCompleteInterrupt, /* 0x23  0x0000008C   8   ivINT_Read_Collision           used by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x24  0x00000090   -   ivINT_LVD_LVW                  unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x25  0x00000094   -   ivINT_LLW                      unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x26  0x00000098   -   ivINT_Watchdog                 unused by PE */

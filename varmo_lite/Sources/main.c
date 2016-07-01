@@ -57,6 +57,8 @@
 #include "ExtIntLdd5.h"
 #include "AS1.h"
 #include "ASerialLdd1.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
 #include "KSDK1.h"
 #include "CS1.h"
 /* Including shared modules, which are used for whole project */
@@ -83,7 +85,6 @@ int main(void)
 
   /* Write your code here */
   /* For example: for(;;) { } */
-
   cnt = 0;
   FLAG_MSG_RCV = 0;
   FLAG_MSG_ERR = 0;

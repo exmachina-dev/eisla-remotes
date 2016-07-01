@@ -43,6 +43,8 @@
 - \subpage ExtIntLdd5
 - \subpage ExtIntLdd4
 - \subpage ASerialLdd1
+- \subpage IntFlashLdd1
+- \subpage IntFlashLdd1
 
 */
 

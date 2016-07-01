@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-29, 16:52, # CodeGen: 82
+**     Date/Time   : 2016-07-01, 15:00, # CodeGen: 92
 **     Abstract    :
 **
 **     Settings    :
@@ -97,11 +97,11 @@
 **                  TMS Pin signal                         : 
 **                nTRST                                    : Disabled
 **            Flash memory organization                    : 
-**              FlexNVM settings                           : Partition code: 0x2303
+**              FlexNVM settings                           : Partition code: 0x0303
 **                FlexNVM size                             : 32 KB
 **                DFlash size                              : 0 KB
 **                EEPROM size                              : 2048 bytes
-**                  EEPROM split factor                    : Subsystem A: 1/2 , Subsystem B: 2/2 (bits value 10)
+**                  EEPROM split factor                    : Subsystem A: 1/8 , Subsystem B: 7/8
 **                  EEPROM backup size                     : 32 KB
 **                  Start                                  : 0x10000000
 **                  Size                                   : 0x8000
@@ -335,6 +335,8 @@
 #include "CS1.h"
 #include "AS1.h"
 #include "ASerialLdd1.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -610,6 +612,8 @@ void PE_low_level_init(void)
   /* ### CriticalSection "CS1" init code ... */
   /* ### Asynchro serial "AS1" init code ... */
   AS1_Init();
+  /* ### IntFLASH "IFsh1" init code ... */
+  IFsh1_Init();
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }
