@@ -10,8 +10,8 @@
 #include <string.h>
 #include <stdarg.h>
 
-#include "LED_STATUS_1.h"
-#include "BitIoLdd2.h"
+#include "LED_STATUS_2.h"
+#include "BitIoLdd3.h"
 
 #include "protocol.h"
 
@@ -76,12 +76,39 @@ void serial_send_string(char* string){
 void serial_send_char(char character){
 	byte err = AS1_SendChar(character);
 	if (err != ERR_OK){
-		LED_STATUS_1_SetVal();
+		LED_STATUS_2_SetVal();
 	}
 }
 
 void test_protocol(){
-	serial_send_block(2, (char*)Get, (char*)Velocity);
+	serial_send_block(2, (char*)Get_OK, (char*)Velocity);
+}
+
+bool msg_processing(int n, ...){
+	int nb_data = n;
+	va_list arg;
+	va_start(arg, n);
+	char* data = va_arg(arg, char*);
+
+ 	if (strcmp(data, Set_OK) == 0){
+		LED_STATUS_2_ClrVal();
+		return 0;
+	}
+ 	else if (strcmp(data, Set_ERR) == 0){
+ 		LED_STATUS_2_SetVal();
+ 		return 1;
+ 	}
+ 	else if (strcmp(data, Get_OK) == 0){
+		LED_STATUS_2_ClrVal();
+		return 0;
+	}
+ 	else if (strcmp(data, Get_ERR) == 0){
+ 		LED_STATUS_2_SetVal();
+ 		return 1;
+ 	}
+	va_end(arg);
+	LED_STATUS_2_SetVal();
+	return 1;
 }
 
 #ifdef __cplusplus

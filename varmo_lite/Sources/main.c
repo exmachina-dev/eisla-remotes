@@ -126,14 +126,14 @@ int main(void)
 			  i++;
 			  chr = msg[offset + i];
 		  }
-
+		  temp[i] = '\0';
 		  data1 = temp;
 
 		  if (chr == ':'){
 			  //several data
-			  offset = i;
+			  offset += i;
 			  i = 0;
-			  char chr = msg[offset];chr = msg[offset];
+			  char chr = msg[offset];
 			  while (chr != ':' && chr != '\r'){
 				  temp[i] = chr;
 				  i++;
@@ -144,8 +144,16 @@ int main(void)
 		  else {
 			  //only one data
 		  }
+		  FLAG_MSG_ERR = msg_processing(2, data1, data2);
 		  i= 0;
 		  FLAG_MSG_OK = 0;
+	  }
+	  if (FLAG_MSG_ERR == 1){
+		  LED_STATUS_2_SetVal();
+		  FLAG_MSG_ERR = 0;
+	  }
+	  else {
+		  LED_STATUS_2_ClrVal();
 	  }
   }
 
