@@ -5,7 +5,7 @@
  *      Author: Adrian
  */
 
-#include "encoder.h"
+#include "encoder_variable.h"
 
 #ifdef __cplusplus
 extern "C" {

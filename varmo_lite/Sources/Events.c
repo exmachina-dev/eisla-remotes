@@ -47,8 +47,8 @@ extern "C" {
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
 #include "protocol.h"
-#include "encoder.h"
-
+#include "encoder_variable.h"
+#include "ENCODER.h"
 /*
 ** ===================================================================
 **     Event       :  PUSH_BUTTON_REC_OnInterrupt (module Events)
@@ -246,8 +246,8 @@ void ENCODER_PUSH_OnInterrupt(void)
 /* ===================================================================*/
 void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 {
-    if (ENCODER_GetFieldValue(&UserDataPtr, 0) == 1){
-        if (ENCODER_GetFieldValue(&UserDataPtr, 1) == 0){
+    if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B) == 1){
+        if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_A) == 0){
             encoder -= 1;
         }
         else{

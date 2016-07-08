@@ -43,6 +43,7 @@
       <Path>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\</Path>
     </IncludePaths>
     <SourceCodePaths>
+      <Path>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\.metadata\.plugins\org.eclipse.cdt.make.core\</Path>
       <Path>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\</Path>
       <Path>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Project_Settings\Startup_Code\</Path>
       <Path>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Sources\</Path>
@@ -50,6 +51,7 @@
   </PATHS>
   <FILES>
     <GeneratedCs>
+      <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\.metadata\.plugins\org.eclipse.cdt.make.core\specs.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\AS1.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\ASerialLdd1.c</PathName>
       <PathName>C:\Users\Adrian\Documents\repos\eisla-remotes\varmo_lite\Generated_Code\BitIoLdd1.c</PathName>

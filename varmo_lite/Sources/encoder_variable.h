@@ -6,8 +6,8 @@
  */
 
 
-#ifndef SOURCES_ENCODER_H_
-#define SOURCES_ENCODER_H_
+#ifndef SOURCES_ENCODER_VARIABLE_H_
+#define SOURCES_ENCODER_VARIABLE_H_
 
 #ifdef __cplusplus
 extern "C" {
@@ -25,4 +25,4 @@ float encoder;
 #endif
 
 
-#endif /* SOURCES_ENCODER_H_ */
+#endif /* SOURCES_ENCODER_VARIABLE_H_ */
