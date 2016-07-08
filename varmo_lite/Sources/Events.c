@@ -45,7 +45,10 @@ extern "C" {
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+
 #include "protocol.h"
+#include "encoder.h"
+
 /*
 ** ===================================================================
 **     Event       :  PUSH_BUTTON_REC_OnInterrupt (module Events)
@@ -139,6 +142,13 @@ void I2C0_OnTransmitData(void)
 /* ===================================================================*/
 void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
+    counter_100ms += 1;
+    if (counter_100ms == 5){
+        FLAG_PUSH_LONG = 1;
+        T_100ms_Disable(&UserDataPtr);
+        counter_100ms =0;
+    }
+
 	test_protocol();
 	/* Write your code here ... */
 }
@@ -157,7 +167,13 @@ void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 */
 void LEVER_DIR2_OnInterrupt(void)
 {
-  /* Write your code here ... */
+    if (LEVER_DIR2_GetVal() == 0) {
+    	//SENS 2
+    }
+    else{
+    	//MOTOR OFF
+    }
+
 }
 
 /*
@@ -174,7 +190,12 @@ void LEVER_DIR2_OnInterrupt(void)
 */
 void LEVER_DIR1_OnInterrupt(void)
 {
-  /* Write your code here ... */
+    if (LEVER_DIR1_GetVal() == 0) {
+    	//SENS 1
+    }
+    else{
+    	//MOTOR OFF
+    }
 }
 
 /*
@@ -191,7 +212,18 @@ void LEVER_DIR1_OnInterrupt(void)
 */
 void ENCODER_PUSH_OnInterrupt(void)
 {
-  /* Write your code here ... */
+    if (ENCODER_PUSH_GetVal() == 0){ //Encoder Pushed
+        FLAG_PUSH_SHORT = 0;
+        FLAG_PUSH_LONG = 0;
+        counter_100ms = 0;
+        T_100ms_Enable(T_100ms_DeviceData);
+    }
+    else if (ENCODER_PUSH_GetVal() == 1 && FLAG_PUSH_LONG == 0){
+        T_100ms_Disable(T_100ms_DeviceData);
+        counter_100ms = 0;
+        FLAG_PUSH_SHORT = 1;
+    }
+    LED_DEBUG_NegVal();
 }
 
 /*
@@ -214,7 +246,14 @@ void ENCODER_PUSH_OnInterrupt(void)
 /* ===================================================================*/
 void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 {
-  /* Write your code here ... */
+    if (ENCODER_GetFieldValue(&UserDataPtr, 0) == 1){
+        if (ENCODER_GetFieldValue(&UserDataPtr, 1) == 0){
+            encoder -= 1;
+        }
+        else{
+        	encoder += 1;
+        }
+    }
 }
 
 /*
