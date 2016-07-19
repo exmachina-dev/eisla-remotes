@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
 void PCA9670_Init();
-
+void PCA9670_SendByte(byte, uint16_t);
 
 #ifdef __cplusplus
 }  /* extern "C" */

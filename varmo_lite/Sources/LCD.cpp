@@ -2,6 +2,11 @@
 #include "LED_STATUS_1.h"
 #include "WAIT1.h"
 
+#include "LCD_CTR.h"
+#include "BitIoLdd6.h"
+
+#include "PCA9670.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -18,12 +23,6 @@ byte LCD_flag;
    for additional details.
 */
 
-#include "LED_STATUS_1.h"
-#include "BitIoLdd2.h"
-#include "LCD_CTR.h"
-#include "BitIoLdd6.h"
-#include "LCD_EN.h"
-#include "BitIoLdd7.h"
 
 #define ClearDisplayCmd                 0x01 /* clears the display */
 
@@ -75,41 +74,44 @@ void LCD_Init() {
 		LED_STATUS_1_SetVal();
 
 		LCD_CTR_ClrVal();
-		/*ret = I2C0_SendChar(0x30);
-		WAIT1_Waitms(5);
-		ret = I2C0_SendChar(0x30);
-		WAIT1_Waitus(200);
-		ret = I2C0_SendChar(0x30);
-		WAIT1_Waitus(200);
-		ret = I2C0_SendChar(0x38);
-		WAIT1_Waitus(200);
-		ret = I2C0_SendChar(0x08);
-		WAIT1_Waitus(200);
-		ret = I2C0_SendChar(0x01);
-		WAIT1_Waitus(200);
-		ret = I2C0_SendChar(0x06);*/
 
 		/*Datatsheet screen*/
+
+		PCA9670_SendByte(FunctionSetCmd|FunctionSet_Font5x8|FunctionSet_8bit|FunctionSet_2Lines, 500); //0x20|0x10|0x08 = 0x38, 0.1);
+		/*
 		LCD_EN_SetVal();
 		ret = I2C0_SendChar(FunctionSetCmd|FunctionSet_Font5x8|FunctionSet_8bit|FunctionSet_2Lines); //0x20|0x10|0x08 = 0x38
 		WAIT1_Waitus(500);
 		LCD_EN_ClrVal();
 		LCD_EN_SetVal();
+		*/
+
+		PCA9670_SendByte(DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn, 500);
+
+		/*
 		ret = I2C0_SendChar(DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn); //0x08|0x04 = 0x0C
-		/*LCD_EN_ClrVal();
-		LCD_EN_SetVal();*/
-		WAIT1_Waitus(500);
 		LCD_EN_ClrVal();
 		LCD_EN_SetVal();
-		ret = I2C0_SendChar(ClearDisplayCmd); //0X01
+		WAIT1_Waitus(500);
+		LCD_EN_ClrVal();
+		LCD_EN_SetVal();*/
+
+		PCA9670_SendByte(ClearDisplayCmd, 0.1); //0X01
+		/*
+		ret = I2C0_SendChar(ClearDisplayCmd);
 		LCD_EN_ClrVal();
 		LCD_EN_SetVal();
 		WAIT1_Waitms(10);
 		LCD_EN_ClrVal();
 		LCD_EN_SetVal();
+		*/
+
+		PCA9670_SendByte(EntryModeSetCmd|EntryModeSet_IncrementOn, 100); //0x04|0x02 = 0x06)
+		/*
 		ret = I2C0_SendChar(EntryModeSetCmd|EntryModeSet_IncrementOn); //0x04|0x02 = 0x06
 		LCD_EN_ClrVal();
 		LCD_EN_SetVal();
+		*/
 
 	}
 }
