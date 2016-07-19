@@ -7,7 +7,7 @@
 **     Version     : Component 01.033, Driver 01.03, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-02, 18:30, # CodeGen: 60
+**     Date/Time   : 2016-07-12, 17:40, # CodeGen: 112
 **     Abstract    :
 **         The HAL BitIO component provides a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -22,7 +22,7 @@
 **          Direction                                      : Output
 **          Initialization                                 : 
 **            Init. direction                              : Output
-**            Init. value                                  : 0
+**            Init. value                                  : 1
 **            Auto initialization                          : yes
 **          Safe mode                                      : yes
 **     Contents    :
@@ -131,8 +131,8 @@ LDD_TDeviceData* BitIoLdd3_Init(LDD_TUserData *UserDataPtr)
   /* GPIOD_PDDR: PDD|=0x80 */
   GPIOD_PDDR |= GPIO_PDDR_PDD(0x80);
   /* Set initialization value */
-  /* GPIOD_PDOR: PDO&=~0x80 */
-  GPIOD_PDOR &= (uint32_t)~(uint32_t)(GPIO_PDOR_PDO(0x80));
+  /* GPIOD_PDOR: PDO|=0x80 */
+  GPIOD_PDOR |= GPIO_PDOR_PDO(0x80);
   /* Initialization of Port Control register */
   /* PORTD_PCR7: ISF=0,MUX=1 */
   PORTD_PCR7 = (uint32_t)((PORTD_PCR7 & (uint32_t)~(uint32_t)(

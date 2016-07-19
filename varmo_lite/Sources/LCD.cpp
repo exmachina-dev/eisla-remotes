@@ -1,12 +1,12 @@
 #include "I2C0.h"
-#include "LED_STATUS_3.h"
+#include "LED_STATUS_1.h"
 #include "WAIT1.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define PCA9665_ADDR 0xE0
+#define PCA9665_ADDR 0x20
 byte err;
 word ret;
 byte LCD_flag;
@@ -17,6 +17,14 @@ byte LCD_flag;
    - http://www.mikrocontroller.net/articles/HD44780
    for additional details.
 */
+
+#include "LED_STATUS_1.h"
+#include "BitIoLdd2.h"
+#include "LCD_CTR.h"
+#include "BitIoLdd6.h"
+#include "LCD_EN.h"
+#include "BitIoLdd7.h"
+
 #define ClearDisplayCmd                 0x01 /* clears the display */
 
 #define ReturnHomeCmd                   0x02 /* moves the cursor to the beginning of the first line */
@@ -63,17 +71,46 @@ void LCD_Init() {
 	LCD_flag = 0;
 
 	if (I2C0_GetMode()) { // Check for master mode
-		I2C0_SendChar(PCA9665_ADDR);
-		LED_STATUS_3_SetVal();
-		ret = I2C0_SendChar(0);
+		//I2C0_SendChar(PCA9665_ADDR);
+		LED_STATUS_1_SetVal();
+
+		LCD_CTR_ClrVal();
+		/*ret = I2C0_SendChar(0x30);
+		WAIT1_Waitms(5);
+		ret = I2C0_SendChar(0x30);
+		WAIT1_Waitus(200);
+		ret = I2C0_SendChar(0x30);
+		WAIT1_Waitus(200);
+		ret = I2C0_SendChar(0x38);
+		WAIT1_Waitus(200);
+		ret = I2C0_SendChar(0x08);
+		WAIT1_Waitus(200);
+		ret = I2C0_SendChar(0x01);
+		WAIT1_Waitus(200);
+		ret = I2C0_SendChar(0x06);*/
+
+		/*Datatsheet screen*/
+		LCD_EN_SetVal();
+		ret = I2C0_SendChar(FunctionSetCmd|FunctionSet_Font5x8|FunctionSet_8bit|FunctionSet_2Lines); //0x20|0x10|0x08 = 0x38
+		WAIT1_Waitus(500);
+		LCD_EN_ClrVal();
+		LCD_EN_SetVal();
+		ret = I2C0_SendChar(DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn); //0x08|0x04 = 0x0C
+		/*LCD_EN_ClrVal();
+		LCD_EN_SetVal();*/
+		WAIT1_Waitus(500);
+		LCD_EN_ClrVal();
+		LCD_EN_SetVal();
+		ret = I2C0_SendChar(ClearDisplayCmd); //0X01
+		LCD_EN_ClrVal();
+		LCD_EN_SetVal();
 		WAIT1_Waitms(10);
-		ret = I2C0_SendChar(FunctionSetCmd|FunctionSet_8bit);
-		WAIT1_Waitms(10);
-		ret = I2C0_SendChar(FunctionSetCmd|FunctionSet_Font5x8|FunctionSet_8bit|FunctionSet_2Lines);
-		WAIT1_Waitms(10);
-		ret = I2C0_SendChar(DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn);
-		ret = I2C0_SendChar(ClearDisplayCmd);
-		ret = I2C0_SendChar(EntryModeSetCmd|EntryModeSet_IncrementOn);
+		LCD_EN_ClrVal();
+		LCD_EN_SetVal();
+		ret = I2C0_SendChar(EntryModeSetCmd|EntryModeSet_IncrementOn); //0x04|0x02 = 0x06
+		LCD_EN_ClrVal();
+		LCD_EN_SetVal();
+
 	}
 }
 

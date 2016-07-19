@@ -158,9 +158,6 @@ Module "I2C0"      (component InternalI2C)
                 of transmission must be tested by means of events (OnReceiveData, OnError or OnArbitLost). In case of 
                 successful transmission, received data is ready after OnReceiveData event is called.   When working as a SLAVE, 
                 this method reads a block of characters from the input slave buffer.
-   - I2C0_SendStop -If the "Automatic stop condition" property value is 'no', this method sends a valid stop condition to the 
-                serial data line of the I2C bus to terminate the communication on the bus after using send methods. This method 
-                is enabled only if "Automatic stop condition" property is set to 'no'.
    - I2C0_GetCharsInTxBuf -Returns number of characters in the output buffer. In SLAVE mode returns the number of characters in 
                 the internal slave output buffer. In MASTER mode returns number of characters to be sent from the user buffer 
                 (passed by SendBlock method).  This method is not supported in polling mode.
@@ -222,6 +219,45 @@ Module "IFsh1"     (component IntFLASH)
    - IFsh1_GetByteFlash -Gets byte from an address in FLASH.
    - IFsh1_SetWordFlash -Writes a word to an address in FLASH. The operation of this method depends on the "Write method" 
                 property and state of the flash. Please see more details on general info page of the help.
+
+Module "LCD_CTR"   (component BitIO)
+   - LCD_CTR_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
+                returned. If the direction is [output] then the last written value is returned (see <Safe mode> property for 
+                limitations). This method cannot be disabled if direction is [input].
+   - LCD_CTR_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a memory 
+                or a register and this value will be written to the pin after switching to the output mode (using 
+                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
+                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
+   - LCD_CTR_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 
+                only if the direction = _[output]_ or _[input/output]_.
+   - LCD_CTR_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
+                the direction = _[output]_ or _[input/output]_.
+   - LCD_CTR_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is available 
+                only if the direction = _[output]_ or _[input/output]_.
+
+Module "WAIT1"     (component Wait)
+   - WAIT1_Wait10Cycles -Wait for 10 CPU cycles.
+   - WAIT1_Wait100Cycles -Wait for 100 CPU cycles.
+   - WAIT1_WaitCycles -Wait for a specified number of CPU cycles (16bit data type).
+   - WAIT1_WaitLongCycles -Wait for a specified number of CPU cycles (32bit data type).
+   - WAIT1_Waitms -Wait for a specified time in milliseconds.
+   - WAIT1_Waitus -Wait for a specified time in microseconds.
+   - WAIT1_Waitns -Wait for a specified time in nano seconds.
+   - WAIT1_WaitOSms -If an RTOS is enabled, this routine will use a non-blocking wait method. Otherwise it will do a 
+                busy/blocking wait.
+
+Module "LCD_EN"    (component BitIO)
+   - LCD_EN_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
+                returned. If the direction is [output] then the last written value is returned (see <Safe mode> property for 
+                limitations). This method cannot be disabled if direction is [input].
+   - LCD_EN_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a memory 
+                or a register and this value will be written to the pin after switching to the output mode (using 
+                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
+                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
+   - LCD_EN_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 
+                only if the direction = _[output]_ or _[input/output]_.
+   - LCD_EN_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
+                the direction = _[output]_ or _[input/output]_.
 
 Module "Cpu"       (component MK20DX256LH7)
 

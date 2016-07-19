@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-07-01, 15:00, # CodeGen: 92
+**     Date/Time   : 2016-07-19, 15:37, # CodeGen: 128
 **     Abstract    :
 **
 **     Settings    :
@@ -72,9 +72,7 @@
 **          Initialization priority                        : minimal priority
 **          Watchdog disable                               : yes
 **          Internal peripherals                           : 
-**            NMI pin                                      : Enabled
-**              NMI Pin                                    : TSI0_CH5/PTA4/LLWU_P3/FTM0_CH1/NMI_b/EZP_CS_b
-**              NMI Pin signal                             : 
+**            NMI pin                                      : Disabled
 **            Reset control                                : Enabled
 **              Reset pin                                  : RESET_b
 **              Reset pin signal                           : 
@@ -97,23 +95,28 @@
 **                  TMS Pin signal                         : 
 **                nTRST                                    : Disabled
 **            Flash memory organization                    : 
-**              FlexNVM settings                           : Partition code: 0x0303
+**              FlexNVM settings                           : Partition code: 0xFFFF
 **                FlexNVM size                             : 32 KB
-**                DFlash size                              : 0 KB
-**                EEPROM size                              : 2048 bytes
-**                  EEPROM split factor                    : Subsystem A: 1/8 , Subsystem B: 7/8
-**                  EEPROM backup size                     : 32 KB
+**                DFlash size                              : 32 KB
+**                EEPROM size                              : 0 bytes
 **                  Start                                  : 0x10000000
-**                  Size                                   : 0x8000
+**                  Size                                   : 0x0
 **                  Start                                  : 0x14000000
-**                  Size                                   : 0x800
-**              Flash blocks                               : 1
+**                  Size                                   : 0x0
+**                  FlexRAM                                : Disabled
+**              Flash blocks                               : 2
 **                Flash block 0                            : PFlash
 **                  Address                                : 0x0
 **                  Size                                   : 262144
 **                  Write unit size                        : 4
 **                  Erase unit size                        : 2048
 **                  Protection unit size                   : 8192
+**                Flash block 1                            : DFlash
+**                  Address                                : 0x10000000
+**                  Size                                   : 32768
+**                  Write unit size                        : 4
+**                  Erase unit size                        : 1024
+**                  Protection unit size                   : 4096
 **            Flexible memory controller                   : Disabled
 **            Flash configuration field                    : Enabled
 **              Security settings                          : 
@@ -167,7 +170,7 @@
 **                    Protection region 30                 : Unprotected
 **                    Protection region 31                 : Unprotected
 **                D-Flash protection settings              : 
-**                  Protection region size                 : 1024
+**                  Protection region size                 : 4096
 **                  D-Flash protection                     : 0xFF
 **                  Protection regions                     : 
 **                    Protection region 0                  : Unprotected
@@ -179,7 +182,7 @@
 **                    Protection region 6                  : Unprotected
 **                    Protection region 7                  : Unprotected
 **                Eeprom protection settings               : 
-**                  Protection region size                 : 256
+**                  Protection region size                 : 0
 **                  Eeprom protection                      : 0xFF
 **                  Protection regions                     : 
 **                    Protection region 0                  : Unprotected
@@ -191,7 +194,7 @@
 **                    Protection region 6                  : Unprotected
 **                    Protection region 7                  : Unprotected
 **              Peripheral settings                        : 
-**                NMI function                             : Enabled
+**                NMI function                             : Disabled
 **                EzPort operation at boot                 : Enabled
 **                Low power boot                           : Disabled
 **            AXBS settings                                : Disabled
@@ -215,8 +218,7 @@
 **              CLKOUT pin control                         : Disabled
 **              Clock gating control                       : Disabled
 **          CPU interrupts/resets                          : 
-**            NMI interrupt                                : Enabled
-**              Interrupt                                  : INT_NMI
+**            NMI interrupt                                : Disabled
 **            Hard Fault                                   : Disabled
 **            Bus Fault                                    : Disabled
 **            Usage Fault                                  : Disabled
@@ -337,6 +339,11 @@
 #include "ASerialLdd1.h"
 #include "IFsh1.h"
 #include "IntFlashLdd1.h"
+#include "LCD_CTR.h"
+#include "BitIoLdd6.h"
+#include "WAIT1.h"
+#include "LCD_EN.h"
+#include "BitIoLdd7.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -381,20 +388,6 @@ PE_ISR(Cpu_ivINT_PORTC)
   ExtIntLdd3_Interrupt();              /* Call the service routine */
   ExtIntLdd5_Interrupt();              /* Call the service routine */
   ExtIntLdd4_Interrupt();              /* Call the service routine */
-}
-
-/*
-** ===================================================================
-**     Method      :  Cpu_INT_NMIInterrupt (component MK20DX256LH7)
-**
-**     Description :
-**         This ISR services the Non Maskable Interrupt interrupt.
-**         This method is internal. It is used by Processor Expert only.
-** ===================================================================
-*/
-PE_ISR(Cpu_INT_NMIInterrupt)
-{
-  Cpu_OnNMIINT();
 }
 
 /*
@@ -535,12 +528,6 @@ void PE_low_level_init(void)
     PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
   #endif
       /* Initialization of the SIM module */
-  /* PORTA_PCR4: ISF=0,MUX=7 */
-  PORTA_PCR4 = (uint32_t)((PORTA_PCR4 & (uint32_t)~(uint32_t)(
-                PORT_PCR_ISF_MASK
-               )) | (uint32_t)(
-                PORT_PCR_MUX(0x07)
-               ));
         /* Initialization of the RCM module */
   /* RCM_RPFW: RSTFLTSEL=0 */
   RCM_RPFW &= (uint8_t)~(uint8_t)(RCM_RPFW_RSTFLTSEL(0x1F));
@@ -614,6 +601,10 @@ void PE_low_level_init(void)
   AS1_Init();
   /* ### IntFLASH "IFsh1" init code ... */
   IFsh1_Init();
+  /* ### BitIO_LDD "BitIoLdd6" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)BitIoLdd6_Init(NULL);
+  /* ### BitIO_LDD "BitIoLdd7" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)BitIoLdd7_Init(NULL);
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }
@@ -645,8 +636,8 @@ void PE_low_level_init(void)
     0xFFU,
    /* NV_FSEC: KEYEN=1,MEEN=3,FSLACC=3,SEC=2 */
     0x7EU,
-   /* NV_FOPT: ??=1,??=1,??=1,??=1,??=1,NMI_DIS=1,EZPORT_DIS=1,LPBOOT=1 */
-    0xFFU,
+   /* NV_FOPT: ??=1,??=1,??=1,??=1,??=1,NMI_DIS=0,EZPORT_DIS=1,LPBOOT=1 */
+    0xFBU,
    /* NV_FEPROT: EPROT=0xFF */
     0xFFU,
    /* NV_FDPROT: DPROT=0xFF */

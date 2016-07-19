@@ -12,6 +12,7 @@
 extern "C" {
 #endif
 
+void PCA9670_Init();
 
 
 #ifdef __cplusplus

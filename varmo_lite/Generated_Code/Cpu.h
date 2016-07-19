@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 01:57, # CodeGen: 38
+**     Date/Time   : 2016-07-19, 10:28, # CodeGen: 125
 **     Abstract    :
 **
 **     Settings    :
@@ -81,7 +81,6 @@ extern "C" {
 /* Methods configuration constants - generated for all enabled component's methods */
 
 /* Events configuration constants - generated for all enabled component's events */
-#define Cpu_OnNMIINT_EVENT_ENABLED
 
 #define CPU_BUS_CLK_HZ                  47988736U /* Initial value of the bus clock frequency in Hz */
 #define CPU_CORE_CLK_HZ                 95977472U /* Initial value of the core/system clock frequency in Hz.  */
@@ -172,18 +171,6 @@ PE_ISR(Cpu_ivINT_PORTC);
 ** ===================================================================
 */
 void PE_low_level_init(void);
-
-/* {Default RTOS Adapter} ISR function prototype */
-PE_ISR(Cpu_INT_NMIInterrupt);
-/*
-** ===================================================================
-**     Method      :  Cpu_INT_NMIInterrupt (component MK20DX256LH7)
-**
-**     Description :
-**         This ISR services the Non Maskable Interrupt interrupt.
-**         This method is internal. It is used by Processor Expert only.
-** ===================================================================
-*/
 
 PE_ISR(Cpu_Interrupt);
 /*

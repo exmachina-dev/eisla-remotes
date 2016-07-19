@@ -59,6 +59,11 @@
 #include "ASerialLdd1.h"
 #include "IFsh1.h"
 #include "IntFlashLdd1.h"
+#include "LCD_CTR.h"
+#include "BitIoLdd6.h"
+#include "WAIT1.h"
+#include "LCD_EN.h"
+#include "BitIoLdd7.h"
 #include "KSDK1.h"
 #include "CS1.h"
 /* Including shared modules, which are used for whole project */
@@ -69,6 +74,8 @@
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include "display.h"
 #include "protocol.h"
+#include "LCD.h"
+#include "PCA9670.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -93,11 +100,17 @@ int main(void)
 
   int cnt_err = 0;
   int cnt_ok = 0;
+  WAIT1_Waitms(20);
+  PCA9670_Init();
+  WAIT1_Waitms(5);
+  LCD_Init();
+  /*LED_STATUS_1_SetVal();*/
 
   for(;;){
 	  char msg[cnt];
 	  int nb_data = 0;
 
+	  WAIT1_Waitms(20);
 	  /*Check message received*/
 	  if (FLAG_MSG_RCV == 1){
 		  binaryRepr size;

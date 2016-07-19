@@ -1,8 +1,8 @@
 #include "I2C0.h"
-#include "LED_STATUS_3.h"
+#include "LED_STATUS_1.h"
 #include "WAIT1.h"
 
-#define PCA9670_ADDR 0x40
+#define PCA9670_ADDR 0x20
 
 #ifdef __cplusplus
 extern "C" {
@@ -15,13 +15,28 @@ void PCA9670_Init() {
 	}
 	#endif
 
-	// Software reset
-	I2C0_SelectSlave(0x0);
-	I2C0_SendChar(0x06);
-	I2C0_SendStop();
-
 	I2C0_SelectSlave(PCA9670_ADDR);
-	I2C0_SendChar(0x00);
+	I2C0_SendChar(0x00); //Put on IO to low voltage
+
+	//LED_STATUS_1_SetVal();
+/*	byte ret;
+	ret = I2C0_SendChar(0x30);
+	WAIT1_Waitms(10);
+	ret = I2C0_SendChar(0x30);
+	WAIT1_Waitms(20);
+	ret = I2C0_SendChar(0x30);
+	WAIT1_Waitms(20);
+	ret = I2C0_SendChar(0x38);
+	WAIT1_Waitms(20);
+	ret = I2C0_SendChar(0x04);
+	WAIT1_Waitms(20);
+	ret = I2C0_SendChar(0x01);
+	WAIT1_Waitms(20);
+	ret = I2C0_SendChar(0x04);
+	WAIT1_Waitms(20);
+	ret = I2C0_SendChar(0x0F);
+*/
+	//LED_STATUS_1_SetVal();
 }
 
 #ifdef __cplusplus

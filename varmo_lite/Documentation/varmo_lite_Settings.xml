@@ -434,7 +434,7 @@ PE_DEBUGHALT();
           <Direction v="Output" />
           <group name="Initialization">
             <Init__direction v="Output" />
-            <Init__value v="0" />
+            <Init__value v="1" />
             <Auto_initialization v="yes" />
           </group>
           <Safe_mode v="yes" />
@@ -461,7 +461,7 @@ PE_DEBUGHALT();
       <Direction v="Output" />
       <group name="Initialization">
         <Init__direction v="Output" />
-        <Init__value v="0" />
+        <Init__value v="1" />
       </group>
       <Safe_mode v="yes" />
       <Optimization_for v="speed" />
@@ -951,7 +951,7 @@ PE_DEBUGHALT();
             <boolgroup name="MASTER mode" v="Enabled">
               <group name="Initialization">
                 <Address_mode v="7-bit addressing" />
-                <Target_slave_address_init v="112" />
+                <Target_slave_address_init v="32" />
               </group>
             </boolgroup>
             <boolgroup name="SLAVE mode" v="Disabled" />
@@ -965,13 +965,13 @@ PE_DEBUGHALT();
               <High_drive_select v="Enabled" />
               <Input_Glitch_filter v="0" />
             </group>
-            <Internal_frequency__multiplier_factor_ v="47.988736 MHz" />
-            <Bits_0_2_of_Frequency_divider_register v="000" />
-            <Bits_3_5_of_Frequency_divider_register v="010" />
-            <SCL_frequency v="999.765 kHz" />
-            <SDA_Hold v="0.188 us" />
-            <SCL_start_Hold v="0.375 us" />
-            <SCL_stop_Hold v="0.521 us" />
+            <Internal_frequency__multiplier_factor_ v="23.994368 MHz" />
+            <Bits_0_2_of_Frequency_divider_register v="111" />
+            <Bits_3_5_of_Frequency_divider_register v="011" />
+            <SCL_frequency v="99.977 kHz" />
+            <SDA_Hold v="1.375 us" />
+            <SCL_start_Hold v="4.918 us" />
+            <SCL_stop_Hold v="5.043 us" />
             <boolgroup name="Control acknowledge bit" v="Disabled" />
             <boolgroup name="Low timeout" v="Disabled" />
           </group>
@@ -1058,10 +1058,10 @@ PE_DEBUGHALT();
       </boolgroup>
       <boolgroup name="MASTER mode" v="Enabled">
         <Polling_trials v="2000" />
-        <Automatic_stop_condition v="no" />
+        <Automatic_stop_condition v="yes" />
         <group name="Initialization">
           <Address_mode v="7-bit addressing" />
-          <Target_slave_address_init v="112" />
+          <Target_slave_address_init v="32" />
         </group>
       </boolgroup>
       <boolgroup name="SLAVE mode" v="Disabled" />
@@ -1070,11 +1070,11 @@ PE_DEBUGHALT();
         <SCL_pin v="ADC0_SE8/ADC1_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/FTM1_CH0/FTM1_QD_PHA" />
         <High_drive_select v="Enabled" />
       </group>
-      <Internal_frequency__multiplier_factor_ v="47.988736 MHz" />
-      <Bits_0_2_of_Frequency_divider_register v="000" />
-      <Bits_3_5_of_Frequency_divider_register v="010" />
-      <SCL_frequency v="999.765 kHz" />
-      <SDA_Hold v="0.188 us" />
+      <Internal_frequency__multiplier_factor_ v="23.994368 MHz" />
+      <Bits_0_2_of_Frequency_divider_register v="111" />
+      <Bits_3_5_of_Frequency_divider_register v="011" />
+      <SCL_frequency v="99.977 kHz" />
+      <SDA_Hold v="1.375 us" />
       <Noise__glitch__filter v="0" />
       <boolgroup name="Low timeout" v="Disabled" />
       <Wake_up v="Disabled" />
@@ -1097,7 +1097,7 @@ PE_DEBUGHALT();
       <RecvChar v="generate code" />
       <SendBlock v="generate code" />
       <RecvBlock v="generate code" />
-      <SendStop v="generate code" />
+      <SendStop v="don&amp;apos;t generate code" />
       <ClearTxBuf v="don&amp;apos;t generate code" />
       <ClearRxBuf v="don&amp;apos;t generate code" />
       <GetCharsInTxBuf v="generate code" />
@@ -1516,13 +1516,20 @@ PE_DEBUGHALT();
           <Component_name v="IntFlashLdd1" />
           <Device v="FTFL" />
           <group name="Flash memory organization">
-            <list name="Flash blocks" v="1">
+            <list name="Flash blocks" v="2">
               <group name="Flash block 0">
                 <Address v="0" />
                 <Size v="262144" />
                 <Write_unit_size v="4" />
                 <Erase_unit_size v="2048" />
                 <Protection_unit_size v="8192" />
+              </group>
+              <group name="Flash block 1">
+                <Address v="268435456" />
+                <Size v="32768" />
+                <Write_unit_size v="4" />
+                <Erase_unit_size v="1024" />
+                <Protection_unit_size v="4096" />
               </group>
             </list>
           </group>
@@ -1654,6 +1661,156 @@ PE_DEBUGHALT();
       <event name="OnAccessError" v="don&amp;apos;t generate code" />
       <event name="OnReadCollisionError" v="don&amp;apos;t generate code" />
       <event name="OnProtectionViolation" v="don&amp;apos;t generate code" />
+    </Events>
+  </Bean>
+  <Bean name="LCD_CTR" type="BitIO">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="LCD_CTR" />
+      <Pin_for_I_O v="CMP2_IN0/PTA12/CAN0_TX/FTM1_CH0/I2S0_TXD0/FTM1_QD_PHA" />
+      <inhrbean type="BitIO_LDD">
+        <Enabled v="Y" />
+        <Template v="BitIO_LDD" />
+        <Properties>
+          <Component_name v="BitIoLdd6" />
+          <Pin_for_I_O v="CMP2_IN0/PTA12/CAN0_TX/FTM1_CH0/I2S0_TXD0/FTM1_QD_PHA" />
+          <Direction v="Output" />
+          <group name="Initialization">
+            <Init__direction v="Output" />
+            <Init__value v="0" />
+            <Auto_initialization v="yes" />
+          </group>
+          <Safe_mode v="yes" />
+        </Properties>
+        <Methods>
+          <Init v="generate code" />
+          <Deinit v="don&amp;apos;t generate code" />
+          <GetDir v="don&amp;apos;t generate code" />
+          <SetDir v="don&amp;apos;t generate code" />
+          <SetInput v="don&amp;apos;t generate code" />
+          <SetOutput v="don&amp;apos;t generate code" />
+          <GetVal v="generate code" />
+          <PutVal v="generate code" />
+          <ClrVal v="generate code" />
+          <SetVal v="generate code" />
+          <NegVal v="generate code" />
+          <ConnectPin v="don&amp;apos;t generate code" />
+          <GetRawVal v="don&amp;apos;t generate code" />
+        </Methods>
+        <Events>
+          <EmptySection_DummyValue />
+        </Events>
+      </inhrbean>
+      <Direction v="Output" />
+      <group name="Initialization">
+        <Init__direction v="Output" />
+        <Init__value v="0" />
+      </group>
+      <Safe_mode v="yes" />
+      <Optimization_for v="speed" />
+    </Properties>
+    <Methods>
+      <GetDir v="don&amp;apos;t generate code" />
+      <SetDir v="don&amp;apos;t generate code" />
+      <SetInput v="don&amp;apos;t generate code" />
+      <SetOutput v="don&amp;apos;t generate code" />
+      <GetVal v="generate code" />
+      <PutVal v="generate code" />
+      <ClrVal v="generate code" />
+      <SetVal v="generate code" />
+      <NegVal v="generate code" />
+      <ConnectPin v="don&amp;apos;t generate code" />
+      <GetRawVal v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <EmptySection_DummyValue />
+    </Events>
+  </Bean>
+  <Bean name="WAIT1" type="Wait">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="WAIT1" />
+      <SDK v="KSDK1" />
+      <boolgroup name="Manual Clock Values" v="Disabled" />
+      <Delay100usFunction v="Delay100US" />
+      <boolgroup name="RTOS" v="Disabled" />
+      <boolgroup name="Watchdog" v="Disabled" />
+    </Properties>
+    <Methods>
+      <Wait10Cycles v="generate code" />
+      <Wait100Cycles v="generate code" />
+      <WaitCycles v="generate code" />
+      <WaitLongCycles v="generate code" />
+      <Waitms v="generate code" />
+      <Waitus v="generate code" />
+      <Waitns v="generate code" />
+      <WaitOSms v="generate code" />
+    </Methods>
+    <Events>
+      <EmptySection_DummyValue />
+    </Events>
+  </Bean>
+  <Bean name="LCD_EN" type="BitIO">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="LCD_EN" />
+      <Pin_for_I_O v="TSI0_CH5/PTA4/LLWU_P3/FTM0_CH1/NMI_b/EZP_CS_b" />
+      <inhrbean type="BitIO_LDD">
+        <Enabled v="Y" />
+        <Template v="BitIO_LDD" />
+        <Properties>
+          <Component_name v="BitIoLdd7" />
+          <Pin_for_I_O v="TSI0_CH5/PTA4/LLWU_P3/FTM0_CH1/NMI_b/EZP_CS_b" />
+          <Direction v="Output" />
+          <group name="Initialization">
+            <Init__direction v="Output" />
+            <Init__value v="0" />
+            <Auto_initialization v="yes" />
+          </group>
+          <Safe_mode v="yes" />
+        </Properties>
+        <Methods>
+          <Init v="generate code" />
+          <Deinit v="don&amp;apos;t generate code" />
+          <GetDir v="don&amp;apos;t generate code" />
+          <SetDir v="don&amp;apos;t generate code" />
+          <SetInput v="don&amp;apos;t generate code" />
+          <SetOutput v="don&amp;apos;t generate code" />
+          <GetVal v="generate code" />
+          <PutVal v="generate code" />
+          <ClrVal v="generate code" />
+          <SetVal v="generate code" />
+          <NegVal v="don&amp;apos;t generate code" />
+          <ConnectPin v="don&amp;apos;t generate code" />
+          <GetRawVal v="don&amp;apos;t generate code" />
+        </Methods>
+        <Events>
+          <EmptySection_DummyValue />
+        </Events>
+      </inhrbean>
+      <Direction v="Output" />
+      <group name="Initialization">
+        <Init__direction v="Output" />
+        <Init__value v="0" />
+      </group>
+      <Safe_mode v="yes" />
+      <Optimization_for v="speed" />
+    </Properties>
+    <Methods>
+      <GetDir v="don&amp;apos;t generate code" />
+      <SetDir v="don&amp;apos;t generate code" />
+      <SetInput v="don&amp;apos;t generate code" />
+      <SetOutput v="don&amp;apos;t generate code" />
+      <GetVal v="generate code" />
+      <PutVal v="generate code" />
+      <ClrVal v="generate code" />
+      <SetVal v="generate code" />
+      <NegVal v="don&amp;apos;t generate code" />
+      <ConnectPin v="don&amp;apos;t generate code" />
+      <GetRawVal v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <EmptySection_DummyValue />
     </Events>
   </Bean>
 </PE_PROJECT_SETTINGS_DOCUMENTATION>

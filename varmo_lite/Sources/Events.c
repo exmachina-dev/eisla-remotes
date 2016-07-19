@@ -48,7 +48,10 @@ extern "C" {
 
 #include "protocol.h"
 #include "encoder_variable.h"
-#include "ENCODER.h"
+#include "PCA9670.h"
+#include "LCD.h"
+
+//#include "ENCODER.h"
 /*
 ** ===================================================================
 **     Event       :  PUSH_BUTTON_REC_OnInterrupt (module Events)
@@ -118,7 +121,7 @@ void I2C0_OnReceiveData(void)
 */
 void I2C0_OnTransmitData(void)
 {
-  /* Write your code here ... */
+
 }
 
 /*
@@ -142,15 +145,15 @@ void I2C0_OnTransmitData(void)
 /* ===================================================================*/
 void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-    counter_100ms += 1;
+    /*counter_100ms += 1;
     if (counter_100ms == 5){
         FLAG_PUSH_LONG = 1;
         T_100ms_Disable(&UserDataPtr);
         counter_100ms =0;
-    }
-
-	test_protocol();
-	/* Write your code here ... */
+    }*/
+	//PCA9670_Init();
+	//LCD_Init();
+	//test_protocol();
 }
 
 /*
@@ -212,6 +215,7 @@ void LEVER_DIR1_OnInterrupt(void)
 */
 void ENCODER_PUSH_OnInterrupt(void)
 {
+	/*
     if (ENCODER_PUSH_GetVal() == 0){ //Encoder Pushed
         FLAG_PUSH_SHORT = 0;
         FLAG_PUSH_LONG = 0;
@@ -224,6 +228,7 @@ void ENCODER_PUSH_OnInterrupt(void)
         FLAG_PUSH_SHORT = 1;
     }
     LED_DEBUG_NegVal();
+    */
 }
 
 /*
@@ -246,14 +251,14 @@ void ENCODER_PUSH_OnInterrupt(void)
 /* ===================================================================*/
 void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 {
-    if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B) == 1){
+ /*   if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B) == 1){
         if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_A) == 0){
             encoder -= 1;
         }
         else{
         	encoder += 1;
         }
-    }
+    }*/
 }
 
 /*
@@ -282,24 +287,6 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 
 /*
 ** ===================================================================
-**     Event       :  Cpu_OnNMIINT (module Events)
-**
-**     Component   :  Cpu [MK20DX256LH7]
-*/
-/*!
-**     @brief
-**         This event is called when the Non maskable interrupt had
-**         occurred. This event is automatically enabled when the [NMI
-**         interrupt] property is set to 'Enabled'.
-*/
-/* ===================================================================*/
-void Cpu_OnNMIINT(void)
-{
-  /* Write your code here ... */
-}
-
-/*
-** ===================================================================
 **     Event       :  I2C0_OnArbitLost (module Events)
 **
 **     Component   :  I2C0 [InternalI2C]
@@ -313,7 +300,7 @@ void Cpu_OnNMIINT(void)
 */
 void I2C0_OnArbitLost(void)
 {
-  I2C0_SendStop();
+  //I2C0_SendStop();
 }
 
 /*

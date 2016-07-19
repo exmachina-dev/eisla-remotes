@@ -62,28 +62,17 @@
 #include "ASerialLdd1.h"
 #include "IFsh1.h"
 #include "IntFlashLdd1.h"
+#include "LCD_CTR.h"
+#include "BitIoLdd6.h"
+#include "WAIT1.h"
+#include "LCD_EN.h"
+#include "BitIoLdd7.h"
 #include "KSDK1.h"
 #include "CS1.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif 
-
-/*
-** ===================================================================
-**     Event       :  Cpu_OnNMIINT (module Events)
-**
-**     Component   :  Cpu [MK20DX256MC7]
-*/
-/*!
-**     @brief
-**         This event is called when the Non maskable interrupt had
-**         occurred. This event is automatically enabled when the [NMI
-**         interrupt] property is set to 'Enabled'.
-*/
-/* ===================================================================*/
-void Cpu_OnNMIINT(void);
-
 
 /*
 ** ===================================================================
