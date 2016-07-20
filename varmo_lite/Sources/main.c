@@ -100,10 +100,21 @@ int main(void)
 
   int cnt_err = 0;
   int cnt_ok = 0;
-  WAIT1_Waitms(20);
+  WAIT1_Waitms(15);
   PCA9670_Init();
-  WAIT1_Waitms(5);
+
   LCD_Init();
+  LCD_Cursor_On();
+  //LCD_Cursor_Blink_On();
+  LCD_Set_Cursor(2,1);
+  WAIT1_Waitms(1000);
+  LCD_Cursor_Home();
+  WAIT1_Waitms(1000);
+  LCD_Cursor_Off();
+  WAIT1_Waitms(1000);
+  LCD_Cursor_On_At(1,14);
+
+
   /*LED_STATUS_1_SetVal();*/
 
   for(;;){

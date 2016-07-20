@@ -47,6 +47,8 @@ byte LCD_flag;
 
 #define CursorOnCmd    (DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn|DisplayOnOffControl_CursorOn)
 #define CursorOffCmd   (DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn)
+#define CursorBlinkOnCmd    (DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn|DisplayOnOffControl_BlinkOn)
+#define CursorBlinkOffCmd   (DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn)
 #define GotoXYCmd      0x80  /* 0x80 | Display RAM address */
 #define Line1Offset    0x00 /* Display RAM address of first line, usually 0x00 */
 #define Line2Offset    0x40 /* Display RAM address of second line, usually 0x40 */
@@ -77,23 +79,21 @@ void LCD_Init() {
 
 		/*Datatsheet screen*/
 
-		PCA9670_SendByte(FunctionSetCmd|FunctionSet_Font5x8|FunctionSet_8bit|FunctionSet_2Lines, 500); //0x20|0x10|0x08 = 0x38, 0.1);
+		PCA9670_SendByte(FunctionSetCmd|FunctionSet_Font5x8|FunctionSet_8bit|FunctionSet_2Lines, 1); //0x20|0x10|0x08 = 0x38;
 
-		PCA9670_SendByte(DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn, 500);
+		//PCA9670_SendByte(CursorOnCmd, 1);
+		PCA9670_SendByte(DisplayOnOffControlCmd|DisplayOnOffControl_DisplayOn, 1);
 
-		PCA9670_SendByte(ClearDisplayCmd, 0.1); //0X01
+		PCA9670_SendByte(ClearDisplayCmd, 1); //0X01
 
-		PCA9670_SendByte(EntryModeSetCmd|EntryModeSet_IncrementOn, 100); //0x04|0x02 = 0x06)
-
+		PCA9670_SendByte(EntryModeSetCmd|EntryModeSet_IncrementOn, 10); //0x04|0x02 = 0x06)
 	}
 }
 
 void LCD_command(uint8_t value){
 	(void)I2C0_SelectSlave(PCA9665_ADDR);
-
 	if (I2C0_GetMode()) { // Check for master mode
-		I2C0_SendChar(PCA9665_ADDR);
-		I2C0_SendChar(value);
+		PCA9670_SendByte(value, 1);
 	}
 }
 
@@ -112,8 +112,18 @@ void LCD_Cursor_Off(){
 	LCD_command(CursorOffCmd);
 }
 
+/*LCD Cursor Blink On*/
+void LCD_Cursor_Blink_On(){
+	LCD_command(CursorBlinkOnCmd);
+}
+
+/*LCD Cursor Blink Off*/
+void LCD_Cursor_Blink_Off(){
+	LCD_command(CursorBlinkOffCmd);
+}
+
 /*LCD return cursor home*/
-void LCD_Cursor_Hone(){
+void LCD_Cursor_Home(){
 	LCD_command(ReturnHomeCmd);
 }
 
@@ -142,7 +152,7 @@ void LCD_Cursor_On_At(uint8_t line, uint8_t x){
 
 void LCD_Write(uint8_t value){
 	LCD_command(GotoXYCmd);
-	I2C0_SendChar(value);	
+	PCA9670_SendByte(value, 0.1);
 }
 /*
 void LCD_Write_Block(uint8_t* buffer, uint8_t size){
