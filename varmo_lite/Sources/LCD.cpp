@@ -7,6 +7,9 @@
 
 #include "PCA9670.h"
 
+#include <stdio.h>
+#include <string.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -92,6 +95,7 @@ void LCD_Init() {
 
 void LCD_command(uint8_t value){
 	(void)I2C0_SelectSlave(PCA9665_ADDR);
+	LCD_CTR_ClrVal();
 	if (I2C0_GetMode()) { // Check for master mode
 		PCA9670_SendByte(value, 1);
 	}
@@ -151,14 +155,32 @@ void LCD_Cursor_On_At(uint8_t line, uint8_t x){
 }
 
 void LCD_Write(uint8_t value){
-	LCD_command(GotoXYCmd);
-	PCA9670_SendByte(value, 0.1);
+ 	LCD_CTR_SetVal();
+	PCA9670_SendByte(value, 1);
 }
-/*
-void LCD_Write_Block(uint8_t* buffer, uint8_t size){
-	LCD_command(GotoXYCmd);
-	I2C0_SendBlock((uint8_t * )buffer, size, size);
-}*/
+
+void LCD_Write_Block(char* buffer,uint8_t line, uint8_t x ){
+	int length = strlen(buffer);
+	int x_cnt = x;
+	int y_cnt = line;
+	LCD_Set_Cursor(line, x);
+	for (int i = 0; i < length; i++){
+		if (x_cnt > 15){
+			// End Of the line
+			if (y_cnt == 3){
+				// Last Line, go to the first line
+				y_cnt = 0;
+			}
+			else{
+				y_cnt += 1;
+			}
+			x_cnt = 0;
+			LCD_Set_Cursor(y_cnt, x_cnt);
+		}
+		LCD_Write(buffer[i]);
+		x_cnt += 1;
+	}
+}
 
 #ifdef __cplusplus
 }  /* extern "C" */

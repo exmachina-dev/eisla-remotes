@@ -1,3 +1,6 @@
+#include <string.h>
+#include <stdio.h>
+
 #ifndef SOURCES_LCD_H_
 #define SOURCES_LCD_H_
 
@@ -16,7 +19,7 @@ void LCD_Cursor_Home(void);
 void LCD_Set_Cursor(uint8_t, uint8_t);
 void LCD_Cursor_On_At(uint8_t, uint8_t);
 void LCD_Write(uint8_t);
-//void LCD_Write_Block(uint8_t*, uint8_t );
+void LCD_Write_Block(char*, uint8_t, uint8_t );
 
 #ifdef __cplusplus
 }  /* extern "C" */

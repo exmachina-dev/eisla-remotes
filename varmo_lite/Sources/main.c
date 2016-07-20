@@ -105,15 +105,10 @@ int main(void)
 
   LCD_Init();
   LCD_Cursor_On();
-  //LCD_Cursor_Blink_On();
-  LCD_Set_Cursor(2,1);
-  WAIT1_Waitms(1000);
-  LCD_Cursor_Home();
-  WAIT1_Waitms(1000);
-  LCD_Cursor_Off();
-  WAIT1_Waitms(1000);
-  LCD_Cursor_On_At(1,14);
-
+  LCD_Write_Block("Hello Word",0, 2);
+  LCD_Write_Block("Hello Word",1, 3);
+  LCD_Write_Block("Hello Word",2, 4);
+  LCD_Write_Block("Hello Word",3, 5);
 
   /*LED_STATUS_1_SetVal();*/
 
