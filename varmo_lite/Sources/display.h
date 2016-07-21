@@ -25,6 +25,9 @@
 **  @{
 */
 
+#include <string.h>
+#include <stdio.h>
+
 #ifndef SOURCES_DISPLAY_H_
 #define SOURCES_DISPLAY_H_
 
@@ -38,14 +41,13 @@
 #include "menu.h"
 
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void led_init(int);
 
-void menu_init();
+menu menu_init();
 
 void velocity_fct();
 void acceleration_fct();

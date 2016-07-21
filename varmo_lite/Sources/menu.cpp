@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include ".\menu.h"
+#include "LCD.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-menu init_menu(char *name, sub_menu array[]){
+menu init_menu(char *name, const sub_menu array[]){
 	menu temp;
 	temp.name = name;
 	temp.sub = array;
@@ -27,39 +28,91 @@ sub_menu init_sub_menu(char *name, bool item, void (*function)()){
 
 void print_menu(int pointer, int size_array, menu array[]){
   int temp = 0;
-  if ((pointer+3) > size_array){
-  	temp = size_array-3;
+  int line = 1;
+  if (pointer == 0){
+	  temp = 0;
   }
-  else {
-  	temp = pointer;
+  else if (pointer == (size_array-1)){
+	  temp = size_array - 3;
   }
-  for (int i = temp; i<(temp+3) ; i++){
-  	if (i == pointer){
-  		//Serial.print(array[i].name);
-  		//Serial.println("<-");
-  	}
-  	else{
-	  	//Serial.println(array[i].name);
-  	}
+  else{
+	  temp = pointer - 1;
   }
+
+  for (int i = temp; i<temp+3; i++){
+	if (i == pointer){
+		LCD_Write_At(0x7E, line, 0);
+		LCD_Write_Block(array[i].name, line, 1);
+	}
+	else{
+		LCD_Write_Block(" ", line, 0);
+ 		LCD_Write_Block(array[i].name, line, 1);
+	}
+	line += 1;
+  }
+
+  if (size_array > 3){
+	   if (pointer == 0){
+		   LCD_Write_At(' ',1,15);
+		   LCD_Write_At(2, 3, 15);
+	   }
+	   else if(pointer == (size_array-1)){
+		   LCD_Write_At(1, 1, 15);
+		   LCD_Write_At(' ',3,15);
+	   }
+	   else{
+		   LCD_Write_At(1, 1, 15);
+		   LCD_Write_At(2, 3, 15);
+	   }
+  }
+
 }
 
-void print_sub_menu(int pointer, int size_array, sub_menu array[]){
+void print_sub_menu(int pointer, int size_array, const sub_menu array[]){
   int temp = 0;
-  if ((pointer+3) > size_array){
-  	temp = size_array-3;
+  int line = 1;
+  if (pointer == 0){
+	  temp = 0;
   }
-  else {
-  	temp = pointer;
+  else if (pointer == (size_array-1)){
+	  temp = size_array - 3;
   }
-  for (int i = temp; i<(temp+3) ; i++){
-  	if (i == pointer){
-  		//Serial.print(array[i].name);
-  		//Serial.println("<-");
-  	}
-  	else{
-	  	//Serial.println(array[i].name);
-  	}
+  else{
+	  temp = pointer - 1;
+
+  }
+
+  for (int i = temp; i<temp+3; i++){
+	if (i == pointer){
+		LCD_Write_At(0x7E, line, 0);
+		LCD_Write_Block(array[i].name, line, 1);
+	}
+	else{
+		LCD_Write_Block(" ", line, 0);
+		LCD_Write_Block(array[i].name, line, 1);
+	}
+	line += 1;
+	if (i == (size_array -1)){
+		LCD_Write_At(3, 3,6);
+		LCD_Write_Block("       ",3,7);
+	}
+  }
+
+  if (size_array > 3){
+	   if (pointer == 0){
+		   LCD_Write_At(' ',1,15);
+		   LCD_Write_At(2, 3, 15);
+	   }
+	   else if(pointer == (size_array-1)){
+		   LCD_Write_At(3, 3,6);
+		   LCD_Write_At(1, 1, 15);
+		   LCD_Write_At(' ',3,15);
+
+	   }
+	   else{
+		   LCD_Write_At(1, 1, 15);
+		   LCD_Write_At(2, 3, 15);
+	   }
   }
 }
 

@@ -104,19 +104,31 @@ int main(void)
   PCA9670_Init();
 
   LCD_Init();
-  LCD_Cursor_On();
-  LCD_Write_Block("Hello Word",0, 2);
-  LCD_Write_Block("Hello Word",1, 3);
-  LCD_Write_Block("Hello Word",2, 4);
-  LCD_Write_Block("Hello Word",3, 5);
+  //LCD_Write_Block("Varmo V2.0", 1, 3);
+  menu_init();
 
-  /*LED_STATUS_1_SetVal();*/
+/*
+  print_menu(0, 4, menu_array);
+  WAIT1_Waitms(500);
+  print_menu(1, 4, menu_array);
+  WAIT1_Waitms(500);
+  print_menu(2, 4, menu_array);
+  WAIT1_Waitms(500);
+  print_menu(3, 4, menu_array);
+  /*
+  print_sub_menu(0, 4, menu_array->sub);
+  WAIT1_Waitms(500);
+  print_sub_menu(1, 4, menu_array->sub);
+  WAIT1_Waitms(500);
+  print_sub_menu(2, 4, menu_array->sub);
+  WAIT1_Waitms(500);
+  print_sub_menu(3, 4, menu_array->sub);*/
+
 
   for(;;){
 	  char msg[cnt];
 	  int nb_data = 0;
 
-	  WAIT1_Waitms(20);
 	  /*Check message received*/
 	  if (FLAG_MSG_RCV == 1){
 		  binaryRepr size;

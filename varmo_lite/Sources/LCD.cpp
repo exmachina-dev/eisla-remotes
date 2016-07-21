@@ -73,7 +73,6 @@ void LCD_Init() {
 	(void)I2C0_SelectSlave(PCA9665_ADDR);
 
 	LCD_flag = 0;
-
 	if (I2C0_GetMode()) { // Check for master mode
 		//I2C0_SendChar(PCA9665_ADDR);
 		LED_STATUS_1_SetVal();
@@ -159,11 +158,34 @@ void LCD_Write(uint8_t value){
 	PCA9670_SendByte(value, 1);
 }
 
-void LCD_Write_Block(char* buffer,uint8_t line, uint8_t x ){
+void load_custom_char(uint8_t value, uint8_t *rows){
+	PCA9670_SendByte(FunctionSetCmd|FunctionSet_Font5x8|FunctionSet_8bit|FunctionSet_2Lines, 1); //0x20|0x10|0x08 = 0x38;
+	LCD_command(0x40 +(value * 8));
+	/*LCD_Write(0b00100);
+	LCD_Write(0b01110);
+	LCD_Write(0b10101);
+	LCD_Write(0b00100);
+	LCD_Write(0b00100);
+	LCD_Write(0b00100);
+	LCD_Write(0b00100);
+	LCD_Write(0b00000);*/
+	for (int i = 0; i< 8;i++){
+		LCD_Write(rows[i]);
+	}
+	LCD_command(0x39);
+}
+
+void LCD_Write_At(uint8_t value, uint8_t line, uint8_t x){
+	LCD_Set_Cursor(line, x);
+ 	LCD_CTR_SetVal();
+	LCD_Write(value);
+}
+
+void LCD_Write_Block(char* buffer, uint8_t line, uint8_t x ){
 	int length = strlen(buffer);
 	int x_cnt = x;
 	int y_cnt = line;
-	LCD_Set_Cursor(line, x);
+	LCD_Set_Cursor(y_cnt, x_cnt);
 	for (int i = 0; i < length; i++){
 		if (x_cnt > 15){
 			// End Of the line
