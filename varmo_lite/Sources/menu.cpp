@@ -121,6 +121,7 @@ void print_sub_menu(int pointer, int size_array, const sub_menu array[]){
 int menu_select(int pointer, int size_array, menu array[]){
     array[pointer].menu_selected = 1;
 	print_sub_menu(0, size_array, array[pointer].sub);
+	LCD_Write_At(array[pointer].name[0], 0, 13);
 	return pointer = 0;
 }
 
@@ -137,12 +138,14 @@ int sub_menu_select(int pointer, int size_array, sub_menu array[]){
 
 int menu_back(int size_array, menu array[]){
 	int pointer = 0;
+	//LCD_Write_At(' ', 0, 13);
 	for (int i =0; i < size_array; i++){
 		if (array[i].menu_selected == 1){
 			pointer = i;
 		}
 	}
 	array[pointer].menu_selected = 0;
+	LCD_Clear();
 	print_menu(pointer, size_array, array);
 	return pointer;
 }

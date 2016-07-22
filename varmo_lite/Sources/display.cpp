@@ -128,22 +128,14 @@ menu menu_init(){
 		refresh_menu(j, menu_array);
 		WAIT1_Waitms(500);
 	}
-	menu_select(1, 4, menu_array);
+	menu_select(0, 4, menu_array);
 
 	for (int j = 0; j < 5; j++){
 		refresh_menu(j, menu_array);
 		WAIT1_Waitms(500);
 
 	}
-  /*print_menu(0, 4, menu_array);
-  WAIT1_Waitms(500);
-  print_menu(1, 4, menu_array);
-  WAIT1_Waitms(500);
-  print_menu(2, 4, menu_array);
-  WAIT1_Waitms(500);
-  menu_select(2, 4, menu_array);
-  WAIT1_Waitms(500);
-  menu_back(4, menu_array);*/
+	menu_back(4, menu_array);
 
 }
 
