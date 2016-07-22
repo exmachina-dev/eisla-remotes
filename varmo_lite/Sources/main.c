@@ -107,23 +107,6 @@ int main(void)
   //LCD_Write_Block("Varmo V2.0", 1, 3);
   menu_init();
 
-/*
-  print_menu(0, 4, menu_array);
-  WAIT1_Waitms(500);
-  print_menu(1, 4, menu_array);
-  WAIT1_Waitms(500);
-  print_menu(2, 4, menu_array);
-  WAIT1_Waitms(500);
-  print_menu(3, 4, menu_array);
-  /*
-  print_sub_menu(0, 4, menu_array->sub);
-  WAIT1_Waitms(500);
-  print_sub_menu(1, 4, menu_array->sub);
-  WAIT1_Waitms(500);
-  print_sub_menu(2, 4, menu_array->sub);
-  WAIT1_Waitms(500);
-  print_sub_menu(3, 4, menu_array->sub);*/
-
 
   for(;;){
 	  char msg[cnt];

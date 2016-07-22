@@ -46,22 +46,24 @@ extern "C" {
 #endif
 
 void led_init(int);
+void load_char(void);
+menu menu_init(void);
 
-menu menu_init();
+void refresh_menu(int, menu[]);
 
-void velocity_fct();
-void acceleration_fct();
-void deceleration_fct();
+void velocity_fct(void);
+void acceleration_fct(void);
+void deceleration_fct(void);
 
-void pos_velocity_fct();
-void pos_acceleration_fct();
-void pos_deceleration_fct();
+void pos_velocity_fct(void);
+void pos_acceleration_fct(void);
+void pos_deceleration_fct(void);
 
-void torque_fct();
-void torque_rise_fct();
-void torque_fall_fct();
+void torque_fct(void);
+void torque_rise_fct(void);
+void torque_fall_fct(void);
 
-void back_fct();
+void back_fct(void);
 
 
 

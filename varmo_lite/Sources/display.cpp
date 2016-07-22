@@ -26,17 +26,17 @@ sub_menu vel_cue = 		init_sub_menu((char *)"Cue         ",0, void_function);
 
 sub_menu menu_velocity[] = {vel_velocity, vel_acc, vel_dec, vel_cue, back};
 
-sub_menu pos_velocity = init_sub_menu((char *)"Velocity",1,pos_velocity_fct);
+sub_menu pos_velocity = init_sub_menu((char *)"Postion    ",1,pos_velocity_fct);
 sub_menu pos_acc = 		init_sub_menu((char *)"Acceleration",1,pos_acceleration_fct);
 sub_menu pos_dec = 		init_sub_menu((char *)"Deceleration",1,pos_deceleration_fct);
-sub_menu pos_cue = 		init_sub_menu((char *)"Cue",0, void_function);
+sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, void_function);
 
 sub_menu menu_position[] = {pos_velocity, pos_acc, pos_dec, pos_cue, back};
 
-sub_menu tor_torque = init_sub_menu((char *)"Velocity",1,torque_fct);
-sub_menu tor_torque_rise = init_sub_menu((char *)"Acceleration",1,torque_rise_fct);
-sub_menu tor_torque_fall = init_sub_menu((char *)"Deceleration",1,torque_fall_fct);
-sub_menu tor_cue = init_sub_menu((char *)"cue",0, void_function);
+sub_menu tor_torque = 		init_sub_menu((char *)"Torque        ",1,torque_fct);
+sub_menu tor_torque_rise = 	init_sub_menu((char *)"Torque Rise   ",1,torque_rise_fct);
+sub_menu tor_torque_fall = 	init_sub_menu((char *)"Torque Fall   ",1,torque_fall_fct);
+sub_menu tor_cue = 			init_sub_menu((char *)"Cue           ",0, void_function);
 
 sub_menu menu_torque[] = {tor_torque, tor_torque_rise, tor_torque_fall, tor_cue, back};
 
@@ -45,7 +45,7 @@ menu position = init_menu((char *)"Position      ", menu_velocity);
 menu torque = 	init_menu((char *)"Torque        ", menu_velocity);
 menu setting = 	init_menu((char *)"Setting       ", menu_velocity);
 
-menu menu_array[] = {velocity, position, torque, setting};
+static menu menu_array[] = {velocity, position, torque, setting};
 int menu_array_size = 4;
 
 void led_init(int counter){
@@ -75,7 +75,7 @@ void led_init(int counter){
 	}
 }
 
-menu menu_init(){
+void load_char(){
   uint8_t row[8] = {
 		  0b00100,
 		  0b01110,
@@ -98,35 +98,72 @@ menu menu_init(){
   load_custom_char(2, row_2);
 
   uint8_t row_3[8] = {
-  	0b00000,
-  	0b10000,
-  	0b10000,
-  	0b10100,
-  	0b10010,
-  	0b11111,
-  	0b00010,
-  	0b00100
+		  0b00000,
+		  0b10000,
+		  0b10000,
+		  0b10100,
+		  0b10010,
+		  0b11111,
+		  0b00010,
+		  0b00100
   };
   load_custom_char(3, row_3);
 
-  print_sub_menu(0, 5, menu_velocity);
-  WAIT1_Waitms(500);
-  print_sub_menu(1, 5, menu_velocity);
-  WAIT1_Waitms(500);
-  print_sub_menu(2, 5, menu_velocity);
-  WAIT1_Waitms(500);
-  print_sub_menu(3, 5, menu_velocity);
-  WAIT1_Waitms(500);
-  print_sub_menu(4, 5, menu_velocity);
-  WAIT1_Waitms(500);
-  print_sub_menu(3, 5, menu_velocity);
-  WAIT1_Waitms(500);
-  print_sub_menu(2, 5, menu_velocity);
-  WAIT1_Waitms(500);
-  print_sub_menu(1, 5, menu_velocity);
-  WAIT1_Waitms(500);
-  print_sub_menu(0, 5, menu_velocity);
+  uint8_t row_4[8] = {
+		  0b01010,
+		  0b01010,
+		  0b01010,
+		  0b01010,
+		  0b01010,
+		  0b01010,
+		  0b01010,
+		  0b01010
+  };
+  load_custom_char(4, row_4);
+}
 
+menu menu_init(){
+	load_char();
+	for (int j = 0; j < 2; j++){
+		refresh_menu(j, menu_array);
+		WAIT1_Waitms(500);
+	}
+	menu_select(1, 4, menu_array);
+
+	for (int j = 0; j < 5; j++){
+		refresh_menu(j, menu_array);
+		WAIT1_Waitms(500);
+
+	}
+  /*print_menu(0, 4, menu_array);
+  WAIT1_Waitms(500);
+  print_menu(1, 4, menu_array);
+  WAIT1_Waitms(500);
+  print_menu(2, 4, menu_array);
+  WAIT1_Waitms(500);
+  menu_select(2, 4, menu_array);
+  WAIT1_Waitms(500);
+  menu_back(4, menu_array);*/
+
+}
+
+void refresh_menu(int pointer, menu array[]){
+	int i = 0;
+	bool sub_menu_selected = false;
+	while(i < menu_array_size){
+		if (array[i].menu_selected == 1){
+			sub_menu_selected = true;
+			 break;
+		}
+		i++;
+	}
+	if (sub_menu_selected == true){
+		print_sub_menu(pointer, 5, array[i].sub);
+		sub_menu_selected = false;
+	}
+	else{
+		print_menu(pointer, menu_array_size, array);
+	}
 }
 
 void velocity_fct(){
@@ -135,10 +172,14 @@ void velocity_fct(){
 	LCD_Write_Block("Dec", 0, 8);
 	LCD_Write_Block("Vel Act", 2, 0);
 	LCD_Write_Block("Vel", 2, 8);
-	LCD_Write_Block("|",0,7);
-	LCD_Write_Block("|",1,7);
-	LCD_Write_Block("|",2,7);
-	LCD_Write_Block("|",3,7);
+	LCD_Write_At(4,0,7);
+	LCD_Write_At(4,1,7);
+	LCD_Write_At(4,2,7);
+	LCD_Write_At(4,3,7);
+	LCD_Write_Block("0000",1,0);
+	LCD_Write_Block("0000",1,8);
+	LCD_Write_Block("+0000",3,0);
+	LCD_Write_Block("+0000",3,8);
 }
 
 void acceleration_fct(){

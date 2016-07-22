@@ -24,7 +24,7 @@ typedef struct sub_menu{
 
 typedef struct menu {
   char *name;
-  bool menu_select;
+  bool menu_selected;
   const sub_menu *sub;
 }menu;
 
@@ -32,7 +32,7 @@ menu init_menu(char *, const sub_menu []);
 sub_menu init_sub_menu(char *, bool, void (*)());
 void print_menu(int, int , menu []);
 void print_sub_menu(int, int , const sub_menu []);
-int menu_select(int, int, menu []);
+int menu_select(int , int, menu []);
 int sub_menu_select(int , int , sub_menu []);
 int menu_back(int, menu []);
 void void_function(void);

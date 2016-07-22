@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include ".\menu.h"
 #include "LCD.h"
+#include "display.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -79,7 +80,6 @@ void print_sub_menu(int pointer, int size_array, const sub_menu array[]){
   }
   else{
 	  temp = pointer - 1;
-
   }
 
   for (int i = temp; i<temp+3; i++){
@@ -117,8 +117,8 @@ void print_sub_menu(int pointer, int size_array, const sub_menu array[]){
 }
 
 int menu_select(int pointer, int size_array, menu array[]){
-	array[pointer].menu_select = 1;
-	print_sub_menu(pointer, size_array, array[pointer].sub);
+    array[pointer].menu_selected = 1;
+	print_sub_menu(0, size_array, array[pointer].sub);
 	return pointer = 0;
 }
 
@@ -136,11 +136,11 @@ int sub_menu_select(int pointer, int size_array, sub_menu array[]){
 int menu_back(int size_array, menu array[]){
 	int pointer = 0;
 	for (int i =0; i < size_array; i++){
-		if (array[i].menu_select == 1){
+		if (array[i].menu_selected == 1){
 			pointer = i;
 		}
 	}
-	array[pointer].menu_select = 0;
+	array[pointer].menu_selected = 0;
 	print_menu(pointer, size_array, array);
 	return pointer;
 }
