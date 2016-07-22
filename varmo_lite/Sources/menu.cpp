@@ -53,13 +53,15 @@ void print_menu(int pointer, int size_array, menu array[]){
   }
 
   if (size_array > 3){
-	   if (pointer == 0){
+	   if (pointer <= 1){
 		   LCD_Write_At(' ',1,15);
 		   LCD_Write_At(2, 3, 15);
 	   }
-	   else if(pointer == (size_array-1)){
+	   else if(pointer >= (size_array-2)){
+		   LCD_Write_At(3, 3,6);
 		   LCD_Write_At(1, 1, 15);
 		   LCD_Write_At(' ',3,15);
+
 	   }
 	   else{
 		   LCD_Write_At(1, 1, 15);
@@ -99,11 +101,11 @@ void print_sub_menu(int pointer, int size_array, const sub_menu array[]){
   }
 
   if (size_array > 3){
-	   if (pointer == 0){
+	   if (pointer <= 1){
 		   LCD_Write_At(' ',1,15);
 		   LCD_Write_At(2, 3, 15);
 	   }
-	   else if(pointer == (size_array-1)){
+	   else if(pointer >= (size_array-2)){
 		   LCD_Write_At(3, 3,6);
 		   LCD_Write_At(1, 1, 15);
 		   LCD_Write_At(' ',3,15);
