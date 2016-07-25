@@ -10,8 +10,12 @@
 #include "WAIT1.h"
 
 
-#include <string.h>
+#include "stdint.h"
+#include "stdlib.h"
 #include <stdio.h>
+#include <string.h>
+#include <stdarg.h>
+#include <math.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -47,6 +51,52 @@ menu setting = 	init_menu((char *)"Setting       ", menu_velocity);
 
 static menu menu_array[] = {velocity, position, torque, setting};
 int menu_array_size = 4;
+
+char buffer[80];
+int vspfunc(char *format, ...)
+{
+   va_list aptr;
+   int ret;
+
+   va_start(aptr, format);
+   ret = vsprintf(buffer, format, aptr);
+   va_end(aptr);
+
+   return(ret);
+}
+void print_float_at(float f, int res, int y, int x){
+
+	if (f<0){
+		f = fabs(f);
+		LCD_Write_At('-',y,x);
+	}
+	else{
+		LCD_Write_At('+',y,x);
+	}
+    int int_part = int(f);
+    float remainder = (f - (float)int_part);
+
+    if (res != 0){
+    	int digits = (int) round(remainder * pow(10,res));
+    	vspfunc("%04d.%d", int_part, digits);
+    }
+    else{
+    	vspfunc("%04d", int_part);
+    }
+    LCD_Write_Block(buffer, y, x+1);
+}
+
+void print_int_at(int value, int y, int x){
+	if (value<0){
+		value = abs(value);
+		LCD_Write_At('-',y,x);
+	}
+	else{
+		LCD_Write_At('+',y,x);
+	}
+	vspfunc("%04d", value);
+	LCD_Write_Block(buffer, y, x+1);
+}
 
 void led_init(int counter){
 	if ((counter%4) == 0){
@@ -124,6 +174,21 @@ void load_char(){
 
 menu menu_init(){
 	load_char();
+
+	float f = 652.596;
+	int i = -5785;
+    print_float_at(f, 2, 2, 0);
+    print_int_at(i, 1, 0);
+
+
+    //printf("%s\n", buffer);
+	/*
+	vspfunc("int : %4d",i);
+	LCD_Write_Block(buffer, 0, 0);
+	vspfunc("float: %f", f);
+	LCD_Write_Block(buffer, 1, 0);
+	*/
+	/*
 	for (int j = 0; j < 2; j++){
 		refresh_menu(j, menu_array);
 		WAIT1_Waitms(500);
@@ -136,7 +201,7 @@ menu menu_init(){
 
 	}
 	menu_back(4, menu_array);
-
+*/
 }
 
 void refresh_menu(int pointer, menu array[]){

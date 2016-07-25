@@ -104,6 +104,8 @@ int main(void)
   PCA9670_Init();
 
   LCD_Init();
+
+  LCD_Cursor_Blink_On();
   //LCD_Write_Block("Varmo V2.0", 1, 3);
   menu_init();
 

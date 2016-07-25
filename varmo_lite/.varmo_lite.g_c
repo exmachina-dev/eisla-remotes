@@ -19,7 +19,7 @@
         <Line>PE_Const</Line>
         <Line>IO_Map</Line>
       </GenSharedModules>
-      <ShrdHeaderAge0>1223906410</ShrdHeaderAge0>
+      <ShrdHeaderAge0>1224301035</ShrdHeaderAge0>
       <ShrdCodeAge0>-1</ShrdCodeAge0>
       <ShrdAsemblAge0>-1</ShrdAsemblAge0>
       <ShrdHeaderAge1>1220453520</ShrdHeaderAge1>
@@ -62,10 +62,10 @@
       </GenExtraFiles>
       <GenExtraFileSrcDir25>lib\Kinetis\startup\</GenExtraFileSrcDir25>
       <GenExtraFileSrcDir21>Repositories\lib\doxygen\</GenExtraFileSrcDir21>
-      <XtraAge22>1223906410</XtraAge22>
-      <XtraAge23>1223906410</XtraAge23>
+      <XtraAge22>1224301035</XtraAge22>
+      <XtraAge23>1224301035</XtraAge23>
       <XtraAge25>1221099532</XtraAge25>
-      <XtraAge26>1223906410</XtraAge26>
+      <XtraAge26>1224301035</XtraAge26>
       <GenExtraFileType26>4</GenExtraFileType26>
       <GenExtraFileType25>5</GenExtraFileType25>
       <GenExtraFileType24>4</GenExtraFileType24>
@@ -501,7 +501,7 @@
     </GenFiles>
     <SignalListFile>Documentation\varmo_lite_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>91</ProjectModificationStamp>
+    <ProjectModificationStamp>92</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>false</Generated>
@@ -579,7 +579,7 @@
     <GenDriverVersion>01.04</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
     <HeaderAge>1223906210</HeaderAge>
-    <CodeAge>1223916717</CodeAge>
+    <CodeAge>1224301035</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetClockConfiguration>false</SetClockConfiguration>

@@ -161,14 +161,6 @@ void LCD_Write(uint8_t value){
 void load_custom_char(uint8_t value, uint8_t *rows){
 	PCA9670_SendByte(FunctionSetCmd|FunctionSet_Font5x8|FunctionSet_8bit|FunctionSet_2Lines, 1); //0x20|0x10|0x08 = 0x38;
 	LCD_command(0x40 +(value * 8));
-	/*LCD_Write(0b00100);
-	LCD_Write(0b01110);
-	LCD_Write(0b10101);
-	LCD_Write(0b00100);
-	LCD_Write(0b00100);
-	LCD_Write(0b00100);
-	LCD_Write(0b00100);
-	LCD_Write(0b00000);*/
 	for (int i = 0; i< 8;i++){
 		LCD_Write(rows[i]);
 	}
@@ -199,8 +191,14 @@ void LCD_Write_Block(char* buffer, uint8_t line, uint8_t x ){
 			x_cnt = 0;
 			LCD_Set_Cursor(y_cnt, x_cnt);
 		}
-		LCD_Write(buffer[i]);
-		x_cnt += 1;
+		if(buffer[i] != '\0'){
+			LCD_Write(buffer[i]);
+			x_cnt += 1;
+		}
+		else{
+			x_cnt = length;
+		}
+
 	}
 }
 

@@ -27,6 +27,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdarg.h>
 
 #ifndef SOURCES_DISPLAY_H_
 #define SOURCES_DISPLAY_H_
@@ -44,6 +45,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+int vspfunc(char *, ...);
+
+void print_float_at(float, int, int, int);
+void print_int_at(int, int, int);
 
 void led_init(int);
 void load_char(void);
