@@ -48,14 +48,14 @@ extern "C" {
 
 int vspfunc(char *, ...);
 
-void print_float_at(float, int, int, int);
-void print_int_at(int, int, int);
+void print_float_at(float, int,bool, int, int);
+void print_int_at(int, bool, int, int);
 
 void led_init(int);
 void load_char(void);
 menu menu_init(void);
 
-void refresh_menu(int, menu[]);
+int refresh(int);
 
 void velocity_fct(void);
 void acceleration_fct(void);

@@ -19,22 +19,36 @@ typedef struct sub_menu{
   bool select;
   bool item;
   void (*function)();
-  const sub_menu2 *sub;
+  sub_menu2 *sub;
 }sub_menu;
+
+typedef struct sub_menu_list{
+	const sub_menu *array;
+	int size;
+}sub_menu_list;
 
 typedef struct menu {
   char *name;
   bool menu_selected;
-  const sub_menu *sub;
+  sub_menu_list sub;
+  int size;
 }menu;
 
-menu init_menu(char *, const sub_menu []);
+typedef struct menu_list{
+	menu *array;
+	int size;
+}menu_list;
+
+menu init_menu(char *, const sub_menu_list);
 sub_menu init_sub_menu(char *, bool, void (*)());
-void print_menu(int, int , menu []);
-void print_sub_menu(int, int , const sub_menu []);
-int menu_select(int , int, menu []);
-int sub_menu_select(int , int , sub_menu []);
-int menu_back(int, menu []);
+menu_list init_menu_list(menu [], int);
+sub_menu_list init_sub_menu_list(sub_menu [], int);
+void print_menu(int , menu_list);
+void print_sub_menu(int ,  sub_menu_list);
+int menu_select(int, menu_list);
+int sub_menu_select(int , sub_menu []);
+int menu_back(menu_list);
+int refresh_menu(int, menu_list);
 void void_function(void);
 
 #ifdef __cplusplus

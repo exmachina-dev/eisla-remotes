@@ -72,6 +72,7 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include "encoder_variable.h"
 #include "display.h"
 #include "protocol.h"
 #include "LCD.h"
@@ -105,7 +106,7 @@ int main(void)
 
   LCD_Init();
 
-  LCD_Cursor_Blink_On();
+  //LCD_Cursor_Blink_On();
   //LCD_Write_Block("Varmo V2.0", 1, 3);
   menu_init();
 
@@ -114,7 +115,18 @@ int main(void)
 	  char msg[cnt];
 	  int nb_data = 0;
 
-	  /*Check message received*/
+	  if (FLAG_ENCODER == 1){
+		  //encoder = convert_encoder(encoder, 0, 3);
+		  encoder = refresh((int)encoder);
+		  LED_STATUS_4_NegVal();
+		  FLAG_ENCODER = 0;
+	  }
+	  if (FLAG_PUSH_SHORT == 1){
+		  encoder = select(encoder);
+		  FLAG_PUSH_SHORT = 0;
+	  }
+/*
+	  //Check message received
 	  if (FLAG_MSG_RCV == 1){
 		  binaryRepr size;
 		  size.toUint_8.toUint_8_1 = in_buffer[8];
@@ -138,12 +150,12 @@ int main(void)
 		  FLAG_MSG_RCV = 0;
 	  }
 
-	  /*Processing msg received*/
+	  ///Processing msg received
 	  if (FLAG_MSG_OK == 1){
 		  FLAG_MSG_ERR = msg_parse(msg);
-		  FLAG_MSG_OK = 0;
+		  FLAG_MSG_OK  = 0;
 	  }
-	  /*COMMUNICATION ERR*/
+	  //COMMUNICATION ERR
 	  if (FLAG_MSG_ERR == 1){
 		  cnt_err += 1;
 		  LED_STATUS_2_SetVal();
@@ -152,7 +164,7 @@ int main(void)
 	  else {
 		  cnt_ok += 1;
 		  LED_STATUS_2_ClrVal();
-	  }
+	  }*/
   }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/

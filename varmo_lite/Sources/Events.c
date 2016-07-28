@@ -215,7 +215,7 @@ void LEVER_DIR1_OnInterrupt(void)
 */
 void ENCODER_PUSH_OnInterrupt(void)
 {
-	/*
+
     if (ENCODER_PUSH_GetVal() == 0){ //Encoder Pushed
         FLAG_PUSH_SHORT = 0;
         FLAG_PUSH_LONG = 0;
@@ -228,7 +228,7 @@ void ENCODER_PUSH_OnInterrupt(void)
         FLAG_PUSH_SHORT = 1;
     }
     LED_DEBUG_NegVal();
-    */
+
 }
 
 /*
@@ -251,14 +251,15 @@ void ENCODER_PUSH_OnInterrupt(void)
 /* ===================================================================*/
 void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 {
- /*   if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B) == 1){
+    if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B) == 1){
         if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_A) == 0){
             encoder -= 1;
         }
         else{
         	encoder += 1;
         }
-    }*/
+        FLAG_ENCODER = 1;
+    }
 }
 
 /*
