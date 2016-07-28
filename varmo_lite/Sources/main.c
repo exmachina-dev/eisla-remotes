@@ -80,7 +80,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)
 /*lint -restore Enable MISRA rule (6.3) checking. */
@@ -97,6 +96,7 @@ int main(void)
   FLAG_MSG_RCV = 0;
   FLAG_MSG_ERR = 0;
   FLAG_MSG_OK = 0;
+  FLAG_MENU = 1;
   nb_data = 0;
 
   int cnt_err = 0;
@@ -116,13 +116,15 @@ int main(void)
 	  int nb_data = 0;
 
 	  if (FLAG_ENCODER == 1){
-		  //encoder = convert_encoder(encoder, 0, 3);
-		  encoder = refresh((int)encoder);
-		  LED_STATUS_4_NegVal();
+		  if (FLAG_MENU == 1){
+			  encoder = refresh((int)encoder);
+		  }
 		  FLAG_ENCODER = 0;
 	  }
 	  if (FLAG_PUSH_SHORT == 1){
-		  encoder = select(encoder);
+		  if (FLAG_MENU == 1){
+			  encoder = select((int)encoder);
+		  }
 		  FLAG_PUSH_SHORT = 0;
 	  }
 /*

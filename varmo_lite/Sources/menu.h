@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdio.h>
+#include "LCD.h"
+
 
 #ifndef SOURCES_MENU_H_
 #define SOURCES_MENU_H_
@@ -23,7 +26,7 @@ typedef struct sub_menu{
 }sub_menu;
 
 typedef struct sub_menu_list{
-	const sub_menu *array;
+	sub_menu *array;
 	int size;
 }sub_menu_list;
 

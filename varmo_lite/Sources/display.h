@@ -25,9 +25,16 @@
 **  @{
 */
 
-#include <string.h>
+#include "LCD.h"
+#include "WAIT1.h"
+
+
+#include "stdint.h"
+#include "stdlib.h"
 #include <stdio.h>
+#include <string.h>
 #include <stdarg.h>
+#include <math.h>
 
 #ifndef SOURCES_DISPLAY_H_
 #define SOURCES_DISPLAY_H_
@@ -38,13 +45,13 @@
 #include "LED_STATUS_2.h"
 #include "LED_STATUS_3.h"
 #include "LED_STATUS_4.h"
-
 #include "menu.h"
-
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+bool FLAG_MENU;
 
 int vspfunc(char *, ...);
 
@@ -56,6 +63,7 @@ void load_char(void);
 menu menu_init(void);
 
 int refresh(int);
+int select(int);
 
 void velocity_fct(void);
 void acceleration_fct(void);

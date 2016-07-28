@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include ".\menu.h"
-#include "LCD.h"
-#include "display.h"
+#include "menu.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -135,28 +132,49 @@ void print_sub_menu(int pointer, sub_menu_list list){
 }
 
 int menu_select(int pointer, menu_list menu){
+	int i = 0;
+	bool sub_menu_selected = false;
+	//int size = sizeof(array)/sizeof(array[0]);
 	int size = menu.size;
-    menu.array[pointer].menu_selected = 1;
-	print_sub_menu(0, menu.array[pointer].sub);
-	LCD_Write_At(menu.array[pointer].name[0], 0, 13);
-	return pointer = 0;
-}
+	if (pointer >= size){
+		pointer = size -1;
+	}
+	else if (pointer <= 0){
+		pointer = 0;
+	}
 
-int sub_menu_select(int pointer, sub_menu array[]){
-	int size = sizeof(*array)/sizeof(array[0]);
-	if (array[pointer].item == 1){
-		array[pointer].function();
-		return pointer;
+	while(i < size){
+		if (menu.array[i].menu_selected == 1){
+			sub_menu_selected = true;
+			 break;
+		}
+		i++;
+	}
+	if (sub_menu_selected == true){
+		size = sizeof(menu.array->sub);
+		if (menu.array[i].sub.array[pointer].item== 1){
+
+			menu.array[i].sub.array[pointer].function();
+		}
+		else{
+			menu.array[i].sub.array[pointer].select = 1;
+			pointer = 0;
+		}
+		menu.array[i].sub.array[pointer].select== 1;
+		sub_menu_selected = false;
 	}
 	else{
-		array[pointer].select = 1;
-		return pointer = 0;
+		menu.array[pointer].menu_selected = 1;
+		refresh_menu(0, menu);
+		pointer = 0;
 	}
+	return pointer;
 }
 
 int menu_back(menu_list menu){
 	int pointer = 0;
 	int size = menu.size;
+
 	//LCD_Write_At(' ', 0, 13);
 	for (int i =0; i < size; i++){
 		if (menu.array[i].menu_selected == 1){
@@ -184,12 +202,12 @@ int refresh_menu(int pointer, menu_list menu){
 	while(i < size){
 		if (menu.array[i].menu_selected == 1){
 			sub_menu_selected = true;
-			 break;
+			break;
 		}
 		i++;
 	}
 	if (sub_menu_selected == true){
-		size = sizeof(menu.array->sub);
+		size = menu.array[i].sub.size;
 		print_sub_menu(pointer, menu.array[i].sub);
 		sub_menu_selected = false;
 	}

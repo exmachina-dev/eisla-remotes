@@ -6,16 +6,7 @@
  */
 
 #include "display.h"
-#include "LCD.h"
-#include "WAIT1.h"
 
-
-#include "stdint.h"
-#include "stdlib.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
-#include <math.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -59,15 +50,14 @@ static menu menu_array[] = {velocity, position, torque, setting, test};
 menu_list root_menu= init_menu_list (menu_array, sizeof(menu_array)/sizeof(menu_array[0]));
 
 char buffer[80];
+
 int vspfunc(char *format, ...)
 {
    va_list aptr;
    int ret;
-
    va_start(aptr, format);
    ret = vsprintf(buffer, format, aptr);
    va_end(aptr);
-
    return(ret);
 }
 void print_float_at(float f, int res,bool absolute, int y, int x){
@@ -205,23 +195,25 @@ int refresh(int pointer){
 }
 
 int select(int pointer){
-	return menu_select(pointer, root_menu);
+	pointer = menu_select(pointer, root_menu);
+	return pointer;
 }
 
 void velocity_fct(){
-	/*LCD_Clear();
-	LCD_Write_Block("Acc", 0, 0);
-	LCD_Write_Block("Dec", 0, 8);
-	LCD_Write_Block("Vel Act", 2, 0);
-	LCD_Write_Block("Vel", 2, 8);
+	FLAG_MENU = 0;
+ 	LCD_Clear();
+	LCD_Write_Block((char*)"Acc", 0, 0);
+	LCD_Write_Block((char*)"Dec", 0, 8);
+	LCD_Write_Block((char*)"Vel Act", 2, 0);
+	LCD_Write_Block((char*)"Vel", 2, 8);
 	LCD_Write_At(4,0,7);
 	LCD_Write_At(4,1,7);
 	LCD_Write_At(4,2,7);
 	LCD_Write_At(4,3,7);
-	LCD_Write_Block("0000",1,0);
-	LCD_Write_Block("0000",1,8);
-	LCD_Write_Block("+0000",3,0);
-	LCD_Write_Block("+0000",3,8);*/
+	LCD_Write_Block((char*)"0000",1,0);
+	LCD_Write_Block((char*)"0000",1,8);
+	LCD_Write_Block((char*)"+0000",3,0);
+	LCD_Write_Block((char*)"+0000",3,8);
 }
 
 void acceleration_fct(){
