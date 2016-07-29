@@ -12,14 +12,14 @@
 extern "C" {
 #endif
 
-sub_menu back = init_sub_menu((char *)"Back ",1, back_fct);
+sub_menu back_menu = init_sub_menu((char *)"Back ",1, back_fct);
 
 sub_menu vel_velocity = init_sub_menu((char *)"Velocity    ",1,velocity_fct);
 sub_menu vel_acc = 		init_sub_menu((char *)"Acceleration",1,acceleration_fct);
 sub_menu vel_dec = 		init_sub_menu((char *)"Deceleration",1,deceleration_fct);
 sub_menu vel_cue = 		init_sub_menu((char *)"Cue         ",0, void_function);
 
-sub_menu sub_menu_velocity[] = {vel_velocity, vel_acc, vel_dec, vel_cue, back};
+sub_menu sub_menu_velocity[] = {vel_velocity, vel_acc, vel_dec, vel_cue, back_menu};
 sub_menu_list menu_velocity = init_sub_menu_list(sub_menu_velocity, sizeof(sub_menu_velocity)/sizeof(sub_menu_velocity[0]));
 
 
@@ -28,7 +28,7 @@ sub_menu pos_acc = 		init_sub_menu((char *)"Acceleration",1,pos_acceleration_fct
 sub_menu pos_dec = 		init_sub_menu((char *)"Deceleration",1,pos_deceleration_fct);
 sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, void_function);
 
-sub_menu sub_menu_position[] = {pos_velocity, pos_acc, pos_dec, pos_cue, back};
+sub_menu sub_menu_position[] = {pos_velocity, pos_acc, pos_dec, pos_cue, back_menu};
 sub_menu_list menu_position = init_sub_menu_list(sub_menu_position, sizeof(sub_menu_position)/sizeof(sub_menu_position[0]));
 
 sub_menu tor_torque = 		init_sub_menu((char *)"Torque        ",1,torque_fct);
@@ -36,7 +36,7 @@ sub_menu tor_torque_rise = 	init_sub_menu((char *)"Torque Rise   ",1,torque_rise
 sub_menu tor_torque_fall = 	init_sub_menu((char *)"Torque Fall   ",1,torque_fall_fct);
 sub_menu tor_cue = 			init_sub_menu((char *)"Cue           ",0, void_function);
 
-sub_menu sub_menu_torque[] = {tor_torque, tor_torque_rise, tor_torque_fall, tor_cue, back};
+sub_menu sub_menu_torque[] = {tor_torque, tor_torque_rise, tor_torque_fall, tor_cue, back_menu};
 sub_menu_list menu_torque = init_sub_menu_list(sub_menu_torque, sizeof(sub_menu_torque)/sizeof(sub_menu_torque[0]));
 
 menu velocity = init_menu((char *)"Velocity      ", menu_velocity);
@@ -196,6 +196,12 @@ int refresh(int pointer){
 
 int select(int pointer){
 	pointer = menu_select(pointer, root_menu);
+	return pointer;
+}
+
+int back(int pointer){
+	FLAG_MENU = 1;
+	pointer = menu_back(root_menu);
 	return pointer;
 }
 

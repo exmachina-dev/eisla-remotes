@@ -92,6 +92,9 @@ int main(void)
 
   /* Write your code here */
   /* For example: for(;;) { } */
+  counter_100ms =0;
+  FLAG_PUSH_LONG = 0;
+  FLAG_PUSH_SHORT = 0;
   cnt = 0;
   FLAG_MSG_RCV = 0;
   FLAG_MSG_ERR = 0;
@@ -103,7 +106,7 @@ int main(void)
   int cnt_ok = 0;
   WAIT1_Waitms(15);
   PCA9670_Init();
-
+  T_100ms_Disable(T_100ms_DeviceData);
   LCD_Init();
 
   //LCD_Cursor_Blink_On();
@@ -126,6 +129,11 @@ int main(void)
 			  encoder = select((int)encoder);
 		  }
 		  FLAG_PUSH_SHORT = 0;
+	  }
+
+	  if (FLAG_PUSH_LONG == 1){
+		  encoder = back((int) encoder);
+		  FLAG_PUSH_LONG = 0;
 	  }
 /*
 	  //Check message received

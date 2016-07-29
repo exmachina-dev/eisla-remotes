@@ -160,7 +160,7 @@ int menu_select(int pointer, menu_list menu){
 			menu.array[i].sub.array[pointer].select = 1;
 			pointer = 0;
 		}
-		menu.array[i].sub.array[pointer].select== 1;
+		menu.array[i].sub.array[pointer].select = 1;
 		sub_menu_selected = false;
 	}
 	else{
@@ -174,8 +174,32 @@ int menu_select(int pointer, menu_list menu){
 int menu_back(menu_list menu){
 	int pointer = 0;
 	int size = menu.size;
+	bool sub_menu_selected = false;
+	while(pointer < size){
+		if (menu.array[pointer].menu_selected == 1){
+			sub_menu_selected = true;
+			break;
+		}
+		pointer++;
+	}
+	if (sub_menu_selected == true){
+		size = menu.array[pointer].sub.size;
+		for (int i = 0; i < size; i++){
+			if (menu.array[pointer].sub.array[i].select == 1){
+				menu.array[pointer].sub.array[i].select = 0;
+				sub_menu_selected = false;
+				pointer = i;
+				i=size;
+			}
+		}
+		if (sub_menu_selected == true){
+			menu.array[pointer].menu_selected = 0;
+		}
+	}
 
-	//LCD_Write_At(' ', 0, 13);
+
+	refresh_menu(pointer, menu);
+	/*
 	for (int i =0; i < size; i++){
 		if (menu.array[i].menu_selected == 1){
 			pointer = i;
@@ -183,7 +207,7 @@ int menu_back(menu_list menu){
 	}
 	menu.array[pointer].menu_selected = 0;
 	LCD_Clear();
-	print_menu(pointer, menu);
+	print_menu(pointer, menu);*/
 	return pointer;
 }
 

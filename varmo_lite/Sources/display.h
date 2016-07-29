@@ -64,6 +64,7 @@ menu menu_init(void);
 
 int refresh(int);
 int select(int);
+int back(int);
 
 void velocity_fct(void);
 void acceleration_fct(void);
