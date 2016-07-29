@@ -26,6 +26,7 @@ typedef struct sub_menu{
 }sub_menu;
 
 typedef struct sub_menu_list{
+	char *name;
 	sub_menu *array;
 	int size;
 }sub_menu_list;
@@ -38,14 +39,15 @@ typedef struct menu {
 }menu;
 
 typedef struct menu_list{
+	char *name;
 	menu *array;
 	int size;
 }menu_list;
 
 menu init_menu(char *, const sub_menu_list);
 sub_menu init_sub_menu(char *, bool, void (*)());
-menu_list init_menu_list(menu [], int);
-sub_menu_list init_sub_menu_list(sub_menu [], int);
+menu_list init_menu_list(menu [], int, char*);
+sub_menu_list init_sub_menu_list(sub_menu [], int, char*);
 void print_menu(int , menu_list);
 void print_sub_menu(int ,  sub_menu_list);
 int menu_select(int, menu_list);

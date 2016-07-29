@@ -24,17 +24,19 @@ sub_menu init_sub_menu(char *name, bool item, void (*function)()){
 	return temp;
 }
 
-menu_list init_menu_list(menu list[], int size){
+menu_list init_menu_list(menu list[], int size, char* name){
 	menu_list temp;
 	temp.array = list;
 	temp.size = size;
+	temp.name = name;
 	return temp;
 }
 
-sub_menu_list init_sub_menu_list(sub_menu list[], int size){
+sub_menu_list init_sub_menu_list(sub_menu list[], int size,char* name){
 	sub_menu_list temp;
 	temp.array = list;
 	temp.size = size;
+	temp.name = name;
 	return temp;
 }
 
@@ -42,6 +44,8 @@ void print_menu(int pointer, menu_list menu){
   int temp = 0;
   int line = 1;
   int size = menu.size;
+  LCD_Write_Block(menu.name, 0, 0);
+  LCD_Write_At(menu.name[0],0,13);
   if (pointer == 0){
 	  temp = 0;
   }
@@ -87,6 +91,8 @@ void print_sub_menu(int pointer, sub_menu_list list){
   int line = 1;
 
   int size = list.size;
+  LCD_Write_Block(list.name, 0, 0);
+  LCD_Write_At(list.name[0],0,13);
   if (pointer == 0){
 	  temp = 0;
   }
@@ -196,8 +202,6 @@ int menu_back(menu_list menu){
 			menu.array[pointer].menu_selected = 0;
 		}
 	}
-
-
 	refresh_menu(pointer, menu);
 	/*
 	for (int i =0; i < size; i++){
