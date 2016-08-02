@@ -11,15 +11,6 @@
 extern "C" {
 #endif
 
-int convert_encoder(float encoder,float min, float max){
-	if (encoder >= max){
-		encoder = max;
-	}
-	else if (encoder <= min){
-		encoder = min;
-	}
-	return encoder;
-}
 
 #ifdef __cplusplus
 }  /* extern "C" */

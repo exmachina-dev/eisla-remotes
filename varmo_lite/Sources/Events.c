@@ -258,15 +258,28 @@ void ENCODER_PUSH_OnInterrupt(void)
 /* ===================================================================*/
 void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 {
-    if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B) == 1){
-        if (ENCODER_GetFieldValue(&UserDataPtr, ENCODER_A) == 0){
-            encoder -= 1;
-        }
-        else{
-        	encoder += 1;
-        }
-        FLAG_ENCODER = 1;
-    }
+    if (FLAG_DEBOUNCE == 1){
+    	TU1_Disable(TU1_DeviceData);
+    	WAIT1_Waitms(2.5);
+		uint8_t ENC_A = ENCODER_GetFieldValue(&UserDataPtr, ENCODER_A);
+		uint8_t ENC_B = ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B);
+		if ( ENC_B == 1){
+			if (ENC_A == 0){
+				FLAG_DEBOUNCE = 0;
+				encoder -= 1;
+				LED_STATUS_4_NegVal();
+				TU1_Enable(TU1_DeviceData);
+				FLAG_ENCODER = 1;
+			}
+			else if (ENC_A == 1){
+				FLAG_DEBOUNCE = 0;
+				encoder += 1;
+				LED_STATUS_3_NegVal();
+				TU1_Enable(TU1_DeviceData);
+				FLAG_ENCODER = 1;
+			}
+		}
+	}
 }
 
 /*
@@ -502,6 +515,32 @@ void AS1_OnFreeTxBuf(void)
 void IFsh1_OnWriteEnd(void)
 {
   /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  TU1_OnCounterRestart (module Events)
+**
+**     Component   :  TU1 [TimerUnit_LDD]
+*/
+/*!
+**     @brief
+**         Called if counter overflow/underflow or counter is
+**         reinitialized by modulo or compare register matching.
+**         OnCounterRestart event and Timer unit must be enabled. See
+**         [SetEventMask] and [GetEventMask] methods. This event is
+**         available only if a [Interrupt] is enabled.
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. The pointer passed as
+**                           the parameter of Init method.
+*/
+/* ===================================================================*/
+void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
+{
+
+	FLAG_DEBOUNCE = 1;
+	//TU1_Disable(TU1_DeviceData);
 }
 
 /* END Events */

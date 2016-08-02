@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-07-19, 15:37, # CodeGen: 128
+**     Date/Time   : 2016-08-02, 09:21, # CodeGen: 155
 **     Abstract    :
 **
 **     Settings    :
@@ -344,6 +344,7 @@
 #include "WAIT1.h"
 #include "LCD_EN.h"
 #include "BitIoLdd7.h"
+#include "TU1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -605,6 +606,8 @@ void PE_low_level_init(void)
   (void)BitIoLdd6_Init(NULL);
   /* ### BitIO_LDD "BitIoLdd7" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)BitIoLdd7_Init(NULL);
+  /* ### TimerUnit_LDD "TU1" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)TU1_Init(NULL);
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

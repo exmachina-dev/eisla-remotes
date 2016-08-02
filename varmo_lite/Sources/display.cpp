@@ -162,12 +162,12 @@ void load_char(){
 
   uint8_t row_3[8] = {
 		  0b00000,
-		  0b10000,
-		  0b10000,
-		  0b10100,
-		  0b10010,
+		  0b00001,
+		  0b00001,
+		  0b00101,
+		  0b01001,
 		  0b11111,
-		  0b00010,
+		  0b01000,
 		  0b00100
   };
   load_custom_char(3, row_3);
@@ -183,10 +183,46 @@ void load_char(){
 		  0b00100
   };
   load_custom_char(4, row_4);
+
+  uint8_t row_5[8] = {
+		  0b00000,
+		  0b01110,
+		  0b11101,
+		  0b11001,
+		  0b11011,
+		  0b11111,
+		  0b01110,
+		  0b00000
+  };
+  load_custom_char(5, row_5);
+  uint8_t row_6[8] = {
+		  0b00000,
+		  0b01110,
+		  0b10111,
+		  0b10011,
+		  0b11011,
+		  0b11111,
+		  0b01110,
+		  0b00000
+  };
+  load_custom_char(6, row_6);
+
+  uint8_t row_7[8] = {
+		  0b00000,
+		  0b01110,
+		  0b10101,
+		  0b10101,
+		  0b10001,
+		  0b10001,
+		  0b01110,
+		  0b00000
+  };
+  load_custom_char(7, row_7);
 }
 
 menu menu_init(){
 	load_char();
+
 	refresh(0);
 }
 
@@ -207,27 +243,51 @@ int back(int pointer){
 }
 
 void velocity_fct(){
-	FLAG_MENU = 0;
-	LCD_Write_Block((char*)"Acc    ", 0, 0);
-	LCD_Write_Block((char*)"Dec ", 0, 8);
-	LCD_Write_Block((char*)"Vel Act", 2, 0);
-	LCD_Write_Block((char*)"Vel    ", 2, 8);
-	LCD_Write_At(4,0,7);
-	LCD_Write_At(4,1,7);
-	LCD_Write_At(4,2,7);
-	LCD_Write_At(4,3,7);
-	LCD_Write_Block((char*)"0000   ",1,0);
-	LCD_Write_Block((char*)"0000   ",1,8);
-	LCD_Write_Block((char*)"+0000  ",3,0);
-	LCD_Write_Block((char*)"+0000  ",3,8);
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		LCD_Write_Block((char*)"Acc    ", 0, 0);
+		LCD_Write_Block((char*)"Dec ", 0, 8);
+		LCD_Write_Block((char*)"Vel Act", 2, 0);
+		LCD_Write_Block((char*)"Vel    ", 2, 8);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",3,0);
+		LCD_Write_At(4,0,7);
+		LCD_Write_At(4,1,7);
+		LCD_Write_At(4,2,7);
+		LCD_Write_At(4,3,7);
+
+		print_int_at(vel.acceleration, 0, 1,0);
+		print_int_at(vel.decceleration, 0,1,8);
+		print_float_at(0, 2,1,3,0);
+		vel.velocity = convert(vel.velocity,vel.min, vel.max);
+		print_float_at(vel.velocity,2,1,3,8);
+	}
+	else {
+		//vel.velocity = convert(vel.velocity,vel.min, vel.max);
+		print_float_at(vel.velocity,2,1,3,8);
+	}
+
 }
 
 void acceleration_fct(){
-
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		LCD_Write_Block((char*)"Acceleration  ",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
+		print_float_at(vel.acceleration,0,1, 1, 0);
+		LCD_Write_Block((char*)"                ",1,0);
+	}
+	else{
+		print_float_at(vel.acceleration,0,1, 1, 0);
+	}
 }
 
 void deceleration_fct(){
-
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+	}
 }
 
 void back_fct(){
@@ -235,27 +295,39 @@ void back_fct(){
 }
 
 void pos_velocity_fct(){
-
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+	}
 }
 
 void pos_acceleration_fct(){
-
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+	}
 }
 
 void pos_deceleration_fct(){
-
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+	}
 }
 
 void torque_fct(){
-
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+	}
 }
 
 void torque_rise_fct(){
-
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+	}
 }
 
 void torque_fall_fct(){
-
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+	}
 }
 
 #ifdef __cplusplus

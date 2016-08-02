@@ -24,11 +24,6 @@
 **  @addtogroup main_module main module documentation
 **  @{
 */
-
-#include "LCD.h"
-#include "WAIT1.h"
-
-
 #include "stdint.h"
 #include "stdlib.h"
 #include <stdio.h>
@@ -45,7 +40,11 @@
 #include "LED_STATUS_2.h"
 #include "LED_STATUS_3.h"
 #include "LED_STATUS_4.h"
+
+#include "WAIT1.h"
+#include "parameters.h"
 #include "menu.h"
+//#include "encoder_variable.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-07-19, 10:35, # CodeGen: 126
+**     Date/Time   : 2016-08-02, 09:20, # CodeGen: 153
 **     Abstract    :
 **
 **     Settings    :
@@ -91,6 +91,7 @@
   #include "WAIT1.h"
   #include "LCD_EN.h"
   #include "BitIoLdd7.h"
+  #include "TU1.h"
   #include "Events.h"
 
 
@@ -190,7 +191,7 @@
     (tIsrFunc)&Cpu_Interrupt,          /* 0x4D  0x00000134   -   ivINT_CMP2                     unused by PE */
     (tIsrFunc)&T_500ms_Interrupt,      /* 0x4E  0x00000138   8   ivINT_FTM0                     used by PE */
     (tIsrFunc)&T_100ms_Interrupt,      /* 0x4F  0x0000013C   8   ivINT_FTM1                     used by PE */
-    (tIsrFunc)&Cpu_Interrupt,          /* 0x50  0x00000140   -   ivINT_FTM2                     unused by PE */
+    (tIsrFunc)&TU1_Interrupt,          /* 0x50  0x00000140   8   ivINT_FTM2                     used by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x51  0x00000144   -   ivINT_CMT                      unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x52  0x00000148   -   ivINT_RTC                      unused by PE */
     (tIsrFunc)&Cpu_Interrupt,          /* 0x53  0x0000014C   -   ivINT_RTC_Seconds              unused by PE */

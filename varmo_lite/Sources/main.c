@@ -64,6 +64,7 @@
 #include "WAIT1.h"
 #include "LCD_EN.h"
 #include "BitIoLdd7.h"
+#include "TU1.h"
 #include "KSDK1.h"
 #include "CS1.h"
 /* Including shared modules, which are used for whole project */
@@ -77,6 +78,7 @@
 #include "protocol.h"
 #include "LCD.h"
 #include "PCA9670.h"
+#include "parameters.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -100,6 +102,7 @@ int main(void)
   FLAG_MSG_ERR = 0;
   FLAG_MSG_OK = 0;
   FLAG_MENU = 1;
+  FLAG_DEBOUNCE = 1;
   nb_data = 0;
 
   int cnt_err = 0;
@@ -107,12 +110,13 @@ int main(void)
   WAIT1_Waitms(15);
   PCA9670_Init();
   T_100ms_Disable(T_100ms_DeviceData);
+  TU1_Disable(TU1_DeviceData);
   LCD_Init();
+  parameters_init();
 
   //LCD_Cursor_Blink_On();
   //LCD_Write_Block("Varmo V2.0", 1, 3);
   menu_init();
-
 
   for(;;){
 	  char msg[cnt];
@@ -121,6 +125,11 @@ int main(void)
 	  if (FLAG_ENCODER == 1){
 		  if (FLAG_MENU == 1){
 			  encoder = refresh((int)encoder);
+		  }
+		  else {
+			  //encoder = convert(encoder,vel.min, vel.max);
+			  vel.velocity = encoder;
+			  velocity_fct();
 		  }
 		  FLAG_ENCODER = 0;
 	  }
@@ -135,6 +144,7 @@ int main(void)
 		  encoder = back((int) encoder);
 		  FLAG_PUSH_LONG = 0;
 	  }
+
 /*
 	  //Check message received
 	  if (FLAG_MSG_RCV == 1){

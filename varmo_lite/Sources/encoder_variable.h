@@ -16,12 +16,12 @@ extern "C" {
 bool FLAG_PUSH_SHORT;
 bool FLAG_PUSH_LONG;
 bool FLAG_ENCODER;
-
+bool FLAG_DEBOUNCE;
 int counter_100ms;
 
 float encoder;
 
-int convert_encoder(float,float,float);
+
 
 #ifdef __cplusplus
 }  /* extern "C" */
