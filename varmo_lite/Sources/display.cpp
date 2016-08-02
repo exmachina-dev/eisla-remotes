@@ -22,13 +22,13 @@ sub_menu vel_cue = 		init_sub_menu((char *)"Cue         ",0, void_function);
 sub_menu sub_menu_velocity[] = {vel_velocity, vel_acc, vel_dec, vel_cue, back_menu};
 sub_menu_list menu_velocity = init_sub_menu_list(sub_menu_velocity, sizeof(sub_menu_velocity)/sizeof(sub_menu_velocity[0]), (char*)"Velocy Menu  ");
 
-
-sub_menu pos_velocity = init_sub_menu((char *)"Postion    ",1,pos_velocity_fct);
+sub_menu pos_position = init_sub_menu((char *)"Postion     ",1,pos_position_fct);
+sub_menu pos_velocity = init_sub_menu((char *)"Velocity    ",1,pos_velocity_fct);
 sub_menu pos_acc = 		init_sub_menu((char *)"Acceleration",1,pos_acceleration_fct);
 sub_menu pos_dec = 		init_sub_menu((char *)"Deceleration",1,pos_deceleration_fct);
 sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, void_function);
 
-sub_menu sub_menu_position[] = {pos_velocity, pos_acc, pos_dec, pos_cue, back_menu};
+sub_menu sub_menu_position[] = {pos_position, pos_velocity, pos_acc, pos_dec, pos_cue, back_menu};
 sub_menu_list menu_position = init_sub_menu_list(sub_menu_position, sizeof(sub_menu_position)/sizeof(sub_menu_position[0]), (char*)"Postion Menu ");
 
 sub_menu tor_torque = 		init_sub_menu((char *)"Torque        ",1,torque_fct);
@@ -43,13 +43,10 @@ menu velocity = init_menu((char *)"Velocity      ", menu_velocity);
 menu position = init_menu((char *)"Position      ", menu_position);
 menu torque = 	init_menu((char *)"Torque        ", menu_torque);
 menu setting = 	init_menu((char *)"Setting       ", menu_velocity);
-menu test = init_menu((char*)"Test", menu_velocity);
 
-static menu menu_array[] = {velocity, position, torque, setting, test};
+menu menu_array[] = {velocity, position, torque, setting};
 
 menu_list root_menu= init_menu_list (menu_array, sizeof(menu_array)/sizeof(menu_array[0]), (char*)"Root Menu    ");
-
-char buffer[80];
 
 int vspfunc(char *format, ...)
 {
@@ -291,8 +288,14 @@ void deceleration_fct(){
 }
 
 void back_fct(){
+	encoder =menu_back(root_menu);
+	back_menu.select = 0;
+}
+
+void pos_position_fct(){
 
 }
+
 
 void pos_velocity_fct(){
 	if (FLAG_MENU == 1){

@@ -11,6 +11,14 @@
 extern "C" {
 #endif
 
+bool FLAG_PUSH_SHORT;
+bool FLAG_PUSH_LONG;
+bool FLAG_ENCODER;
+bool FLAG_DEBOUNCE;
+int counter_100ms;
+
+
+float encoder;
 
 #ifdef __cplusplus
 }  /* extern "C" */

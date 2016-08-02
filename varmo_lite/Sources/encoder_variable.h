@@ -13,14 +13,14 @@
 extern "C" {
 #endif
 
-bool FLAG_PUSH_SHORT;
-bool FLAG_PUSH_LONG;
-bool FLAG_ENCODER;
-bool FLAG_DEBOUNCE;
-int counter_100ms;
+extern bool FLAG_PUSH_SHORT;
+extern bool FLAG_PUSH_LONG;
+extern bool FLAG_ENCODER;
+extern bool FLAG_DEBOUNCE;
+extern int counter_100ms;
 
-float encoder;
 
+extern float encoder;
 
 
 #ifdef __cplusplus

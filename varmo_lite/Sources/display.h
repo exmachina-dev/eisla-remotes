@@ -44,12 +44,13 @@
 #include "WAIT1.h"
 #include "parameters.h"
 #include "menu.h"
-//#include "encoder_variable.h"
+#include "encoder_variable.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+char buffer[80];
 bool FLAG_MENU;
 
 int vspfunc(char *, ...);
@@ -69,6 +70,7 @@ void velocity_fct(void);
 void acceleration_fct(void);
 void deceleration_fct(void);
 
+void pos_position_fct(void);
 void pos_velocity_fct(void);
 void pos_acceleration_fct(void);
 void pos_deceleration_fct(void);
