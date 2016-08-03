@@ -6,6 +6,7 @@
  */
 
 #include "stdint.h"
+//#include "display.h"
 
 #ifndef SOURCES_PARAMETERS_H_
 #define SOURCES_PARAMETERS_H_
@@ -15,6 +16,14 @@ extern "C" {
 #endif
 
 extern int a;
+
+
+#define Velocity_selected 0
+#define Position_selected 1
+#define Torque_selected 2
+
+extern int menu_indicator;
+
 extern struct velocity{
 	float velocity;
 	float velocity_real;
@@ -30,7 +39,8 @@ extern struct position{
 	float position_real;
 	float max;
 	float min;
-	uint16_t velocity;
+	float velocity;
+	float velocity_real;
 	uint16_t acceleration;
 	uint16_t decceleration;
 }pos;
@@ -46,6 +56,9 @@ extern struct torque{
 
 void parameters_init(void);
 float convert(float,float,float);
+
+
+
 
 #ifdef __cplusplus
 }  /* extern "C" */

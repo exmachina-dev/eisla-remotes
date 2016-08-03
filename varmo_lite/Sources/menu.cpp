@@ -152,8 +152,10 @@ int menu_select(int pointer, menu_list menu){
 		i++;
 	}
 	if (sub_menu_selected == true){
-		size = sizeof(menu.array->sub);
+
+		size = menu.array[i].size;
 		if (menu.array[i].sub.array[pointer].item== 1){
+			//Enter on the sub menu item
 			menu.array[i].sub.array[pointer].select = 1;
 			menu.array[i].sub.array[pointer].function();
 			if (strcmp(menu.array[i].sub.array[pointer].name,"Back") == 0){
@@ -161,6 +163,7 @@ int menu_select(int pointer, menu_list menu){
 			}
 		}
 		else{
+			//enter on the sub menu menu
 			menu.array[i].sub.array[pointer].select = 1;
 			pointer = 0;
 		}
@@ -168,6 +171,7 @@ int menu_select(int pointer, menu_list menu){
 		sub_menu_selected = false;
 	}
 	else{
+		//Enter on a menu of the root menu
 		if (pointer >= size){
 			pointer = size -1;
 		}

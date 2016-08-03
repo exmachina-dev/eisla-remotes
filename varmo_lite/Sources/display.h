@@ -66,6 +66,8 @@ int refresh(int);
 int select(int);
 int back(int);
 
+void refresh_fct(int);
+
 void velocity_fct(void);
 void acceleration_fct(void);
 void deceleration_fct(void);

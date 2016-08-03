@@ -116,6 +116,7 @@ int main(void)
 
   //LCD_Cursor_Blink_On();
   //LCD_Write_Block("Varmo V2.0", 1, 3);
+
   menu_init();
 
   for(;;){
@@ -127,15 +128,16 @@ int main(void)
 			  encoder = refresh((int)encoder);
 		  }
 		  else {
-			  //encoder = convert(encoder,vel.min, vel.max);
-			  vel.velocity = encoder;
-			  velocity_fct();
+			  refresh_fct(menu_indicator);
 		  }
 		  FLAG_ENCODER = 0;
 	  }
 	  if (FLAG_PUSH_SHORT == 1){
 		  if (FLAG_MENU == 1){
-			  encoder = select((int)encoder);
+			  int temp = select((int)encoder);
+			  if (FLAG_MENU == 1){
+				  encoder = temp;
+			  }
 		  }
 		  FLAG_PUSH_SHORT = 0;
 	  }

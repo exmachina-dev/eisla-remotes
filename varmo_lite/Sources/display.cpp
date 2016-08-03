@@ -239,9 +239,24 @@ int back(int pointer){
 	return pointer;
 }
 
+void refresh_fct(int flag){
+	switch (flag){
+		case Velocity_selected:
+			velocity_fct();
+			break;
+		case Position_selected:
+			pos_position_fct();
+			break;
+		case Torque_selected:
+			torque_fct();
+			break;
+	}
+}
+
 void velocity_fct(){
 	if (FLAG_MENU == 1){
 		FLAG_MENU = 0;
+		menu_indicator = Velocity_selected;
 		LCD_Write_Block((char*)"Acc    ", 0, 0);
 		LCD_Write_Block((char*)"Dec ", 0, 8);
 		LCD_Write_Block((char*)"Vel Act", 2, 0);
@@ -255,13 +270,16 @@ void velocity_fct(){
 
 		print_int_at(vel.acceleration, 0, 1,0);
 		print_int_at(vel.decceleration, 0,1,8);
-		print_float_at(0, 2,1,3,0);
+		print_float_at(vel.velocity_real, 0,1,3,0);
+
 		vel.velocity = convert(vel.velocity,vel.min, vel.max);
-		print_float_at(vel.velocity,2,1,3,8);
+		print_float_at(vel.velocity,0,1,3,8);
+		encoder = vel.velocity;
 	}
 	else {
-		//vel.velocity = convert(vel.velocity,vel.min, vel.max);
-		print_float_at(vel.velocity,2,1,3,8);
+		vel.velocity = encoder;
+		vel.velocity = convert(vel.velocity,vel.min, vel.max);
+		print_float_at(vel.velocity,0,1,3,8);
 	}
 
 }
@@ -293,7 +311,30 @@ void back_fct(){
 }
 
 void pos_position_fct(){
-
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		menu_indicator = Position_selected;
+		LCD_Clear();
+		LCD_Write_Block((char*)"Vel Act", 0, 0);
+		print_float_at(pos.velocity_real,0, 0, 1,0);
+		LCD_Write_Block((char*)"Vel", 0, 8);
+		print_float_at(vel.velocity, 0, 0,1,8);
+		LCD_Write_Block((char*)"Pos Act", 2, 0);
+		print_float_at(pos.position_real, 0, 0,3,0);
+		LCD_Write_Block((char*)"Pos", 2, 8);
+		pos.position = convert(pos.position,pos.min, pos.max);
+		print_float_at(pos.position, 0, 0,3,8);
+		encoder = pos.position;
+		LCD_Write_At(4,0,7);
+		LCD_Write_At(4,1,7);
+		LCD_Write_At(4,2,7);
+		LCD_Write_At(4,3,7);
+	}
+	else {
+		pos.position = encoder;
+		pos.position = convert(pos.position,pos.min, pos.max);
+		print_float_at(pos.position, 0, 0,3,8);
+	}
 }
 
 
@@ -318,6 +359,23 @@ void pos_deceleration_fct(){
 void torque_fct(){
 	if (FLAG_MENU == 1){
 		FLAG_MENU = 0;
+		menu_indicator = Torque_selected;
+		LCD_Clear();
+		LCD_Write_Block((char*)"Tq Act", 2, 0);
+		print_float_at(tor.torque_real, 0, 0,3,0);
+		LCD_Write_Block((char*)"Torque", 2, 8);
+		tor.torque = convert(tor.torque,tor.min, tor.max);
+		print_float_at(tor.torque, 0, 0,3,8);
+		encoder = tor.torque;
+		LCD_Write_At(4,0,7);
+		LCD_Write_At(4,1,7);
+		LCD_Write_At(4,2,7);
+		LCD_Write_At(4,3,7);
+	}
+	else {
+		tor.torque = encoder;
+		tor.torque = convert(tor.torque,tor.min, tor.max);
+		print_float_at(tor.torque, 0, 0,3,8);
 	}
 }
 

@@ -12,9 +12,12 @@
 extern "C" {
 #endif
 
+int menu_indicator;
+
 struct velocity vel;
 struct position pos;
 struct torque tor;
+
 
 void parameters_init(void){
 	vel.velocity = 0;
@@ -46,6 +49,10 @@ float convert(float encoder,float min, float max){
 	}
 	return encoder;
 }
+
+
+
+
 
 
 #ifdef __cplusplus
