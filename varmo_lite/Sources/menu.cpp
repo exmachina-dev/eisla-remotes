@@ -140,14 +140,9 @@ void print_sub_menu(int pointer, sub_menu_list list){
 int menu_select(int pointer, menu_list menu){
 	int i = 0;
 	bool sub_menu_selected = false;
-	//int size = sizeof(array)/sizeof(array[0]);
+
 	int size = menu.size;
-	if (pointer >= size){
-		pointer = size -1;
-	}
-	else if (pointer <= 0){
-		pointer = 0;
-	}
+
 
 	while(i < size){
 		if (menu.array[i].menu_selected == 1){
@@ -159,17 +154,27 @@ int menu_select(int pointer, menu_list menu){
 	if (sub_menu_selected == true){
 		size = sizeof(menu.array->sub);
 		if (menu.array[i].sub.array[pointer].item== 1){
-
+			menu.array[i].sub.array[pointer].select = 1;
 			menu.array[i].sub.array[pointer].function();
+			if (strcmp(menu.array[i].sub.array[pointer].name,"Back") == 0){
+				pointer = i;
+			}
 		}
 		else{
 			menu.array[i].sub.array[pointer].select = 1;
 			pointer = 0;
 		}
-		menu.array[i].sub.array[pointer].select = 1;
+
 		sub_menu_selected = false;
 	}
 	else{
+		if (pointer >= size){
+			pointer = size -1;
+		}
+		else if (pointer <= 0){
+			pointer = 0;
+		}
+
 		menu.array[pointer].menu_selected = 1;
 		refresh_menu(0, menu);
 		pointer = 0;
@@ -190,42 +195,35 @@ int menu_back(menu_list menu){
 	}
 	if (sub_menu_selected == true){
 		size = menu.array[pointer].sub.size;
-		for (int i = 0; i < size; i++){
-			if (menu.array[pointer].sub.array[i].select == 1){
-				menu.array[pointer].sub.array[i].select = 0;
-				sub_menu_selected = false;
-				pointer = i;
-				i=size;
+		for (int j = 0; j < size; j++){
+			if (menu.array[pointer].sub.array[j].select == 1){
+				menu.array[pointer].sub.array[j].select = 0;
+
+				if (strcmp(menu.array[pointer].sub.array[j].name,"Back")== 0){
+					menu.array[pointer].menu_selected = 0;
+				}
+				else{
+					pointer = j;
+					sub_menu_selected = false;
+					pointer = refresh_menu(pointer, menu);
+				}
+				j=size;
 			}
 		}
 		if (sub_menu_selected == true){
 			menu.array[pointer].menu_selected = 0;
+			pointer = refresh_menu(pointer, menu);
 		}
 	}
-	refresh_menu(pointer, menu);
-	/*
-	for (int i =0; i < size; i++){
-		if (menu.array[i].menu_selected == 1){
-			pointer = i;
-		}
-	}
-	menu.array[pointer].menu_selected = 0;
-	LCD_Clear();
-	print_menu(pointer, menu);*/
+
+
 	return pointer;
 }
 
 int refresh_menu(int pointer, menu_list menu){
 	int i = 0;
 	bool sub_menu_selected = false;
-	//int size = sizeof(array)/sizeof(array[0]);
 	int size = menu.size;
-	if (pointer >= size){
-		pointer = size -1;
-	}
-	else if (pointer <= 0){
-		pointer = 0;
-	}
 
 	while(i < size){
 		if (menu.array[i].menu_selected == 1){
@@ -236,12 +234,25 @@ int refresh_menu(int pointer, menu_list menu){
 	}
 	if (sub_menu_selected == true){
 		size = menu.array[i].sub.size;
+		if (pointer >= size){
+			pointer = size -1;
+		}
+		else if (pointer <= 0){
+			pointer = 0;
+		}
 		print_sub_menu(pointer, menu.array[i].sub);
 		sub_menu_selected = false;
 	}
 	else{
+		if (pointer >= size){
+			pointer = size -1;
+		}
+		else if (pointer <= 0){
+			pointer = 0;
+		}
 		print_menu(pointer, menu);
 	}
+
 	return pointer;
 }
 

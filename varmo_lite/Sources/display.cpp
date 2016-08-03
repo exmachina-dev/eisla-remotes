@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-sub_menu back_menu = init_sub_menu((char *)"Back ",1, back_fct);
+sub_menu back_menu = init_sub_menu((char *)"Back",1, back_fct);
 
 sub_menu vel_velocity = init_sub_menu((char *)"Velocity    ",1,velocity_fct);
 sub_menu vel_acc = 		init_sub_menu((char *)"Acceleration",1,acceleration_fct);
@@ -288,7 +288,7 @@ void deceleration_fct(){
 }
 
 void back_fct(){
-	encoder =menu_back(root_menu);
+	encoder = menu_back(root_menu);
 	back_menu.select = 0;
 }
 
