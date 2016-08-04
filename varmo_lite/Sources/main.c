@@ -79,6 +79,7 @@
 #include "LCD.h"
 #include "PCA9670.h"
 #include "parameters.h"
+#include "send.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -103,6 +104,7 @@ int main(void)
   FLAG_MSG_OK = 0;
   FLAG_MENU = 1;
   FLAG_DEBOUNCE = 1;
+  FLAG_SEND = 0;
   nb_data = 0;
 
   int cnt_err = 0;
@@ -145,6 +147,11 @@ int main(void)
 	  if (FLAG_PUSH_LONG == 1){
 		  encoder = back((int) encoder);
 		  FLAG_PUSH_LONG = 0;
+	  }
+
+	  if (FLAG_SEND == 1){
+		  LED_DEBUG_NegVal();
+		  FLAG_SEND = 0;
 	  }
 
 /*

@@ -48,8 +48,7 @@ extern "C" {
 
 #include "protocol.h"
 #include "encoder_variable.h"
-#include "PCA9670.h"
-#include "LCD.h"
+#include "send.h"
 
 //#include "ENCODER.h"
 /*
@@ -83,7 +82,7 @@ void PUSH_BUTTON_REC_OnInterrupt(void)
 */
 void PUSH_BUTTON_SEND_OnInterrupt(void)
 {
-  /* Write your code here ... */
+  FLAG_SEND = 1;
 }
 
 /*
@@ -147,7 +146,6 @@ void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
     counter_100ms += 1;
     if (counter_100ms == 5){
-    	LED_STATUS_4_NegVal();
         FLAG_PUSH_LONG = 1;
         FLAG_PUSH_SHORT = 0;
         T_100ms_Disable(T_100ms_DeviceData);
@@ -217,10 +215,10 @@ void LEVER_DIR1_OnInterrupt(void)
 void ENCODER_PUSH_OnInterrupt(void)
 {
     if (ENCODER_PUSH_GetVal() == 0){ //Encoder Pushed
+    	counter_100ms = 0;
         FLAG_PUSH_SHORT = 0;
         FLAG_PUSH_LONG = 0;
     	counter_100ms = 0;
-        LED_DEBUG_NegVal();
         T_100ms_Enable(T_100ms_DeviceData);
     }
     else if (ENCODER_PUSH_GetVal() == 1 && counter_100ms < 5){
@@ -228,13 +226,13 @@ void ENCODER_PUSH_OnInterrupt(void)
         T_100ms_Disable(T_100ms_DeviceData);
         FLAG_PUSH_SHORT = 1;
         FLAG_PUSH_LONG = 0;
-        LED_STATUS_3_NegVal();
     }
+    /*
     else if (ENCODER_PUSH_GetVal() == 1){
-    	counter_100ms = 0;
         FLAG_PUSH_SHORT = 0;
         FLAG_PUSH_LONG = 0;
-    }
+
+    }*/
 
 }
 
