@@ -29,33 +29,33 @@ extern "C" {
 extern int menu_indicator;
 
 extern struct velocity{
+	float velocity_ref;
 	float velocity;
-	float velocity_real;
-	float max;
-	float min;
-	uint16_t acceleration;
-	uint16_t deceleration;
+	float velocity_maximun;
+	float velocity_minimun;
+	float acceleration;
+	float deceleration;
 }vel;
 
 
 extern struct position{
-	float  position;
-	float position_real;
-	float max;
-	float min;
+	float position_ref;
+	float position;
+	float position_maximun;
+	float position_minimun;
 	float velocity;
 	float velocity_real;
-	uint16_t acceleration;
-	uint16_t deceleration;
+	float acceleration;
+	float deceleration;
 }pos;
 
 extern struct torque{
+	float torque_ref;
 	float torque;
-	float torque_real;
-	float max;
-	float min;
-	uint16_t torque_rise;
-	uint16_t torque_fall;
+	float torque_maximun;
+	float torque_minimun;
+	float torque_rise;
+	float torque_fall;
 }tor;
 
 void parameters_init(void);

@@ -295,17 +295,17 @@ void velocity_fct(){
 
 		print_int_at(vel.acceleration, 1, 1,0);
 		print_int_at(vel.deceleration, 1,1,8);
-		print_float_at(vel.velocity_real, 0,0,3,0);
+		print_float_at(vel.velocity, 0,0,3,0);
 
-		vel.velocity = convert(vel.velocity,vel.min, vel.max);
-		print_float_at(vel.velocity,0,0,3,8);
-		encoder = vel.velocity;
+		vel.velocity_ref = convert(vel.velocity_ref,vel.velocity_minimun, vel.velocity_maximun);
+		print_float_at(vel.velocity_ref,0,0,3,8);
+		encoder = vel.velocity_ref;
 	}
 	else {
-		vel.velocity = encoder;
-		vel.velocity = convert(vel.velocity,vel.min, vel.max);
-		encoder =vel.velocity;
-		print_float_at(vel.velocity,0,0,3,8);
+		vel.velocity_ref = encoder;
+		vel.velocity_ref = convert(vel.velocity_ref,vel.velocity_minimun, vel.velocity_maximun);
+		encoder =vel.velocity_ref;
+		print_float_at(vel.velocity_ref,0,0,3,8);
 	}
 
 }
@@ -379,21 +379,21 @@ void pos_position_fct(){
 		LCD_Write_Block((char*)"Vel", 0, 8);
 		print_float_at(pos.velocity, 0, 0,1,8);
 		LCD_Write_Block((char*)"Pos Act", 2, 0);
-		print_float_at(pos.position_real, 0, 0,3,0);
+		print_float_at(pos.position, 0, 0,3,0);
 		LCD_Write_Block((char*)"Pos", 2, 8);
-		pos.position = convert(pos.position,pos.min, pos.max);
-		print_float_at(pos.position, 0, 0,3,8);
-		encoder = pos.position;
+		pos.position_ref = convert(pos.position_ref,pos.position_minimun, pos.position_maximun);
+		print_float_at(pos.position_ref, 0, 0,3,8);
+		encoder = pos.position_ref;
 		LCD_Write_At(4,0,7);
 		LCD_Write_At(4,1,7);
 		LCD_Write_At(4,2,7);
 		LCD_Write_At(4,3,7);
 	}
 	else {
-		pos.position = encoder;
-		pos.position = convert(pos.position,pos.min, pos.max);
-		encoder =pos.position;
-		print_float_at(pos.position, 0, 0, 3, 8);
+		pos.position_ref = encoder;
+		pos.position_ref = convert(pos.position_ref,pos.position_minimun, pos.position_maximun);
+		encoder =pos.position_ref;
+		print_float_at(pos.position_ref, 0, 0, 3, 8);
 	}
 }
 
@@ -485,19 +485,19 @@ void torque_fct(){
 		LCD_Write_Block((char*)"Tq F", 0, 8);
 		print_float_at(tor.torque_fall, 0, 0,1,0);
 		LCD_Write_Block((char*)"Tq Act", 2, 0);
-		print_float_at(tor.torque_real, 0, 0,3,0);
+		print_float_at(tor.torque, 0, 0,3,0);
 		LCD_Write_Block((char*)"Torque", 2, 8);
-		tor.torque = convert(tor.torque,tor.min, tor.max);
-		print_float_at(tor.torque, 0, 0,3,8);
-		encoder = tor.torque;
+		tor.torque_ref = convert(tor.torque_ref,tor.torque_minimun, tor.torque_maximun);
+		print_float_at(tor.torque_ref, 0, 0,3,8);
+		encoder = tor.torque_ref;
 		LCD_Write_At(4,1,7);
 		LCD_Write_At(4,2,7);
 	}
 	else {
-		tor.torque = encoder;
-		tor.torque = convert(tor.torque,tor.min, tor.max);
-		encoder = tor.torque;
-		print_float_at(tor.torque, 0, 0,3,8);
+		tor.torque_ref = encoder;
+		tor.torque_ref = convert(tor.torque_ref,tor.torque_minimun, tor.torque_maximun);
+		encoder = tor.torque_ref;
+		print_float_at(tor.torque_ref, 0, 0,3,8);
 	}
 }
 

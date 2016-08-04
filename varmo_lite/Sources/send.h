@@ -7,6 +7,7 @@
 
 #include "parameters.h"
 #include "encoder_variable.h"
+#include "protocol.h"
 
 #ifndef SOURCES_SEND_H_
 #define SOURCES_SEND_H_

@@ -19,6 +19,14 @@
 extern "C" {
 #endif
 
+char in_buffer[127];
+uint8_t cnt;
+bool FLAG_MSG_RCV;
+bool FLAG_MSG_ERR;
+bool FLAG_MSG_OK;
+char msg[100];
+int nb_data;
+
 void serial_send_block(int n,...)
 {
 	int nb_element = n;
@@ -33,6 +41,7 @@ void serial_send_block(int n,...)
 		length.toInt.int0 += strlen(va_arg(arg, char*));
 	}
 	va_end(arg);
+
 
 	//binaryRepr length_block = format_length(length);
 	serial_send_string(protocol_setting.PROTOCOL);
@@ -49,12 +58,19 @@ void serial_send_block(int n,...)
 		}
 		else {
 			serial_send_char(protocol_setting.DELIMITATOR);
-			serial_send_string(va_arg(arg, char*));
+			char *temp =  va_arg(arg, char*);
+			serial_send_string(temp);
 		}
 	}
 	va_end(arg);
+}
 
-	serial_send_string(protocol_setting.END);
+void serial_send_float(float f){
+	serial_send_char(protocol_setting.DELIMITATOR);
+	convert_to_send temp;
+	temp.toFloat = f;
+	word i;
+	AS1_SendBlock(temp.toBytes, (word) 4, &i);
 }
 
 void serial_send_string(char* string){
@@ -76,13 +92,19 @@ void serial_send_string(char* string){
 void serial_send_char(char character){
 	byte err = AS1_SendChar(character);
 	if (err != ERR_OK){
-		LED_STATUS_2_SetVal();
+		//LED_STATUS_2_SetVal();
 	}
 }
 
+void serial_send_end(void){
+	serial_send_string(protocol_setting.END);
+}
+
 void test_protocol(){
-	serial_send_block(2, (char*)Get_OK, (char*)Velocity_ref);
-	serial_send_block(2, (char*)Set_OK, (char*)Position_ref);
+	/*
+	serial_send_block(2, Get_OK, Velocity_ref);
+	serial_send_block(2, Set_OK, Position_ref);
+	*/
 }
 
 bool msg_parse(char* msg){
@@ -126,7 +148,7 @@ bool msg_processing(int n, ...){
 	va_list arg;
 	va_start(arg, n);
 	char* data = va_arg(arg, char*);
-
+/*
  	if (strcmp(data, Set_OK) == 0){
 		return 0;
 	}
@@ -139,6 +161,7 @@ bool msg_processing(int n, ...){
  	else if (strcmp(data, Get_ERR) == 0){
  		return 1;
  	}
+ 	*/
 	va_end(arg);
 	return 0;
 }

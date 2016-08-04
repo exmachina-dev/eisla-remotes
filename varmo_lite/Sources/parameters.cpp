@@ -20,25 +20,25 @@ struct torque tor;
 
 
 void parameters_init(void){
-	vel.velocity = 0;
-	vel.velocity_real = -2000;
-	vel.max = 10;
-	vel.min = -10;
+	vel.velocity_ref = 0;
+	vel.velocity = -2000;
+	vel.velocity_maximun = 100;
+	vel.velocity_minimun = -100;
 	vel.acceleration = 0;
 	vel.deceleration = 0;
 
-	pos.position = 0;
-	pos.position_real = -2;
-	pos.max = 9999;
-	pos.min = -9999;
+	pos.position_ref = 0;
+	pos.position = -2;
+	pos.position_maximun = 9999;
+	pos.position_minimun = -9999;
 	pos.velocity = 0;
 	pos.acceleration = 0;
 	pos.deceleration = 0;
 
-	tor.torque = 0;
-	tor.torque_real = -2;
-	tor.max = 9999;
-	tor.min = -9999;
+	tor.torque_ref = 0;
+	tor.torque = -2;
+	tor.torque_maximun = 9999;
+	tor.torque_minimun = -9999;
 	tor.torque_rise = 0;
 	tor.torque_fall = 0;
 }
