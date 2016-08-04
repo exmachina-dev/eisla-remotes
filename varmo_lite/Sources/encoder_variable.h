@@ -5,7 +5,6 @@
  *      Author: Adrian
  */
 
-
 #ifndef SOURCES_ENCODER_VARIABLE_H_
 #define SOURCES_ENCODER_VARIABLE_H_
 

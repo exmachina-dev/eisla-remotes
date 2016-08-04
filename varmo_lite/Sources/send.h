@@ -5,6 +5,9 @@
  *      Author: Adrian
  */
 
+#include "parameters.h"
+#include "encoder_variable.h"
+
 #ifndef SOURCES_SEND_H_
 #define SOURCES_SEND_H_
 
@@ -13,6 +16,8 @@ extern "C" {
 #endif
 
 extern bool FLAG_SEND;
+
+void send_fct(int);
 
 #ifdef __cplusplus
 }  /* extern "C" */

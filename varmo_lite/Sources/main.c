@@ -149,8 +149,10 @@ int main(void)
 		  FLAG_PUSH_LONG = 0;
 	  }
 
-	  if (FLAG_SEND == 1){
+	  if (FLAG_SEND == 1 && FLAG_MENU == 0){
 		  LED_DEBUG_NegVal();
+		  send_fct(menu_indicator);
+		  refresh_fct(menu_indicator);
 		  FLAG_SEND = 0;
 	  }
 

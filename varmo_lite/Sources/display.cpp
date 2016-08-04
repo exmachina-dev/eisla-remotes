@@ -331,6 +331,7 @@ void acceleration_fct(){
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
+		print_float_at(vel.acceleration,0,1,2, 0);
 	}
 }
 
@@ -354,6 +355,7 @@ void deceleration_fct(){
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
+		print_float_at(vel.deceleration,0,1,2, 0);
 	}
 }
 
@@ -416,6 +418,7 @@ void pos_velocity_fct(){
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
+		print_float_at(pos.velocity,0,1,2, 0);
 	}
 }
 
@@ -439,6 +442,7 @@ void pos_acceleration_fct(){
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
+		print_float_at(pos.acceleration,0,1,2, 0);
 	}
 }
 
@@ -462,6 +466,7 @@ void pos_deceleration_fct(){
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
+		print_float_at(pos.deceleration,0,1,2, 0);
 	}
 }
 
@@ -516,6 +521,7 @@ void torque_rise_fct(){
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
+		print_float_at(tor.torque_rise,0,1,2, 0);
 	}
 }
 
@@ -539,6 +545,7 @@ void torque_fall_fct(){
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
+		print_float_at(tor.torque_fall,0,1,2, 0);
 	}
 }
 
