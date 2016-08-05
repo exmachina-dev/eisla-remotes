@@ -36,7 +36,9 @@ void send_fct(int flag){
 			serial_send_end();
 			break;
 		case Position_selected:
-
+			serial_send_block(2, Set, Position_ref);
+			serial_send_float(pos.position_ref);
+			serial_send_end();
 			break;
 		case Position_vel_selected:
 			pos.velocity = convert(encoder, 0, 9999);
@@ -57,7 +59,9 @@ void send_fct(int flag){
 			serial_send_end();
 			break;
 		case Torque_selected:
-
+			serial_send_block(2, Set, Torque_ref);
+			serial_send_float(tor.torque_ref);
+			serial_send_end();
 			break;
 		case Torque_rise_selected:
 			tor.torque_rise = convert(encoder, 0, 9999);
