@@ -40,10 +40,9 @@ void serial_send_block(int n,...)
 	for (int i = 0; i < nb_element; i++){
 		length.toInt.int0 += strlen(va_arg(arg, char*));
 	}
+	length.toInt.int0 += 4;
 	va_end(arg);
 
-
-	//binaryRepr length_block = format_length(length);
 	serial_send_string(protocol_setting.PROTOCOL);
 
 	serial_send_char((int)length.toUint_8.toUint_8_1);

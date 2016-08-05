@@ -454,7 +454,7 @@ void pos_deceleration_fct(){
 		LCD_Write_Block((char*)"                ",2,0);
 		LCD_Write_Block((char*)"                ",3,0);
 
-		menu_indicator = Position_acc_selected;
+		menu_indicator = Position_dec_selected;
 		LCD_Write_Block((char*)"Dec Act",1,0);
 		print_float_at(pos.deceleration,0,1,2, 0);
 		LCD_Write_Block((char*)"Dec",1,8);
@@ -480,18 +480,20 @@ void torque_fct(){
 		LCD_Write_Block((char*)"                ",3,0);
 
 		menu_indicator = Torque_selected;
-		LCD_Write_Block((char*)"Tq R",02, 0);
+		LCD_Write_Block((char*)"Tq R",0, 0);
 		print_float_at(tor.torque_rise, 0, 0,1,0);
 		LCD_Write_Block((char*)"Tq F", 0, 8);
-		print_float_at(tor.torque_fall, 0, 0,1,0);
+		print_float_at(tor.torque_fall, 0, 0,1,8);
 		LCD_Write_Block((char*)"Tq Act", 2, 0);
 		print_float_at(tor.torque, 0, 0,3,0);
 		LCD_Write_Block((char*)"Torque", 2, 8);
 		tor.torque_ref = convert(tor.torque_ref,tor.torque_minimun, tor.torque_maximun);
 		print_float_at(tor.torque_ref, 0, 0,3,8);
 		encoder = tor.torque_ref;
+		LCD_Write_At(4,0,7);
 		LCD_Write_At(4,1,7);
 		LCD_Write_At(4,2,7);
+		LCD_Write_At(4,3,7);
 	}
 	else {
 		tor.torque_ref = encoder;
@@ -511,7 +513,7 @@ void torque_rise_fct(){
 
 		menu_indicator = Torque_rise_selected;
 		LCD_Write_Block((char*)"Tq R",1,0);
-		print_float_at(tor.torque_rise,0,0, 1,8);
+		print_float_at(tor.torque_rise,0,0, 2,0);
 		LCD_Write_Block((char*)"Tq R",1,8);
 		encoder = convert(tor.torque_rise, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);

@@ -14,6 +14,8 @@ extern "C" {
 bool FLAG_SEND;
 
 void send_fct(int flag){
+
+
 	switch (flag){
 		case Velocity_selected:
 			serial_send_block(2, Set, Velocity_ref);
