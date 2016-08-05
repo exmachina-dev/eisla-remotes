@@ -513,7 +513,7 @@ void torque_rise_fct(){
 
 		menu_indicator = Torque_rise_selected;
 		LCD_Write_Block((char*)"Tq R",1,0);
-		print_float_at(tor.torque_rise,0,0, 2,0);
+		print_float_at(tor.torque_rise,0, 1, 2,0);
 		LCD_Write_Block((char*)"Tq R",1,8);
 		encoder = convert(tor.torque_rise, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
