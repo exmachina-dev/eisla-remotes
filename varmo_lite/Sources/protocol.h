@@ -36,21 +36,24 @@ static const char *Set_OK = "machine.set.ok";
 static const char *Set_ERR = "machine.set.error";
 
 static const char *Velocity = "machine.velocity";
-
 static const char *Velocity_ref = "machine.velocity_ref";
-static const char *Torque_ref = "machine.torque_ref";
-static const char *Position_ref = "machine.position_ref";
+
+static const char *Position= "machine.position";
+static const char *Position_Target = "machine.position_target";
+static const char *Pos_go = "machine.command.go";
+static const char *Set_Home = "machine.command.set_home";
+
 static const char *Acceleration = "machine.acceleration";
 static const char *Deceleration = "machine.deceleration";
 
 static const char *Torque = "machine.torque";
+static const char *Torque_ref = "machine.torque_ref";
 static const char *Torque_rise = "machine.torque_rise_time";
 static const char *Torque_fall = "machine.torque_fall_time";
 
 static const char *Enable = "machine.command.enable";
 static const char *Stop = "machine.command.cancel";
-static const char *Pos_go = "machine.command.go";
-static const char *Set_Home = "machine.command.set_home";
+
 static const char *Reset = "machine.command.reset";
 
 static const char *Move_Mode = "machine.command.move_mode";

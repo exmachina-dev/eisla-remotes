@@ -235,6 +235,7 @@ int main(void)
 		  FLAG_MSG_ERR = msg_parse(msg);
 		  FLAG_MSG_OK  = 0;
 	  }
+	  /*
 	  //COMMUNICATION ERR
 	  if (FLAG_MSG_ERR == 1){
 		  cnt_err += 1;
@@ -246,7 +247,7 @@ int main(void)
 		  cnt_ok += 1;
 		  LED_STATUS_1_ClrVal();
 		  LED_STATUS_2_ClrVal();
-	  }
+	  }*/
   }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
