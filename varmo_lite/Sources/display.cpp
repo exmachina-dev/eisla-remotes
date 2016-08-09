@@ -252,9 +252,6 @@ void controle_mode_display(int mode){
 	  else if (CONTROL_MODE == 3){
 		  LCD_Write_At('P',0,13);
 	  }
-	  else{
-		  LCD_Write_At(' ',0,13);
-	  }
 }
 
 

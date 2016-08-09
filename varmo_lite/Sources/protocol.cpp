@@ -133,10 +133,9 @@ bool msg_parse(char* msg){
 
 	  if (chr == ':'){
 		  //several data
-		  //char temp1[50];
 		  offset += i +1;
 		  i = 0;
-		  char chr = msg[offset];
+		  chr = msg[offset];
 		  while (chr != ':' && chr != '\r'){
 			  data2[i] = chr;
 			  i++;
@@ -146,19 +145,27 @@ bool msg_parse(char* msg){
 		  if (chr != '\r'){
 			  offset += i +1;
 			  i = 0;
-			  char chr = msg[offset];
+			  chr = msg[offset];
 			  while (chr != ':' && chr != '\r'){
 				  data3[i] = chr;
 				  i++;
 				  chr = msg[offset + i];
 			  }
 		  }
+		  if (chr == '\r'){
+			  //three data
+			  return FLAG_MSG_ERR = msg_processing(2, data1, data2, data3);
+		  }
+		  else{
+			  return FLAG_MSG_ERR = msg_processing(2, data1, data2);
+		  }
 		  //data2 = temp1;
 	  }
 	  else {
 		  //only one data
+		  return FLAG_MSG_ERR = msg_processing(2, data1);
 	  }
-	  return FLAG_MSG_ERR = msg_processing(2, data1, data2, data3);
+
 	  //FLAG_MSG_OK = 0;
 
 }
@@ -177,6 +184,7 @@ bool msg_processing(int n, ...){
  			control_mode_processing(data);
  			return 0;
  		}
+
 	}
  	else if (strcmp(data, Set_ERR) == 0){
  		return 1;
