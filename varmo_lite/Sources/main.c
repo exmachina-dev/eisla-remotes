@@ -200,7 +200,11 @@ int main(void)
 		  get_update_value(CONTROL_MODE);
 	  }
 
-
+	  if (FLAG_UPDATE == 1 && FLAG_MENU == 0){
+		  get_update_value(CONTROL_MODE);
+		  FLAG_UPDATE = 0;
+		  refresh_fct(menu_indicator);
+	  }
 
 	  //Check message received
 	  if (FLAG_MSG_RCV == 1){

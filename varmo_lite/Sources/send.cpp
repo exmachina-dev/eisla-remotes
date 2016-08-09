@@ -13,6 +13,7 @@ extern "C" {
 
 bool FLAG_SEND = 0;
 bool FLAG_CONTROL_MODE_CONFIRM = 0;
+bool FLAG_UPDATE = 0;
 uint8_t CONTROL_MODE = 0;
 
 void Send_Control_Mode(int control){
@@ -93,30 +94,32 @@ void get_update_value(int mode){
 		//Torque
 		serial_send_block(0,2, Get, Torque);
 		serial_send_end();
+		if (FLAG_UPDATE == 0){
+			serial_send_block(0,2, Get, Torque_rise);
+			serial_send_end();
 
-		serial_send_block(0,2, Get, Torque_rise);
-		serial_send_end();
+			serial_send_block(0,2, Get, Torque_fall);
+			serial_send_end();
 
-		serial_send_block(0,2, Get, Torque_fall);
-		serial_send_end();
-
-		serial_send_block(0,2, Get, Torque_ref);
-		serial_send_end();
+			serial_send_block(0,2, Get, Torque_ref);
+			serial_send_end();
+		}
 
 	}
 	else if(mode == 2){
 		//Velocity
 		serial_send_block(0,2, Get, Velocity);
 		serial_send_end();
+		if (FLAG_UPDATE == 0){
+			serial_send_block(0,2, Get, Acceleration);
+			serial_send_end();
 
-		serial_send_block(0,2, Get, Acceleration);
-		serial_send_end();
+			serial_send_block(0,2, Get, Deceleration);
+			serial_send_end();
 
-		serial_send_block(0,2, Get, Deceleration);
-		serial_send_end();
-
-		serial_send_block(0,2, Get, Velocity_ref);
-		serial_send_end();
+			serial_send_block(0,2, Get, Velocity_ref);
+			serial_send_end();
+		}
 
 	}
 	else if(mode == 3){

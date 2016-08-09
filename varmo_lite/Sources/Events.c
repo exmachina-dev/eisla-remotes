@@ -49,6 +49,7 @@ extern "C" {
 #include "protocol.h"
 #include "encoder_variable.h"
 #include "send.h"
+#include "display.h"
 
 //#include "ENCODER.h"
 /*
@@ -301,7 +302,9 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 /* ===================================================================*/
 void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-	//test_protocol();
+	if (FLAG_MENU == 0){
+		FLAG_UPDATE = 1;
+	}
 }
 
 /*

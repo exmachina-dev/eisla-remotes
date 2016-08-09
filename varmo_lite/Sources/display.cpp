@@ -345,6 +345,7 @@ void velocity_fct(){
 		}
 	}
 	else {
+		print_float_at(vel.velocity, 0,0,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			encoder = convert(abs(encoder), 0, vel.velocity_maximum);
 			if (encoder < 0){
@@ -598,6 +599,7 @@ void torque_fct(){
 		}
 	}
 	else {
+		print_float_at(tor.torque, 0, 0,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			encoder = convert(abs(encoder), 0, tor.torque_maximum);
 			if (encoder < 0){

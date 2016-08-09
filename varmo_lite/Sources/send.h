@@ -18,6 +18,7 @@ extern "C" {
 extern bool FLAG_SEND;
 extern uint8_t CONTROL_MODE;
 extern bool FLAG_CONTROL_MODE_CONFIRM;
+extern bool FLAG_UPDATE;
 
 void get_update_value(int);
 void send_fct(int);
