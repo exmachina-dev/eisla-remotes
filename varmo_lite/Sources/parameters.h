@@ -6,7 +6,6 @@
  */
 
 #include "stdint.h"
-//#include "display.h"
 
 #ifndef SOURCES_PARAMETERS_H_
 #define SOURCES_PARAMETERS_H_

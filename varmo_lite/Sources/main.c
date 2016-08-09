@@ -104,8 +104,8 @@ int main(void)
   FLAG_MSG_OK = 0;
   FLAG_MENU = 1;
   FLAG_DEBOUNCE = 1;
-  FLAG_SEND = 0;
 
+  FLAG_CONTROL_MODE = 0;
 
   FLAG_SENS = 0;
   FLAG_SENS_1 = 0;
@@ -126,6 +126,19 @@ int main(void)
   LCD_Init();
   parameters_init();
 
+  bool DIR1 = LEVER_DIR1_GetVal();
+  bool DIR2 = LEVER_DIR2_GetVal();
+
+  if (DIR1 == 0 && DIR2 == 1){
+	  FLAG_SENS = 1;
+	  FLAG_SENS_1 = 1;
+	  FLAG_SENS_2 = 0;
+  }
+  else if (DIR1 == 1 && DIR2 == 0){
+	  FLAG_SENS = 1;
+	  FLAG_SENS_1 = 0;
+	  FLAG_SENS_2 = 1;
+  }
   //LCD_Cursor_Blink_On();
   //LCD_Write_Block("Varmo V2.0", 1, 3);
 
@@ -160,9 +173,12 @@ int main(void)
 		  FLAG_PUSH_LONG = 0;
 	  }
 
-	  if (FLAG_SEND == 1 && FLAG_MENU == 0){
+	  if (FLAG_SEND == 1 && FLAG_MENU == 0 && !(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0)){
 		  send_fct(menu_indicator);
 		  refresh_fct(menu_indicator);
+		  FLAG_SEND = 0;
+	  }
+	  else if (FLAG_SEND == 1){
 		  FLAG_SEND = 0;
 	  }
 
@@ -170,6 +186,17 @@ int main(void)
 	  if (FLAG_MENU == 0 && FLAG_SENS == 1){
 		  FLAG_SENS = 0;
 		  refresh_fct(menu_indicator);
+	  }
+
+	  if (FLAG_CONTROL_MODE == 1){
+		  FLAG_CONTROL_MODE = 0;
+		  control_mode_fct();
+		  LED_STATUS_1_NegVal();
+	  }
+
+	  if (FLAG_CONTROL_MODE_CONFIRM == 1){
+		  FLAG_CONTROL_MODE_CONFIRM = 0;
+		  controle_mode_display(CONTROL_MODE);
 	  }
 
 
@@ -207,12 +234,12 @@ int main(void)
 	  if (FLAG_MSG_ERR == 1){
 		  cnt_err += 1;
 		  LED_STATUS_2_SetVal();
-		  LED_STATUS_1_ClrVal();
+		  LED_STATUS_1_SetVal();
 		  FLAG_MSG_ERR = 0;
 	  }
-	  else {
+	  else if (FLAG_MSG_ERR == 0) {
 		  cnt_ok += 1;
-		  LED_STATUS_1_SetVal();
+		  LED_STATUS_1_ClrVal();
 		  LED_STATUS_2_ClrVal();
 	  }
   }

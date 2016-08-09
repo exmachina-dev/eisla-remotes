@@ -15,6 +15,8 @@
 
 #include "AS1.h"
 
+#include "send.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -74,9 +76,14 @@ typedef union {
 } binaryRepr;
 
 typedef union {
+	int toInt;
+    uint8_t toBytes[2];
+} convert_int_to_send;
+
+typedef union {
    struct {
-      unsigned int int0;
-      unsigned int int1;
+      int int0;
+      int int1;
     } toInt;
     struct {
       uint8_t bool0;
@@ -85,6 +92,7 @@ typedef union {
       uint8_t bool3;
     } toBool;
     float toFloat;
+
     uint8_t toBytes[4];
 } convert_to_send;
 
@@ -99,6 +107,7 @@ static const struct protocol_setting {
 void serial_send_block(int,int, ...);
 
 void serial_send_float(float);
+void serial_send_int(int);
 void serial_send_string(char*);
 void serial_send_char(char);
 

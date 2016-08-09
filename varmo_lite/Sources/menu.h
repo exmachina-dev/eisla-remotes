@@ -10,6 +10,8 @@
 extern "C" {
 #endif
 
+extern bool FLAG_CONTROL_MODE;
+
 typedef struct sub_menu2{
   char *name;
   bool select;
@@ -29,6 +31,7 @@ typedef struct sub_menu_list{
 	char *name;
 	sub_menu *array;
 	int size;
+
 }sub_menu_list;
 
 typedef struct menu {
@@ -36,6 +39,7 @@ typedef struct menu {
   bool menu_selected;
   sub_menu_list sub;
   int size;
+  bool control_mode;
 }menu;
 
 typedef struct menu_list{
@@ -44,7 +48,7 @@ typedef struct menu_list{
 	int size;
 }menu_list;
 
-menu init_menu(char *, const sub_menu_list);
+menu init_menu(char *, const sub_menu_list, bool);
 sub_menu init_sub_menu(char *, bool, void (*)());
 menu_list init_menu_list(menu [], int, char*);
 sub_menu_list init_sub_menu_list(sub_menu [], int, char*);

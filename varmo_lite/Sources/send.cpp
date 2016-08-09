@@ -11,10 +11,17 @@
 extern "C" {
 #endif
 
-bool FLAG_SEND;
+bool FLAG_SEND = 0;
+bool FLAG_CONTROL_MODE_CONFIRM = 0;
+uint8_t CONTROL_MODE = 0;
+
+void Send_Control_Mode(int control){
+	serial_send_block(2,2, Set, Control_Mode);
+	serial_send_int(control);
+	serial_send_end();
+}
 
 void send_fct(int flag){
-
 
 	switch (flag){
 		case Velocity_selected:
@@ -81,6 +88,25 @@ void send_fct(int flag){
 	}
 }
 
+void control_mode_processing(char* value){
+		convert_to_send temp;
+		FLAG_CONTROL_MODE_CONFIRM = 1;
+		for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+			temp.toBytes[3-i] = value[i];
+		}
+		if (temp.toInt.int0 == 1){
+			CONTROL_MODE = 1;
+		}
+		else if (temp.toInt.int0 == 2){
+			CONTROL_MODE = 2;
+		}
+		else if (temp.toInt.int0 == 3){
+			CONTROL_MODE = 3;
+		}
+		else{
+			CONTROL_MODE = 0;
+		}
+}
 
 #ifdef __cplusplus
 }  /* extern "C" */

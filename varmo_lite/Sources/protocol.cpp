@@ -74,6 +74,14 @@ void serial_send_float(float f){
 	AS1_SendBlock(temp.toBytes, (word) 4, &i);
 }
 
+void serial_send_int(int in){
+	serial_send_char(protocol_setting.DELIMITATOR);
+	convert_int_to_send temp;
+	temp.toInt = in;
+	word i;
+	AS1_SendBlock(temp.toBytes, (word) 2, &i);
+}
+
 void serial_send_string(char* string){
 	int nb_character = strlen(string);
 
@@ -93,7 +101,7 @@ void serial_send_string(char* string){
 void serial_send_char(char character){
 	byte err = AS1_SendChar(character);
 	if (err != ERR_OK){
-		//LED_STATUS_2_SetVal();
+		LED_STATUS_2_SetVal();
 	}
 }
 
@@ -113,6 +121,7 @@ bool msg_parse(char* msg){
 	  char chr = msg[offset];
 	  char data1[50];
 	  char data2[50];
+	  char data3[50];
 	  int i = 0;
 	  while (chr != ':' && chr != '\r'){
 		  data1[i] = chr;
@@ -134,12 +143,22 @@ bool msg_parse(char* msg){
 			  chr = msg[offset + i];
 		  }
 		  data2[i] = '\0';
+		  if (chr != '\r'){
+			  offset += i +1;
+			  i = 0;
+			  char chr = msg[offset];
+			  while (chr != ':' && chr != '\r'){
+				  data3[i] = chr;
+				  i++;
+				  chr = msg[offset + i];
+			  }
+		  }
 		  //data2 = temp1;
 	  }
 	  else {
 		  //only one data
 	  }
-	  return FLAG_MSG_ERR = msg_processing(2, data1, data2);
+	  return FLAG_MSG_ERR = msg_processing(2, data1, data2, data3);
 	  //FLAG_MSG_OK = 0;
 
 }
@@ -152,7 +171,12 @@ bool msg_processing(int n, ...){
 	char* data = va_arg(arg, char*);
 
  	if (strcmp(data, Set_OK) == 0){
-		return 0;
+ 		data = va_arg(arg, char*);
+ 		if (strcmp(data,Control_Mode) == 0) {
+ 			data = va_arg(arg, char*);
+ 			control_mode_processing(data);
+ 			return 0;
+ 		}
 	}
  	else if (strcmp(data, Set_ERR) == 0){
  		return 1;

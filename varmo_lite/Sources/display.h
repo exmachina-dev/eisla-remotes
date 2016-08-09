@@ -45,6 +45,7 @@
 #include "parameters.h"
 #include "menu.h"
 #include "encoder_variable.h"
+#include "send.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -67,6 +68,10 @@ int select(int);
 int back(int);
 
 void refresh_fct(int);
+
+void controle_mode_display(int);
+
+void control_mode_fct(void);
 
 void velocity_fct(void);
 void acceleration_fct(void);

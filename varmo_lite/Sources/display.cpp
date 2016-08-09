@@ -39,10 +39,10 @@ sub_menu tor_cue = 			init_sub_menu((char *)"Cue           ",0, void_function);
 sub_menu sub_menu_torque[] = {tor_torque, tor_torque_rise, tor_torque_fall, tor_cue, back_menu};
 sub_menu_list menu_torque = init_sub_menu_list(sub_menu_torque, sizeof(sub_menu_torque)/sizeof(sub_menu_torque[0]), (char*)"Torque Menu  ");
 
-menu velocity = init_menu((char *)"Velocity      ", menu_velocity);
-menu position = init_menu((char *)"Position      ", menu_position);
-menu torque = 	init_menu((char *)"Torque        ", menu_torque);
-menu setting = 	init_menu((char *)"Setting       ", menu_velocity);
+menu velocity = init_menu((char *)"Velocity      ", menu_velocity,1);
+menu position = init_menu((char *)"Position      ", menu_position,1);
+menu torque = 	init_menu((char *)"Torque        ", menu_torque,1);
+menu setting = 	init_menu((char *)"Setting       ", menu_velocity,0);
 
 menu menu_array[] = {velocity, position, torque, setting};
 
@@ -222,7 +222,6 @@ void load_char(){
 
 menu menu_init(){
 	load_char();
-
 	refresh(0);
 }
 
@@ -233,6 +232,7 @@ int refresh(int pointer){
 
 int select(int pointer){
 	pointer = menu_select(pointer, root_menu);
+
 	return pointer;
 }
 
@@ -240,6 +240,34 @@ int back(int pointer){
 	FLAG_MENU = 1;
 	pointer = menu_back(root_menu);
 	return pointer;
+}
+
+void controle_mode_display(int mode){
+	  if (CONTROL_MODE == 1){
+		  LCD_Write_At('T',0,13);
+	  }
+	  else if (CONTROL_MODE == 2){
+		  LCD_Write_At('V',0,13);
+	  }
+	  else if (CONTROL_MODE == 3){
+		  LCD_Write_At('P',0,13);
+	  }
+	  else{
+		  LCD_Write_At(' ',0,13);
+	  }
+}
+
+
+void control_mode_fct(){
+	if (root_menu.array[0].menu_selected == 1){
+		Send_Control_Mode(vel.control_mode);
+	}
+	else if (root_menu.array[1].menu_selected  == 1){
+		Send_Control_Mode(pos.control_mode);
+	}
+	else if(root_menu.array[3].menu_selected  == 1){
+		Send_Control_Mode(tor.control_mode);
+	}
 }
 
 void refresh_fct(int flag){

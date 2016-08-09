@@ -4,10 +4,13 @@
 extern "C" {
 #endif
 
-menu init_menu(char *name, sub_menu_list list){
+bool FLAG_CONTROL_MODE;
+
+menu init_menu(char *name, sub_menu_list list, bool control_mode){
 	menu temp;
 	temp.name = name;
 	temp.sub = list;
+	temp.control_mode = control_mode;
 	return temp;
 }
 
@@ -45,7 +48,6 @@ void print_menu(int pointer, menu_list menu){
   int line = 1;
   int size = menu.size;
   LCD_Write_Block(menu.name, 0, 0);
-  LCD_Write_At(menu.name[0],0,13);
   if (pointer == 0){
 	  temp = 0;
   }
@@ -92,7 +94,7 @@ void print_sub_menu(int pointer, sub_menu_list list){
 
   int size = list.size;
   LCD_Write_Block(list.name, 0, 0);
-  LCD_Write_At(list.name[0],0,13);
+
   if (pointer == 0){
 	  temp = 0;
   }
@@ -180,6 +182,7 @@ int menu_select(int pointer, menu_list menu){
 		}
 
 		menu.array[pointer].menu_selected = 1;
+		FLAG_CONTROL_MODE = 1;
 		refresh_menu(0, menu);
 		pointer = 0;
 	}
