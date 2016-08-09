@@ -51,7 +51,7 @@ void send_fct(int flag){
 			break;
 		case Position_vel_selected:
 			pos.velocity_ref = convert(encoder, 0, 9999);
-			serial_send_block(4,2, Set, Velocity);
+			serial_send_block(4,2, Set, Velocity_ref);
 			serial_send_float(pos.velocity_ref);
 			serial_send_end();
 			break;
@@ -88,6 +88,102 @@ void send_fct(int flag){
 	}
 }
 
+void get_update_value(int mode){
+	if (mode == 1){
+		//Torque
+		serial_send_block(0,2, Get, Torque);
+		serial_send_end();
+
+		serial_send_block(0,2, Get, Torque_rise);
+		serial_send_end();
+
+		serial_send_block(0,2, Get, Torque_fall);
+		serial_send_end();
+
+		serial_send_block(0,2, Get, Torque_ref);
+		serial_send_end();
+
+	}
+	else if(mode == 2){
+		//Velocity
+		serial_send_block(0,2, Get, Velocity);
+		serial_send_end();
+
+		serial_send_block(0,2, Get, Acceleration);
+		serial_send_end();
+
+		serial_send_block(0,2, Get, Deceleration);
+		serial_send_end();
+
+		serial_send_block(0,2, Get, Velocity_ref);
+		serial_send_end();
+
+	}
+	else if(mode == 3){
+		//Position
+
+	}
+}
+
+void velocity_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[3-i] = value[i];
+	}
+	vel.velocity = temp.toFloat;
+	pos.velocity = temp.toFloat;
+}
+
+void velocity_ref_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[3-i] = value[i];
+	}
+	vel.velocity_ref = temp.toFloat;
+}
+
+void acceleration_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[3-i] = value[i];
+	}
+	vel.acceleration = temp.toFloat;
+	pos.acceleration = temp.toFloat;
+}
+
+void deceleration_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[3-i] = value[i];
+	}
+	vel.deceleration = temp.toFloat;
+	pos.deceleration = temp.toFloat;
+}
+
+void torque_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[3-i] = value[i];
+	}
+	tor.torque = temp.toFloat;
+}
+
+void torque_rise_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[3-i] = value[i];
+	}
+	tor.torque_rise = temp.toFloat;
+}
+
+void torque_fall_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[3-i] = value[i];
+	}
+	tor.torque_fall = temp.toFloat;
+}
+
 void control_mode_processing(char* value){
 		convert_to_send temp;
 		FLAG_CONTROL_MODE_CONFIRM = 1;
@@ -95,12 +191,15 @@ void control_mode_processing(char* value){
 			temp.toBytes[3-i] = value[i];
 		}
 		if (temp.toInt.int0 == 1){
+			//Torque
 			CONTROL_MODE = 1;
 		}
 		else if (temp.toInt.int0 == 2){
+			//Velocity
 			CONTROL_MODE = 2;
 		}
 		else if (temp.toInt.int0 == 3){
+			//Position
 			CONTROL_MODE = 3;
 		}
 		else{

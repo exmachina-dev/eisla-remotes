@@ -184,19 +184,54 @@ bool msg_processing(int n, ...){
  			control_mode_processing(data);
  			return 0;
  		}
-
 	}
  	else if (strcmp(data, Set_ERR) == 0){
  		return 1;
  	}
- 	/*
+
  	else if (strcmp(data, Get_OK) == 0){
+ 		data = va_arg(arg, char*);
+		if (strcmp(data,Velocity) == 0){
+			data = va_arg(arg, char*);
+			velocity_processing(data);
+			return 0;
+		}
+		else if(strcmp(data,Velocity_ref) == 0){
+			data = va_arg(arg, char*);
+			velocity_ref_processing(data);
+			return 0;
+		}
+		else if(strcmp(data,Acceleration) == 0){
+			data = va_arg(arg, char*);
+			acceleration_processing(data);
+			return 0;
+		}
+		else if(strcmp(data,Deceleration) == 0){
+			data = va_arg(arg, char*);
+			deceleration_processing(data);
+			return 0;
+		}
+		else if(strcmp(data,Torque) == 0){
+			data = va_arg(arg, char*);
+			torque_processing(data);
+			return 0;
+		}
+		else if(strcmp(data,Torque_rise) == 0){
+			data = va_arg(arg, char*);
+			torque_rise_processing(data);
+			return 0;
+		}
+		else if(strcmp(data,Torque_fall) == 0){
+			data = va_arg(arg, char*);
+			torque_fall_processing(data);
+			return 0;
+		}
 		//return 0;
 	}
  	else if (strcmp(data, Get_ERR) == 0){
  		return 1;
  	}
- 	*/
+
 	va_end(arg);
 	return 1;
 }

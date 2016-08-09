@@ -21,7 +21,7 @@
 extern "C" {
 #endif
 
-static const char *Get;
+static const char *Get = "machine.get";
 static const char *Set = "machine.set";
 
 /*
@@ -43,6 +43,7 @@ static const char *Position_ref = "machine.position_ref";
 static const char *Acceleration = "machine.acceleration";
 static const char *Deceleration = "machine.deceleration";
 
+static const char *Torque = "machine.torque";
 static const char *Torque_rise = "machine.torque_rise_time";
 static const char *Torque_fall = "machine.torque_fall_time";
 

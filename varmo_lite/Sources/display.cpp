@@ -86,7 +86,7 @@ void print_float_at(float f, int res,bool absolute, int y, int x){
     	vspfunc((char*)"%4d.%02d", abs(int_part), digits);
     }
     else{
-    	vspfunc((char*)"%4d", abs(int_part));
+    	vspfunc((char*)"%4d", abs(round(int_part)));
     }
     LCD_Write_Block(buffer, y, x);
 }
@@ -262,7 +262,7 @@ void control_mode_fct(){
 	else if (root_menu.array[1].menu_selected  == 1){
 		Send_Control_Mode(pos.control_mode);
 	}
-	else if(root_menu.array[3].menu_selected  == 1){
+	else if(root_menu.array[2].menu_selected  == 1){
 		Send_Control_Mode(tor.control_mode);
 	}
 }

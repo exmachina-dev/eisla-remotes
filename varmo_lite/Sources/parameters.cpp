@@ -22,7 +22,7 @@ struct torque tor;
 void parameters_init(void){
 	vel.control_mode = 2;
 	vel.velocity_ref = 0;
-	vel.velocity = -2000;
+	vel.velocity = 0;
 	vel.velocity_maximum = 100;
 	vel.velocity_minimum = -100;
 	vel.acceleration = 0;
@@ -30,7 +30,7 @@ void parameters_init(void){
 
 	pos.control_mode = 3;
 	pos.position_ref = 0;
-	pos.position = -2;
+	pos.position = 0;
 	pos.position_maximum = 9999;
 	pos.position_minimum = -9999;
 	pos.velocity_ref = 0;
@@ -39,7 +39,7 @@ void parameters_init(void){
 
 	tor.control_mode = 1;
 	tor.torque_ref = 0;
-	tor.torque = -2;
+	tor.torque = 0;
 	tor.torque_maximum = 9999;
 	tor.torque_minimum = -9999;
 	tor.torque_rise = 0;

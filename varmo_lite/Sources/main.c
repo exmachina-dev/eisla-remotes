@@ -197,6 +197,7 @@ int main(void)
 	  if (FLAG_CONTROL_MODE_CONFIRM == 1){
 		  FLAG_CONTROL_MODE_CONFIRM = 0;
 		  controle_mode_display(CONTROL_MODE);
+		  get_update_value(CONTROL_MODE);
 	  }
 
 
