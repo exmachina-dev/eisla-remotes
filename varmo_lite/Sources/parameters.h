@@ -27,6 +27,8 @@ extern "C" {
 
 extern int menu_indicator;
 
+extern bool drive_enable_st;
+
 extern struct velocity{
 	int control_mode;
 	float velocity_ref;
@@ -59,6 +61,7 @@ extern struct torque{
 	float torque_rise;
 	float torque_fall;
 }tor;
+
 
 void parameters_init(void);
 float convert(float,float,float);

@@ -86,7 +86,7 @@ void print_float_at(float f, int res,bool absolute, int y, int x){
     	vspfunc((char*)"%4d.%02d", abs(int_part), digits);
     }
     else{
-    	vspfunc((char*)"%4d", abs(round(int_part)));
+    	vspfunc((char*)"%4d", abs(int_part));
     }
     LCD_Write_Block(buffer, y, x);
 }
@@ -218,6 +218,30 @@ void load_char(){
 		  0b00000
   };
   load_custom_char(DIR_off , row_7);
+
+  uint8_t row_8[8] = {
+		  0b00000,
+		  0b00100,
+		  0b01110,
+		  0b10101,
+		  0b10001,
+		  0b10001,
+		  0b01110,
+		  0b00000
+  };
+  load_custom_char(drive_enable , row_8);
+
+ /* uint8_t row_9[8] = {
+		  0b00000,
+		  0b00000,
+		  0b01110,
+		  0b10011,
+		  0b10101,
+		  0b11001,
+		  0b01110,
+		  0b00000
+  };
+  load_custom_char(not_drive_enable , row_9);*/
 }
 
 menu menu_init(){
@@ -276,6 +300,15 @@ void update_icon_dir(bool DIR1, bool DIR2){
 	}
 	else if (DIR1 == 0 && DIR2 == 0){
 		LCD_Write_At(DIR_off, 0, 14);
+	}
+}
+
+void update_icon_drive_enable(void){
+	if (drive_enable_st == 1){
+		LCD_Write_At(drive_enable, 0, 15);
+	}
+	else if (drive_enable_st == 0){
+		LCD_Write_At(not_drive_enable, 0, 15);
 	}
 }
 

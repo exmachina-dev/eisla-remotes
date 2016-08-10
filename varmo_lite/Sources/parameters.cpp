@@ -13,6 +13,7 @@ extern "C" {
 #endif
 
 int menu_indicator;
+bool drive_enable_st;
 
 struct velocity vel;
 struct position pos;

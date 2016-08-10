@@ -55,6 +55,8 @@ static const char *Torque_fall = "machine.torque_fall_time";
 static const char *Enable = "machine.command.enable";
 static const char *Stop = "machine.command.cancel";
 
+static const char *Drive_Enable = "machine.status.drive_enable";
+
 static const char *Reset = "machine.command.reset";
 
 static const char *Move_Mode = "machine.command.move_mode";
@@ -82,8 +84,13 @@ typedef union {
 
 typedef union {
 	int toInt;
-    uint8_t toBytes[2];
+    uint8_t toBytes[4];
 } convert_int_to_send;
+
+typedef union {
+	bool toBool;
+    uint8_t toByte;
+} convert_bool_to_send;
 
 typedef union {
    struct {
@@ -108,6 +115,11 @@ static const struct protocol_setting {
 	char DELIMITATOR;
 	binaryRepr length;//length of the structure with the protocol (23) and the length of the message (2)
 }protocol_setting = {(char*)"ExmEisla", (char*)"0716VARM0001", (char*) "\r\n", ':', 25};
+
+static struct message{
+	char* msg;
+	binaryRepr size;
+}message;
 
 void serial_send_block(int,int, ...);
 

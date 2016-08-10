@@ -20,7 +20,7 @@ void LCD_Cursor_Home(void);
 void LCD_Set_Cursor(uint8_t, uint8_t);
 void LCD_Cursor_On_At(uint8_t, uint8_t);
 void LCD_Write(uint8_t);
-void load_custom_char(uint8_t, uint8_t* );
+void load_custom_char(uint8_t, uint8_t*);
 void LCD_Write_At(uint8_t, uint8_t, uint8_t);
 void LCD_Write_Block(char*, uint8_t, uint8_t );
 

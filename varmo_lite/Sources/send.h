@@ -35,6 +35,11 @@ void torque_fall_processing(char*);
 
 void control_mode_processing(char*);
 
+void set_drive_enable(void);
+void clear_drive_enable(void);
+
+void drive_enable_processing(char*);
+
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif

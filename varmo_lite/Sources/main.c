@@ -112,7 +112,7 @@ int main(void)
   FLAG_SENS_2 = 0;
 
   nb_data = 0;
-
+  drive_enable_st = 1;
   LED_STATUS_1_ClrVal();
   LED_STATUS_2_ClrVal();
 
@@ -144,6 +144,7 @@ int main(void)
 	  FLAG_SENS_2 = 1;
   }
   update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
+  update_icon_drive_enable();
 
   for(;;){
 	  char msg[cnt];
@@ -203,12 +204,14 @@ int main(void)
 		  FLAG_CONTROL_MODE_CONFIRM = 0;
 		  controle_mode_display(CONTROL_MODE);
 		  get_update_value(CONTROL_MODE);
+		  update_icon_drive_enable();
 	  }
 
 	  if (FLAG_UPDATE == 1 && FLAG_MENU == 0){
 		  get_update_value(CONTROL_MODE);
 		  FLAG_UPDATE = 0;
 		  refresh_fct(menu_indicator);
+		  update_icon_drive_enable();
 	  }
 
 	  //Check message received

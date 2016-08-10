@@ -17,13 +17,12 @@ bool FLAG_UPDATE = 0;
 uint8_t CONTROL_MODE = 0;
 
 void Send_Control_Mode(int control){
-	serial_send_block(2,2, Set, Control_Mode);
+	serial_send_block(4,2, Set, Control_Mode);
 	serial_send_int(control);
 	serial_send_end();
 }
 
 void send_fct(int flag){
-
 	switch (flag){
 		case Velocity_selected:
 			vel.velocity_ref = convert(encoder, vel.velocity_minimum, vel.velocity_maximum);
@@ -90,6 +89,8 @@ void send_fct(int flag){
 }
 
 void get_update_value(int mode){
+	/*serial_send_block(0,2, Get, Drive_Enable);
+	serial_send_end();*/
 	if (mode == 1){
 		//Torque
 		serial_send_block(0,2, Get, Torque);
@@ -131,7 +132,7 @@ void get_update_value(int mode){
 void velocity_processing(char* value){
 	convert_to_send temp;
 	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
-		temp.toBytes[3-i] = value[i];
+		temp.toBytes[i] = value[i];
 	}
 	vel.velocity = temp.toFloat;
 	pos.velocity = temp.toFloat;
@@ -140,7 +141,7 @@ void velocity_processing(char* value){
 void velocity_ref_processing(char* value){
 	convert_to_send temp;
 	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
-		temp.toBytes[3-i] = value[i];
+		temp.toBytes[i] = value[i];
 	}
 	vel.velocity_ref = temp.toFloat;
 }
@@ -148,7 +149,7 @@ void velocity_ref_processing(char* value){
 void acceleration_processing(char* value){
 	convert_to_send temp;
 	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
-		temp.toBytes[3-i] = value[i];
+		temp.toBytes[i] = value[i];
 	}
 	vel.acceleration = temp.toFloat;
 	pos.acceleration = temp.toFloat;
@@ -157,7 +158,7 @@ void acceleration_processing(char* value){
 void deceleration_processing(char* value){
 	convert_to_send temp;
 	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
-		temp.toBytes[3-i] = value[i];
+		temp.toBytes[i] = value[i];
 	}
 	vel.deceleration = temp.toFloat;
 	pos.deceleration = temp.toFloat;
@@ -166,7 +167,7 @@ void deceleration_processing(char* value){
 void torque_processing(char* value){
 	convert_to_send temp;
 	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
-		temp.toBytes[3-i] = value[i];
+		temp.toBytes[i] = value[i];
 	}
 	tor.torque = temp.toFloat;
 }
@@ -174,7 +175,7 @@ void torque_processing(char* value){
 void torque_rise_processing(char* value){
 	convert_to_send temp;
 	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
-		temp.toBytes[3-i] = value[i];
+		temp.toBytes[i] = value[i];
 	}
 	tor.torque_rise = temp.toFloat;
 }
@@ -182,7 +183,7 @@ void torque_rise_processing(char* value){
 void torque_fall_processing(char* value){
 	convert_to_send temp;
 	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
-		temp.toBytes[3-i] = value[i];
+		temp.toBytes[i] = value[i];
 	}
 	tor.torque_fall = temp.toFloat;
 }
@@ -191,7 +192,7 @@ void control_mode_processing(char* value){
 		convert_to_send temp;
 		FLAG_CONTROL_MODE_CONFIRM = 1;
 		for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
-			temp.toBytes[3-i] = value[i];
+			temp.toBytes[i] = value[i];
 		}
 		if (temp.toInt.int0 == 1){
 			//Torque
@@ -208,6 +209,12 @@ void control_mode_processing(char* value){
 		else{
 			CONTROL_MODE = 0;
 		}
+}
+
+void drive_enable_processing(char* value){
+	convert_bool_to_send temp;
+	temp.toByte = value[0];
+	drive_enable_st = temp.toBool;
 }
 
 #ifdef __cplusplus

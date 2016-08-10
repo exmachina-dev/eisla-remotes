@@ -11,13 +11,16 @@
 extern "C" {
 #endif
 
-#define arrow_up 1
-#define arrow_down 2
-#define arrow_back 3
-#define vertical_bar 4
-#define DIR_left 5
-#define DIR_right 6
-#define DIR_off 7
+#define arrow_up 0
+#define arrow_down 1
+
+#define arrow_back 2
+#define vertical_bar 3
+#define DIR_left 4
+#define DIR_right 5
+#define DIR_off 6
+#define drive_enable 7
+#define not_drive_enable 0x78
 
 extern bool FLAG_CONTROL_MODE;
 

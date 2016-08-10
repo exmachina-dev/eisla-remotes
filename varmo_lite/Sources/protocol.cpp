@@ -79,7 +79,7 @@ void serial_send_int(int in){
 	convert_int_to_send temp;
 	temp.toInt = in;
 	word i;
-	AS1_SendBlock(temp.toBytes, (word) 2, &i);
+	AS1_SendBlock(temp.toBytes, (word) 4, &i);
 }
 
 void serial_send_string(char* string){
@@ -226,9 +226,17 @@ bool msg_processing(int n, ...){
 			torque_fall_processing(data);
 			return 0;
 		}
+		else if(strcmp(data,Drive_Enable) == 0){
+			data =va_arg(arg, char*);
+			drive_enable_processing(data);
+		}
 		//return 0;
 	}
  	else if (strcmp(data, Get_ERR) == 0){
+ 		data = va_arg(arg, char*);
+		if(strcmp(data,Drive_Enable) == 0){
+			//clear_drive_enable();
+		}
  		return 1;
  	}
 
