@@ -267,6 +267,18 @@ void control_mode_fct(){
 	}
 }
 
+void update_icon_dir(bool DIR1, bool DIR2){
+	if (DIR1 == 1 && DIR2 == 0){
+		LCD_Write_At(DIR_right, 0, 14);
+	}
+	else if (DIR1 == 0 && DIR2 == 1){
+		LCD_Write_At(DIR_left, 0, 14);
+	}
+	else if (DIR1 == 0 && DIR2 == 0){
+		LCD_Write_At(DIR_off, 0, 14);
+	}
+}
+
 void refresh_fct(int flag){
 	switch (flag){
 		case Velocity_selected:

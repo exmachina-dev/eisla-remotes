@@ -693,7 +693,12 @@ PE_DEBUGHALT();
         <Properties>
           <Component_name v="ExtIntLdd1" />
           <Pin v="ADC1_SE5b/CMP0_IN3/PTC9/I2S0_RX_BCLK/FTM2_FLT0" />
-          <Generate_interrupt_on v="both edges" />
+          <Generate_interrupt_on sel_value="rising edge">
+            
+rising or falling edge
+
+            <EmptySection_DummyValue />
+          </Generate_interrupt_on>
           <Interrupt v="INT_PORTC" />
           <Interrupt_priority v="medium priority" />
           <group name="Initialization">
@@ -718,7 +723,12 @@ PE_DEBUGHALT();
           </event>
         </Events>
       </inhrbean>
-      <Generate_interrupt_on v="both edges" />
+      <Generate_interrupt_on sel_value="rising edge">
+        
+rising or falling edge
+
+        <EmptySection_DummyValue />
+      </Generate_interrupt_on>
       <Interrupt v="INT_PORTC" />
       <Interrupt_priority v="medium priority" />
       <group name="Initialization">
@@ -1303,8 +1313,8 @@ PE_DEBUGHALT();
         <Interrupt_TxD_priority v="medium priority" />
         <Interrupt_Error v="INT_UART0_ERR" />
         <Interrupt_Error_priority v="medium priority" />
-        <Input_buffer_size v="127" />
-        <Output_buffer_size v="127" />
+        <Input_buffer_size v="256" />
+        <Output_buffer_size v="256" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
           <boolgroup name="RTS" v="Disabled" />

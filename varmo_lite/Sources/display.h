@@ -73,6 +73,8 @@ void controle_mode_display(int);
 
 void control_mode_fct(void);
 
+void update_icon_dir(bool, bool);
+
 void velocity_fct(void);
 void acceleration_fct(void);
 void deceleration_fct(void);

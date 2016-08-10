@@ -126,6 +126,10 @@ int main(void)
   LCD_Init();
   parameters_init();
 
+  //LCD_Cursor_Blink_On();
+  //LCD_Write_Block("Varmo V2.0", 1, 3);
+
+  menu_init();
   bool DIR1 = LEVER_DIR1_GetVal();
   bool DIR2 = LEVER_DIR2_GetVal();
 
@@ -139,10 +143,7 @@ int main(void)
 	  FLAG_SENS_1 = 0;
 	  FLAG_SENS_2 = 1;
   }
-  //LCD_Cursor_Blink_On();
-  //LCD_Write_Block("Varmo V2.0", 1, 3);
-
-  menu_init();
+  update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
 
   for(;;){
 	  char msg[cnt];
@@ -182,11 +183,15 @@ int main(void)
 		  FLAG_SEND = 0;
 	  }
 
+	  if(FLAG_SENS == 1){
+		  update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
+	  }
 
 	  if (FLAG_MENU == 0 && FLAG_SENS == 1){
 		  FLAG_SENS = 0;
 		  refresh_fct(menu_indicator);
 	  }
+
 
 	  if (FLAG_CONTROL_MODE == 1){
 		  FLAG_CONTROL_MODE = 0;
