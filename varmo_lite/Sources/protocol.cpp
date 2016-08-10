@@ -116,7 +116,7 @@ void test_protocol(){
 	*/
 }
 
-bool msg_parse(char* msg){
+bool msg_parse(char* msg, int size){
 	  int offset = 22;
 	  char chr = msg[offset];
 	  char data1[50];
@@ -146,13 +146,13 @@ bool msg_parse(char* msg){
 			  offset += i +1;
 			  i = 0;
 			  chr = msg[offset];
-			  while (chr != ':' && chr != '\r'){
+			  while ((i+offset) != (size-2)){
 				  data3[i] = chr;
 				  i++;
 				  chr = msg[offset + i];
 			  }
 		  }
-		  if (chr == '\r'){
+		  if ((offset+i) == size-2){
 			  //three data
 			  return FLAG_MSG_ERR = msg_processing(2, data1, data2, data3);
 		  }

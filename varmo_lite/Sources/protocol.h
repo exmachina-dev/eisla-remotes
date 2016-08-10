@@ -116,11 +116,6 @@ static const struct protocol_setting {
 	binaryRepr length;//length of the structure with the protocol (23) and the length of the message (2)
 }protocol_setting = {(char*)"ExmEisla", (char*)"0716VARM0001", (char*) "\r\n", ':', 25};
 
-static struct message{
-	char* msg;
-	binaryRepr size;
-}message;
-
 void serial_send_block(int,int, ...);
 
 void serial_send_float(float);
@@ -130,7 +125,7 @@ void serial_send_char(char);
 
 void serial_send_end(void);
 
-bool msg_parse(char*);
+bool msg_parse(char*, int);
 bool msg_processing(int n,...);
 
 

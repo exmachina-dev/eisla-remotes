@@ -215,8 +215,8 @@ int main(void)
 	  }
 
 	  //Check message received
+	  binaryRepr size;
 	  if (FLAG_MSG_RCV == 1){
-		  binaryRepr size;
 		  size.toUint_8.toUint_8_1 = in_buffer[8];
 		  size.toUint_8.toUint_8_0 = in_buffer[9];
 		  size.toInt.int0 = (size.toUint_8.toUint_8_1 && 0xFF00) + size.toUint_8.toUint_8_0;
@@ -240,7 +240,7 @@ int main(void)
 
 	  ///Processing msg received
 	  if (FLAG_MSG_OK == 1){
-		  FLAG_MSG_ERR = msg_parse(msg);
+		  FLAG_MSG_ERR = msg_parse(msg, size.toInt.int0);
 		  FLAG_MSG_OK  = 0;
 	  }
 	  /*
