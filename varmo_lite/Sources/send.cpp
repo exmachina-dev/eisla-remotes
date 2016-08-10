@@ -89,8 +89,8 @@ void send_fct(int flag){
 }
 
 void get_update_value(int mode){
-	/*serial_send_block(0,2, Get, Drive_Enable);
-	serial_send_end();*/
+	serial_send_block(0,2, Get, Drive_Enable);
+	serial_send_end();
 	if (mode == 1){
 		//Torque
 		serial_send_block(0,2, Get, Torque);
