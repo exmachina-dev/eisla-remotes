@@ -3,12 +3,21 @@
 #include "LCD.h"
 
 
+
 #ifndef SOURCES_MENU_H_
 #define SOURCES_MENU_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define arrow_up 1
+#define arrow_down 2
+#define arrow_back 3
+#define vertical_bar 4
+#define DIR_left 5
+#define DIR_right 6
+#define DIR_off 7
 
 extern bool FLAG_CONTROL_MODE;
 

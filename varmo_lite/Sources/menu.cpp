@@ -73,16 +73,16 @@ void print_menu(int pointer, menu_list menu){
   if (size > 3){
 	   if (pointer <= 1){
 		   LCD_Write_At(' ',1,15);
-		   LCD_Write_At(2, 3, 15);
+		   LCD_Write_At(arrow_down, 3, 15);
 	   }
 	   else if(pointer >= (size-2)){
-		   LCD_Write_At(1, 1, 15);
+		   LCD_Write_At(arrow_up, 1, 15);
 		   LCD_Write_At(' ',3,15);
 
 	   }
 	   else{
-		   LCD_Write_At(1, 1, 15);
-		   LCD_Write_At(2, 3, 15);
+		   LCD_Write_At(arrow_up, 1, 15);
+		   LCD_Write_At(arrow_down, 3, 15);
 	   }
   }
 
@@ -124,17 +124,17 @@ void print_sub_menu(int pointer, sub_menu_list list){
   if (size > 3){
 	   if (pointer <= 1){
 		   LCD_Write_At(' ',1,15);
-		   LCD_Write_At(2, 3, 15);
+		   LCD_Write_At(arrow_down, 3, 15);
 	   }
 	   else if(pointer >= (size-2)){
-		   LCD_Write_At(3, 3,6);
-		   LCD_Write_At(1, 1, 15);
+		   LCD_Write_At(arrow_back, 3,6);
+		   LCD_Write_At(arrow_up, 1, 15);
 		   LCD_Write_At(' ',3,15);
 
 	   }
 	   else{
-		   LCD_Write_At(1, 1, 15);
-		   LCD_Write_At(2, 3, 15);
+		   LCD_Write_At(arrow_up, 1, 15);
+		   LCD_Write_At(arrow_down, 3, 15);
 	   }
   }
 }

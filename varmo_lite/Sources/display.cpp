@@ -148,7 +148,7 @@ void load_char(){
 		  0b00100,
 		  0b00100,
 		  0b00000};
-  load_custom_char(1, row);
+  load_custom_char(arrow_up, row);
   uint8_t row_2[8] = {
 		  0b00000,
 		  0b00000,
@@ -158,7 +158,7 @@ void load_char(){
 		  0b10101,
 		  0b01110,
 		  0b00100};
-  load_custom_char(2, row_2);
+  load_custom_char(arrow_down, row_2);
 
   uint8_t row_3[8] = {
 		  0b00000,
@@ -170,7 +170,7 @@ void load_char(){
 		  0b01000,
 		  0b00100
   };
-  load_custom_char(3, row_3);
+  load_custom_char(arrow_back, row_3);
 
   uint8_t row_4[8] = {
 		  0b00100,
@@ -182,7 +182,7 @@ void load_char(){
 		  0b00100,
 		  0b00100
   };
-  load_custom_char(4, row_4);
+  load_custom_char(vertical_bar, row_4);
 
   uint8_t row_5[8] = {
 		  0b00000,
@@ -194,7 +194,7 @@ void load_char(){
 		  0b01110,
 		  0b00000
   };
-  load_custom_char(5, row_5);
+  load_custom_char(DIR_left, row_5);
   uint8_t row_6[8] = {
 		  0b00000,
 		  0b01110,
@@ -205,7 +205,7 @@ void load_char(){
 		  0b01110,
 		  0b00000
   };
-  load_custom_char(6, row_6);
+  load_custom_char(DIR_right, row_6);
 
   uint8_t row_7[8] = {
 		  0b00000,
@@ -217,7 +217,7 @@ void load_char(){
 		  0b01110,
 		  0b00000
   };
-  load_custom_char(7, row_7);
+  load_custom_char(DIR_off , row_7);
 }
 
 menu menu_init(){
@@ -316,10 +316,10 @@ void velocity_fct(){
 		LCD_Write_Block((char*)"Dec", 0, 8);
 		LCD_Write_Block((char*)"Vel Act", 2, 0);
 		LCD_Write_Block((char*)"Vel", 2, 8);
-		LCD_Write_At(4,0,7);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
-		LCD_Write_At(4,3,7);
+		LCD_Write_At(vertical_bar,0,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
+		LCD_Write_At(vertical_bar,3,7);
 
 		print_int_at(vel.acceleration, 1, 1,0);
 		print_int_at(vel.deceleration, 1,1,8);
@@ -383,8 +383,8 @@ void acceleration_fct(){
 		encoder = convert(vel.acceleration, 0, 9999);
 
 		print_float_at(encoder,0,1, 2, 8);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
@@ -407,8 +407,8 @@ void deceleration_fct(){
 		LCD_Write_Block((char*)"Dec",1,8);
 		encoder = convert(vel.deceleration, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
@@ -439,10 +439,10 @@ void pos_position_fct(){
 		LCD_Write_Block((char*)"Pos Act", 2, 0);
 		print_float_at(pos.position, 0, 0,3,0);
 		LCD_Write_Block((char*)"Pos", 2, 8);
-		LCD_Write_At(4,0,7);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
-		LCD_Write_At(4,3,7);
+		LCD_Write_At(vertical_bar,0,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
+		LCD_Write_At(vertical_bar,3,7);
 
 		pos.position_ref = convert(pos.position_ref,pos.position_minimum, pos.position_maximum);
 		encoder = abs(pos.position_ref);
@@ -499,8 +499,8 @@ void pos_velocity_fct(){
 		LCD_Write_Block((char*)"Vel",1,8);
 		encoder = convert(pos.velocity_ref, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
@@ -523,8 +523,8 @@ void pos_acceleration_fct(){
 		LCD_Write_Block((char*)"Acc",1,8);
 		encoder = convert(pos.acceleration, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
@@ -547,8 +547,8 @@ void pos_deceleration_fct(){
 		LCD_Write_Block((char*)"Dec",1,8);
 		encoder = convert(pos.deceleration, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
@@ -575,10 +575,10 @@ void torque_fct(){
 		print_float_at(tor.torque, 0, 0,3,0);
 		LCD_Write_Block((char*)"Torque", 2, 8);
 
-		LCD_Write_At(4,0,7);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
-		LCD_Write_At(4,3,7);
+		LCD_Write_At(vertical_bar,0,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
+		LCD_Write_At(vertical_bar,3,7);
 
 		tor.torque_ref = convert(tor.torque_ref,tor.torque_minimum, tor.torque_maximum);
 		encoder = abs(tor.torque_ref);
@@ -634,8 +634,8 @@ void torque_rise_fct(){
 		LCD_Write_Block((char*)"Tq R",1,8);
 		encoder = convert(tor.torque_rise, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
@@ -658,8 +658,8 @@ void torque_fall_fct(){
 		LCD_Write_Block((char*)"Tq F",1,8);
 		encoder = convert(tor.torque_fall, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
-		LCD_Write_At(4,1,7);
-		LCD_Write_At(4,2,7);
+		LCD_Write_At(vertical_bar,1,7);
+		LCD_Write_At(vertical_bar,2,7);
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);

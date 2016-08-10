@@ -38,7 +38,8 @@ static const char *Set_ERR = "machine.set.error";
 static const char *Velocity = "machine.velocity";
 static const char *Velocity_ref = "machine.velocity_ref";
 
-static const char *Position= "machine.position";
+static const char *Position = "machine.position";
+static const char *Position_ref = "machine.position_ref";
 static const char *Position_Target = "machine.position_target";
 static const char *Pos_go = "machine.command.go";
 static const char *Set_Home = "machine.command.set_home";
