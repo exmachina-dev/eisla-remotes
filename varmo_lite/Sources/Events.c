@@ -150,6 +150,8 @@ void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
         FLAG_PUSH_LONG = 1;
         FLAG_PUSH_SHORT = 0;
         T_100ms_Disable(T_100ms_DeviceData);
+        LED_STATUS_1_SetVal();
+        LED_STATUS_2_ClrVal();
     }
 	//PCA9670_Init();
 	//LCD_Init();
@@ -217,25 +219,25 @@ void LEVER_DIR1_OnInterrupt(void)
 */
 void ENCODER_PUSH_OnInterrupt(void)
 {
-    if (ENCODER_PUSH_GetVal() == 0){ //Encoder Pushed
+    if (ENCODER_PUSH_GetVal() == 0 && FLAG_PUSH_LONG == 0 && FLAG_PUSH_SHORT == 0){ //Encoder Pushed
     	counter_100ms = 0;
         FLAG_PUSH_SHORT = 0;
         FLAG_PUSH_LONG = 0;
     	counter_100ms = 0;
         T_100ms_Enable(T_100ms_DeviceData);
+
     }
-    else if (ENCODER_PUSH_GetVal() == 1 && counter_100ms < 5){
-    	counter_100ms = 0;
+    else if (ENCODER_PUSH_GetVal() == 1 && counter_100ms < 5 && FLAG_PUSH_LONG == 0 && FLAG_PUSH_SHORT == 0){
         T_100ms_Disable(T_100ms_DeviceData);
+        counter_100ms = 5;
         FLAG_PUSH_SHORT = 1;
         FLAG_PUSH_LONG = 0;
+        LED_STATUS_2_SetVal();
+        LED_STATUS_1_ClrVal();
     }
-    /*
     else if (ENCODER_PUSH_GetVal() == 1){
-        FLAG_PUSH_SHORT = 0;
-        FLAG_PUSH_LONG = 0;
-
-    }*/
+    	T_100ms_Disable(T_100ms_DeviceData);
+    }
 
 }
 
