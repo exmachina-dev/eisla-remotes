@@ -116,8 +116,9 @@ void print_sub_menu(int pointer, sub_menu_list list){
 	}
 	line += 1;
 	if (i == (size -1)){
-		LCD_Write_At(3, 3,6);
-		LCD_Write_Block((char*)"       ",3,7);
+		LCD_Write_Block((char*)" ",3,5);
+		LCD_Write_At(arrow_back, 3,6);
+		LCD_Write_Block((char*)"        ",3,7);
 	}
   }
 

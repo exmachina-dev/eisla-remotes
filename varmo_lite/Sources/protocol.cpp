@@ -82,6 +82,11 @@ void serial_send_int(int in){
 	AS1_SendBlock(temp.toBytes, (word) 4, &i);
 }
 
+void serial_send_byte(byte b){
+	serial_send_byte(protocol_setting.DELIMITATOR);
+	AS1_SendChar((char)b);
+}
+
 void serial_send_string(char* string){
 	int nb_character = strlen(string);
 
@@ -183,6 +188,10 @@ bool msg_processing(int n, ...){
  			data = va_arg(arg, char*);
  			control_mode_processing(data);
  			return 0;
+ 		}
+ 		if (strcmp(data, Set_Home) == 0){
+ 			FLAG_SET_HOME = 1;
+ 			counter_2s = 0;
  		}
 	}
  	else if (strcmp(data, Set_ERR) == 0){

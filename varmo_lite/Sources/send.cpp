@@ -30,12 +30,14 @@ void send_fct(int flag){
 			serial_send_float(vel.velocity_ref);
 			serial_send_end();
 			break;
+
 		case Velocity_acc_selected:
 			vel.acceleration = convert(encoder, 0, 9999);
 			serial_send_block(4,2, Set, Acceleration);
 			serial_send_float(vel.acceleration);
 			serial_send_end();
 			break;
+
 		case Velocity_dec_selected:
 			vel.deceleration = convert(encoder, 0, 9999);
 
@@ -43,42 +45,69 @@ void send_fct(int flag){
 			serial_send_float(vel.deceleration);
 			serial_send_end();
 			break;
+
 		case Position_selected:
 			pos.position_ref = convert(encoder, pos.position_minimum, pos.position_maximum);
-			serial_send_block(4, 2, Set, Position_ref);
-			serial_send_float(pos.position_ref);
+			if(pos.position_ref == 0){
+				serial_send_block(1, 2, Set, Go_Home);
+				serial_send_char(protocol_setting.DELIMITATOR);
+				serial_send_char(1);
+				serial_send_end();
+			}
+			else {
+				serial_send_block(4, 2, Set, Position_ref);
+				serial_send_float(pos.position_ref);
+				serial_send_end();
+			}
+			serial_send_block(1, 2, Set, Pos_go);
+			serial_send_char(protocol_setting.DELIMITATOR);
+			serial_send_char(1);
 			serial_send_end();
+
 			break;
+
 		case Position_vel_selected:
 			pos.velocity_ref = convert(encoder, 0, 9999);
 			serial_send_block(4,2, Set, Velocity_ref);
 			serial_send_float(pos.velocity_ref);
 			serial_send_end();
 			break;
+
 		case Position_acc_selected:
 			pos.acceleration = convert(encoder, 0, 9999);
 			serial_send_block(4,2, Set, Acceleration);
 			serial_send_float(pos.acceleration);
 			serial_send_end();
 			break;
+
 		case Position_dec_selected:
 			pos.deceleration = convert(encoder, 0, 9999);
 			serial_send_block(4,2, Set, Deceleration);
 			serial_send_float(pos.deceleration);
 			serial_send_end();
 			break;
+
+		case Position_set_home :
+			serial_send_block(3,2, Set, Set_Home);
+			serial_send_char(protocol_setting.DELIMITATOR);
+			serial_send_char(1);
+			serial_send_end();
+			break;
+
 		case Torque_selected:
 			tor.torque_ref = convert(encoder, tor.torque_minimum, tor.torque_maximum);
 			serial_send_block(4,2, Set, Torque_ref);
 			serial_send_float(tor.torque_ref);
 			serial_send_end();
 			break;
+
 		case Torque_rise_selected:
 			tor.torque_rise = convert(encoder, 0, 9999);
 			serial_send_block(4, 2, Set, Torque_rise);
 			serial_send_float(tor.torque_rise);
 			serial_send_end();
 			break;
+
 		case Torque_fall_selected:
 			tor.torque_fall = convert(encoder, 0, 9999);
 			serial_send_block(4, 2, Set, Torque_fall);
@@ -89,8 +118,8 @@ void send_fct(int flag){
 }
 
 void get_update_value(int mode){
-	serial_send_block(0,2, Get, Drive_Enable);
-	serial_send_end();
+	/*serial_send_block(0,2, Get, Drive_Enable);
+	serial_send_end();*/
 	if (mode == 1){
 		//Torque
 		serial_send_block(0,2, Get, Torque);

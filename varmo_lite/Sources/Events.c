@@ -223,7 +223,7 @@ void ENCODER_PUSH_OnInterrupt(void)
     	counter_100ms = 0;
         FLAG_PUSH_SHORT = 0;
         FLAG_PUSH_LONG = 0;
-    	counter_100ms = 0;
+
         T_100ms_Enable(T_100ms_DeviceData);
 
     }
@@ -306,6 +306,13 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
 	if (FLAG_MENU == 0){
 		FLAG_UPDATE = 1;
+	}
+
+	if (FLAG_SET_HOME == 1){
+		counter_2s += 1;
+	}
+	if(counter_2s == 4){
+		FLAG_SET_HOME = 0;
 	}
 }
 

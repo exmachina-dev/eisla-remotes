@@ -27,8 +27,9 @@ sub_menu pos_velocity = init_sub_menu((char *)"Velocity    ",1,pos_velocity_fct)
 sub_menu pos_acc = 		init_sub_menu((char *)"Acceleration",1,pos_acceleration_fct);
 sub_menu pos_dec = 		init_sub_menu((char *)"Deceleration",1,pos_deceleration_fct);
 sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, void_function);
+sub_menu pos_set_home = init_sub_menu((char *)"Set Home", 1, pos_set_home_fct);
 
-sub_menu sub_menu_position[] = {pos_position, pos_velocity, pos_acc, pos_dec, pos_cue, back_menu};
+sub_menu sub_menu_position[] = {pos_position, pos_velocity, pos_acc, pos_dec, pos_cue, pos_set_home,back_menu};
 sub_menu_list menu_position = init_sub_menu_list(sub_menu_position, sizeof(sub_menu_position)/sizeof(sub_menu_position[0]), (char*)"Postion Menu ");
 
 sub_menu tor_torque = 		init_sub_menu((char *)"Torque        ",1,torque_fct);
@@ -335,6 +336,9 @@ void refresh_fct(int flag){
 		case Position_dec_selected:
 			pos_deceleration_fct();
 			break;
+		case Position_set_home:
+			pos_set_home_fct();
+			break;
 		case Torque_selected:
 			torque_fct();
 			break;
@@ -600,6 +604,26 @@ void pos_deceleration_fct(){
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(pos.deceleration,0,1,2, 0);
 	}
+}
+
+void pos_set_home_fct(){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		LCD_Write_Block((char*)"             ",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
+
+		menu_indicator = Position_set_home;
+		LCD_Write_Block((char*)"Set Home",1,0);
+	}
+	else if (FLAG_SET_HOME == 1){
+		LCD_Write_Block((char*)"Position settle",2,0);
+	}
+	else {
+		LCD_Write_Block((char*)"               ",2,0);
+	}
+
 }
 
 void torque_fct(){

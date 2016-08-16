@@ -21,13 +21,17 @@ extern "C" {
 #define Position_vel_selected 5
 #define Position_acc_selected 6
 #define Position_dec_selected 7
-#define Torque_selected 8
-#define Torque_rise_selected 9
-#define Torque_fall_selected 10
+#define Position_set_home 8
+#define Torque_selected 9
+#define Torque_rise_selected 10
+#define Torque_fall_selected 11
 
 extern int menu_indicator;
 
 extern bool drive_enable_st;
+
+extern bool FLAG_SET_HOME;
+extern int counter_2s;
 
 extern struct velocity{
 	int control_mode;

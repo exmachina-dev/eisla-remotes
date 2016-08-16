@@ -84,6 +84,7 @@ void pos_position_fct(void);
 void pos_velocity_fct(void);
 void pos_acceleration_fct(void);
 void pos_deceleration_fct(void);
+void pos_set_home_fct(void);
 
 void torque_fct(void);
 void torque_rise_fct(void);

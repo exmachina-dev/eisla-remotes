@@ -43,6 +43,7 @@ static const char *Position_ref = "machine.position_ref";
 static const char *Position_Target = "machine.position_target";
 static const char *Pos_go = "machine.command.go";
 static const char *Set_Home = "machine.command.set_home";
+static const char *Go_Home = "machine.command.go.home";
 
 static const char *Acceleration = "machine.acceleration";
 static const char *Deceleration = "machine.deceleration";
@@ -121,6 +122,7 @@ void serial_send_block(int,int, ...);
 void serial_send_float(float);
 void serial_send_int(int);
 void serial_send_string(char*);
+void serial_send_byte(byte);
 void serial_send_char(char);
 
 void serial_send_end(void);

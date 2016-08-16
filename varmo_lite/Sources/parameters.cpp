@@ -15,6 +15,9 @@ extern "C" {
 int menu_indicator;
 bool drive_enable_st;
 
+bool FLAG_SET_HOME = 0;
+int counter_2s = 0;
+
 struct velocity vel;
 struct position pos;
 struct torque tor;
