@@ -189,9 +189,12 @@ bool msg_processing(int n, ...){
  			control_mode_processing(data);
  			return 0;
  		}
- 		if (strcmp(data, Set_Home) == 0){
+ 		else if (strcmp(data, Set_Home) == 0){
  			FLAG_SET_HOME = 1;
  			counter_2s = 0;
+ 		}
+ 		else if (strcmp(data, Velocity_ref) == 0 && menu_indicator == Position_vel_selected){
+ 			FLAG_SHORT_CUT = 1;
  		}
 	}
  	else if (strcmp(data, Set_ERR) == 0){

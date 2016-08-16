@@ -548,6 +548,7 @@ void pos_velocity_fct(){
 		LCD_Write_Block((char*)"Vel Act",1,0);
 		print_float_at(pos.velocity_ref,0,1,2, 0);
 		LCD_Write_Block((char*)"Vel",1,8);
+
 		encoder = convert(pos.velocity_ref, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
 		LCD_Write_At(vertical_bar,1,7);
@@ -737,6 +738,15 @@ void torque_fall_fct(){
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(tor.torque_fall,0,1,2, 0);
 	}
+}
+
+void short_cut_position_menu(){
+	FLAG_MENU = 1;
+	//Disable position velocity ref
+	root_menu.array[1].sub.array[1].select = 0;
+	//Activate position position menu
+	root_menu.array[1].sub.array[0].select = 1;
+	pos_position_fct();
 }
 
 #ifdef __cplusplus

@@ -260,6 +260,8 @@ void drive_enable_processing(char* value){
 	drive_enable_st = temp.toBool;
 }
 
+
+
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif

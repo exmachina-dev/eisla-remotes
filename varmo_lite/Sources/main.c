@@ -214,6 +214,11 @@ int main(void)
 		  update_icon_drive_enable();
 	  }
 
+	  if (FLAG_SHORT_CUT == 1){
+		  FLAG_SHORT_CUT = 0;
+		  short_cut_position_menu();
+	  }
+
 	  //Check message received
 	  binaryRepr size;
 	  if (FLAG_MSG_RCV == 1){

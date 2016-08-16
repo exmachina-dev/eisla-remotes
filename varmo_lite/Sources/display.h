@@ -92,7 +92,7 @@ void torque_fall_fct(void);
 
 void back_fct(void);
 
-
+void short_cut_position_menu(void);
 
 #ifdef __cplusplus
 }  /* extern "C" */

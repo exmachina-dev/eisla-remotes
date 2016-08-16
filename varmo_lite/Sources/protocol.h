@@ -24,11 +24,6 @@ extern "C" {
 static const char *Get = "machine.get";
 static const char *Set = "machine.set";
 
-/*
-#define Get "machine.get";
-#define Set "machine.set";
-*/
-
 static const char *Get_OK = "machine.get.ok";
 static const char *Get_ERR = "machine.get.error";
 
