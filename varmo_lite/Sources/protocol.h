@@ -43,7 +43,7 @@ static const char *Position_ref = "machine.position_ref";
 static const char *Position_Target = "machine.position_target";
 static const char *Pos_go = "machine.command.go";
 static const char *Set_Home = "machine.command.set_home";
-static const char *Go_Home = "machine.command.go.home";
+static const char *Go_Home = "machine.command.go_home";
 
 static const char *Acceleration = "machine.acceleration";
 static const char *Deceleration = "machine.deceleration";
