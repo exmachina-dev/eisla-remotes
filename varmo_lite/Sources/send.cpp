@@ -88,7 +88,7 @@ void send_fct(int flag){
 			break;
 
 		case Position_set_home :
-			serial_send_block(3,2, Set, Set_Home);
+			serial_send_block(1,2, Set, Set_Home);
 			serial_send_char(protocol_setting.DELIMITATOR);
 			serial_send_char(1);
 			serial_send_end();
@@ -118,8 +118,8 @@ void send_fct(int flag){
 }
 
 void get_update_value(int mode){
-	/*serial_send_block(0,2, Get, Drive_Enable);
-	serial_send_end();*/
+	serial_send_block(0,2, Get, Drive_Enable);
+	serial_send_end();
 	if (mode == 1){
 		//Torque
 		serial_send_block(0,2, Get, Torque);
@@ -154,7 +154,21 @@ void get_update_value(int mode){
 	}
 	else if(mode == 3){
 		//Position
+		serial_send_block(0,2, Get, Position);
+		serial_send_end();
+		serial_send_block(0,2, Get, Velocity);
+		serial_send_end();
 
+		if (FLAG_UPDATE == 0){
+			serial_send_block(0,2, Get, Velocity);
+			serial_send_end();
+
+			serial_send_block(0,2, Get, Acceleration);
+			serial_send_end();
+
+			serial_send_block(0,2, Get, Deceleration);
+			serial_send_end();
+		}
 	}
 }
 

@@ -512,6 +512,8 @@ void pos_position_fct(){
 		}
 	}
 	else {
+		print_float_at(pos.velocity,0, 0, 1,0);
+		print_float_at(pos.position, 0, 0,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			encoder = convert(abs(encoder), 0, pos.position_maximum);
 			if (encoder < 0){
@@ -544,7 +546,7 @@ void pos_velocity_fct(){
 
 		menu_indicator = Position_vel_selected;
 		LCD_Write_Block((char*)"Vel Act",1,0);
-		print_float_at(pos.velocity,0,1,2, 0);
+		print_float_at(pos.velocity_ref,0,1,2, 0);
 		LCD_Write_Block((char*)"Vel",1,8);
 		encoder = convert(pos.velocity_ref, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
