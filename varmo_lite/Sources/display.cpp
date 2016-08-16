@@ -472,7 +472,11 @@ void back_fct(){
 }
 
 void pos_position_fct(){
-	if (FLAG_MENU == 1){
+	if (FLAG_MENU == 1 && pos.velocity_ref == 0){
+		menu_indicator = Position_selected;
+		FLAG_SHORT_CUT = 1;
+	}
+	else if (FLAG_MENU == 1){
 		FLAG_MENU = 0;
 		menu_indicator = Position_selected;
 
@@ -742,11 +746,20 @@ void torque_fall_fct(){
 
 void short_cut_position_menu(){
 	FLAG_MENU = 1;
-	//Disable position velocity ref
-	root_menu.array[1].sub.array[1].select = 0;
-	//Activate position position menu
-	root_menu.array[1].sub.array[0].select = 1;
-	pos_position_fct();
+	if (menu_indicator == Position_vel_selected){
+		//Disable position velocity ref
+		root_menu.array[1].sub.array[1].select = 0;
+		//Activate position position menu
+		root_menu.array[1].sub.array[0].select = 1;
+		pos_position_fct();
+	}
+	else if(menu_indicator == Position_selected){
+		//Disable position position menu
+		root_menu.array[1].sub.array[0].select = 0;
+		//Activate position velocity ref
+		root_menu.array[1].sub.array[1].select = 1;
+		pos_velocity_fct();
+	}
 }
 
 #ifdef __cplusplus

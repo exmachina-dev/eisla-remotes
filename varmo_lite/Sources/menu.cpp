@@ -223,8 +223,6 @@ int menu_back(menu_list menu){
 			pointer = refresh_menu(pointer, menu);
 		}
 	}
-
-
 	return pointer;
 }
 
