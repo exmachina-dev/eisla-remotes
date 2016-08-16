@@ -35,6 +35,8 @@ extern int counter_2s;
 
 extern bool FLAG_SHORT_CUT;
 
+extern bool FLAG_UPDATE;
+
 extern struct velocity{
 	int control_mode;
 	float velocity_ref;

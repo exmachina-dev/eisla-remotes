@@ -20,6 +20,7 @@ extern bool FLAG_DEBOUNCE;
 extern bool FLAG_SENS;
 extern bool FLAG_SENS_1;
 extern bool FLAG_SENS_2;
+extern bool FLAG_STOP;
 
 extern int counter_100ms;
 

@@ -20,6 +20,8 @@ int counter_2s = 0;
 
 bool FLAG_SHORT_CUT = 0;
 
+bool FLAG_UPDATE = 0;
+
 struct velocity vel;
 struct position pos;
 struct torque tor;

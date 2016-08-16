@@ -19,6 +19,7 @@ bool FLAG_DEBOUNCE;
 bool FLAG_SENS;
 bool FLAG_SENS_1;
 bool FLAG_SENS_2;
+bool FLAG_STOP = 0;
 
 int counter_100ms;
 

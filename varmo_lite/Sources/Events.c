@@ -178,6 +178,7 @@ void LEVER_DIR2_OnInterrupt(void)
     }
     else{
     	FLAG_SENS_2 = 0;
+    	FLAG_STOP = 1;
     }
 
 }
@@ -202,6 +203,7 @@ void LEVER_DIR1_OnInterrupt(void)
     }
     else{
     	FLAG_SENS_1 = 0;
+    	FLAG_STOP = 1;
     }
 }
 
@@ -305,7 +307,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
 	if (FLAG_MENU == 0){
-		FLAG_UPDATE = 1;
+		FLAG_UPDATE_MENU = 1;
 	}
 
 	if (FLAG_SET_HOME == 1){
@@ -314,6 +316,16 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 	if(counter_2s == 4){
 		FLAG_SET_HOME = 0;
 	}
+
+	if (FLAG_STOP == 1){
+		FLAG_SEND_STOP = 1;
+	}
+
+	if (FLAG_UPDATE == 0){
+		FLAG_UPDATE = 1;
+	}
+
+
 }
 
 /*

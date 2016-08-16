@@ -13,7 +13,8 @@ extern "C" {
 
 bool FLAG_SEND = 0;
 bool FLAG_CONTROL_MODE_CONFIRM = 0;
-bool FLAG_UPDATE = 0;
+bool FLAG_UPDATE_MENU = 0;
+bool FLAG_SEND_STOP = 0;
 uint8_t CONTROL_MODE = 0;
 
 void Send_Control_Mode(int control){
@@ -117,14 +118,17 @@ void send_fct(int flag){
 	}
 }
 
-void get_update_value(int mode){
+void get_update_drive_en(){
 	serial_send_block(0,2, Get, Drive_Enable);
 	serial_send_end();
+}
+
+void get_update_value(int mode){
 	if (mode == 1){
 		//Torque
 		serial_send_block(0,2, Get, Torque);
 		serial_send_end();
-		if (FLAG_UPDATE == 0){
+		if (FLAG_UPDATE_MENU == 0){
 			serial_send_block(0,2, Get, Torque_rise);
 			serial_send_end();
 
@@ -140,7 +144,7 @@ void get_update_value(int mode){
 		//Velocity
 		serial_send_block(0,2, Get, Velocity);
 		serial_send_end();
-		if (FLAG_UPDATE == 0){
+		if (FLAG_UPDATE_MENU == 0){
 			serial_send_block(0,2, Get, Acceleration);
 			serial_send_end();
 
@@ -159,7 +163,7 @@ void get_update_value(int mode){
 		serial_send_block(0,2, Get, Velocity);
 		serial_send_end();
 
-		if (FLAG_UPDATE == 0){
+		if (FLAG_UPDATE_MENU == 0){
 			serial_send_block(0,2, Get, Velocity);
 			serial_send_end();
 
@@ -170,6 +174,13 @@ void get_update_value(int mode){
 			serial_send_end();
 		}
 	}
+}
+
+void send_stop(){
+	serial_send_block(1,2, Set, Stop);
+	serial_send_char(protocol_setting.DELIMITATOR);
+	serial_send_char(1);
+	serial_send_end();
 }
 
 void velocity_processing(char* value){

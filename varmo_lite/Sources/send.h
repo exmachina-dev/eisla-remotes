@@ -18,8 +18,11 @@ extern "C" {
 extern bool FLAG_SEND;
 extern uint8_t CONTROL_MODE;
 extern bool FLAG_CONTROL_MODE_CONFIRM;
-extern bool FLAG_UPDATE;
+extern bool FLAG_UPDATE_MENU;
+extern bool FLAG_SEND_STOP;
 
+
+void get_update_drive_en(void);
 void get_update_value(int);
 void send_fct(int);
 void Send_Control_Mode(int);
@@ -39,6 +42,8 @@ void set_drive_enable(void);
 void clear_drive_enable(void);
 
 void drive_enable_processing(char*);
+
+void send_stop(void);
 
 #ifdef __cplusplus
 }  /* extern "C" */

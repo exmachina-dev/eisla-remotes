@@ -143,6 +143,9 @@ int main(void)
 	  FLAG_SENS_1 = 0;
 	  FLAG_SENS_2 = 1;
   }
+  else {
+	  FLAG_STOP = 1;
+  }
   update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
   update_icon_drive_enable();
 
@@ -193,7 +196,6 @@ int main(void)
 		  refresh_fct(menu_indicator);
 	  }
 
-
 	  if (FLAG_CONTROL_MODE == 1){
 		  FLAG_CONTROL_MODE = 0;
 		  control_mode_fct();
@@ -204,19 +206,27 @@ int main(void)
 		  FLAG_CONTROL_MODE_CONFIRM = 0;
 		  controle_mode_display(CONTROL_MODE);
 		  get_update_value(CONTROL_MODE);
-		  update_icon_drive_enable();
 	  }
 
-	  if (FLAG_UPDATE == 1 && FLAG_MENU == 0){
+	  if (FLAG_UPDATE_MENU == 1 && FLAG_MENU == 0){
 		  get_update_value(CONTROL_MODE);
-		  FLAG_UPDATE = 0;
+		  FLAG_UPDATE_MENU = 0;
 		  refresh_fct(menu_indicator);
-		  update_icon_drive_enable();
 	  }
 
 	  if (FLAG_SHORT_CUT == 1){
 		  FLAG_SHORT_CUT = 0;
 		  short_cut_position_menu();
+	  }
+
+	  if (FLAG_SEND_STOP == 1){
+		  FLAG_SEND_STOP = 0;
+		  send_stop();
+	  }
+
+	  if (FLAG_UPDATE == 1){
+		  FLAG_UPDATE = 0;
+		  get_update_drive_en();
 	  }
 
 	  //Check message received

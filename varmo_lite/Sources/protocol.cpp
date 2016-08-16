@@ -196,6 +196,9 @@ bool msg_processing(int n, ...){
  		else if (strcmp(data, Velocity_ref) == 0 && menu_indicator == Position_vel_selected){
  			FLAG_SHORT_CUT = 1;
  		}
+ 		else if (strcmp(data, Stop) == 0){
+ 			FLAG_STOP = 0;
+ 		}
 	}
  	else if (strcmp(data, Set_ERR) == 0){
  		return 1;

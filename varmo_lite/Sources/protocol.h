@@ -49,7 +49,7 @@ static const char *Torque_rise = "machine.torque_rise_time";
 static const char *Torque_fall = "machine.torque_fall_time";
 
 static const char *Enable = "machine.command.enable";
-static const char *Stop = "machine.command.cancel";
+static const char *Stop = "machine.command.stop";
 
 static const char *Drive_Enable = "machine.status.drive_enable";
 
