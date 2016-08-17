@@ -123,7 +123,7 @@ void print_menu(int pointer, menu_list menu){
 void print_sub_menu(int pointer, sub_menu_list list){
   uint8_t temp = 0;
   uint8_t line = 1;
-  uint8_t max = 0;
+  uint8_t max = 3;
   uint8_t size = list.size;
   LCD_Write_Block(list.name, 0, 0);
 
