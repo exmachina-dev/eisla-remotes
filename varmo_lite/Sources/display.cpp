@@ -12,11 +12,13 @@
 extern "C" {
 #endif
 
-sub_menu2 test1 = init_sub_menu2((char *)"Test 1", 1, velocity_fct);
-sub_menu2 test2 = init_sub_menu2((char *)"Test 2", 1, acceleration_fct);
+sub_menu2 back_sub_menu = init_sub_menu2((char *)"Back", 1, back_fct);
 
-sub_menu2 sub_menu_velocity_cue[]= {test1, test2};
-sub_menu2_list menu_velocity_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu");
+sub_menu2 test1 = init_sub_menu2((char *)"Test 1         ", 1, velocity_fct);
+sub_menu2 test2 = init_sub_menu2((char *)"Test 2         ", 1, acceleration_fct);
+
+sub_menu2 sub_menu_velocity_cue[]= {test1, test2, back_sub_menu};
+sub_menu2_list menu_velocity_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu       ");
 
 
 

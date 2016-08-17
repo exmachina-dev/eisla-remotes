@@ -166,21 +166,28 @@ void print_sub_menu(int pointer, sub_menu_list list){
 void print_sub_menu2(int pointer, sub_menu2_list list){
   int temp = 0;
   int line = 1;
-
+  uint8_t max = 3;
   int size = list.size;
   LCD_Write_Block(list.name, 0, 0);
+  if (size == 2){
+	  max = 2;
+  }
+  else if (size == 1){
+	  max = 1;
+  }
+
 
   if (pointer == 0){
 	  temp = 0;
   }
   else if (pointer == (size-1)){
-	  temp = size - 3;
+	  temp = size - max;
   }
   else{
 	  temp = pointer - 1;
   }
 
-  for (int i = temp; i<temp+3; i++){
+  for (int i = temp; i<temp+max; i++){
 	if (i == pointer){
 		LCD_Write_At(0x7E, line, 0);
 		LCD_Write_Block(list.array[i].name, line, 1);
@@ -192,7 +199,7 @@ void print_sub_menu2(int pointer, sub_menu2_list list){
 	line += 1;
 	if (i == (size -1)){
 		LCD_Write_Block((char*)" ",3,5);
-		//LCD_Write_At(arrow_back, 3,6);
+		LCD_Write_At(arrow_back, 3,6);
 		LCD_Write_Block((char*)"        ",3,7);
 	}
   }
