@@ -67,21 +67,30 @@ sub_menu2_list init_sub_menu2_list(sub_menu2 list[], int size,char* name){
 }
 
 void print_menu(int pointer, menu_list menu){
-  int temp = 0;
-  int line = 1;
-  int size = menu.size;
+  uint8_t temp = 0;
+  uint8_t line = 1;
+  uint8_t max = 3;
+  uint8_t size = menu.size;
   LCD_Write_Block(menu.name, 0, 0);
+
+  if (size == 2){
+	  max = 2;
+  }
+  else if (size == 1){
+	  max = 1;
+  }
+
   if (pointer == 0){
 	  temp = 0;
   }
   else if (pointer == (size-1)){
-	  temp = size - 3;
+	  temp = size - max;
   }
   else{
 	  temp = pointer - 1;
   }
 
-  for (int i = temp; i<temp+3; i++){
+  for (uint8_t i = temp; i<temp+max; i++){
 	if (i == pointer){
 		LCD_Write_At(0x7E, line, 0);
 		LCD_Write_Block(menu.array[i].name, line, 1);
@@ -112,23 +121,30 @@ void print_menu(int pointer, menu_list menu){
 }
 
 void print_sub_menu(int pointer, sub_menu_list list){
-  int temp = 0;
-  int line = 1;
-
-  int size = list.size;
+  uint8_t temp = 0;
+  uint8_t line = 1;
+  uint8_t max = 0;
+  uint8_t size = list.size;
   LCD_Write_Block(list.name, 0, 0);
+
+  if (size == 2){
+	  max = 2;
+  }
+  else if (size == 1){
+	  max = 1;
+  }
 
   if (pointer == 0){
 	  temp = 0;
   }
   else if (pointer == (size-1)){
-	  temp = size - 3;
+	  temp = size - max;
   }
   else{
 	  temp = pointer - 1;
   }
 
-  for (int i = temp; i<temp+3; i++){
+  for (uint8_t i = temp; i<temp+max; i++){
 	if (i == pointer){
 		LCD_Write_At(0x7E, line, 0);
 		LCD_Write_Block(list.array[i].name, line, 1);
@@ -164,10 +180,10 @@ void print_sub_menu(int pointer, sub_menu_list list){
 }
 
 void print_sub_menu2(int pointer, sub_menu2_list list){
-  int temp = 0;
-  int line = 1;
+  uint8_t temp = 0;
+  uint8_t line = 1;
   uint8_t max = 3;
-  int size = list.size;
+  uint8_t size = list.size;
   LCD_Write_Block(list.name, 0, 0);
   if (size == 2){
 	  max = 2;
@@ -187,7 +203,7 @@ void print_sub_menu2(int pointer, sub_menu2_list list){
 	  temp = pointer - 1;
   }
 
-  for (int i = temp; i<temp+max; i++){
+  for (uint8_t i = temp; i<temp+max; i++){
 	if (i == pointer){
 		LCD_Write_At(0x7E, line, 0);
 		LCD_Write_Block(list.array[i].name, line, 1);
@@ -222,11 +238,11 @@ void print_sub_menu2(int pointer, sub_menu2_list list){
 }
 
 int menu_select(int pointer, menu_list menu){
-	int i = 0;
+	uint8_t i = 0;
 	bool menu_selected = false;
 	bool sub_menu_selected = false;
 
-	int size = menu.size;
+	uint8_t size = menu.size;
 
 
 	while(i < size){
@@ -238,7 +254,7 @@ int menu_select(int pointer, menu_list menu){
 	}
 	if (menu_selected == true){
 		size = menu.array[i].sub.size;
-		int j = 0;
+		uint8_t j = 0;
 		while(j < size){
 			if (menu.array[i].sub.array[j].select == 1 && menu.array[i].sub.array[j].item == 0){
 				sub_menu_selected = true;
@@ -294,8 +310,8 @@ int menu_select(int pointer, menu_list menu){
 }
 
 int menu_back(menu_list menu){
-	int pointer = 0;
-	int size = menu.size;
+	uint8_t pointer = 0;
+	uint8_t size = menu.size;
 	bool sub_menu_selected = false;
 	while(pointer < size){
 		if (menu.array[pointer].menu_selected == 1){
@@ -306,7 +322,7 @@ int menu_back(menu_list menu){
 	}
 	if (sub_menu_selected == true){
 		size = menu.array[pointer].sub.size;
-		for (int j = 0; j < size; j++){
+		for (uint8_t j = 0; j < size; j++){
 			if (menu.array[pointer].sub.array[j].select == 1){
 				menu.array[pointer].sub.array[j].select = 0;
 
@@ -330,10 +346,10 @@ int menu_back(menu_list menu){
 }
 
 int refresh_menu(int pointer, menu_list menu){
-	int i = 0;
+	uint8_t i = 0;
 	bool menu_selected = false;
 	bool sub_menu_selected = false;
-	int size = menu.size;
+	uint8_t size = menu.size;
 
 	while(i < size){
 		if (menu.array[i].menu_selected == 1){
@@ -344,7 +360,7 @@ int refresh_menu(int pointer, menu_list menu){
 	}
 	if (menu_selected == true){
 		size = menu.array[i].sub.size;
-		int j = 0;
+		uint8_t j = 0;
 		while(j < size){
 			if (menu.array[i].sub.array[j].select == 1){
 				sub_menu_selected = true;
