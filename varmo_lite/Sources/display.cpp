@@ -12,30 +12,38 @@
 extern "C" {
 #endif
 
-sub_menu back_menu = init_sub_menu((char *)"Back",1, back_fct);
+sub_menu2 test1 = init_sub_menu2((char *)"Test 1", 1, velocity_fct);
+sub_menu2 test2 = init_sub_menu2((char *)"Test 2", 1, acceleration_fct);
 
-sub_menu vel_velocity = init_sub_menu((char *)"Velocity    ",1,velocity_fct);
-sub_menu vel_acc = 		init_sub_menu((char *)"Acceleration",1,acceleration_fct);
-sub_menu vel_dec = 		init_sub_menu((char *)"Deceleration",1,deceleration_fct);
-sub_menu vel_cue = 		init_sub_menu((char *)"Cue         ",0, void_function);
+sub_menu2 sub_menu_velocity_cue[]= {test1, test2};
+sub_menu2_list menu_velocity_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu");
+
+
+
+sub_menu back_menu = init_sub_menu((char *)"Back",1,{0}, back_fct);
+
+sub_menu vel_velocity = init_sub_menu((char *)"Velocity    ",1,{0}, velocity_fct);
+sub_menu vel_acc = 		init_sub_menu((char *)"Acceleration",1,{0}, acceleration_fct);
+sub_menu vel_dec = 		init_sub_menu((char *)"Deceleration",1,{0}, deceleration_fct);
+sub_menu vel_cue = 		init_sub_menu((char *)"Cue         ",0, menu_velocity_cue, void_function);
 
 sub_menu sub_menu_velocity[] = {vel_velocity, vel_acc, vel_dec, vel_cue, back_menu};
 sub_menu_list menu_velocity = init_sub_menu_list(sub_menu_velocity, sizeof(sub_menu_velocity)/sizeof(sub_menu_velocity[0]), (char*)"Velocy Menu  ");
 
-sub_menu pos_position = init_sub_menu((char *)"Postion     ",1,pos_position_fct);
-sub_menu pos_velocity = init_sub_menu((char *)"Velocity    ",1,pos_velocity_fct);
-sub_menu pos_acc = 		init_sub_menu((char *)"Acceleration",1,pos_acceleration_fct);
-sub_menu pos_dec = 		init_sub_menu((char *)"Deceleration",1,pos_deceleration_fct);
-sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, void_function);
-sub_menu pos_set_home = init_sub_menu((char *)"Set Home", 1, pos_set_home_fct);
+sub_menu pos_position = init_sub_menu((char *)"Postion     ",1,{0}, pos_position_fct);
+sub_menu pos_velocity = init_sub_menu((char *)"Velocity    ",1,{0}, pos_velocity_fct);
+sub_menu pos_acc = 		init_sub_menu((char *)"Acceleration",1,{0}, pos_acceleration_fct);
+sub_menu pos_dec = 		init_sub_menu((char *)"Deceleration",1,{0}, pos_deceleration_fct);
+sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, {0}, void_function);
+sub_menu pos_set_home = init_sub_menu((char *)"Set Home", 1, {0}, pos_set_home_fct);
 
 sub_menu sub_menu_position[] = {pos_position, pos_velocity, pos_acc, pos_dec, pos_cue, pos_set_home,back_menu};
 sub_menu_list menu_position = init_sub_menu_list(sub_menu_position, sizeof(sub_menu_position)/sizeof(sub_menu_position[0]), (char*)"Postion Menu ");
 
-sub_menu tor_torque = 		init_sub_menu((char *)"Torque        ",1,torque_fct);
-sub_menu tor_torque_rise = 	init_sub_menu((char *)"Torque Rise   ",1,torque_rise_fct);
-sub_menu tor_torque_fall = 	init_sub_menu((char *)"Torque Fall   ",1,torque_fall_fct);
-sub_menu tor_cue = 			init_sub_menu((char *)"Cue           ",0, void_function);
+sub_menu tor_torque = 		init_sub_menu((char *)"Torque        ",1,{0}, torque_fct);
+sub_menu tor_torque_rise = 	init_sub_menu((char *)"Torque Rise   ",1,{0}, torque_rise_fct);
+sub_menu tor_torque_fall = 	init_sub_menu((char *)"Torque Fall   ",1,{0}, torque_fall_fct);
+sub_menu tor_cue = 			init_sub_menu((char *)"Cue           ",0, {0}, void_function);
 
 sub_menu sub_menu_torque[] = {tor_torque, tor_torque_rise, tor_torque_fall, tor_cue, back_menu};
 sub_menu_list menu_torque = init_sub_menu_list(sub_menu_torque, sizeof(sub_menu_torque)/sizeof(sub_menu_torque[0]), (char*)"Torque Menu  ");
