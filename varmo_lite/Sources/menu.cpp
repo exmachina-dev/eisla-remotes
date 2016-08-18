@@ -8,6 +8,7 @@ bool FLAG_CONTROL_MODE;
 
 menu init_menu(char *name, sub_menu_list list, bool control_mode){
 	menu temp;
+	temp.menu_selected = 0;
 	temp.name = name;
 	temp.sub = list;
 	temp.control_mode = control_mode;
@@ -16,6 +17,7 @@ menu init_menu(char *name, sub_menu_list list, bool control_mode){
 
 sub_menu init_sub_menu(char *name, bool item, sub_menu2_list list, void (*function)()){
 	sub_menu temp;
+	temp.select = 0;
 	temp.name = name;
 	temp.sub = list;
 	if (item == 1){
@@ -31,6 +33,7 @@ sub_menu init_sub_menu(char *name, bool item, sub_menu2_list list, void (*functi
 
 sub_menu2 init_sub_menu2(char *name, bool item, void (*function)()){
 	sub_menu2 temp;
+	temp.select = 0;
 	temp.name = name;
 	if (item == 1){
 		temp.function = function;
@@ -312,34 +315,56 @@ int menu_select(int pointer, menu_list menu){
 int menu_back(menu_list menu){
 	uint8_t pointer = 0;
 	uint8_t size = menu.size;
+	bool menu_selected = false;
 	bool sub_menu_selected = false;
+	bool sub_menu_item_selected = false;
 	while(pointer < size){
 		if (menu.array[pointer].menu_selected == 1){
-			sub_menu_selected = true;
+			menu_selected = true;
 			break;
 		}
 		pointer++;
 	}
-	if (sub_menu_selected == true){
+	if (menu_selected == true){
 		size = menu.array[pointer].sub.size;
-		for (uint8_t j = 0; j < size; j++){
-			if (menu.array[pointer].sub.array[j].select == 1){
-				menu.array[pointer].sub.array[j].select = 0;
+		uint8_t j = 0;
+		while(j < size){
+			if (menu.array[pointer].sub.array[j].select == 1 && menu.array[pointer].sub.array[j].item == 0){
+				sub_menu_selected = true;
+				break;
+			}
+			else if (menu.array[pointer].sub.array[j].select == 1){
+				sub_menu_item_selected =true;
+				break;
+			}
+			j++;
+		}
+		if (sub_menu_selected == true){
+
+		}
+		else{
+			if (sub_menu_item_selected == true){
 
 				if (strcmp(menu.array[pointer].sub.array[j].name,"Back")== 0){
 					menu.array[pointer].menu_selected = 0;
-				}
-				else{
-					pointer = j;
-					sub_menu_selected = false;
 					pointer = refresh_menu(pointer, menu);
 				}
-				j=size;
+				else if (menu.array[pointer].sub.array[j].item == 1){
+					menu.array[pointer].sub.array[j].select = 0;
+					pointer = j;
+					menu_selected = false;
+					pointer = refresh_menu(pointer, menu);
+				}
+				/*
+				else{
+					menu.array[pointer].menu_selected = 0;
+				}*/
 			}
-		}
-		if (sub_menu_selected == true){
-			menu.array[pointer].menu_selected = 0;
-			pointer = refresh_menu(pointer, menu);
+
+			else if (menu_selected == true){
+				menu.array[pointer].menu_selected = 0;
+				pointer = refresh_menu(pointer, menu);
+			}
 		}
 	}
 	return pointer;
