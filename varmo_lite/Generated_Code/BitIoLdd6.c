@@ -7,7 +7,7 @@
 **     Version     : Component 01.033, Driver 01.03, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-07-12, 18:02, # CodeGen: 115
+**     Date/Time   : 2016-08-18, 16:26, # CodeGen: 196
 **     Abstract    :
 **         The HAL BitIO component provides a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -27,11 +27,8 @@
 **          Safe mode                                      : yes
 **     Contents    :
 **         Init   - LDD_TDeviceData* BitIoLdd6_Init(LDD_TUserData *UserDataPtr);
-**         GetVal - bool BitIoLdd6_GetVal(LDD_TDeviceData *DeviceDataPtr);
-**         PutVal - void BitIoLdd6_PutVal(LDD_TDeviceData *DeviceDataPtr, bool Val);
 **         ClrVal - void BitIoLdd6_ClrVal(LDD_TDeviceData *DeviceDataPtr);
 **         SetVal - void BitIoLdd6_SetVal(LDD_TDeviceData *DeviceDataPtr);
-**         NegVal - void BitIoLdd6_NegVal(LDD_TDeviceData *DeviceDataPtr);
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -147,69 +144,6 @@ LDD_TDeviceData* BitIoLdd6_Init(LDD_TUserData *UserDataPtr)
 }
 /*
 ** ===================================================================
-**     Method      :  BitIoLdd6_GetVal (component BitIO_LDD)
-*/
-/*!
-**     @brief
-**         Returns the input/output value. If the direction is [input]
-**         then the input value of the pin is read and returned. If the
-**         direction is [output] then the last written value is read
-**         and returned (see <Safe mode> property for limitations).
-**         This method cannot be disabled if direction is [input].
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by <Init> method.
-**     @return
-**                         - Input or output value. Possible values:
-**                           <false> - logical "0" (Low level)
-**                           <true> - logical "1" (High level)
-*/
-/* ===================================================================*/
-bool BitIoLdd6_GetVal(LDD_TDeviceData *DeviceDataPtr)
-{
-  uint32_t PortData;                   /* Port data masked according to the bit used */
-
-  (void)DeviceDataPtr;                 /* Parameter is not used, suppress unused argument warning */
-  PortData = GPIO_PDD_GetPortDataOutput(BitIoLdd6_MODULE_BASE_ADDRESS) & BitIoLdd6_PORT_MASK;
-  return (PortData != 0U) ? (bool)TRUE : (bool)FALSE;
-}
-
-/*
-** ===================================================================
-**     Method      :  BitIoLdd6_PutVal (component BitIO_LDD)
-*/
-/*!
-**     @brief
-**         The specified output value is set. If the direction is <b>
-**         input</b>, the component saves the value to a memory or a
-**         register and this value will be written to the pin after
-**         switching to the output mode (using <tt>SetDir(TRUE)</tt>;
-**         see <a href="BitIOProperties.html#SafeMode">Safe mode</a>
-**         property for limitations). If the direction is <b>output</b>,
-**         it writes the value to the pin. (Method is available only if
-**         the direction = <u><tt>output</tt></u> or <u><tt>
-**         input/output</tt></u>).
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by <Init> method.
-**     @param
-**         Val             - Output value. Possible values:
-**                           <false> - logical "0" (Low level)
-**                           <true> - logical "1" (High level)
-*/
-/* ===================================================================*/
-void BitIoLdd6_PutVal(LDD_TDeviceData *DeviceDataPtr, bool Val)
-{
-  (void)DeviceDataPtr;                 /* Parameter is not used, suppress unused argument warning */
-  if (Val) {
-    GPIO_PDD_SetPortDataOutputMask(BitIoLdd6_MODULE_BASE_ADDRESS, BitIoLdd6_PORT_MASK);
-  } else { /* !Val */
-    GPIO_PDD_ClearPortDataOutputMask(BitIoLdd6_MODULE_BASE_ADDRESS, BitIoLdd6_PORT_MASK);
-  } /* !Val */
-}
-
-/*
-** ===================================================================
 **     Method      :  BitIoLdd6_ClrVal (component BitIO_LDD)
 */
 /*!
@@ -246,26 +180,6 @@ void BitIoLdd6_SetVal(LDD_TDeviceData *DeviceDataPtr)
 {
   (void)DeviceDataPtr;                 /* Parameter is not used, suppress unused argument warning */
   GPIO_PDD_SetPortDataOutputMask(BitIoLdd6_MODULE_BASE_ADDRESS, BitIoLdd6_PORT_MASK);
-}
-
-/*
-** ===================================================================
-**     Method      :  BitIoLdd6_NegVal (component BitIO_LDD)
-*/
-/*!
-**     @brief
-**         Negates (inverts) the output value. It is equivalent to the
-**         [PutVal(!GetVal())]. This method is available only if the
-**         direction = _[output]_ or _[input/output]_.
-**     @param
-**         DeviceDataPtr   - Pointer to device data
-**                           structure returned by <Init> method.
-*/
-/* ===================================================================*/
-void BitIoLdd6_NegVal(LDD_TDeviceData *DeviceDataPtr)
-{
-  (void)DeviceDataPtr;                 /* Parameter is not used, suppress unused argument warning */
-  GPIO_PDD_TogglePortDataOutputMask(BitIoLdd6_MODULE_BASE_ADDRESS, BitIoLdd6_PORT_MASK);
 }
 
 /* END BitIoLdd6. */

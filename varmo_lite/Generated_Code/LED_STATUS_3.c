@@ -7,7 +7,7 @@
 **     Version     : Component 02.086, Driver 01.00, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-29, 16:02, # CodeGen: 78
+**     Date/Time   : 2016-08-18, 16:20, # CodeGen: 194
 **     Abstract    :
 **         This component "BitIO" implements an one-bit input/output.
 **         It uses one bit/pin of a port.
@@ -26,8 +26,6 @@
 **          Safe mode                                      : yes
 **          Optimization for                               : speed
 **     Contents    :
-**         GetVal - bool LED_STATUS_3_GetVal(void);
-**         PutVal - void LED_STATUS_3_PutVal(bool Val);
 **         ClrVal - void LED_STATUS_3_ClrVal(void);
 **         SetVal - void LED_STATUS_3_SetVal(void);
 **         NegVal - void LED_STATUS_3_NegVal(void);
@@ -85,48 +83,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif 
-
-/*
-** ===================================================================
-**     Method      :  LED_STATUS_3_GetVal (component BitIO)
-**     Description :
-**         This method returns an input value.
-**           a) direction = Input  : reads the input value from the
-**                                   pin and returns it
-**           b) direction = Output : returns the last written value
-**         Note: This component is set to work in Output direction only.
-**     Parameters  : None
-**     Returns     :
-**         ---             - Input value. Possible values:
-**                           FALSE - logical "0" (Low level)
-**                           TRUE - logical "1" (High level)
-
-** ===================================================================
-*/
-/*
-bool LED_STATUS_3_GetVal(void)
-
-**  This method is implemented as a macro. See LED_STATUS_3.h file.  **
-*/
-
-/*
-** ===================================================================
-**     Method      :  LED_STATUS_3_PutVal (component BitIO)
-**     Description :
-**         This method writes the new output value.
-**     Parameters  :
-**         NAME       - DESCRIPTION
-**         Val             - Output value. Possible values:
-**                           FALSE - logical "0" (Low level)
-**                           TRUE - logical "1" (High level)
-**     Returns     : Nothing
-** ===================================================================
-*/
-/*
-void LED_STATUS_3_PutVal(bool Val)
-
-**  This method is implemented as a macro. See LED_STATUS_3.h file.  **
-*/
 
 /*
 ** ===================================================================

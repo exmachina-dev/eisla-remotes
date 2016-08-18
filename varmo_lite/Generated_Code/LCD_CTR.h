@@ -7,7 +7,7 @@
 **     Version     : Component 02.086, Driver 01.00, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-07-12, 18:04, # CodeGen: 116
+**     Date/Time   : 2016-08-18, 16:26, # CodeGen: 196
 **     Abstract    :
 **         This component "BitIO" implements an one-bit input/output.
 **         It uses one bit/pin of a port.
@@ -26,11 +26,8 @@
 **          Safe mode                                      : yes
 **          Optimization for                               : speed
 **     Contents    :
-**         GetVal - bool LCD_CTR_GetVal(void);
-**         PutVal - void LCD_CTR_PutVal(bool Val);
 **         ClrVal - void LCD_CTR_ClrVal(void);
 **         SetVal - void LCD_CTR_SetVal(void);
-**         NegVal - void LCD_CTR_NegVal(void);
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -102,40 +99,6 @@ extern "C" {
 
 /*
 ** ===================================================================
-**     Method      :  LCD_CTR_GetVal (component BitIO)
-**     Description :
-**         This method returns an input value.
-**           a) direction = Input  : reads the input value from the
-**                                   pin and returns it
-**           b) direction = Output : returns the last written value
-**         Note: This component is set to work in Output direction only.
-**     Parameters  : None
-**     Returns     :
-**         ---             - Input value. Possible values:
-**                           FALSE - logical "0" (Low level)
-**                           TRUE - logical "1" (High level)
-
-** ===================================================================
-*/
-#define LCD_CTR_GetVal() (BitIoLdd6_GetVal(BitIoLdd6_DeviceData))
-
-/*
-** ===================================================================
-**     Method      :  LCD_CTR_PutVal (component BitIO)
-**     Description :
-**         This method writes the new output value.
-**     Parameters  :
-**         NAME       - DESCRIPTION
-**         Val             - Output value. Possible values:
-**                           FALSE - logical "0" (Low level)
-**                           TRUE - logical "1" (High level)
-**     Returns     : Nothing
-** ===================================================================
-*/
-#define LCD_CTR_PutVal(Val) (BitIoLdd6_PutVal(BitIoLdd6_DeviceData, (Val)))
-
-/*
-** ===================================================================
 **     Method      :  LCD_CTR_ClrVal (component BitIO)
 **     Description :
 **         This method clears (sets to zero) the output value.
@@ -155,17 +118,6 @@ extern "C" {
 ** ===================================================================
 */
 #define LCD_CTR_SetVal() (BitIoLdd6_SetVal(BitIoLdd6_DeviceData))
-
-/*
-** ===================================================================
-**     Method      :  LCD_CTR_NegVal (component BitIO)
-**     Description :
-**         This method negates (inverts) the output value.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-#define LCD_CTR_NegVal() (BitIoLdd6_NegVal(BitIoLdd6_DeviceData))
 
 /* END LCD_CTR. */
 

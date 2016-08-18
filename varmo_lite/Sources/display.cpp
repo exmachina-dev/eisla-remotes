@@ -141,28 +141,28 @@ void print_int_at(int value,bool absolute, int y, int x){
 
 void led_init(int counter){
 	if ((counter%4) == 0){
-		LED_STATUS_1_PutVal(1);
-		LED_STATUS_2_PutVal(0);
-		LED_STATUS_3_PutVal(0);
-		LED_STATUS_4_PutVal(0);
+		LED_STATUS_1_SetVal();
+		LED_STATUS_2_ClrVal();
+		LED_STATUS_3_ClrVal();
+		LED_STATUS_4_ClrVal();
 	}
 	else if ((counter%4) == 1){
-		LED_STATUS_1_PutVal(0);
-		LED_STATUS_2_PutVal(1);
-		LED_STATUS_3_PutVal(0);
-		LED_STATUS_4_PutVal(0);
+		LED_STATUS_1_ClrVal();
+		LED_STATUS_2_SetVal();
+		LED_STATUS_3_ClrVal();
+		LED_STATUS_4_ClrVal();
 	}
 	else if ((counter%4) == 2){
-		LED_STATUS_1_PutVal(0);
-		LED_STATUS_2_PutVal(0);
-		LED_STATUS_3_PutVal(1);
-		LED_STATUS_4_PutVal(0);
+		LED_STATUS_1_ClrVal();
+		LED_STATUS_2_ClrVal();
+		LED_STATUS_3_SetVal();
+		LED_STATUS_4_ClrVal();
 	}
 	else if ((counter%4) == 3){
-		LED_STATUS_1_PutVal(0);
-		LED_STATUS_2_PutVal(0);
-		LED_STATUS_3_PutVal(0);
-		LED_STATUS_4_PutVal(1);
+		LED_STATUS_1_ClrVal();
+		LED_STATUS_2_ClrVal();
+		LED_STATUS_3_ClrVal();
+		LED_STATUS_4_SetVal();
 	}
 }
 

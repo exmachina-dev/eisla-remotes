@@ -17,6 +17,4 @@ extern "C" {
 }  /* extern "C" */
 #endif
 
-
-
 #endif /* SOURCES_EEPROM_H_ */

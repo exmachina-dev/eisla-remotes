@@ -7,7 +7,7 @@
 **     Version     : Component 01.128, Driver 01.08, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-02, 13:57, # CodeGen: 171
+**     Date/Time   : 2016-08-18, 16:20, # CodeGen: 194
 **     Abstract    :
 **         The HAL GPIO component will provide a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -48,7 +48,6 @@
 **              OnPortEvent                                : Enabled
 **     Contents    :
 **         Init               - LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr);
-**         GetEventMask       - LDD_TEventMask ENCODER_GetEventMask(LDD_TDeviceData *DeviceDataPtr);
 **         GetPortEventStatus - ENCODER_TPortValue ENCODER_GetPortEventStatus(LDD_TDeviceData *DeviceDataPtr);
 **         SetFieldValue      - void ENCODER_SetFieldValue(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
 **         GetFieldValue      - ENCODER_TFieldValue ENCODER_GetFieldValue(LDD_TDeviceData *DeviceDataPtr,...
@@ -115,7 +114,6 @@ extern "C" {
 #endif 
 
 typedef struct {
-  LDD_TEventMask EventMask;            /* Event mask of enabled events */
   ENCODER_TPortValue EventFlags;       /* Holds event flags */
   LDD_TUserData *UserData;             /* RTOS device data structure */
 } ENCODER_TDeviceData, *ENCODER_TDeviceDataPtr; /* Device data structure type */
@@ -150,7 +148,6 @@ LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr)
   /* {Default RTOS Adapter} Driver memory allocation: Dynamic allocation is simulated by a pointer to the static object */
   DeviceDataPrv = &DeviceDataPrv__DEFAULT_RTOS_ALLOC;
   /* Save RTOS Device structure */
-  DeviceDataPrv->EventMask = 0x01U;    /* Initialization of the event mask variable */
   DeviceDataPrv->EventFlags = 0x00U;   /* Clears stored events */
   DeviceDataPrv->UserData = UserDataPtr; /* Store the RTOS device structure */
   /* Interrupt vector(s) allocation */
@@ -189,29 +186,6 @@ LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr)
   /* Registration of the device structure */
   PE_LDD_RegisterDeviceStructure(PE_LDD_COMPONENT_ENCODER_ID,DeviceDataPrv);
   return ((LDD_TDeviceData *)DeviceDataPrv);
-}
-
-/*
-** ===================================================================
-**     Method      :  ENCODER_GetEventMask (component GPIO_LDD)
-*/
-/*!
-**     @brief
-**         This method returns current events mask of the port. 
-**         Note: Event that are not generated (See the "Events" tab in
-**         the Component inspector) are not handled by this method.
-**         Pair method to SetEventMask().
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by [Init] method.
-**     @return
-**                         - Current EventMask. The component event masks
-**                           are defined in the PE_Types.h file.
-*/
-/* ===================================================================*/
-LDD_TEventMask ENCODER_GetEventMask(LDD_TDeviceData *DeviceDataPtr)
-{
-  return ((ENCODER_TDeviceData *)DeviceDataPtr)->EventMask;
 }
 
 /*

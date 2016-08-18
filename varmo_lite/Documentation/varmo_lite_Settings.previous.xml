@@ -383,8 +383,8 @@ PE_DEBUGHALT();
           <SetDir v="don&amp;apos;t generate code" />
           <SetInput v="don&amp;apos;t generate code" />
           <SetOutput v="don&amp;apos;t generate code" />
-          <GetVal v="generate code" />
-          <PutVal v="generate code" />
+          <GetVal v="don&amp;apos;t generate code" />
+          <PutVal v="don&amp;apos;t generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
           <NegVal v="generate code" />
@@ -408,8 +408,8 @@ PE_DEBUGHALT();
       <SetDir v="don&amp;apos;t generate code" />
       <SetInput v="don&amp;apos;t generate code" />
       <SetOutput v="don&amp;apos;t generate code" />
-      <GetVal v="generate code" />
-      <PutVal v="generate code" />
+      <GetVal v="don&amp;apos;t generate code" />
+      <PutVal v="don&amp;apos;t generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
       <NegVal v="generate code" />
@@ -446,8 +446,8 @@ PE_DEBUGHALT();
           <SetDir v="don&amp;apos;t generate code" />
           <SetInput v="don&amp;apos;t generate code" />
           <SetOutput v="don&amp;apos;t generate code" />
-          <GetVal v="generate code" />
-          <PutVal v="generate code" />
+          <GetVal v="don&amp;apos;t generate code" />
+          <PutVal v="don&amp;apos;t generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
           <NegVal v="generate code" />
@@ -471,8 +471,8 @@ PE_DEBUGHALT();
       <SetDir v="don&amp;apos;t generate code" />
       <SetInput v="don&amp;apos;t generate code" />
       <SetOutput v="don&amp;apos;t generate code" />
-      <GetVal v="generate code" />
-      <PutVal v="generate code" />
+      <GetVal v="don&amp;apos;t generate code" />
+      <PutVal v="don&amp;apos;t generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
       <NegVal v="generate code" />
@@ -509,8 +509,8 @@ PE_DEBUGHALT();
           <SetDir v="don&amp;apos;t generate code" />
           <SetInput v="don&amp;apos;t generate code" />
           <SetOutput v="don&amp;apos;t generate code" />
-          <GetVal v="generate code" />
-          <PutVal v="generate code" />
+          <GetVal v="don&amp;apos;t generate code" />
+          <PutVal v="don&amp;apos;t generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
           <NegVal v="generate code" />
@@ -534,8 +534,8 @@ PE_DEBUGHALT();
       <SetDir v="don&amp;apos;t generate code" />
       <SetInput v="don&amp;apos;t generate code" />
       <SetOutput v="don&amp;apos;t generate code" />
-      <GetVal v="generate code" />
-      <PutVal v="generate code" />
+      <GetVal v="don&amp;apos;t generate code" />
+      <PutVal v="don&amp;apos;t generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
       <NegVal v="generate code" />
@@ -572,8 +572,8 @@ PE_DEBUGHALT();
           <SetDir v="don&amp;apos;t generate code" />
           <SetInput v="don&amp;apos;t generate code" />
           <SetOutput v="don&amp;apos;t generate code" />
-          <GetVal v="generate code" />
-          <PutVal v="generate code" />
+          <GetVal v="don&amp;apos;t generate code" />
+          <PutVal v="don&amp;apos;t generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
           <NegVal v="generate code" />
@@ -597,8 +597,8 @@ PE_DEBUGHALT();
       <SetDir v="don&amp;apos;t generate code" />
       <SetInput v="don&amp;apos;t generate code" />
       <SetOutput v="don&amp;apos;t generate code" />
-      <GetVal v="generate code" />
-      <PutVal v="generate code" />
+      <GetVal v="don&amp;apos;t generate code" />
+      <PutVal v="don&amp;apos;t generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
       <NegVal v="generate code" />
@@ -654,7 +654,7 @@ PE_DEBUGHALT();
       <Init v="generate code" />
       <Deinit v="don&amp;apos;t generate code" />
       <SetEventMask v="don&amp;apos;t generate code" />
-      <GetEventMask v="generate code" />
+      <GetEventMask v="don&amp;apos;t generate code" />
       <SetPortEventCondition v="don&amp;apos;t generate code" />
       <GetPortEventStatus v="generate code" />
       <SetPortValue v="don&amp;apos;t generate code" />
@@ -1303,8 +1303,8 @@ PE_DEBUGHALT();
         <Interrupt_TxD_priority v="medium priority" />
         <Interrupt_Error v="INT_UART0_ERR" />
         <Interrupt_Error_priority v="medium priority" />
-        <Input_buffer_size v="256" />
-        <Output_buffer_size v="256" />
+        <Input_buffer_size v="512" />
+        <Output_buffer_size v="512" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
           <boolgroup name="RTS" v="Disabled" />
@@ -1689,11 +1689,11 @@ PE_DEBUGHALT();
           <SetDir v="don&amp;apos;t generate code" />
           <SetInput v="don&amp;apos;t generate code" />
           <SetOutput v="don&amp;apos;t generate code" />
-          <GetVal v="generate code" />
-          <PutVal v="generate code" />
+          <GetVal v="don&amp;apos;t generate code" />
+          <PutVal v="don&amp;apos;t generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
-          <NegVal v="generate code" />
+          <NegVal v="don&amp;apos;t generate code" />
           <ConnectPin v="don&amp;apos;t generate code" />
           <GetRawVal v="don&amp;apos;t generate code" />
         </Methods>
@@ -1714,11 +1714,11 @@ PE_DEBUGHALT();
       <SetDir v="don&amp;apos;t generate code" />
       <SetInput v="don&amp;apos;t generate code" />
       <SetOutput v="don&amp;apos;t generate code" />
-      <GetVal v="generate code" />
-      <PutVal v="generate code" />
+      <GetVal v="don&amp;apos;t generate code" />
+      <PutVal v="don&amp;apos;t generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
-      <NegVal v="generate code" />
+      <NegVal v="don&amp;apos;t generate code" />
       <ConnectPin v="don&amp;apos;t generate code" />
       <GetRawVal v="don&amp;apos;t generate code" />
     </Methods>
@@ -1776,11 +1776,11 @@ PE_DEBUGHALT();
           <SetDir v="don&amp;apos;t generate code" />
           <SetInput v="don&amp;apos;t generate code" />
           <SetOutput v="don&amp;apos;t generate code" />
-          <GetVal v="generate code" />
-          <PutVal v="generate code" />
+          <GetVal v="don&amp;apos;t generate code" />
+          <PutVal v="don&amp;apos;t generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
-          <NegVal v="don&amp;apos;t generate code" />
+          <NegVal v="generate code" />
           <ConnectPin v="don&amp;apos;t generate code" />
           <GetRawVal v="don&amp;apos;t generate code" />
         </Methods>
@@ -1801,11 +1801,11 @@ PE_DEBUGHALT();
       <SetDir v="don&amp;apos;t generate code" />
       <SetInput v="don&amp;apos;t generate code" />
       <SetOutput v="don&amp;apos;t generate code" />
-      <GetVal v="generate code" />
-      <PutVal v="generate code" />
+      <GetVal v="don&amp;apos;t generate code" />
+      <PutVal v="don&amp;apos;t generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
-      <NegVal v="don&amp;apos;t generate code" />
+      <NegVal v="generate code" />
       <ConnectPin v="don&amp;apos;t generate code" />
       <GetRawVal v="don&amp;apos;t generate code" />
     </Methods>

@@ -27,13 +27,6 @@ Module "T_500ms"   (component TimerUnit_LDD)
                 second call of Init the <Deinit> must be called first.
 
 Module "LED_STATUS_1" (component BitIO)
-   - LED_STATUS_1_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
-                and returned. If the direction is [output] then the last written value is returned (see <Safe mode> property 
-                for limitations). This method cannot be disabled if direction is [input].
-   - LED_STATUS_1_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a 
-                memory or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LED_STATUS_1_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_1_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
@@ -42,13 +35,6 @@ Module "LED_STATUS_1" (component BitIO)
                 available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_2" (component BitIO)
-   - LED_STATUS_2_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
-                and returned. If the direction is [output] then the last written value is returned (see <Safe mode> property 
-                for limitations). This method cannot be disabled if direction is [input].
-   - LED_STATUS_2_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a 
-                memory or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LED_STATUS_2_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_2_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
@@ -57,13 +43,6 @@ Module "LED_STATUS_2" (component BitIO)
                 available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_3" (component BitIO)
-   - LED_STATUS_3_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
-                and returned. If the direction is [output] then the last written value is returned (see <Safe mode> property 
-                for limitations). This method cannot be disabled if direction is [input].
-   - LED_STATUS_3_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a 
-                memory or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LED_STATUS_3_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_3_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
@@ -72,13 +51,6 @@ Module "LED_STATUS_3" (component BitIO)
                 available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_4" (component BitIO)
-   - LED_STATUS_4_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
-                and returned. If the direction is [output] then the last written value is returned (see <Safe mode> property 
-                for limitations). This method cannot be disabled if direction is [input].
-   - LED_STATUS_4_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a 
-                memory or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LED_STATUS_4_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_4_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
@@ -89,8 +61,6 @@ Module "LED_STATUS_4" (component BitIO)
 Module "ENCODER"   (component GPIO_LDD)
    - ENCODER_Init -This method initializes the associated peripheral(s) and the component internal variables. The method is 
                 called automatically as a part of the application initialization code.
-   - ENCODER_GetEventMask -This method returns current events mask of the port.    Note: Event that are not generated (See the 
-                "Events" tab in the Component inspector) are not handled by this method.   Pair method to SetEventMask().
    - ENCODER_GetPortEventStatus -Returns a set of asserted flags. The flags are accumulated in the set. After calling this 
                 method the set is returned and cleared.   Note: Some type of "Port" device requires enabling "Interrupt 
                 service/event" property for a pin edge detect function.
@@ -221,19 +191,10 @@ Module "IFsh1"     (component IntFLASH)
                 property and state of the flash. Please see more details on general info page of the help.
 
 Module "LCD_CTR"   (component BitIO)
-   - LCD_CTR_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
-                returned. If the direction is [output] then the last written value is returned (see <Safe mode> property for 
-                limitations). This method cannot be disabled if direction is [input].
-   - LCD_CTR_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a memory 
-                or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LCD_CTR_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 
                 only if the direction = _[output]_ or _[input/output]_.
    - LCD_CTR_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
                 the direction = _[output]_ or _[input/output]_.
-   - LCD_CTR_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is available 
-                only if the direction = _[output]_ or _[input/output]_.
 
 Module "WAIT1"     (component Wait)
    - WAIT1_Wait10Cycles -Wait for 10 CPU cycles.
@@ -247,13 +208,6 @@ Module "WAIT1"     (component Wait)
                 busy/blocking wait.
 
 Module "LCD_EN"    (component BitIO)
-   - LCD_EN_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
-                returned. If the direction is [output] then the last written value is returned (see <Safe mode> property for 
-                limitations). This method cannot be disabled if direction is [input].
-   - LCD_EN_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a memory 
-                or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LCD_EN_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 
                 only if the direction = _[output]_ or _[input/output]_.
    - LCD_EN_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
