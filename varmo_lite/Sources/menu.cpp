@@ -340,13 +340,31 @@ int menu_back(menu_list menu){
 			j++;
 		}
 		if (sub_menu_selected == true){
-
+			size = menu.array[pointer].sub.array[j].sub.size;
+			for(int i =0; i<size;i++){
+				if (menu.array[pointer].sub.array[j].sub.array[i].select == 1){
+					menu.array[pointer].sub.array[j].sub.array[i].select = 0;
+					if (menu.array[pointer].sub.array[j].sub.array[i].item == 1){
+						pointer = i;
+						sub_menu_selected = false;
+						pointer = refresh_menu(pointer, menu);
+					}
+					i= size;
+				}
+			}
+			if (sub_menu_selected == true){
+				menu.array[pointer].sub.array[j].select = 0;
+				pointer = j;
+				menu_selected = false;
+				pointer = refresh_menu(pointer, menu);
+			}
 		}
 		else{
 			if (sub_menu_item_selected == true){
 
 				if (strcmp(menu.array[pointer].sub.array[j].name,"Back")== 0){
 					menu.array[pointer].menu_selected = 0;
+					menu.array[pointer].sub.array[j].select = 0;
 					pointer = refresh_menu(pointer, menu);
 				}
 				else if (menu.array[pointer].sub.array[j].item == 1){
