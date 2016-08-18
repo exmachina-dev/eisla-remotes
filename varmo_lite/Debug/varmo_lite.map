@@ -730,6 +730,21 @@ Discarded input sections
  .debug_macro   0x00000000       0x40 ./Sources/display.o
  .debug_macro   0x00000000       0x6c ./Sources/display.o
  .debug_macro   0x00000000       0x20 ./Sources/display.o
+ .group         0x00000000        0x8 ./Sources/eeprom.o
+ .text          0x00000000        0x0 ./Sources/eeprom.o
+ .data          0x00000000        0x0 ./Sources/eeprom.o
+ .bss           0x00000000        0x0 ./Sources/eeprom.o
+ .debug_info    0x00000000       0x21 ./Sources/eeprom.o
+ .debug_abbrev  0x00000000       0x13 ./Sources/eeprom.o
+ .debug_aranges
+                0x00000000       0x18 ./Sources/eeprom.o
+ .debug_macro   0x00000000       0x11 ./Sources/eeprom.o
+ .debug_macro   0x00000000      0x86e ./Sources/eeprom.o
+ .debug_line    0x00000000       0x36 ./Sources/eeprom.o
+ .debug_str     0x00000000     0x2461 ./Sources/eeprom.o
+ .comment       0x00000000       0x71 ./Sources/eeprom.o
+ .ARM.attributes
+                0x00000000       0x33 ./Sources/eeprom.o
  .group         0x00000000        0x8 ./Sources/encoder_variable.o
  .text          0x00000000        0x0 ./Sources/encoder_variable.o
  .data          0x00000000        0x0 ./Sources/encoder_variable.o
@@ -4022,6 +4037,7 @@ LOAD ./Sources/LCD.o
 LOAD ./Sources/PCA9670.o
 LOAD ./Sources/cue_eeprom.o
 LOAD ./Sources/display.o
+LOAD ./Sources/eeprom.o
 LOAD ./Sources/encoder_variable.o
 LOAD ./Sources/main.o
 LOAD ./Sources/menu.o
