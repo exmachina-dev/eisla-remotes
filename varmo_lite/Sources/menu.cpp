@@ -271,7 +271,7 @@ int menu_select(int pointer, menu_list menu){
 				menu.array[i].sub.array[j].sub.array[pointer].select = 1;
 				menu.array[i].sub.array[j].sub.array[pointer].function();
 				if (strcmp(menu.array[i].sub.array[j].sub.array[pointer].name,"Back") == 0){
-					pointer = i;
+					pointer = j;
 				}
 			}
 			/*
@@ -344,7 +344,12 @@ int menu_back(menu_list menu){
 			for(int i =0; i<size;i++){
 				if (menu.array[pointer].sub.array[j].sub.array[i].select == 1){
 					menu.array[pointer].sub.array[j].sub.array[i].select = 0;
-					if (menu.array[pointer].sub.array[j].sub.array[i].item == 1){
+					if (strcmp(menu.array[pointer].sub.array[j].sub.array[i].name,"Back") == 0){
+						menu.array[pointer].sub.array[j].select = 0;
+						//pointer = j;
+						//pointer = refresh_menu(pointer, menu);
+					}
+					else if (menu.array[pointer].sub.array[j].sub.array[i].item == 1){
 						pointer = i;
 						sub_menu_selected = false;
 						pointer = refresh_menu(pointer, menu);
@@ -373,12 +378,7 @@ int menu_back(menu_list menu){
 					menu_selected = false;
 					pointer = refresh_menu(pointer, menu);
 				}
-				/*
-				else{
-					menu.array[pointer].menu_selected = 0;
-				}*/
 			}
-
 			else if (menu_selected == true){
 				menu.array[pointer].menu_selected = 0;
 				pointer = refresh_menu(pointer, menu);
