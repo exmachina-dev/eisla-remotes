@@ -60,14 +60,14 @@
 #include "ExtIntLdd5.h"
 #include "AS1.h"
 #include "ASerialLdd1.h"
-#include "IFsh1.h"
-#include "IntFlashLdd1.h"
 #include "LCD_CTR.h"
 #include "BitIoLdd6.h"
 #include "WAIT1.h"
 #include "LCD_EN.h"
 #include "BitIoLdd7.h"
 #include "TU1.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
 #include "KSDK1.h"
 #include "CS1.h"
 
@@ -396,21 +396,6 @@ void AS1_OnFreeTxBuf(void);
 
 /*
 ** ===================================================================
-**     Event       :  IFsh1_OnWriteEnd (module Events)
-**
-**     Component   :  IFsh1 [IntFLASH]
-*/
-/*!
-**     @brief
-**         Event is called after a write operation to FLASH memory is
-**         finished (except [SetPage]). This event is available only if
-**         an [Interrupt service/event] is selected.
-*/
-/* ===================================================================*/
-void IFsh1_OnWriteEnd(void);
-
-/*
-** ===================================================================
 **     Event       :  TU1_OnCounterRestart (module Events)
 **
 **     Component   :  TU1 [TimerUnit_LDD]
@@ -429,6 +414,21 @@ void IFsh1_OnWriteEnd(void);
 */
 /* ===================================================================*/
 void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr);
+
+/*
+** ===================================================================
+**     Event       :  IFsh1_OnWriteEnd (module Events)
+**
+**     Component   :  IFsh1 [IntFLASH]
+*/
+/*!
+**     @brief
+**         Event is called after a write operation to FLASH memory is
+**         finished (except [SetPage]). This event is available only if
+**         an [Interrupt service/event] is selected.
+*/
+/* ===================================================================*/
+void IFsh1_OnWriteEnd(void);
 
 /* END Events */
 

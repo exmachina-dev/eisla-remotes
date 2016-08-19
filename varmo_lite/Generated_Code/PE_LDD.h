@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-01, 18:20, # CodeGen: 145
+**     Date/Time   : 2016-08-18, 17:58, # CodeGen: 210
 **     Abstract    :
 **
 **     Settings    :
@@ -90,14 +90,14 @@
 #include "CS1.h"
 #include "AS1.h"
 #include "ASerialLdd1.h"
-#include "IFsh1.h"
-#include "IntFlashLdd1.h"
 #include "LCD_CTR.h"
 #include "BitIoLdd6.h"
 #include "WAIT1.h"
 #include "LCD_EN.h"
 #include "BitIoLdd7.h"
 #include "TU1.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
 
 
 /*

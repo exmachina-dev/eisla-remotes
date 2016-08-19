@@ -7,7 +7,7 @@
 **     Version     : Component 02.409, Driver 01.02, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-07-01, 15:09, # CodeGen: 93
+**     Date/Time   : 2016-08-19, 11:20, # CodeGen: 217
 **     Abstract    :
 **         This component "IntFLASH" implements an access to internal FLASH.
 **         The component support reading/writing data into FLASH, erasing of
@@ -48,6 +48,9 @@
 **         SetByteFlash - byte IFsh1_SetByteFlash(IFsh1_TAddress Addr, byte Data);
 **         GetByteFlash - byte IFsh1_GetByteFlash(IFsh1_TAddress Addr, byte *Data);
 **         SetWordFlash - byte IFsh1_SetWordFlash(IFsh1_TAddress Addr, word Data);
+**         GetWordFlash - byte IFsh1_GetWordFlash(IFsh1_TAddress Addr, word *Data);
+**         SetLongFlash - byte IFsh1_SetLongFlash(IFsh1_TAddress Addr, dword Data);
+**         GetLongFlash - byte IFsh1_GetLongFlash(IFsh1_TAddress Addr, dword *Data);
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -140,7 +143,39 @@ static bool IFsh1_EnEvent;             /* State of events (enabled/disabled) */
 
 static LDD_TDeviceData* IntFlashLdd1_DevDataPtr;
 
+byte IFsh1_GetFlash(LDD_FLASH_TAddress Source, LDD_TData *Dest, LDD_FLASH_TDataSize Count);
 byte IFsh1_SetFlash(IFsh1_TDataAddress Source, IFsh1_TAddress Dest, word Count);
+
+/*
+** ===================================================================
+**     Method      :  IFsh1_GetFlash (component IntFLASH)
+**
+**     Description :
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
+byte IFsh1_GetFlash(LDD_FLASH_TAddress Source, LDD_TData *Dest, LDD_FLASH_TDataSize Count)
+{
+  LDD_TError                 Result;
+  
+  if (IFsh1_CmdPending) {
+    return ERR_BUSY;
+  }
+  IFsh1_CurrentCommand = IFsh1_CMD_READ;
+  IFsh1_CmdPending = TRUE;
+  Result = IntFlashLdd1_Read(IntFlashLdd1_DevDataPtr, Source,  Dest,  Count); /* Start reading from the flash memory */
+  if (Result == ERR_OK) {              /* Command accepted? */
+    do {
+      IntFlashLdd1_Main(IntFlashLdd1_DevDataPtr);
+    } while (IFsh1_CmdPending);
+    Result = IFsh1_CmdResult;
+  } else if (Result == ERR_PARAM_ADDRESS) {
+    IFsh1_CmdPending = FALSE;
+    Result = ERR_RANGE;
+  } else {
+  }
+  return (byte)Result;
+}
 
 /*
 ** ===================================================================
@@ -285,25 +320,7 @@ byte IFsh1_SetByteFlash(IFsh1_TAddress Addr, byte Data)
 /* ===================================================================*/
 byte IFsh1_GetByteFlash(IFsh1_TAddress Addr, byte *Data)
 {
-  LDD_TError                 Result;
-  
-  if (IFsh1_CmdPending) {
-    return ERR_BUSY;
-  }
-  IFsh1_CurrentCommand = IFsh1_CMD_READ;
-  IFsh1_CmdPending = TRUE;
-  Result = IntFlashLdd1_Read(IntFlashLdd1_DevDataPtr, (LDD_FLASH_TAddress)Addr, (LDD_TData*)Data, (LDD_FLASH_TDataSize)1U); /* Start reading from the flash memory */
-  if (Result == ERR_OK) {              /* Command accepted? */
-    do {
-      IntFlashLdd1_Main(IntFlashLdd1_DevDataPtr);
-    } while (IFsh1_CmdPending);
-    Result = IFsh1_CmdResult;
-  } else if (Result == ERR_PARAM_ADDRESS) {
-    IFsh1_CmdPending = FALSE;
-    Result = ERR_RANGE;
-  } else {
-  }
-  return (byte)Result;
+  return(IFsh1_GetFlash((LDD_FLASH_TAddress)Addr,(LDD_TData*)Data,(LDD_FLASH_TDataSize)1U));
 }
 
 /*
@@ -337,6 +354,89 @@ byte IFsh1_GetByteFlash(IFsh1_TAddress Addr, byte *Data)
 byte IFsh1_SetWordFlash(IFsh1_TAddress Addr, word Data)
 {
   return IFsh1_SetFlash((IFsh1_TDataAddress)(void*)&Data, Addr, 2U);
+}
+
+/*
+** ===================================================================
+**     Method      :  IFsh1_GetWordFlash (component IntFLASH)
+*/
+/*!
+**     @brief
+**         Gets a word from an address in FLASH.
+**     @param
+**         Addr            - Address to FLASH.
+**     @param
+**         Data            - A pointer to the returned 16-bit data.
+**     @return
+**                         - Error code, possible codes: 
+**                           - ERR_OK - OK 
+**                           - ERR_NOTAVAIL - Desired program/erase
+**                           operation is not available 
+**                           - ERR_RANGE - Address is out of range 
+**                           - ERR_BUSY - Device is busy
+*/
+/* ===================================================================*/
+byte IFsh1_GetWordFlash(IFsh1_TAddress Addr, word *Data)
+{
+    return(IFsh1_GetFlash((LDD_FLASH_TAddress)Addr,(LDD_TData*)Data,(LDD_FLASH_TDataSize)2U));
+}
+
+/*
+** ===================================================================
+**     Method      :  IFsh1_SetLongFlash (component IntFLASH)
+*/
+/*!
+**     @brief
+**         Writes a long word to an address in FLASH. The operation of
+**         this method depends on the "Write method" property and state
+**         of the flash. Please see more details on general info page
+**         of the help.
+**     @param
+**         Addr            - Address to FLASH.
+**     @param
+**         Data            - Data to write.
+**     @return
+**                         - Error code, possible codes: 
+**                           - ERR_OK - OK 
+**                           - ERR_NOTAVAIL - Desired program/erase
+**                           operation is not available 
+**                           - ERR_RANGE - The address is out of range 
+**                           - ERR_VALUE - The read value is not equal
+**                           to the written value 
+**                           - ERR_SPEED - This device does not work in
+**                           the active speed mode 
+**                           - ERR_BUSY - Device is busy 
+**                           - ERR_PROTECT - Flash is write protect
+*/
+/* ===================================================================*/
+byte IFsh1_SetLongFlash(IFsh1_TAddress Addr, dword Data)
+{
+  return IFsh1_SetFlash((IFsh1_TDataAddress)(void*)&Data, Addr, 4U);
+}
+
+/*
+** ===================================================================
+**     Method      :  IFsh1_GetLongFlash (component IntFLASH)
+*/
+/*!
+**     @brief
+**         Gets a long word from an address in FLASH.
+**     @param
+**         Addr            - Address to FLASH.
+**     @param
+**         Data            - A pointer to the returned 32-bit data.
+**     @return
+**                         - Error code, possible codes: 
+**                           - ERR_OK - OK 
+**                           - ERR_NOTAVAIL - Desired program/erase
+**                           operation is not available 
+**                           - ERR_RANGE - The address is out of range 
+**                           - ERR_BUSY - Device is busy
+*/
+/* ===================================================================*/
+byte IFsh1_GetLongFlash(IFsh1_TAddress Addr, dword *Data)
+{
+    return(IFsh1_GetFlash((LDD_FLASH_TAddress)Addr,(LDD_TData*)Data,(LDD_FLASH_TDataSize)4U));
 }
 
 /*

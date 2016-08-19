@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-01, 18:20, # CodeGen: 145
+**     Date/Time   : 2016-08-18, 17:58, # CodeGen: 210
 **     Abstract    :
 **
 **     Settings    :
@@ -172,12 +172,12 @@ bool PE_PeripheralUsed(uint32_t PrphBaseAddress)
     case 0x40066000UL:
     /* Base address allocated by peripheral(s) UART0 */
     case 0x4006A000UL:
-    /* Base address allocated by peripheral(s) FTFL */
-    case 0x40020000UL:
     /* Base address allocated by peripheral(s) PTA */
     case 0x400FF000UL:
     /* Base address allocated by peripheral(s) FTM2 */
     case 0x400B8000UL:
+    /* Base address allocated by peripheral(s) FTFL */
+    case 0x40020000UL:
       result = TRUE;
       break;
     default:

@@ -7,7 +7,7 @@
 **     Version     : Component 01.106, Driver 01.15, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-07-19, 15:37, # CodeGen: 128
+**     Date/Time   : 2016-08-19, 09:49, # CodeGen: 213
 **     Abstract    :
 **          This embedded component implements an access to an on-chip flash memory.
 **          Using this component the flash memory could be written to, erased,
@@ -493,7 +493,6 @@ void IntFlashLdd1_Main(LDD_TDeviceData *DeviceDataPtr)
 **         This method is internal. It is used by Processor Expert only.
 ** ===================================================================
 */
-#define FLEX_MEMORY_BASE_ADDRESS    0x10000000LU
 #define FLEX_MEMORY_ADDRESS_SWITCH  0x00800000U
 #define WRITABLE_UNIT_MASK 3U
 
@@ -510,7 +509,6 @@ PE_ISR(IntFlashLdd1_CommandCompleteInterrupt)
   uint8_t i;
   LDD_FLASH_TAddress FlashPrgUnitAddr;
   uint8_t CurrentFlags;                /* Auxiliary variable - current hw flags */
-  LDD_FLASH_TAddress CurrentFlashAddress; /* Auxiliary variable - Current flash address */
 
   if ((DeviceDataPrv->CurrentOperationStatus != LDD_FLASH_RUNNING) && /* If there is not an operation in progress or pending then end */\
      (DeviceDataPrv->CurrentOperationStatus != LDD_FLASH_START) && \
@@ -581,12 +579,7 @@ PE_ISR(IntFlashLdd1_CommandCompleteInterrupt)
       break;
   } /* switch(DeviceDataPrv->CurrentOperation) */
   FTFL_PDD_SetFCCOBCommand(FTFL_BASE_PTR, DeviceDataPrv->CurrentCommand); /* Set the desired flash operation command */
-  if (DeviceDataPrv->CurrentFlashAddress >= FTFE_FLEXNVM_START_ADDR) {
-    CurrentFlashAddress = (LDD_FLASH_TAddress)((DeviceDataPrv->CurrentFlashAddress ^ FTFE_FLEXNVM_START_ADDR) | FTFE_FLEXNVM_CCOB_START_ADDR);
-  } else {
-    CurrentFlashAddress = DeviceDataPrv->CurrentFlashAddress;
-  }
-  FTFL_PDD_SetFCCOBAddress(FTFL_BASE_PTR, ((uint32_t)(CurrentFlashAddress - DstAddrOffset))); /* Set an address of the flash memory location for the current flash operation command */
+  FTFL_PDD_SetFCCOBAddress(FTFL_BASE_PTR, ((uint32_t)(DeviceDataPrv->CurrentFlashAddress - DstAddrOffset))); /* Set an address of the flash memory location for the current flash operation command */
   SafeRoutineCaller();                 /* Call of the safe routine caller - the safe routine's code will be placed to stack and run */
 }
 
@@ -637,23 +630,12 @@ void IntFlashLdd1_GetError(LDD_TDeviceData *DeviceDataPtr, LDD_FLASH_TErrorStatu
 */
 static LDD_TError RangeCheck(LDD_FLASH_TAddress Address, LDD_FLASH_TDataSize Size)
 {
-  if (Size != 0U) {
-    if (Address > IntFlashLdd1_PFLASH_SIZE) {
-      if ((Address < IntFlashLdd1_DFLASH_ADDRESS) || \
-         (Address > (IntFlashLdd1_DFLASH_ADDRESS + (IntFlashLdd1_DFLASH_SIZE - 1U))) || \
-         (Size > IntFlashLdd1_DFLASH_ADDRESS) || \
-         (Address > (IntFlashLdd1_DFLASH_ADDRESS + (IntFlashLdd1_DFLASH_SIZE - Size)))) {
-        return ERR_PARAM_ADDRESS;
-      }
-    } else {
-      if ((Size > IntFlashLdd1_PFLASH_SIZE) || (Address > (IntFlashLdd1_PFLASH_SIZE - Size))) {
-        return ERR_PARAM_ADDRESS;
-      }
-    }
-  } else {
+  if ((Size > IntFlashLdd1_PFLASH_SIZE) || (Size == 0U) || (Address > (IntFlashLdd1_PFLASH_SIZE - Size))) {
     return ERR_PARAM_ADDRESS;
   }
-  return ERR_OK;
+  else {
+    return ERR_OK;
+  }
 }
 
 /*

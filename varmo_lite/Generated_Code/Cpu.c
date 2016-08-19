@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-02, 09:21, # CodeGen: 155
+**     Date/Time   : 2016-08-18, 17:58, # CodeGen: 210
 **     Abstract    :
 **
 **     Settings    :
@@ -95,28 +95,23 @@
 **                  TMS Pin signal                         : 
 **                nTRST                                    : Disabled
 **            Flash memory organization                    : 
-**              FlexNVM settings                           : Partition code: 0xFFFF
+**              FlexNVM settings                           : Partition code: 0x0303
 **                FlexNVM size                             : 32 KB
-**                DFlash size                              : 32 KB
-**                EEPROM size                              : 0 bytes
+**                DFlash size                              : 0 KB
+**                EEPROM size                              : 2048 bytes
+**                  EEPROM split factor                    : Subsystem A: 1/8 , Subsystem B: 7/8
+**                  EEPROM backup size                     : 32 KB
 **                  Start                                  : 0x10000000
-**                  Size                                   : 0x0
+**                  Size                                   : 0x8000
 **                  Start                                  : 0x14000000
-**                  Size                                   : 0x0
-**                  FlexRAM                                : Disabled
-**              Flash blocks                               : 2
+**                  Size                                   : 0x800
+**              Flash blocks                               : 1
 **                Flash block 0                            : PFlash
 **                  Address                                : 0x0
 **                  Size                                   : 262144
 **                  Write unit size                        : 4
 **                  Erase unit size                        : 2048
 **                  Protection unit size                   : 8192
-**                Flash block 1                            : DFlash
-**                  Address                                : 0x10000000
-**                  Size                                   : 32768
-**                  Write unit size                        : 4
-**                  Erase unit size                        : 1024
-**                  Protection unit size                   : 4096
 **            Flexible memory controller                   : Disabled
 **            Flash configuration field                    : Enabled
 **              Security settings                          : 
@@ -170,7 +165,7 @@
 **                    Protection region 30                 : Unprotected
 **                    Protection region 31                 : Unprotected
 **                D-Flash protection settings              : 
-**                  Protection region size                 : 4096
+**                  Protection region size                 : 1024
 **                  D-Flash protection                     : 0xFF
 **                  Protection regions                     : 
 **                    Protection region 0                  : Unprotected
@@ -182,7 +177,7 @@
 **                    Protection region 6                  : Unprotected
 **                    Protection region 7                  : Unprotected
 **                Eeprom protection settings               : 
-**                  Protection region size                 : 0
+**                  Protection region size                 : 256
 **                  Eeprom protection                      : 0xFF
 **                  Protection regions                     : 
 **                    Protection region 0                  : Unprotected
@@ -337,14 +332,14 @@
 #include "CS1.h"
 #include "AS1.h"
 #include "ASerialLdd1.h"
-#include "IFsh1.h"
-#include "IntFlashLdd1.h"
 #include "LCD_CTR.h"
 #include "BitIoLdd6.h"
 #include "WAIT1.h"
 #include "LCD_EN.h"
 #include "BitIoLdd7.h"
 #include "TU1.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -600,14 +595,14 @@ void PE_low_level_init(void)
   /* ### CriticalSection "CS1" init code ... */
   /* ### Asynchro serial "AS1" init code ... */
   AS1_Init();
-  /* ### IntFLASH "IFsh1" init code ... */
-  IFsh1_Init();
   /* ### BitIO_LDD "BitIoLdd6" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)BitIoLdd6_Init(NULL);
   /* ### BitIO_LDD "BitIoLdd7" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)BitIoLdd7_Init(NULL);
   /* ### TimerUnit_LDD "TU1" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
   (void)TU1_Init(NULL);
+  /* ### IntFLASH "IFsh1" init code ... */
+  IFsh1_Init();
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

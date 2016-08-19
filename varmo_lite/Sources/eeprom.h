@@ -5,6 +5,11 @@
  *      Author: Adrian
  */
 
+#include "IFsh1.h"
+
+#include "stdint.h"
+#include "parameters.h"
+
 #ifndef SOURCES_EEPROM_H_
 #define SOURCES_EEPROM_H_
 
@@ -12,6 +17,8 @@
 extern "C" {
 #endif
 
+void load_cue(uint8_t, int);
+void write_cue(uint8_t, int);
 
 #ifdef __cplusplus
 }  /* extern "C" */

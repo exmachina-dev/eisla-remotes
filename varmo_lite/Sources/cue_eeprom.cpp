@@ -28,7 +28,7 @@ uint8_t get_cue_slot_free() {
   for (uint8_t i = 0; i < 50; i++) {
     eeAddress = (i) * 18;
     uint8_t *temp;
-    IFsh1_GetByteFlash(eeAddress, temp);
+    //IFsh1_GetByteFlash(eeAddress, temp);
     if (*temp != 1 && slot_free == 0) {
       j = i;
       slot_free = 1;
@@ -46,7 +46,7 @@ uint8_t get_cue_save(uint8_t * cue) {
   for (uint8_t i = 0; i < 50; i++) {
     eeAddress = (i) * 18;
     uint8_t *temp;
-    IFsh1_GetByteFlash(eeAddress, temp);
+   // IFsh1_GetByteFlash(eeAddress, temp);
 
     if (*temp == 1) {
       cue[j] = i + 1;
@@ -83,7 +83,7 @@ void write_cue_eeprom(uint8_t cue, float pos, float speed, float acceleration, f
   eeAddress = sizeof(writing) * (cue);
 
   uint8_t *temp;
-  IFsh1_GetByteFlash(eeAddress, temp);
+ // IFsh1_GetByteFlash(eeAddress, temp);
 
 
   if (*temp != 1)  {

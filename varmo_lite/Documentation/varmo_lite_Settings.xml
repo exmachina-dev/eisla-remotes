@@ -1505,164 +1505,6 @@ PE_DEBUGHALT();
       </event>
     </Events>
   </Bean>
-  <Bean name="IFsh1" type="IntFLASH">
-    <Enabled v="Y" />
-    <Properties>
-      <Component_name v="IFsh1" />
-      <FLASH v="FTFL" />
-      <inhrbean type="FLASH_LDD">
-        <Enabled v="Y" />
-        <Properties>
-          <Component_name v="IntFlashLdd1" />
-          <Device v="FTFL" />
-          <group name="Flash memory organization">
-            <list name="Flash blocks" v="2">
-              <group name="Flash block 0">
-                <Address v="0" />
-                <Size v="262144" />
-                <Write_unit_size v="4" />
-                <Erase_unit_size v="2048" />
-                <Protection_unit_size v="8192" />
-              </group>
-              <group name="Flash block 1">
-                <Address v="268435456" />
-                <Size v="32768" />
-                <Write_unit_size v="4" />
-                <Erase_unit_size v="1024" />
-                <Protection_unit_size v="4096" />
-              </group>
-            </list>
-          </group>
-          <boolgroup name="Use user memory areas" v="no" />
-          <enumgroup name="Interrupt service" v="Enabled">
-            <enumgroup name="Read batch size" v="Unlimited">
-              <EmptySection_DummyValue />
-            </enumgroup>
-            <group name="Command complete interrupt">
-              <Interrupt v="INT_FTFL" />
-              <Interrupt_priority v="medium priority" />
-            </group>
-            <group name="Read collision error interrupt">
-              <Interrupt v="INT_Read_Collision" />
-              <Interrupt_priority v="medium priority" />
-            </group>
-          </enumgroup>
-          <boolgroup name="Safe launch and wait" v="yes">
-            <enumgroup name="Safe routine location" v="On stack">
-              <EmptySection_DummyValue />
-            </enumgroup>
-            <Interruptable_wait_loop v="no" />
-          </boolgroup>
-          <group name="Initialization">
-            <Enabled_in_init__code v="yes" />
-            <group name="Event mask">
-              <OnOperationComplete v="Enabled" />
-              <OnError v="Enabled" />
-            </group>
-          </group>
-        </Properties>
-        <Methods>
-          <Init v="generate code" />
-          <Deinit v="don&amp;apos;t generate code" />
-          <Enable v="don&amp;apos;t generate code" />
-          <Disable v="don&amp;apos;t generate code" />
-          <GetEventMask v="don&amp;apos;t generate code" />
-          <SetEventMask v="don&amp;apos;t generate code" />
-          <Read v="generate code" />
-          <Write v="generate code" />
-          <Erase v="don&amp;apos;t generate code" />
-          <EraseBlock v="don&amp;apos;t generate code" />
-          <VerifyErasedBlock v="don&amp;apos;t generate code" />
-          <SetProtection v="don&amp;apos;t generate code" />
-          <GetErasableUnitSize v="don&amp;apos;t generate code" />
-          <GetOperationStatus v="generate code" />
-          <GetError v="generate code" />
-          <StopOperation v="don&amp;apos;t generate code" />
-          <SetSafeRoutineLocation v="don&amp;apos;t generate code" />
-          <Main v="generate code" />
-          <SetOperationMode v="don&amp;apos;t generate code" />
-          <GetDriverState v="generate code" />
-        </Methods>
-        <Events>
-          <Event_module_name v="Events" />
-          <event name="OnOperationComplete" v="generate code">
-            <Event_procedure_name v="IntFlashLdd1_OnOperationComplete" />
-          </event>
-          <event name="OnError" v="generate code">
-            <Event_procedure_name v="IntFlashLdd1_OnError" />
-          </event>
-        </Events>
-      </inhrbean>
-      <enumgroup name="Write method" v="Write">
-        <EmptySection_DummyValue />
-      </enumgroup>
-      <boolgroup name="Interrupt service/event" v="Enabled">
-        <group name="Command complete interrupt">
-          <Interrupt v="INT_FTFL" />
-          <Interrupt_priority v="medium priority" />
-        </group>
-        <group name="Read collision error interrupt">
-          <Interrupt v="INT_Read_Collision" />
-          <Interrupt_priority v="medium priority" />
-        </group>
-      </boolgroup>
-      <Wait_in_RAM v="yes" />
-      <boolgroup name="Virtual page" v="Disabled" />
-      <group name="Initialization">
-        <Events_enabled_in_init_ v="yes" />
-        <Wait_enabled_in_init_ v="yes" />
-      </group>
-      <group name="CPU clock/speed selection">
-        <FLASH_clock v="" />
-        <High_speed_mode v="This component enabled" />
-        <Low_speed_mode v="This component disabled" />
-        <Slow_speed_mode v="This component disabled" />
-      </group>
-    </Properties>
-    <Methods>
-      <DisableEvent v="generate code" />
-      <EnableEvent v="generate code" />
-      <SetWait v="don&amp;apos;t generate code" />
-      <Busy v="don&amp;apos;t generate code" />
-      <EraseFlash v="don&amp;apos;t generate code" />
-      <EraseVerify v="don&amp;apos;t generate code" />
-      <EraseSector v="don&amp;apos;t generate code" />
-      <SetByteFlash v="generate code" />
-      <GetByteFlash v="generate code" />
-      <SetWordFlash v="generate code" />
-      <GetWordFlash v="don&amp;apos;t generate code" />
-      <SetLongFlash v="don&amp;apos;t generate code" />
-      <GetLongFlash v="don&amp;apos;t generate code" />
-      <SetBlockFlash v="don&amp;apos;t generate code" />
-      <GetBlockFlash v="don&amp;apos;t generate code" />
-      <SetBytePage v="don&amp;apos;t generate code" />
-      <SetWordPage v="don&amp;apos;t generate code" />
-      <GetBytePage v="don&amp;apos;t generate code" />
-      <GetWordPage v="don&amp;apos;t generate code" />
-      <SetLongPage v="don&amp;apos;t generate code" />
-      <GetLongPage v="don&amp;apos;t generate code" />
-      <SetVirtualPageAddr v="don&amp;apos;t generate code" />
-      <RestoreToFlash v="don&amp;apos;t generate code" />
-      <SetPage v="don&amp;apos;t generate code" />
-      <GetPage v="don&amp;apos;t generate code" />
-      <DataPtr2Addr v="don&amp;apos;t generate code" />
-      <FuncPtr2Addr v="don&amp;apos;t generate code" />
-    </Methods>
-    <Events>
-      <Event_module_name v="Events" />
-      <event name="OnWritePageEnd" v="don&amp;apos;t generate code" />
-      <event name="OnWriteEnd" v="generate code">
-        <Event_procedure_name v="IFsh1_OnWriteEnd" />
-        <Priority v="same as interrupt" />
-      </event>
-      <event name="OnSaveBuffer" v="don&amp;apos;t generate code" />
-      <event name="OnRestoreBuffer" v="don&amp;apos;t generate code" />
-      <event name="OnEraseError" v="don&amp;apos;t generate code" />
-      <event name="OnAccessError" v="don&amp;apos;t generate code" />
-      <event name="OnReadCollisionError" v="don&amp;apos;t generate code" />
-      <event name="OnProtectionViolation" v="don&amp;apos;t generate code" />
-    </Events>
-  </Bean>
   <Bean name="LCD_CTR" type="BitIO">
     <Enabled v="Y" />
     <Properties>
@@ -1888,6 +1730,157 @@ PE_DEBUGHALT();
       <event name="OnChannel5" v="don&amp;apos;t generate code" />
       <event name="OnChannel6" v="don&amp;apos;t generate code" />
       <event name="OnChannel7" v="don&amp;apos;t generate code" />
+    </Events>
+  </Bean>
+  <Bean name="IFsh1" type="IntFLASH">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="IFsh1" />
+      <FLASH v="FTFL" />
+      <inhrbean type="FLASH_LDD">
+        <Enabled v="Y" />
+        <Properties>
+          <Component_name v="IntFlashLdd1" />
+          <Device v="FTFL" />
+          <group name="Flash memory organization">
+            <list name="Flash blocks" v="1">
+              <group name="Flash block 0">
+                <Address v="0" />
+                <Size v="262144" />
+                <Write_unit_size v="4" />
+                <Erase_unit_size v="2048" />
+                <Protection_unit_size v="8192" />
+              </group>
+            </list>
+          </group>
+          <boolgroup name="Use user memory areas" v="no" />
+          <enumgroup name="Interrupt service" v="Enabled">
+            <enumgroup name="Read batch size" v="Unlimited">
+              <EmptySection_DummyValue />
+            </enumgroup>
+            <group name="Command complete interrupt">
+              <Interrupt v="INT_FTFL" />
+              <Interrupt_priority v="medium priority" />
+            </group>
+            <group name="Read collision error interrupt">
+              <Interrupt v="INT_Read_Collision" />
+              <Interrupt_priority v="medium priority" />
+            </group>
+          </enumgroup>
+          <boolgroup name="Safe launch and wait" v="yes">
+            <enumgroup name="Safe routine location" v="On stack">
+              <EmptySection_DummyValue />
+            </enumgroup>
+            <Interruptable_wait_loop v="no" />
+          </boolgroup>
+          <group name="Initialization">
+            <Enabled_in_init__code v="yes" />
+            <group name="Event mask">
+              <OnOperationComplete v="Enabled" />
+              <OnError v="Enabled" />
+            </group>
+          </group>
+        </Properties>
+        <Methods>
+          <Init v="generate code" />
+          <Deinit v="don&amp;apos;t generate code" />
+          <Enable v="don&amp;apos;t generate code" />
+          <Disable v="don&amp;apos;t generate code" />
+          <GetEventMask v="don&amp;apos;t generate code" />
+          <SetEventMask v="don&amp;apos;t generate code" />
+          <Read v="generate code" />
+          <Write v="generate code" />
+          <Erase v="don&amp;apos;t generate code" />
+          <EraseBlock v="don&amp;apos;t generate code" />
+          <VerifyErasedBlock v="don&amp;apos;t generate code" />
+          <SetProtection v="don&amp;apos;t generate code" />
+          <GetErasableUnitSize v="don&amp;apos;t generate code" />
+          <GetOperationStatus v="generate code" />
+          <GetError v="generate code" />
+          <StopOperation v="don&amp;apos;t generate code" />
+          <SetSafeRoutineLocation v="don&amp;apos;t generate code" />
+          <Main v="generate code" />
+          <SetOperationMode v="don&amp;apos;t generate code" />
+          <GetDriverState v="generate code" />
+        </Methods>
+        <Events>
+          <Event_module_name v="Events" />
+          <event name="OnOperationComplete" v="generate code">
+            <Event_procedure_name v="IntFlashLdd1_OnOperationComplete" />
+          </event>
+          <event name="OnError" v="generate code">
+            <Event_procedure_name v="IntFlashLdd1_OnError" />
+          </event>
+        </Events>
+      </inhrbean>
+      <enumgroup name="Write method" v="Write">
+        <EmptySection_DummyValue />
+      </enumgroup>
+      <boolgroup name="Interrupt service/event" v="Enabled">
+        <group name="Command complete interrupt">
+          <Interrupt v="INT_FTFL" />
+          <Interrupt_priority v="medium priority" />
+        </group>
+        <group name="Read collision error interrupt">
+          <Interrupt v="INT_Read_Collision" />
+          <Interrupt_priority v="medium priority" />
+        </group>
+      </boolgroup>
+      <Wait_in_RAM v="yes" />
+      <boolgroup name="Virtual page" v="Disabled" />
+      <group name="Initialization">
+        <Events_enabled_in_init_ v="yes" />
+        <Wait_enabled_in_init_ v="yes" />
+      </group>
+      <group name="CPU clock/speed selection">
+        <FLASH_clock v="" />
+        <High_speed_mode v="This component enabled" />
+        <Low_speed_mode v="This component disabled" />
+        <Slow_speed_mode v="This component disabled" />
+      </group>
+    </Properties>
+    <Methods>
+      <DisableEvent v="generate code" />
+      <EnableEvent v="generate code" />
+      <SetWait v="don&amp;apos;t generate code" />
+      <Busy v="don&amp;apos;t generate code" />
+      <EraseFlash v="don&amp;apos;t generate code" />
+      <EraseVerify v="don&amp;apos;t generate code" />
+      <EraseSector v="don&amp;apos;t generate code" />
+      <SetByteFlash v="generate code" />
+      <GetByteFlash v="generate code" />
+      <SetWordFlash v="generate code" />
+      <GetWordFlash v="generate code" />
+      <SetLongFlash v="generate code" />
+      <GetLongFlash v="generate code" />
+      <SetBlockFlash v="don&amp;apos;t generate code" />
+      <GetBlockFlash v="don&amp;apos;t generate code" />
+      <SetBytePage v="don&amp;apos;t generate code" />
+      <SetWordPage v="don&amp;apos;t generate code" />
+      <GetBytePage v="don&amp;apos;t generate code" />
+      <GetWordPage v="don&amp;apos;t generate code" />
+      <SetLongPage v="don&amp;apos;t generate code" />
+      <GetLongPage v="don&amp;apos;t generate code" />
+      <SetVirtualPageAddr v="don&amp;apos;t generate code" />
+      <RestoreToFlash v="don&amp;apos;t generate code" />
+      <SetPage v="don&amp;apos;t generate code" />
+      <GetPage v="don&amp;apos;t generate code" />
+      <DataPtr2Addr v="don&amp;apos;t generate code" />
+      <FuncPtr2Addr v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="OnWritePageEnd" v="don&amp;apos;t generate code" />
+      <event name="OnWriteEnd" v="generate code">
+        <Event_procedure_name v="IFsh1_OnWriteEnd" />
+        <Priority v="same as interrupt" />
+      </event>
+      <event name="OnSaveBuffer" v="don&amp;apos;t generate code" />
+      <event name="OnRestoreBuffer" v="don&amp;apos;t generate code" />
+      <event name="OnEraseError" v="don&amp;apos;t generate code" />
+      <event name="OnAccessError" v="don&amp;apos;t generate code" />
+      <event name="OnReadCollisionError" v="don&amp;apos;t generate code" />
+      <event name="OnProtectionViolation" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
 </PE_PROJECT_SETTINGS_DOCUMENTATION>

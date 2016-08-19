@@ -523,24 +523,6 @@ void AS1_OnFreeTxBuf(void)
 
 /*
 ** ===================================================================
-**     Event       :  IFsh1_OnWriteEnd (module Events)
-**
-**     Component   :  IFsh1 [IntFLASH]
-*/
-/*!
-**     @brief
-**         Event is called after a write operation to FLASH memory is
-**         finished (except [SetPage]). This event is available only if
-**         an [Interrupt service/event] is selected.
-*/
-/* ===================================================================*/
-void IFsh1_OnWriteEnd(void)
-{
-  /* Write your code here ... */
-}
-
-/*
-** ===================================================================
 **     Event       :  TU1_OnCounterRestart (module Events)
 **
 **     Component   :  TU1 [TimerUnit_LDD]
@@ -563,6 +545,24 @@ void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
 
 	FLAG_DEBOUNCE = 1;
 	//TU1_Disable(TU1_DeviceData);
+}
+
+/*
+** ===================================================================
+**     Event       :  IFsh1_OnWriteEnd (module Events)
+**
+**     Component   :  IFsh1 [IntFLASH]
+*/
+/*!
+**     @brief
+**         Event is called after a write operation to FLASH memory is
+**         finished (except [SetPage]). This event is available only if
+**         an [Interrupt service/event] is selected.
+*/
+/* ===================================================================*/
+void IFsh1_OnWriteEnd(void)
+{
+  /* Write your code here ... */
 }
 
 /* END Events */
