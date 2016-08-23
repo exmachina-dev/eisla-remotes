@@ -22,22 +22,7 @@
 extern "C" {
 #endif
 
-struct data_eeprom_struc {
-  byte data;
-  byte cue_num;
-  float pos;
-  float pos_speed;
-  float acc;
-  float dec;
-};
-
-uint8_t get_cue_slot_free();
-uint8_t get_cue_save(uint8_t *);
-void erase_cue_eeprom(uint8_t , uint8_t *);
-uint8_t get_cue_status(uint8_t );
-void write_cue_eeprom(uint8_t , float , float , float , float );
-void reading_cue_eeprom(uint8_t * , uint8_t , float *, float *, float *, float *);
-
+extern uint8_t cue_saved[50];
 
 #ifdef __cplusplus
 }  /* extern "C" */

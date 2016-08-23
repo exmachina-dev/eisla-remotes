@@ -46,6 +46,8 @@
 #include "menu.h"
 #include "encoder_variable.h"
 #include "send.h"
+#include "eeprom.h"
+#include "cue.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,6 +60,7 @@ int vspfunc(char *, ...);
 
 void print_float_at(float, int,bool, int, int);
 void print_int_at(int, bool, int, int);
+void print_all_cue_array(uint8_t);
 
 void led_init(int);
 void load_char(void);
@@ -76,6 +79,8 @@ void control_mode_fct(void);
 void update_icon_dir(bool, bool);
 void update_icon_drive_enable(void);
 
+void back_fct(void);
+
 void velocity_fct(void);
 void acceleration_fct(void);
 void deceleration_fct(void);
@@ -90,7 +95,15 @@ void torque_fct(void);
 void torque_rise_fct(void);
 void torque_fall_fct(void);
 
-void back_fct(void);
+void pos_play_cue_fct(void);
+void pos_rec_cue_fct(void);
+void pos_mod_cue_fct(void);
+void pos_del_cue_fct(void);
+
+void vel_play_cue_fct(void);
+void vel_rec_cue_fct(void);
+void vel_mod_cue_fct(void);
+void vel_del_cue_fct(void);
 
 void short_cut_position_menu(void);
 

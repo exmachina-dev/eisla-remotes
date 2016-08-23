@@ -14,29 +14,21 @@ extern "C" {
 
 sub_menu2 back_sub_menu = init_sub_menu2((char *)"Back", 1, back_fct);
 
-sub_menu2 vel_play_cue = init_sub_menu2((char *)"Play Cue      ", 1, velocity_fct);
-sub_menu2 vel_rec_cue = init_sub_menu2((char *)"Record Cue    ", 1, acceleration_fct);
-sub_menu2 vel_mod_cue = init_sub_menu2((char *)"Modify Cue    ", 1, acceleration_fct);
-sub_menu2 vel_del_cue = init_sub_menu2((char *)"Delete Cue    ", 1, acceleration_fct);
+sub_menu2 vel_play_cue = init_sub_menu2((char *)"Play Cue      ", 1, vel_play_cue_fct);
+sub_menu2 vel_rec_cue = init_sub_menu2((char *)"Record Cue    ", 1, vel_rec_cue_fct);
+sub_menu2 vel_mod_cue = init_sub_menu2((char *)"Modify Cue    ", 1, vel_mod_cue_fct);
+sub_menu2 vel_del_cue = init_sub_menu2((char *)"Delete Cue    ", 1, vel_del_cue_fct);
 
 sub_menu2 sub_menu_velocity_cue[]= {vel_play_cue, vel_rec_cue, vel_mod_cue, vel_del_cue, back_sub_menu};
-sub_menu2_list menu_velocity_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu       ");
+sub_menu2_list menu_velocity_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu Vel    ");
 
-sub_menu2 pos_play_cue = init_sub_menu2((char *)"Play Cue      ", 1, velocity_fct);
-sub_menu2 pos_rec_cue = init_sub_menu2((char *)"Record Cue    ", 1, acceleration_fct);
-sub_menu2 pos_mod_cue = init_sub_menu2((char *)"Modify Cue    ", 1, acceleration_fct);
-sub_menu2 pos_del_cue = init_sub_menu2((char *)"Delete Cue    ", 1, acceleration_fct);
+sub_menu2 pos_play_cue = init_sub_menu2((char *)"Play Cue      ", 1, pos_play_cue_fct);
+sub_menu2 pos_rec_cue = init_sub_menu2((char *)"Record Cue    ", 1, pos_rec_cue_fct);
+sub_menu2 pos_mod_cue = init_sub_menu2((char *)"Modify Cue    ", 1, pos_mod_cue_fct);
+sub_menu2 pos_del_cue = init_sub_menu2((char *)"Delete Cue    ", 1, pos_del_cue_fct);
 
 sub_menu2 sub_menu_pos_cue[]= {pos_play_cue, pos_rec_cue, pos_mod_cue, pos_del_cue, back_sub_menu};
-sub_menu2_list menu_pos_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu       ");
-
-sub_menu2 tor_play_cue = init_sub_menu2((char *)"Play Cue      ", 1, velocity_fct);
-sub_menu2 tor_rec_cue = init_sub_menu2((char *)"Record Cue    ", 1, acceleration_fct);
-sub_menu2 tor_mod_cue = init_sub_menu2((char *)"Modify Cue    ", 1, acceleration_fct);
-sub_menu2 tor_del_cue = init_sub_menu2((char *)"Delete Cue    ", 1, acceleration_fct);
-
-sub_menu2 sub_menu_tor_cue[]= {tor_play_cue, tor_rec_cue, tor_mod_cue, tor_del_cue, back_sub_menu};
-sub_menu2_list menu_tor_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu       ");
+sub_menu2_list menu_pos_cue = init_sub_menu2_list(sub_menu_pos_cue, sizeof(sub_menu_pos_cue)/sizeof(sub_menu_pos_cue[0]), (char*)"Cue Menu Pos    ");
 
 
 sub_menu back_menu = init_sub_menu((char *)"Back",1,{0}, back_fct);
@@ -53,8 +45,8 @@ sub_menu pos_position = init_sub_menu((char *)"Postion     ",1,{0}, pos_position
 sub_menu pos_velocity = init_sub_menu((char *)"Velocity    ",1,{0}, pos_velocity_fct);
 sub_menu pos_acc = 		init_sub_menu((char *)"Acceleration",1,{0}, pos_acceleration_fct);
 sub_menu pos_dec = 		init_sub_menu((char *)"Deceleration",1,{0}, pos_deceleration_fct);
-sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, {0}, void_function);
-sub_menu pos_set_home = init_sub_menu((char *)"Set Home", 1, menu_pos_cue, pos_set_home_fct);
+sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, menu_pos_cue, void_function);
+sub_menu pos_set_home = init_sub_menu((char *)"Set Home", 1, {0}, pos_set_home_fct);
 
 sub_menu sub_menu_position[] = {pos_position, pos_velocity, pos_acc, pos_dec, pos_cue, pos_set_home,back_menu};
 sub_menu_list menu_position = init_sub_menu_list(sub_menu_position, sizeof(sub_menu_position)/sizeof(sub_menu_position[0]), (char*)"Postion Menu ");
@@ -62,9 +54,8 @@ sub_menu_list menu_position = init_sub_menu_list(sub_menu_position, sizeof(sub_m
 sub_menu tor_torque = 		init_sub_menu((char *)"Torque        ",1,{0}, torque_fct);
 sub_menu tor_torque_rise = 	init_sub_menu((char *)"Torque Rise   ",1,{0}, torque_rise_fct);
 sub_menu tor_torque_fall = 	init_sub_menu((char *)"Torque Fall   ",1,{0}, torque_fall_fct);
-sub_menu tor_cue = 			init_sub_menu((char *)"Cue           ",0, menu_tor_cue, void_function);
 
-sub_menu sub_menu_torque[] = {tor_torque, tor_torque_rise, tor_torque_fall, tor_cue, back_menu};
+sub_menu sub_menu_torque[] = {tor_torque, tor_torque_rise, tor_torque_fall, back_menu};
 sub_menu_list menu_torque = init_sub_menu_list(sub_menu_torque, sizeof(sub_menu_torque)/sizeof(sub_menu_torque[0]), (char*)"Torque Menu  ");
 
 menu velocity = init_menu((char *)"Velocity      ", menu_velocity,1);
@@ -137,6 +128,47 @@ void print_int_at(int value,bool absolute, int y, int x){
 	}
 	vspfunc((char*)"%4d", value);
 	LCD_Write_Block(buffer, y, x);
+}
+
+void print_all_cue_array(uint8_t pointer){
+	uint8_t temp = pointer;
+	uint8_t max = 2;
+	uint8_t min = 2;
+	uint8_t cursor = 1;
+
+	if(temp == 2){
+		LCD_Write_Block((char*)"     ",2,0);
+		min = 1;
+		cursor = 4;
+	}
+	else if (temp == 1){
+		LCD_Write_Block((char*)"      ",2,0);
+		min = 0;
+		cursor = 7;
+	}
+	else if (temp == 50){
+		LCD_Write_Block((char*)"     ",2,10);
+		max = 0;
+	}
+	else if (temp == 49){
+		LCD_Write_Block((char*)"   ",2,13);
+		max = 1;
+	}
+
+	for(uint8_t i = temp-min; i <= temp+ max; i++){
+		vspfunc((char*)"%02d", i);
+		LCD_Write_Block(buffer, 2, cursor);
+		cursor += 3;
+	}
+
+	if((temp + 2) < 50){
+		LCD_Write_At(arrow_right, 2, 15);
+	}
+	if ((temp - 2)>0){
+		LCD_Write_At(arrow_left, 2, 0);
+	}
+	LCD_Write_At(vertical_bar,2, 6);
+	LCD_Write_At(vertical_bar,2, 9);
 }
 
 void led_init(int counter){
@@ -351,6 +383,18 @@ void refresh_fct(int flag){
 		case Velocity_dec_selected:
 			deceleration_fct();
 			break;
+		case Vel_play_cue:
+			vel_play_cue_fct();
+			break;
+		case Vel_Rec_cue:
+			vel_rec_cue_fct();
+			break;
+		case Vel_Mod_cue:
+			vel_mod_cue_fct();
+			break;
+		case Vel_Del_cue:
+			vel_del_cue_fct();
+			break;
 		case Position_selected:
 			pos_position_fct();
 			break;
@@ -375,6 +419,8 @@ void refresh_fct(int flag){
 		case Torque_fall_selected:
 			torque_fall_fct();
 			break;
+
+
 	}
 }
 
@@ -769,6 +815,107 @@ void torque_fall_fct(){
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(tor.torque_fall,0,1,2, 0);
 	}
+}
+
+void pos_play_cue_fct(void){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		//menu_indicator
+		LCD_Write_Block((char*)"Play cue pos",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
+
+		get_slot_saved(CONTROL_MODE, cue_saved);
+
+
+		if (cue_saved[0] == 0){
+			//No cue saved
+			LCD_Write_Block((char*)"No cue saved", 2, 0);
+		}
+		else{
+
+		}
+	}
+}
+
+void pos_rec_cue_fct(void){
+	if(FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		//menu_indicator =
+		LCD_Write_Block((char*)"Record cue Pos",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
+
+		print_all_cue_array(5);
+	}
+}
+
+void pos_mod_cue_fct(void){
+
+}
+void pos_del_cue_fct(void){
+
+}
+
+void vel_play_cue_fct(void){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		menu_indicator = Vel_play_cue;
+		LCD_Write_Block((char*)"Play cue Vel ",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
+
+
+		get_slot_saved(CONTROL_MODE, cue_saved);
+
+		if (cue_saved[0] == 0){
+			//No cue saved
+			LCD_Write_Block((char*)"No cue saved", 2, 0);
+		}
+		else{
+
+		}
+
+	}
+	else{
+
+	}
+}
+
+void vel_rec_cue_fct(void){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		encoder = 1;
+		menu_indicator = Vel_Rec_cue;
+		LCD_Write_Block((char*)"Record cue Vel",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
+		print_all_cue_array(encoder);
+	}
+	else{
+		if(encoder < 1){
+			encoder = 1;
+		}
+		else if (encoder > 50){
+			encoder = 50;
+		}
+		else{
+			print_all_cue_array(encoder);
+		}
+	}
+
+}
+
+void vel_mod_cue_fct(void){
+
+}
+
+void vel_del_cue_fct(void){
+
 }
 
 void short_cut_position_menu(){

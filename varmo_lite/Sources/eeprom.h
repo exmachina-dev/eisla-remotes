@@ -20,6 +20,12 @@ extern "C" {
 void load_cue(uint8_t, int);
 void write_cue(uint8_t, int);
 
+void erase_cue(uint8_t, int);
+
+uint8_t get_next_slot_free(int);
+
+void get_slot_saved(int, uint8_t *);
+
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif

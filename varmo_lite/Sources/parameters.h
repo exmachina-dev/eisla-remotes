@@ -17,14 +17,18 @@ extern "C" {
 #define Velocity_selected 1
 #define Velocity_acc_selected 2
 #define Velocity_dec_selected 3
-#define Position_selected 4
-#define Position_vel_selected 5
-#define Position_acc_selected 6
-#define Position_dec_selected 7
-#define Position_set_home 8
-#define Torque_selected 9
-#define Torque_rise_selected 10
-#define Torque_fall_selected 11
+#define Vel_play_cue 4
+#define Vel_Rec_cue 5
+#define Vel_Mod_cue 6
+#define Vel_Del_cue 7
+#define Position_selected 8
+#define Position_vel_selected 9
+#define Position_acc_selected 10
+#define Position_dec_selected 11
+#define Position_set_home 12
+#define Torque_selected 13
+#define Torque_rise_selected 14
+#define Torque_fall_selected 15
 
 extern int menu_indicator;
 

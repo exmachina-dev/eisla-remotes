@@ -21,6 +21,9 @@ extern "C" {
 #define DIR_off 6
 #define drive_enable 7
 #define not_drive_enable 0x78
+#define arrow_right 0x7E
+#define arrow_left 0x7F
+
 
 extern bool FLAG_CONTROL_MODE;
 
