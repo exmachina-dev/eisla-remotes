@@ -19,7 +19,7 @@
 extern "C" {
 #endif
 
-char in_buffer[127];
+char in_buffer[512];
 uint8_t cnt;
 bool FLAG_MSG_RCV;
 bool FLAG_MSG_ERR;

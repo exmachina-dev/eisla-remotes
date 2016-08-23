@@ -153,9 +153,6 @@ void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
         LED_STATUS_1_SetVal();
         LED_STATUS_2_ClrVal();
     }
-	//PCA9670_Init();
-	//LCD_Init();
-	//test_protocol();
 }
 
 /*
@@ -438,14 +435,10 @@ void AS1_OnRxCharExt(AS1_TComData Chr)
 	if (cnt > 0){
 		if (Chr == '\n' && in_buffer[cnt-1] == '\r'){
 				//End of a message
-				char test = in_buffer[cnt-1];
-				int ints = cnt;
 
 				in_buffer[cnt] = Chr;
-
 				FLAG_MSG_RCV = 1;
 				LED_STATUS_3_ClrVal();
-
 				AS1_ClearRxBuf();
 		}
 		else{
@@ -456,9 +449,11 @@ void AS1_OnRxCharExt(AS1_TComData Chr)
 				in_buffer[cnt]= Chr;
 			}
 			cnt ++;
-			LED_STATUS_3_SetVal();
-			//AS1_ClearRxBuf();
 		}
+	}
+	else if(cnt>512){
+		LED_STATUS_3_ClrVal();
+		AS1_ClearRxBuf();
 	}
 	else{
 		in_buffer[cnt]= Chr;
@@ -501,6 +496,7 @@ void AS1_OnTxChar(void)
 void AS1_OnFullRxBuf(void)
 {
 	AS1_ClearRxBuf();
+	LED_STATUS_3_ClrVal();
 	FLAG_MSG_ERR = 1;
 }
 

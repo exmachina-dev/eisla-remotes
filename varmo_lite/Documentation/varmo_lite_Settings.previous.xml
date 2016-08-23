@@ -294,7 +294,7 @@ PE_DEBUGHALT();
       </enumgroup>
       <enumgroup name="Counter restart" v="On-match">
         <Period_device v="FTM0_MOD" />
-        <Period v="500 ms" />
+        <Period v="1 sec" />
         <boolgroup name="Interrupt" v="Enabled">
           <Interrupt v="INT_FTM0" />
           <Interrupt_priority v="medium priority" />
@@ -1851,7 +1851,7 @@ PE_DEBUGHALT();
       <GetByteFlash v="generate code" />
       <SetWordFlash v="generate code" />
       <GetWordFlash v="generate code" />
-      <SetLongFlash v="don&amp;apos;t generate code" />
+      <SetLongFlash v="generate code" />
       <GetLongFlash v="generate code" />
       <SetBlockFlash v="don&amp;apos;t generate code" />
       <GetBlockFlash v="don&amp;apos;t generate code" />

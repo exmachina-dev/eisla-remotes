@@ -170,7 +170,7 @@ void print_all_cue_array(uint8_t pointer){
 	LCD_Write_At(vertical_bar,2, 6);
 	LCD_Write_At(vertical_bar,2, 9);
 }
-
+/*
 void led_init(int counter){
 	if ((counter%4) == 0){
 		LED_STATUS_1_SetVal();
@@ -196,7 +196,7 @@ void led_init(int counter){
 		LED_STATUS_3_ClrVal();
 		LED_STATUS_4_SetVal();
 	}
-}
+}*/
 
 void load_char(){
   uint8_t row[8] = {

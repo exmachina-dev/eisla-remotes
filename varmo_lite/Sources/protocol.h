@@ -60,7 +60,7 @@ static const char *Control_Mode = "machine.command.control_mode";
 
 static const char *Device_serial_num = "machine.serialnumber";
 
-extern char in_buffer[127];
+extern char in_buffer[512];
 extern uint8_t cnt;
 extern bool FLAG_MSG_RCV;
 extern bool FLAG_MSG_ERR;
