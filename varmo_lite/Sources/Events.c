@@ -218,14 +218,16 @@ void LEVER_DIR1_OnInterrupt(void)
 */
 void ENCODER_PUSH_OnInterrupt(void)
 {
-    if (ENCODER_PUSH_GetVal() == 0 && FLAG_PUSH_LONG == 0 && FLAG_PUSH_SHORT == 0){ //Encoder Pushed
+	WAIT1_Waitms(5);
+	bool encoder_value = ENCODER_PUSH_GetVal();
+    if (encoder_value == 0 && FLAG_PUSH_LONG == 0 && FLAG_PUSH_SHORT == 0){ //Encoder Pushed
     	counter_100ms = 0;
         FLAG_PUSH_SHORT = 0;
         FLAG_PUSH_LONG = 0;
         T_100ms_Enable(T_100ms_DeviceData);
 
     }
-    else if (ENCODER_PUSH_GetVal() == 1 && counter_100ms < 5 && FLAG_PUSH_LONG == 0 && FLAG_PUSH_SHORT == 0){
+    else if (encoder_value == 1 && counter_100ms < 5 && FLAG_PUSH_LONG == 0 && FLAG_PUSH_SHORT == 0){
         T_100ms_Disable(T_100ms_DeviceData);
         counter_100ms = 5;
         FLAG_PUSH_SHORT = 1;

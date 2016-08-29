@@ -18,7 +18,7 @@ extern "C" {
 #endif
 
 #define velocity_offset 0x30410
-#define position_offset 0X00
+#define position_offset 0X30820
 
 typedef union {
 	float Tofloat;
