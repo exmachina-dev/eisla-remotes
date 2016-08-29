@@ -37,6 +37,20 @@ void select_cue(uint8_t encoder, uint8_t flag){
 				erase_cue(cue_saved[encoder-1] - 1, CONTROL_MODE);
 				cue_saved_size = get_slot_saved(CONTROL_MODE, cue_saved);
 				break;
+			case Pos_play_cue:
+				load_cue(cue_saved[encoder-1] - 1, CONTROL_MODE);
+				send_position_cue();
+				break;
+			case Pos_Rec_cue:
+				write_cue(encoder -1, CONTROL_MODE);
+				break;
+			case Pos_Mod_cue:
+				load_cue(cue_saved[encoder-1] - 1, CONTROL_MODE);
+				break;
+			case Pos_Del_cue:
+				erase_cue(cue_saved[encoder-1] - 1, CONTROL_MODE);
+				cue_saved_size = get_slot_saved(CONTROL_MODE, cue_saved);
+				break;
 		}
 	}
 }

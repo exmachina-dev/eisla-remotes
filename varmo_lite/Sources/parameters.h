@@ -26,9 +26,13 @@ extern "C" {
 #define Position_acc_selected 10
 #define Position_dec_selected 11
 #define Position_set_home 12
-#define Torque_selected 13
-#define Torque_rise_selected 14
-#define Torque_fall_selected 15
+#define Pos_play_cue 13
+#define Pos_Rec_cue 14
+#define Pos_Mod_cue 15
+#define Pos_Del_cue 16
+#define Torque_selected 17
+#define Torque_rise_selected 18
+#define Torque_fall_selected 19
 
 extern bool FLAG_REC;
 

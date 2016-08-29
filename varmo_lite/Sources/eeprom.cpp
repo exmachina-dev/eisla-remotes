@@ -40,8 +40,7 @@ void load_cue(uint8_t nb_cue, int mode){
 	}
 	else if (mode == 3){
 		//Position
-		offset = 650;
-		addr = offset + (nb_cue * 13);
+		addr = position_offset + (nb_cue * 13);
 		byte temp;
 		if ((temp || 0x80 >> 7) == 1 ){
 			//Data Ok
@@ -93,8 +92,7 @@ void write_cue(uint8_t nb_cue, int mode){
 	}
 	else if (mode == 3){
 		//Position
-		offset = 650;
-		addr = offset + (nb_cue  * 13);
+		addr = position_offset + (nb_cue  * 13);
 		byte temp;
 		if ((temp || 0x80 >> 7) == 1 ){
 			//Data Ok
@@ -121,13 +119,11 @@ void erase_cue(uint8_t nb_cue, int mode){
 	int offset;
 	int addr;
 	if (mode == 2){
-		//nb_cue = cue_saved[cue] - 1;
 		addr = velocity_offset + nb_cue * 13;
 		IFsh1_SetByteFlash(addr, 0x00);
 	}
 	else if (mode == 3){
-		offset= 650;
-		addr = offset + nb_cue * 17;
+		addr = position_offset + nb_cue * 17;
 		IFsh1_SetByteFlash(addr, 0x00);
 	}
 }
@@ -157,8 +153,7 @@ uint8_t get_next_slot_free(int mode){
 		bool slot_free;
 
 		byte temp;
-		offset = 650;
-		addr = offset + cue * 17;
+		addr = position_offset + cue * 17;
 		while (slot_free == 0 || cue != 50){
 			IFsh1_GetByteFlash(addr, &temp);
 			if (temp == 0){
@@ -194,11 +189,10 @@ uint8_t get_slot_saved(int mode, uint8_t *slot_saved){
 		}
 	}
 	else if(mode == 3){
-		offset = 650;
-		addr = offset;
+		addr = position_offset;
 		for (uint8_t i = 0; i<50; i++){
 			byte temp;
-			addr = offset +  i * 17;
+			addr = position_offset +  i * 17;
 			IFsh1_GetByteFlash(addr, &temp);
 			if ((temp || 0x80 >> 7) == 1 ){
 				slot_saved[cue] = i;
@@ -233,9 +227,21 @@ cue_parameter get_cue_values(int mode, uint8_t nb_cue){
 		}
 	}
 	else if(mode == 3){
-		offset = 650;
-		addr = offset;
-
+		byte temp;
+		addr = position_offset +  nb_cue * 13;
+		IFsh1_GetByteFlash(addr, &temp);
+		if (temp  == 0X80 ){
+			cue.data = 1;
+			addr += 1;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			cue.position = data.Tofloat;
+			addr += 4;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			cue.velocity = data.Tofloat;
+		}
+		else{
+			cue.data = 0;
+		}
 	}
 	return cue;
 
