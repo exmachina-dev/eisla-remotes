@@ -318,6 +318,8 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 	}
 	if(counter_2s == 4){
 		FLAG_CUE_SELECTED = 0;
+		FLAG_UPDATE_CUE = 1;
+		counter_2s = 0;
 	}
 
 	if (FLAG_STOP == 1){

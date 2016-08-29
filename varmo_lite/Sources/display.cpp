@@ -137,21 +137,21 @@ void print_cue_array(uint8_t pointer, uint8_t array[50], uint8_t length){
 	uint8_t cursor = 1;
 	if (length > 3){
 		if(temp == 2){
-			LCD_Write_Block((char*)"     ",2,0);
+			LCD_Write_Block((char*)"     ",1,0);
 			min = 1;
 			cursor = 4;
 		}
 		else if (temp == 1){
-			LCD_Write_Block((char*)"      ",2,0);
+			LCD_Write_Block((char*)"      ",1,0);
 			min = 0;
 			cursor = 7;
 		}
 		else if (temp == length){
-			LCD_Write_Block((char*)"     ",2,10);
+			LCD_Write_Block((char*)"     ",1,10);
 			max = 0;
 		}
 		else if (temp == length -1){
-			LCD_Write_Block((char*)"   ",2,13);
+			LCD_Write_Block((char*)"   ",1,13);
 			max = 1;
 		}
 	}
@@ -159,38 +159,38 @@ void print_cue_array(uint8_t pointer, uint8_t array[50], uint8_t length){
 		min = temp - 1;
 		max = 3- temp;
 		cursor = 7 -(temp -1) *3;
-		LCD_Write_Block((char*)"      ",2,0);
-		LCD_Write_Block((char*)"       ",2,9);
+		LCD_Write_Block((char*)"      ",1,0);
+		LCD_Write_Block((char*)"       ",1,9);
 	}
 	else if (length == 2){
 		cursor = 7 -(temp -1) *3;
 		min = temp -1;
 		max = 2 - temp;
-		LCD_Write_Block((char*)"      ",2,0);
-		LCD_Write_Block((char*)"     ",2,9);
+		LCD_Write_Block((char*)"      ",1,0);
+		LCD_Write_Block((char*)"     ",1,9);
 	}
 	else if(length == 1){
 		cursor = 7;
 		min = 0;
 		max = 0;
-		LCD_Write_Block((char*)"     ",2,0);
-		LCD_Write_Block((char*)"    ",2,9);
+		LCD_Write_Block((char*)"     ",1,0);
+		LCD_Write_Block((char*)"    ",1,9);
 	}
 	temp -= 1;
 	for(uint8_t i = temp-min; i <= temp+ max; i++){
 		vspfunc((char*)"%02d", array[i]);
-		LCD_Write_Block(buffer, 2, cursor);
+		LCD_Write_Block(buffer, 1, cursor);
 		cursor += 3;
 	}
 
 	if((temp + 3) < length){
-		LCD_Write_At(arrow_right, 2, 15);
+		LCD_Write_At(arrow_right, 1, 15);
 	}
 	if ((temp - 2)>0){
-		LCD_Write_At(arrow_left, 2, 0);
+		LCD_Write_At(arrow_left, 1, 0);
 	}
-	LCD_Write_At(vertical_bar,2, 6);
-	LCD_Write_At(vertical_bar,2, 9);
+	LCD_Write_At(vertical_bar,1, 6);
+	LCD_Write_At(vertical_bar,1, 9);
 }
 
 void print_all_cue(uint8_t pointer, uint8_t length){
@@ -199,37 +199,37 @@ void print_all_cue(uint8_t pointer, uint8_t length){
 	uint8_t min = 2;
 	uint8_t cursor = 1;
 	if(temp == 2){
-		LCD_Write_Block((char*)"     ",2,0);
+		LCD_Write_Block((char*)"     ",1,0);
 		min = 1;
 		cursor = 4;
 	}
 	else if (temp == 1){
-		LCD_Write_Block((char*)"      ",2,0);
+		LCD_Write_Block((char*)"      ",1,0);
 		min = 0;
 		cursor = 7;
 	}
 	else if (temp == length){
-		LCD_Write_Block((char*)"     ",2,10);
+		LCD_Write_Block((char*)"     ",1,10);
 		max = 0;
 	}
 	else if (temp == length -1){
-		LCD_Write_Block((char*)"   ",2,13);
+		LCD_Write_Block((char*)"   ",1,13);
 		max = 1;
 	}
 	for(uint8_t i = temp-min; i <= temp+ max; i++){
 		vspfunc((char*)"%02d", i);
-		LCD_Write_Block(buffer, 2, cursor);
+		LCD_Write_Block(buffer, 1, cursor);
 		cursor += 3;
 	}
 
 	if((temp + 2) < length){
-		LCD_Write_At(arrow_right, 2, 15);
+		LCD_Write_At(arrow_right, 1, 15);
 	}
 	if ((temp - 2)>0){
-		LCD_Write_At(arrow_left, 2, 0);
+		LCD_Write_At(arrow_left, 1, 0);
 	}
-	LCD_Write_At(vertical_bar,2, 6);
-	LCD_Write_At(vertical_bar,2, 9);
+	LCD_Write_At(vertical_bar,1, 6);
+	LCD_Write_At(vertical_bar,1, 9);
 }
 /*
 void led_init(int counter){
@@ -947,7 +947,7 @@ void vel_play_cue_fct(void){
 
 		if (cue_saved_size == 0){
 			//No cue saved
-			LCD_Write_Block((char*)"No cue saved", 2, 0);
+			LCD_Write_Block((char*)"No cue saved", 1, 0);
 		}
 		else{
 			if (encoder < 1){
@@ -992,20 +992,29 @@ void vel_rec_cue_fct(void){
 	}
 	else{
 		if (FLAG_CUE_SELECTED == 1){
+			LCD_Write_Block((char*)"                ",2,0);
 			LCD_Write_Block((char*)"Cue saved",3,0);
 		}
 		else{
 			LCD_Write_Block((char*)"                ",3,0);
-		}
-
-		if(encoder < 1){
-			encoder = 1;
-		}
-		else if (encoder > cue_max){
-			encoder = cue_max;
-		}
-		else{
-			print_all_cue(encoder, cue_max);
+			if(encoder < 1){
+				encoder = 1;
+			}
+			else if (encoder > cue_max){
+				encoder = cue_max;
+			}
+			else{
+				cue_parameter parameters;
+				print_all_cue(encoder, cue_max);
+				parameters = get_cue_values(CONTROL_MODE, encoder -1);
+				if(parameters.data == 0){
+					LCD_Write_Block((char*)"Slot Free       ",2,0);
+				}
+				else if (parameters.data == 1){
+					LCD_Write_Block((char*)"Velocity :      ",2,0);
+					print_float_at(parameters.velocity,2,0, 3, 0);
+				}
+			}
 		}
 	}
 
@@ -1098,6 +1107,7 @@ void vel_del_cue_fct(void){
 			}
 			else{
 				print_cue_array(encoder, cue_saved, cue_saved_size);
+
 			}
 		}
 	}

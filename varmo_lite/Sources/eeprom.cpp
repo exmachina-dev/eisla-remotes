@@ -74,13 +74,13 @@ void write_cue(uint8_t nb_cue, int mode){
 
 		addr = velocity_offset + nb_cue  * 13;
 		byte temp = 0x80;
-		IFsh1_SetByteFlash(addr, temp);
-
+		byte Err;
+		Err =IFsh1_SetByteFlash(addr, temp);
 
 		addr += 1;
 		data.Tofloat= vel.velocity_ref;
-		byte ERR;
-		ERR = IFsh1_SetLongFlash(addr, data.Todword);
+
+		IFsh1_SetLongFlash(addr, data.Todword);
 
 		addr += 4;
 		data.Tofloat =(dword) vel.acceleration;
@@ -100,9 +100,7 @@ void write_cue(uint8_t nb_cue, int mode){
 			//Data Ok
 			addr += 1;
 			data.Tofloat = (dword) pos.position_ref;
-			EnterCritical();
 			IFsh1_SetLongFlash(addr, data.Todword);
-			//EEEWrite();
 
 			addr += 4;
 			data.Tofloat = (dword) pos.velocity_ref;
@@ -115,8 +113,6 @@ void write_cue(uint8_t nb_cue, int mode){
 			addr += 4;
 			data.Tofloat = (dword) pos.deceleration;
 			IFsh1_SetLongFlash(addr, data.Todword);
-			ExitCritical();
-
 		}
 	}
 }
@@ -217,6 +213,33 @@ uint8_t get_slot_saved(int mode, uint8_t *slot_saved){
 	return nb_cue;
 }
 
+cue_parameter get_cue_values(int mode, uint8_t nb_cue){
+	long unsigned int offset;
+	long unsigned int addr;
+	cue_parameter cue;
+	data_save data;
+	if (mode == 2){
+		byte temp;
+		addr = velocity_offset +  nb_cue * 13;
+		IFsh1_GetByteFlash(addr, &temp);
+		if (temp  == 0X80 ){
+			cue.data = 1;
+			addr += 1;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			cue.velocity = data.Tofloat;
+		}
+		else{
+			cue.data = 0;
+		}
+	}
+	else if(mode == 3){
+		offset = 650;
+		addr = offset;
+
+	}
+	return cue;
+
+}
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif

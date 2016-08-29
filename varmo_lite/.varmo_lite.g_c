@@ -505,7 +505,7 @@
     </GenFiles>
     <SignalListFile>Documentation\varmo_lite_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>148</ProjectModificationStamp>
+    <ProjectModificationStamp>152</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>false</Generated>

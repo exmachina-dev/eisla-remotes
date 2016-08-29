@@ -13,8 +13,10 @@ extern "C" {
 
 uint8_t cue_saved[50];
 bool FLAG_CUE_MODE = 0;
-uint8_t cue_saved_size =0;
-bool FLAG_CUE_SELECTED =0;
+uint8_t cue_saved_size = 0;
+bool FLAG_CUE_SELECTED = 0;
+bool FLAG_UPDATE_CUE = 0;
+
 
 void select_cue(uint8_t encoder, uint8_t flag){
 	if (CONTROL_MODE == 2 || CONTROL_MODE == 3){
@@ -35,7 +37,6 @@ void select_cue(uint8_t encoder, uint8_t flag){
 				erase_cue(cue_saved[encoder-1] - 1, CONTROL_MODE);
 				cue_saved_size = get_slot_saved(CONTROL_MODE, cue_saved);
 				break;
-
 		}
 	}
 }

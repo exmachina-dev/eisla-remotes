@@ -32,6 +32,7 @@ extern uint8_t cue_saved_size;
 
 extern bool FLAG_CUE_MODE;
 extern bool FLAG_CUE_SELECTED;
+extern bool FLAG_UPDATE_CUE;
 
 void select_cue(uint8_t, uint8_t);
 

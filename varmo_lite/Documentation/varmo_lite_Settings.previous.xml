@@ -194,7 +194,7 @@ PE_DEBUGHALT();
               <Name v="m_text" />
               <Qualifier v="RX" />
               <Address v="1040" />
-              <Size v="261104" />
+              <Size v="12288" />
             </boolgroup>
           </group>
           <group name="MemoryArea3">

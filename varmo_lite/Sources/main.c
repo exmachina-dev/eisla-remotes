@@ -167,7 +167,6 @@ int main(void)
 		  int temp = select((int)encoder);
 		  if (FLAG_MENU == 1){
 			  encoder = temp;
-
 		  }
 		  FLAG_PUSH_SHORT = 0;
 	  }
@@ -213,7 +212,12 @@ int main(void)
 		  get_update_value(CONTROL_MODE);
 	  }
 
-	  if (FLAG_UPDATE_MENU == 1 && FLAG_MENU == 0){
+	  if (FLAG_UPDATE_CUE == 1){
+		  FLAG_UPDATE_CUE = 0;
+		  refresh_fct(menu_indicator);
+	  }
+
+	  if (FLAG_UPDATE_MENU == 1 && FLAG_MENU == 0 && FLAG_CUE_MODE == 0){
 		  get_update_value(CONTROL_MODE);
 		  FLAG_UPDATE_MENU = 0;
 		  refresh_fct(menu_indicator);
@@ -232,6 +236,7 @@ int main(void)
 	  if (FLAG_UPDATE == 1){
 		  FLAG_UPDATE = 0;
 		  get_update_drive_en();
+		  update_icon_drive_enable();
 	  }
 
 	  //Check message received
