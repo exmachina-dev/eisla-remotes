@@ -20,17 +20,17 @@ sub_menu2 vel_mod_cue = init_sub_menu2((char *)"Modify Cue    ", 1, vel_mod_cue_
 sub_menu2 vel_del_cue = init_sub_menu2((char *)"Delete Cue    ", 1, vel_del_cue_fct);
 
 sub_menu2 sub_menu_velocity_cue[]= {vel_play_cue, vel_rec_cue, vel_mod_cue, vel_del_cue, back_sub_menu};
-sub_menu2_list menu_velocity_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu Vel    ");
-
+sub_menu2_list menu_velocity_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu Vel");
+/*
 sub_menu2 pos_play_cue = init_sub_menu2((char *)"Play Cue      ", 1, pos_play_cue_fct);
 sub_menu2 pos_rec_cue = init_sub_menu2((char *)"Record Cue    ", 1, pos_rec_cue_fct);
 sub_menu2 pos_mod_cue = init_sub_menu2((char *)"Modify Cue    ", 1, pos_mod_cue_fct);
 sub_menu2 pos_del_cue = init_sub_menu2((char *)"Delete Cue    ", 1, pos_del_cue_fct);
 
 sub_menu2 sub_menu_pos_cue[]= {pos_play_cue, pos_rec_cue, pos_mod_cue, pos_del_cue, back_sub_menu};
-sub_menu2_list menu_pos_cue = init_sub_menu2_list(sub_menu_pos_cue, sizeof(sub_menu_pos_cue)/sizeof(sub_menu_pos_cue[0]), (char*)"Cue Menu Pos    ");
+sub_menu2_list menu_pos_cue = init_sub_menu2_list(sub_menu_pos_cue, sizeof(sub_menu_pos_cue)/sizeof(sub_menu_pos_cue[0]), (char*)"Cue Menu Pos");
 
-
+*/
 sub_menu back_menu = init_sub_menu((char *)"Back",1,{0}, back_fct);
 
 sub_menu vel_velocity = init_sub_menu((char *)"Velocity    ",1,{0}, velocity_fct);
@@ -45,7 +45,7 @@ sub_menu pos_position = init_sub_menu((char *)"Postion     ",1,{0}, pos_position
 sub_menu pos_velocity = init_sub_menu((char *)"Velocity    ",1,{0}, pos_velocity_fct);
 sub_menu pos_acc = 		init_sub_menu((char *)"Acceleration",1,{0}, pos_acceleration_fct);
 sub_menu pos_dec = 		init_sub_menu((char *)"Deceleration",1,{0}, pos_deceleration_fct);
-sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, menu_pos_cue, void_function);
+sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, {0}, void_function);
 sub_menu pos_set_home = init_sub_menu((char *)"Set Home", 1, {0}, pos_set_home_fct);
 
 sub_menu sub_menu_position[] = {pos_position, pos_velocity, pos_acc, pos_dec, pos_cue, pos_set_home,back_menu};
@@ -130,12 +130,74 @@ void print_int_at(int value,bool absolute, int y, int x){
 	LCD_Write_Block(buffer, y, x);
 }
 
-void print_all_cue_array(uint8_t pointer){
+void print_cue_array(uint8_t pointer, uint8_t array[50], uint8_t length){
 	uint8_t temp = pointer;
 	uint8_t max = 2;
 	uint8_t min = 2;
 	uint8_t cursor = 1;
+	if (length > 3){
+		if(temp == 2){
+			LCD_Write_Block((char*)"     ",2,0);
+			min = 1;
+			cursor = 4;
+		}
+		else if (temp == 1){
+			LCD_Write_Block((char*)"      ",2,0);
+			min = 0;
+			cursor = 7;
+		}
+		else if (temp == length){
+			LCD_Write_Block((char*)"     ",2,10);
+			max = 0;
+		}
+		else if (temp == length -1){
+			LCD_Write_Block((char*)"   ",2,13);
+			max = 1;
+		}
+	}
+	else if (length == 3){
+		min = temp - 1;
+		max = 3- temp;
+		cursor = 7 -(temp -1) *3;
+		LCD_Write_Block((char*)"      ",2,0);
+		LCD_Write_Block((char*)"       ",2,9);
+	}
+	else if (length == 2){
+		cursor = 7 -(temp -1) *3;
+		min = temp -1;
+		max = 2 - temp;
+		LCD_Write_Block((char*)"      ",2,0);
+		LCD_Write_Block((char*)"     ",2,9);
+	}
+	else if(length == 1){
+		cursor = 7;
+		min = 0;
+		max = 0;
+		LCD_Write_Block((char*)"     ",2,0);
+		LCD_Write_Block((char*)"    ",2,9);
+	}
+	temp -= 1;
+	for(uint8_t i = temp-min; i <= temp+ max; i++){
+		vspfunc((char*)"%02d", array[i]);
+		LCD_Write_Block(buffer, 2, cursor);
+		cursor += 3;
+	}
 
+	if((temp + 3) < length){
+		LCD_Write_At(arrow_right, 2, 15);
+	}
+	if ((temp - 2)>0){
+		LCD_Write_At(arrow_left, 2, 0);
+	}
+	LCD_Write_At(vertical_bar,2, 6);
+	LCD_Write_At(vertical_bar,2, 9);
+}
+
+void print_all_cue(uint8_t pointer, uint8_t length){
+	uint8_t temp = pointer;
+	uint8_t max = 2;
+	uint8_t min = 2;
+	uint8_t cursor = 1;
 	if(temp == 2){
 		LCD_Write_Block((char*)"     ",2,0);
 		min = 1;
@@ -146,22 +208,21 @@ void print_all_cue_array(uint8_t pointer){
 		min = 0;
 		cursor = 7;
 	}
-	else if (temp == 50){
+	else if (temp == length){
 		LCD_Write_Block((char*)"     ",2,10);
 		max = 0;
 	}
-	else if (temp == 49){
+	else if (temp == length -1){
 		LCD_Write_Block((char*)"   ",2,13);
 		max = 1;
 	}
-
 	for(uint8_t i = temp-min; i <= temp+ max; i++){
 		vspfunc((char*)"%02d", i);
 		LCD_Write_Block(buffer, 2, cursor);
 		cursor += 3;
 	}
 
-	if((temp + 2) < 50){
+	if((temp + 2) < length){
 		LCD_Write_At(arrow_right, 2, 15);
 	}
 	if ((temp - 2)>0){
@@ -322,6 +383,7 @@ int select(int pointer){
 
 int back(int pointer){
 	FLAG_MENU = 1;
+	FLAG_CUE_MODE = 0;
 	pointer = menu_back(root_menu);
 	return pointer;
 }
@@ -816,7 +878,7 @@ void torque_fall_fct(){
 		print_float_at(tor.torque_fall,0,1,2, 0);
 	}
 }
-
+/*
 void pos_play_cue_fct(void){
 	if (FLAG_MENU == 1){
 		FLAG_MENU = 0;
@@ -842,59 +904,13 @@ void pos_play_cue_fct(void){
 void pos_rec_cue_fct(void){
 	if(FLAG_MENU == 1){
 		FLAG_MENU = 0;
-		//menu_indicator =
-		LCD_Write_Block((char*)"Record cue Pos",0,0);
-		LCD_Write_Block((char*)"                ",1,0);
-		LCD_Write_Block((char*)"                ",2,0);
-		LCD_Write_Block((char*)"                ",3,0);
-
-		print_all_cue_array(5);
-	}
-}
-
-void pos_mod_cue_fct(void){
-
-}
-void pos_del_cue_fct(void){
-
-}
-
-void vel_play_cue_fct(void){
-	if (FLAG_MENU == 1){
-		FLAG_MENU = 0;
-		menu_indicator = Vel_play_cue;
-		LCD_Write_Block((char*)"Play cue Vel ",0,0);
-		LCD_Write_Block((char*)"                ",1,0);
-		LCD_Write_Block((char*)"                ",2,0);
-		LCD_Write_Block((char*)"                ",3,0);
-
-
-		get_slot_saved(CONTROL_MODE, cue_saved);
-
-		if (cue_saved[0] == 0){
-			//No cue saved
-			LCD_Write_Block((char*)"No cue saved", 2, 0);
-		}
-		else{
-
-		}
-
-	}
-	else{
-
-	}
-}
-
-void vel_rec_cue_fct(void){
-	if (FLAG_MENU == 1){
-		FLAG_MENU = 0;
-		encoder = 1;
-		menu_indicator = Vel_Rec_cue;
+		FLAG_CUE_MODE = 1;
+		//menu_indicator = Pos_rec_cue;
 		LCD_Write_Block((char*)"Record cue Vel",0,0);
 		LCD_Write_Block((char*)"                ",1,0);
 		LCD_Write_Block((char*)"                ",2,0);
 		LCD_Write_Block((char*)"                ",3,0);
-		print_all_cue_array(encoder);
+		print_all_cue(encoder, cue_max);
 	}
 	else{
 		if(encoder < 1){
@@ -904,18 +920,187 @@ void vel_rec_cue_fct(void){
 			encoder = 50;
 		}
 		else{
-			print_all_cue_array(encoder);
+			print_all_cue(encoder, cue_max);
+		}
+	}
+}
+
+void pos_mod_cue_fct(void){
+
+}
+void pos_del_cue_fct(void){
+
+}
+*/
+void vel_play_cue_fct(void){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		FLAG_CUE_MODE = 1;
+		encoder = 1;
+		menu_indicator = Vel_play_cue;
+		LCD_Write_Block((char*)"Play cue",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
+
+		cue_saved_size = get_slot_saved(CONTROL_MODE, cue_saved);
+
+		if (cue_saved_size == 0){
+			//No cue saved
+			LCD_Write_Block((char*)"No cue saved", 2, 0);
+		}
+		else{
+			if (encoder < 1){
+				encoder == 1;
+			}
+			print_cue_array(encoder, cue_saved, cue_saved_size);
+		}
+
+	}
+	else{
+		if (cue_saved_size != 0){
+			if (FLAG_CUE_SELECTED == 1){
+				LCD_Write_Block((char*)"Cue loaded",3,0);
+			}
+			else{
+				LCD_Write_Block((char*)"                ",3,0);
+			}
+			if(encoder < 1){
+				encoder = 1;
+			}
+			else if (encoder > cue_saved_size){
+				encoder = cue_saved_size;
+			}
+			else{
+				print_cue_array(encoder, cue_saved, cue_saved_size);
+			}
+		}
+	}
+}
+
+void vel_rec_cue_fct(void){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		FLAG_CUE_MODE = 1;
+		encoder = 1;
+		menu_indicator = Vel_Rec_cue;
+		LCD_Write_Block((char*)"Record cue",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
+		print_all_cue(encoder, cue_max);
+	}
+	else{
+		if (FLAG_CUE_SELECTED == 1){
+			LCD_Write_Block((char*)"Cue saved",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
+
+		if(encoder < 1){
+			encoder = 1;
+		}
+		else if (encoder > cue_max){
+			encoder = cue_max;
+		}
+		else{
+			print_all_cue(encoder, cue_max);
 		}
 	}
 
 }
 
 void vel_mod_cue_fct(void){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		FLAG_CUE_MODE = 1;
+		encoder = 1;
+		menu_indicator = Vel_Mod_cue;
+		LCD_Write_Block((char*)"Load cue",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
 
+		cue_saved_size = get_slot_saved(CONTROL_MODE, cue_saved);
+
+		if (cue_saved_size == 0){
+			//No cue saved
+			LCD_Write_Block((char*)"No cue saved", 2, 0);
+		}
+		else{
+			if (encoder < 1){
+				encoder == 1;
+			}
+			print_cue_array(encoder, cue_saved, cue_saved_size);
+		}
+
+	}
+	else{
+		if (cue_saved_size != 0){
+			if (FLAG_CUE_SELECTED == 1){
+				LCD_Write_Block((char*)"Cue loaded",3,0);
+			}
+			else{
+				LCD_Write_Block((char*)"                ",3,0);
+			}
+			if(encoder < 1){
+				encoder = 1;
+			}
+			else if (encoder > cue_saved_size){
+				encoder = cue_saved_size;
+			}
+			else{
+				print_cue_array(encoder, cue_saved, cue_saved_size);
+			}
+		}
+	}
 }
 
 void vel_del_cue_fct(void){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		FLAG_CUE_MODE = 1;
+		encoder = 1;
+		menu_indicator = Vel_Del_cue;
+		LCD_Write_Block((char*)"Delete cue",0,0);
+		LCD_Write_Block((char*)"                ",1,0);
+		LCD_Write_Block((char*)"                ",2,0);
+		LCD_Write_Block((char*)"                ",3,0);
 
+		cue_saved_size = get_slot_saved(CONTROL_MODE, cue_saved);
+
+		if (cue_saved_size == 0){
+			//No cue saved
+			LCD_Write_Block((char*)"No cue saved", 2, 0);
+		}
+		else{
+			if (encoder < 1){
+				encoder == 1;
+			}
+			print_cue_array(encoder, cue_saved, cue_saved_size);
+		}
+
+	}
+	else{
+		if (cue_saved_size != 0){
+			if (FLAG_CUE_SELECTED == 1){
+				LCD_Write_Block((char*)"Cue deleted",3,0);
+			}
+			else{
+				LCD_Write_Block((char*)"                ",3,0);
+			}
+			if(encoder < 1){
+				encoder = 1;
+			}
+			else if (encoder > cue_saved_size){
+				encoder = cue_saved_size;
+			}
+			else{
+				print_cue_array(encoder, cue_saved, cue_saved_size);
+			}
+		}
+	}
 }
 
 void short_cut_position_menu(){

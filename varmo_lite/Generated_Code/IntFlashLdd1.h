@@ -7,7 +7,7 @@
 **     Version     : Component 01.106, Driver 01.15, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-19, 09:49, # CodeGen: 213
+**     Date/Time   : 2016-08-25, 10:57, # CodeGen: 243
 **     Abstract    :
 **          This embedded component implements an access to an on-chip flash memory.
 **          Using this component the flash memory could be written to, erased,
@@ -17,14 +17,10 @@
 **          Component name                                 : IntFlashLdd1
 **          Device                                         : FTFL
 **          Use user memory areas                          : no
-**          Interrupt service                              : Enabled
+**          Interrupt service                              : Disabled
+**            Write batch size                             : Minimal
+**            Erase batch size                             : Minimal
 **            Read batch size                              : Unlimited
-**            Command complete interrupt                   : 
-**              Interrupt                                  : INT_FTFL
-**              Interrupt priority                         : medium priority
-**            Read collision error interrupt               : 
-**              Interrupt                                  : INT_Read_Collision
-**              Interrupt priority                         : medium priority
 **          Safe launch and wait                           : yes
 **            Safe routine location                        : On stack
 **            Interruptable wait loop                      : no
@@ -47,6 +43,7 @@
 **         Init               - LDD_TDeviceData* IntFlashLdd1_Init(LDD_TUserData *UserDataPtr);
 **         Read               - LDD_TError IntFlashLdd1_Read(LDD_TDeviceData *DeviceDataPtr,...
 **         Write              - LDD_TError IntFlashLdd1_Write(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
+**         Erase              - LDD_TError IntFlashLdd1_Erase(LDD_TDeviceData *DeviceDataPtr,...
 **         GetOperationStatus - LDD_FLASH_TOperationStatus IntFlashLdd1_GetOperationStatus(LDD_TDeviceData...
 **         GetError           - void IntFlashLdd1_GetError(LDD_TDeviceData *DeviceDataPtr,...
 **         Main               - void IntFlashLdd1_Main(LDD_TDeviceData *DeviceDataPtr);
@@ -141,6 +138,7 @@ extern "C" {
 #define IntFlashLdd1_Init_METHOD_ENABLED /*!< Init method of the component IntFlashLdd1 is enabled (generated) */
 #define IntFlashLdd1_Read_METHOD_ENABLED /*!< Read method of the component IntFlashLdd1 is enabled (generated) */
 #define IntFlashLdd1_Write_METHOD_ENABLED /*!< Write method of the component IntFlashLdd1 is enabled (generated) */
+#define IntFlashLdd1_Erase_METHOD_ENABLED /*!< Erase method of the component IntFlashLdd1 is enabled (generated) */
 #define IntFlashLdd1_GetOperationStatus_METHOD_ENABLED /*!< GetOperationStatus method of the component IntFlashLdd1 is enabled (generated) */
 #define IntFlashLdd1_GetError_METHOD_ENABLED /*!< GetError method of the component IntFlashLdd1 is enabled (generated) */
 #define IntFlashLdd1_Main_METHOD_ENABLED /*!< Main method of the component IntFlashLdd1 is enabled (generated) */
@@ -259,6 +257,60 @@ LDD_TError IntFlashLdd1_Read(LDD_TDeviceData *DeviceDataPtr, LDD_FLASH_TAddress 
 
 /*
 ** ===================================================================
+**     Method      :  IntFlashLdd1_Erase (component FLASH_LDD)
+*/
+/*!
+**     @brief
+**         This method sets up a flash memory erase operation. The
+**         operation itself is performing by defined batches (property
+**         [Erase batch size]) by periodical calling the component’s
+**         Main method in the user application (higher level OS service)
+**         or by the component’s ISR, if an component’s interrupt
+**         service is enabled.
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by [Init] method.
+**     @param
+**         FromAddress     - Address of the flash
+**                           memory area (the first erase sector is the
+**                           sector the given address belongs to) to be
+**                           erased.
+**     @param
+**         Size            - Size of the flash memory area (in bytes)
+**                           to be erased. The flash memory is erased by
+**                           the erase sectors. The first erased sector
+**                           is a sector the address specified by the
+**                           input parameter Address belongs to. The
+**                           last erased sector is a sector the address
+**                           calculated like an addition of the address
+**                           specified by the input parameter Address
+**                           and the size specified by the input
+**                           parameter Size belongs to.
+**     @return
+**                         - Error code
+**                           ERR_OK - OK
+**                           ERR_DISABLED - Component is disabled
+**                           ERR_SPEED - This device does not work in
+**                           the active clock configuration
+**                           ERR_BUSY - Some flash memory operation is
+**                           already in progress 
+**                           ERR_PARAM_ADDRESS - Desired flash memory
+**                           area is out of allowed range or is not
+**                           aligned to erasable units' bounderies
+**                           ERR_NOTAVAIL - When Safe launch and wait
+**                           mode is enabled (property Safe launch and
+**                           wait) and safe routine location is defined
+**                           in runtime (property Safe routine location)
+**                           and the safe routine location has not been
+**                           specified yet (the SetSafeRoutineLocation
+**                           method has not been used to define the
+**                           location the safe routine will be copied to).
+*/
+/* ===================================================================*/
+LDD_TError IntFlashLdd1_Erase(LDD_TDeviceData *DeviceDataPtr, LDD_FLASH_TAddress FromAddress, LDD_FLASH_TDataSize Size);
+
+/*
+** ===================================================================
 **     Method      :  IntFlashLdd1_GetOperationStatus (component FLASH_LDD)
 */
 /*!
@@ -317,9 +369,6 @@ void IntFlashLdd1_Main(LDD_TDeviceData *DeviceDataPtr);
 */
 /* ===================================================================*/
 void IntFlashLdd1_GetError(LDD_TDeviceData *DeviceDataPtr, LDD_FLASH_TErrorStatus *OperationStatus);
-
-/* {Default RTOS Adapter} ISR function prototype */
-PE_ISR(IntFlashLdd1_CommandCompleteInterrupt);
 
 /*
 ** ===================================================================

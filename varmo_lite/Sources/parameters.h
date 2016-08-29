@@ -30,6 +30,8 @@ extern "C" {
 #define Torque_rise_selected 14
 #define Torque_fall_selected 15
 
+extern bool FLAG_REC;
+
 extern int menu_indicator;
 
 extern bool drive_enable_st;
@@ -40,7 +42,7 @@ extern int counter_2s;
 extern bool FLAG_SHORT_CUT;
 
 extern bool FLAG_UPDATE;
-
+extern uint8_t CONTROL_MODE;
 extern struct velocity{
 	int control_mode;
 	float velocity_ref;

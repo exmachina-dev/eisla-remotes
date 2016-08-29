@@ -66,7 +66,7 @@ extern "C" {
 */
 void PUSH_BUTTON_REC_OnInterrupt(void)
 {
-  /* Write your code here ... */
+  FLAG_REC = 1;
 }
 
 /*
@@ -222,7 +222,6 @@ void ENCODER_PUSH_OnInterrupt(void)
     	counter_100ms = 0;
         FLAG_PUSH_SHORT = 0;
         FLAG_PUSH_LONG = 0;
-
         T_100ms_Enable(T_100ms_DeviceData);
 
     }
@@ -312,6 +311,13 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 	}
 	if(counter_2s == 4){
 		FLAG_SET_HOME = 0;
+	}
+
+	if (FLAG_CUE_SELECTED == 1){
+		counter_2s += 1;
+	}
+	if(counter_2s == 4){
+		FLAG_CUE_SELECTED = 0;
 	}
 
 	if (FLAG_STOP == 1){
@@ -541,24 +547,6 @@ void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
 
 	FLAG_DEBOUNCE = 1;
 	//TU1_Disable(TU1_DeviceData);
-}
-
-/*
-** ===================================================================
-**     Event       :  IFsh1_OnWriteEnd (module Events)
-**
-**     Component   :  IFsh1 [IntFLASH]
-*/
-/*!
-**     @brief
-**         Event is called after a write operation to FLASH memory is
-**         finished (except [SetPage]). This event is available only if
-**         an [Interrupt service/event] is selected.
-*/
-/* ===================================================================*/
-void IFsh1_OnWriteEnd(void)
-{
-  /* Write your code here ... */
 }
 
 /* END Events */

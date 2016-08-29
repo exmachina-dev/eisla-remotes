@@ -12,28 +12,29 @@ extern "C" {
 #endif
 
 void load_cue(uint8_t nb_cue, int mode){
-	int offset;
-	int addr;
-	dword data;
+	long unsigned int offset;
+	long unsigned int addr;
+	data_save data;
+
 	if (mode == 2){
 		//Velocity
-		offset = 0x00;
-		addr = offset + (nb_cue * 13);
+
+		addr = velocity_offset + (nb_cue * 13);
 		byte temp;
 		IFsh1_GetByteFlash(addr, &temp);
 		if ((temp || 0x80 >> 7) == 1 ){
 			//Data Ok
 			addr += 1;
-			IFsh1_GetLongFlash(addr, &data);
-			vel.velocity_ref = (float) data;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			vel.velocity_ref = data.Tofloat;
 
 			addr += 4;
-			IFsh1_GetLongFlash(addr, &data);
-			vel.acceleration = (float) data;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			vel.acceleration = data.Tofloat;
 
 			addr += 4;
-			IFsh1_GetLongFlash(addr, &data);
-			vel.deceleration = (float) data;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			vel.deceleration = data.Tofloat;
 		}
 
 	}
@@ -45,50 +46,50 @@ void load_cue(uint8_t nb_cue, int mode){
 		if ((temp || 0x80 >> 7) == 1 ){
 			//Data Ok
 			addr += 1;
-			IFsh1_GetLongFlash(addr, &data);
-			pos.position_ref = (float) data;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			pos.position_ref = data.Tofloat;
 
 			addr += 4;
-			IFsh1_GetLongFlash(addr, &data);
-			pos.velocity_ref = (float) data;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			pos.velocity_ref = data.Tofloat;
 
 			addr += 4;
-			IFsh1_GetLongFlash(addr, &data);
-			pos.acceleration = (float) data;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			pos.acceleration = data.Tofloat;
 
 			addr += 4;
-			IFsh1_GetLongFlash(addr, &data);
-			pos.deceleration = (float) data;
+			IFsh1_GetLongFlash(addr, &data.Todword);
+			pos.deceleration = data.Tofloat;
 		}
 	}
 
 }
 
 void write_cue(uint8_t nb_cue, int mode){
-	int offset;
-	int addr;
-	dword data;
+	long unsigned int offset;
+	long unsigned int addr;
+	data_save data;
 	if (mode == 2){
 		//Velocity
-		offset = 0x00;
-		addr = offset + nb_cue  * 13;
-		byte temp;
-		IFsh1_GetByteFlash(addr, &temp);
-		if ((temp || 0x80 >> 7) == 0 ){
-			//Data Ok
-			addr += 1;
-			data= (dword) vel.velocity_ref;
-			IFsh1_SetLongFlash(addr, data);
 
-			addr += 4;
-			data =(dword) vel.acceleration;
-			IFsh1_SetLongFlash(addr, data);
+		addr = velocity_offset + nb_cue  * 13;
+		byte temp = 0x80;
+		IFsh1_SetByteFlash(addr, temp);
 
-			addr += 4;
-			data = (dword) vel.deceleration;
-			IFsh1_SetLongFlash(addr, data);
-		}
 
+		addr += 1;
+		data.Tofloat= vel.velocity_ref;
+		byte ERR;
+		ERR = IFsh1_SetLongFlash(addr, data.Todword);
+
+		addr += 4;
+		data.Tofloat =(dword) vel.acceleration;
+		IFsh1_SetLongFlash(addr, data.Todword);
+
+		addr += 4;
+		data.Tofloat = (dword) vel.deceleration;
+		IFsh1_SetLongFlash(addr, data.Todword);
+		addr += 4;
 	}
 	else if (mode == 3){
 		//Position
@@ -98,20 +99,24 @@ void write_cue(uint8_t nb_cue, int mode){
 		if ((temp || 0x80 >> 7) == 1 ){
 			//Data Ok
 			addr += 1;
-			data = (dword) pos.position_ref;
-			IFsh1_SetLongFlash(addr, data);
+			data.Tofloat = (dword) pos.position_ref;
+			EnterCritical();
+			IFsh1_SetLongFlash(addr, data.Todword);
+			//EEEWrite();
 
 			addr += 4;
-			data = (dword) pos.velocity_ref;
-			IFsh1_SetLongFlash(addr, data);
+			data.Tofloat = (dword) pos.velocity_ref;
+			IFsh1_SetLongFlash(addr, data.Todword);
 
 			addr += 4;
-			data = (dword) pos.acceleration ;
-			IFsh1_SetLongFlash(addr, data);
+			data.Tofloat = (dword) pos.acceleration ;
+			IFsh1_SetLongFlash(addr, data.Todword);
 
 			addr += 4;
-			data = (dword) pos.deceleration;
-			IFsh1_SetLongFlash(addr, data);
+			data.Tofloat = (dword) pos.deceleration;
+			IFsh1_SetLongFlash(addr, data.Todword);
+			ExitCritical();
+
 		}
 	}
 }
@@ -120,28 +125,29 @@ void erase_cue(uint8_t nb_cue, int mode){
 	int offset;
 	int addr;
 	if (mode == 2){
-		offset= 0x00;
-		addr = offset + nb_cue * 13;
-		IFsh1_SetByteFlash(addr, 0x80);
+		//nb_cue = cue_saved[cue] - 1;
+		addr = velocity_offset + nb_cue * 13;
+		IFsh1_SetByteFlash(addr, 0x00);
 	}
 	else if (mode == 3){
 		offset= 650;
 		addr = offset + nb_cue * 17;
-		IFsh1_SetByteFlash(addr, 0x80);
+		IFsh1_SetByteFlash(addr, 0x00);
 	}
 }
 
 uint8_t get_next_slot_free(int mode){
-	int offset;
-	int addr;
+	long unsigned int offset;
+	long unsigned int addr;
+
 	uint8_t cue = 0;
 	if (mode == 2){
 		//Velocity
 		bool slot_free;
 
 		byte temp;
-		offset = 0x00;
-		addr = offset + cue * 13;
+
+		addr = velocity_offset + cue * 13;
 		while (slot_free == 0 || cue != 50){
 			IFsh1_GetByteFlash(addr, &temp);
 			if (temp == 0){
@@ -168,19 +174,22 @@ uint8_t get_next_slot_free(int mode){
 	return cue;
 }
 
-void get_slot_saved(int mode, uint8_t *slot_saved){
-	int offset;
-	int addr;
+uint8_t get_slot_saved(int mode, uint8_t *slot_saved){
+	long unsigned int offset;
+	long unsigned int addr;
+
 	uint8_t cue = 0;
+	uint8_t nb_cue = 0;
 	if (mode == 2){
-		offset = 0x00;
-		addr = offset;
+
+		addr = velocity_offset;
 		for (uint8_t i = 0; i<50; i++){
 			byte temp;
-			addr = offset +  i * 13;
+			addr = velocity_offset +  i * 13;
 			IFsh1_GetByteFlash(addr, &temp);
-			if ((temp || 0x80 >> 7) == 1 ){
-				slot_saved[cue] = i;
+			if (temp  == 0X80 ){
+				slot_saved[cue] = i+1;
+				nb_cue ++;
 				cue ++;
 			}
 		}
@@ -197,6 +206,7 @@ void get_slot_saved(int mode, uint8_t *slot_saved){
 			IFsh1_GetByteFlash(addr, &temp);
 			if ((temp || 0x80 >> 7) == 1 ){
 				slot_saved[cue] = i;
+				nb_cue ++;
 				cue ++;
 			}
 		}
@@ -204,6 +214,7 @@ void get_slot_saved(int mode, uint8_t *slot_saved){
 			slot_saved[i] = 0;
 		}
 	}
+	return nb_cue;
 }
 
 #ifdef __cplusplus

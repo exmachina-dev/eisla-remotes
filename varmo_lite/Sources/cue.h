@@ -14,6 +14,9 @@
 #include "IntFlashLdd1.h"
 #include "KSDK1.h"
 #include "CS1.h"
+#include "parameters.h"
+#include "send.h"
+#include "eeprom.h"
 
 #ifndef SOURCES_CUE_EEPROM_H_
 #define SOURCES_CUE_EEPROM_H_
@@ -22,7 +25,15 @@
 extern "C" {
 #endif
 
+#define cue_max 50
+
 extern uint8_t cue_saved[50];
+extern uint8_t cue_saved_size;
+
+extern bool FLAG_CUE_MODE;
+extern bool FLAG_CUE_SELECTED;
+
+void select_cue(uint8_t, uint8_t);
 
 #ifdef __cplusplus
 }  /* extern "C" */

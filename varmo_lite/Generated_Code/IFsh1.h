@@ -7,7 +7,7 @@
 **     Version     : Component 02.409, Driver 01.02, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-19, 11:20, # CodeGen: 217
+**     Date/Time   : 2016-08-25, 10:57, # CodeGen: 243
 **     Abstract    :
 **         This component "IntFLASH" implements an access to internal FLASH.
 **         The component support reading/writing data into FLASH, erasing of
@@ -24,14 +24,9 @@
 **          Component name                                 : IFsh1
 **          FLASH                                          : FTFL
 **          FLASH_LDD                                      : FLASH_LDD
-**          Write method                                   : Write
-**          Interrupt service/event                        : Enabled
-**            Command complete interrupt                   : 
-**              Interrupt                                  : INT_FTFL
-**              Interrupt priority                         : medium priority
-**            Read collision error interrupt               : 
-**              Interrupt                                  : INT_Read_Collision
-**              Interrupt priority                         : medium priority
+**          Write method                                   : Safe write (with save & erase)
+**            Buffer type                                  : Implemented by the component
+**          Interrupt service/event                        : Disabled
 **          Wait in RAM                                    : yes
 **          Virtual page                                   : Disabled
 **          Initialization                                 : 
@@ -129,7 +124,7 @@ extern "C" {
   typedef byte* IFsh1_TDataAddress ;   /* Address of the data block in memory for methods Get/SetBlockFlash. To maintain backward compatibility, it is double-word on Freescale 56800/E family, otherwise it is pointer to the smallest addressable unit (byte).  */
 #endif
 
-#define IFsh1_WRITE_TYPE_NORMAL
+#define IFsh1_WRITE_TYPE_SAFE
 /* Number of flash memory areas. For each area there are several constants with information about the area. */
 #define IFsh1_AREA_COUNT                (0x01U)
 /* Size of programming phrase. */
@@ -137,7 +132,7 @@ extern "C" {
 /* Minimal erasable unit. Value is in minimal addressable units. */
 #define IFsh1_AREA_SECTOR_SIZE          (0x0800U)
 /* TRUE if the component setting allows rewrite of already programmed flash memory location. */
-#define IFsh1_ALLOW_CLEAR               (FALSE)
+#define IFsh1_ALLOW_CLEAR               (TRUE)
 
 typedef LDD_FLASH_TAddress  IFsh1_TAddress;
 

@@ -7,7 +7,7 @@
 **     Version     : Component 02.409, Driver 01.02, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-19, 11:20, # CodeGen: 217
+**     Date/Time   : 2016-08-24, 17:01, # CodeGen: 228
 **     Abstract    :
 **         This component "IntFLASH" implements an access to internal FLASH.
 **         The component support reading/writing data into FLASH, erasing of
@@ -24,14 +24,9 @@
 **          Component name                                 : IFsh1
 **          FLASH                                          : FTFL
 **          FLASH_LDD                                      : FLASH_LDD
-**          Write method                                   : Write
-**          Interrupt service/event                        : Enabled
-**            Command complete interrupt                   : 
-**              Interrupt                                  : INT_FTFL
-**              Interrupt priority                         : medium priority
-**            Read collision error interrupt               : 
-**              Interrupt                                  : INT_Read_Collision
-**              Interrupt priority                         : medium priority
+**          Write method                                   : Safe write (with save & erase)
+**            Buffer type                                  : Implemented by the component
+**          Interrupt service/event                        : Disabled
 **          Wait in RAM                                    : yes
 **          Virtual page                                   : Disabled
 **          Initialization                                 : 
@@ -106,7 +101,6 @@
 
 /* MODULE IFsh1. */
 
-#include "Events.h"
 #include "IFsh1.h"
 
 #ifdef __cplusplus
@@ -142,6 +136,12 @@ static bool IFsh1_CmdPending;          /* Current command state */
 static bool IFsh1_EnEvent;             /* State of events (enabled/disabled) */
 
 static LDD_TDeviceData* IntFlashLdd1_DevDataPtr;
+static LDD_TData *IFsh1_CurrentDataAddress;
+static LDD_FLASH_TDataSize IFsh1_CurrentDataSize;
+static LDD_FLASH_TAddress IFsh1_FlashAddress;
+static LDD_TData *IFsh1_NextSrcDataAddress;
+static LDD_FLASH_TDataSize IFsh1_RemainingDataSize;
+static IFsh1_TSector tmpSector;
 
 byte IFsh1_GetFlash(LDD_FLASH_TAddress Source, LDD_TData *Dest, LDD_FLASH_TDataSize Count);
 byte IFsh1_SetFlash(IFsh1_TDataAddress Source, IFsh1_TAddress Dest, word Count);
@@ -188,15 +188,56 @@ byte IFsh1_GetFlash(LDD_FLASH_TAddress Source, LDD_TData *Dest, LDD_FLASH_TDataS
 byte IFsh1_SetFlash(IFsh1_TDataAddress Src, IFsh1_TAddress Dst, word Count)
 {
   LDD_TError                 Result;
+  uint32_t                   x;
+  uint32_t                   SectorAddress, SectorOffset;
 
   if (IFsh1_CmdPending) {
     return ERR_BUSY;
   }
+  Result = ERR_OK;                     /* Suppose area is erased */
+  for (x=0U; x<Count; x++) {           /* Check if written area is erased */
+    if (((uint8_t*)Dst)[x] != 0xFFU) { /* Byte erased? */
+      Result = ERR_FAILED;             /* No, Erase is required */
+     break;
+    }
+  }
+  if (Result == ERR_FAILED) {
+    SectorAddress = Dst & ~(LDD_FLASH_TAddress)IntFlashLdd1_ERASABLE_UNIT_MASK;
+    SectorOffset = Dst & IntFlashLdd1_ERASABLE_UNIT_MASK;
+    tmpSector = *(IFsh1_TSector *)SectorAddress; /* Create copy of the sector */
+    do {                               /* Rewrite part of the sector with new data */
+      ((uint8_t*)(void*)&tmpSector)[SectorOffset] = *(uint8_t*)(void*)(Src);
+      Src++;
+      Count--;
+    } while ((++SectorOffset != IntFlashLdd1_ERASABLE_UNIT_SIZE) && (Count != 0U));
+    IFsh1_CmdPending = TRUE;
+    IFsh1_CurrentCommand = IFsh1_CMD_WRITE_ERASE;
+    IFsh1_CurrentDataAddress = (LDD_TData *)&tmpSector;
+    IFsh1_CurrentDataSize = IntFlashLdd1_ERASABLE_UNIT_SIZE;
+    IFsh1_FlashAddress = SectorAddress;
+    IFsh1_NextSrcDataAddress = (LDD_TData *)Src;
+    IFsh1_RemainingDataSize = (LDD_FLASH_TDataSize) Count;
+    Result = IntFlashLdd1_Erase(IntFlashLdd1_DevDataPtr, IFsh1_FlashAddress, IFsh1_CurrentDataSize);
+    if (Result == ERR_OK) {
+      do {
+        IntFlashLdd1_Main(IntFlashLdd1_DevDataPtr);
+      } while (IFsh1_CmdPending);
+      Result = IFsh1_CmdResult;
+    } else {
+      IFsh1_CmdPending = FALSE;        /* Command parameter error */
+      if (Result == ERR_PARAM_ADDRESS) {
+        Result = ERR_RANGE;
+      }
+    }
+    return (byte)Result;
+  }
+  IFsh1_RemainingDataSize = 0U;
   IFsh1_CurrentCommand = IFsh1_CMD_WRITE;
   IFsh1_CmdPending = TRUE;
   Result = IntFlashLdd1_Write(IntFlashLdd1_DevDataPtr, (LDD_TData *)Src, Dst, (LDD_FLASH_TDataSize)Count); /* Start reading from the flash memory */
   if (Result == ERR_OK) {
     do {
+      IntFlashLdd1_Main(IntFlashLdd1_DevDataPtr);
     } while (IFsh1_CmdPending);
     Result = IFsh1_CmdResult;
   } else {
@@ -449,18 +490,58 @@ byte IFsh1_GetLongFlash(IFsh1_TAddress Addr, dword *Data)
 */
 void IntFlashLdd1_OnOperationComplete(LDD_TUserData *UserDataPtr)
 {
+  uint32_t  x;
+  
   (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
   IFsh1_CmdResult = ERR_OK;            /* No error appears */
   switch (IFsh1_CurrentCommand) {
     case IFsh1_CMD_WRITE:
-      IFsh1_CmdPending = FALSE;        /* Command is finished */
+      if (IFsh1_RemainingDataSize != 0U) {
+        IFsh1_CurrentDataAddress = IFsh1_NextSrcDataAddress;
+        IFsh1_FlashAddress += IFsh1_CurrentDataSize;
+        if (IFsh1_RemainingDataSize % IntFlashLdd1_ERASABLE_UNIT_SIZE) {
+          /* Remaining data size is NOT multiple of sector size */
+          if (IFsh1_RemainingDataSize < IntFlashLdd1_ERASABLE_UNIT_SIZE) { /* Last sector? */
+            for (x=0U; x<IntFlashLdd1_ERASABLE_UNIT_SIZE;x++) {
+              if (x<IFsh1_RemainingDataSize) {
+                ((uint8_t*)(void*)&tmpSector)[x] = ((uint8_t*)(void*)IFsh1_NextSrcDataAddress)[x];
+              } else {
+                ((uint8_t*)(void*)&tmpSector)[x] = ((uint8_t*)(void*)IFsh1_FlashAddress)[x];
+              }
+            }
+            IFsh1_CurrentDataAddress = &tmpSector;
+            IFsh1_CurrentDataSize = IntFlashLdd1_ERASABLE_UNIT_SIZE;
+            IFsh1_RemainingDataSize = 0U;
+          } else {
+            IFsh1_CurrentDataSize = (IFsh1_RemainingDataSize / IntFlashLdd1_ERASABLE_UNIT_SIZE)*IntFlashLdd1_ERASABLE_UNIT_SIZE;
+            IFsh1_RemainingDataSize = IFsh1_RemainingDataSize % IntFlashLdd1_ERASABLE_UNIT_SIZE;
+            IFsh1_NextSrcDataAddress = (IFsh1_TDataAddress)((uint32_t)IFsh1_NextSrcDataAddress + IFsh1_CurrentDataSize);
+          }
+        } else {
+          /* Remaining data size is multiple of sector size */
+          IFsh1_CurrentDataSize = IFsh1_RemainingDataSize;
+          IFsh1_RemainingDataSize = 0U;
+        }
+        IFsh1_CurrentCommand = IFsh1_CMD_WRITE_ERASE;
+        IFsh1_CmdResult = (byte)IntFlashLdd1_Erase(IntFlashLdd1_DevDataPtr, IFsh1_FlashAddress, IFsh1_CurrentDataSize);
+        if (IFsh1_CmdResult != ERR_OK) { /* Erase command error? */
+          IFsh1_CmdPending = FALSE;    /* Command is finished */
+        }
+        return;
+      } else {
+        IFsh1_CmdPending = FALSE;      /* Command is finished */
+      }
       break;
+    case IFsh1_CMD_WRITE_ERASE:
+      IFsh1_CurrentCommand = IFsh1_CMD_WRITE;
+      IFsh1_CmdResult = (byte)IntFlashLdd1_Write(IntFlashLdd1_DevDataPtr, IFsh1_CurrentDataAddress, IFsh1_FlashAddress, IFsh1_CurrentDataSize); /* Write data */
+      if (IFsh1_CmdResult != ERR_OK) { /* Write command error? */
+        IFsh1_CmdPending = FALSE;      /* Command is finished */
+      }
+      return;
     default:
       IFsh1_CmdPending = FALSE;        /* Command is finished */
       return;
-  }
-  if (IFsh1_EnEvent == TRUE) {
-    IFsh1_OnWriteEnd();
   }
 }
 

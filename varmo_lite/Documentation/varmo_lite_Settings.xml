@@ -148,7 +148,7 @@
     <Compiler v="GNU C Compiler" />
     <CompilerProperties>
       <Compiler v="GNU C Compiler" />
-      <enumgroup name="Unhandled vectors" v="One handler for all">
+      <enumgroup name="Unhandled vectors" v="Own handler for every">
         <Unhandled_int_code>
           <StrgList><![CDATA[/* This code can be changed using the CPU component property "Build Options / Unhandled int code" */
 PE_DEBUGHALT();
@@ -194,7 +194,7 @@ PE_DEBUGHALT();
               <Name v="m_text" />
               <Qualifier v="RX" />
               <Address v="1040" />
-              <Size v="261104" />
+              <Size v="129008" />
             </boolgroup>
           </group>
           <group name="MemoryArea3">
@@ -1754,18 +1754,16 @@ PE_DEBUGHALT();
             </list>
           </group>
           <boolgroup name="Use user memory areas" v="no" />
-          <enumgroup name="Interrupt service" v="Enabled">
+          <enumgroup name="Interrupt service" v="Disabled">
+            <enumgroup name="Write batch size" v="Minimal">
+              <EmptySection_DummyValue />
+            </enumgroup>
+            <enumgroup name="Erase batch size" v="Minimal">
+              <EmptySection_DummyValue />
+            </enumgroup>
             <enumgroup name="Read batch size" v="Unlimited">
               <EmptySection_DummyValue />
             </enumgroup>
-            <group name="Command complete interrupt">
-              <Interrupt v="INT_FTFL" />
-              <Interrupt_priority v="medium priority" />
-            </group>
-            <group name="Read collision error interrupt">
-              <Interrupt v="INT_Read_Collision" />
-              <Interrupt_priority v="medium priority" />
-            </group>
           </enumgroup>
           <boolgroup name="Safe launch and wait" v="yes">
             <enumgroup name="Safe routine location" v="On stack">
@@ -1790,7 +1788,7 @@ PE_DEBUGHALT();
           <SetEventMask v="don&amp;apos;t generate code" />
           <Read v="generate code" />
           <Write v="generate code" />
-          <Erase v="don&amp;apos;t generate code" />
+          <Erase v="generate code" />
           <EraseBlock v="don&amp;apos;t generate code" />
           <VerifyErasedBlock v="don&amp;apos;t generate code" />
           <SetProtection v="don&amp;apos;t generate code" />
@@ -1813,19 +1811,10 @@ PE_DEBUGHALT();
           </event>
         </Events>
       </inhrbean>
-      <enumgroup name="Write method" v="Write">
-        <EmptySection_DummyValue />
+      <enumgroup name="Write method" v="Safe write (with save &amp;amp; erase)">
+        <Buffer_type v="Implemented by the component" />
       </enumgroup>
-      <boolgroup name="Interrupt service/event" v="Enabled">
-        <group name="Command complete interrupt">
-          <Interrupt v="INT_FTFL" />
-          <Interrupt_priority v="medium priority" />
-        </group>
-        <group name="Read collision error interrupt">
-          <Interrupt v="INT_Read_Collision" />
-          <Interrupt_priority v="medium priority" />
-        </group>
-      </boolgroup>
+      <boolgroup name="Interrupt service/event" v="Disabled" />
       <Wait_in_RAM v="yes" />
       <boolgroup name="Virtual page" v="Disabled" />
       <group name="Initialization">
@@ -1871,10 +1860,7 @@ PE_DEBUGHALT();
     <Events>
       <Event_module_name v="Events" />
       <event name="OnWritePageEnd" v="don&amp;apos;t generate code" />
-      <event name="OnWriteEnd" v="generate code">
-        <Event_procedure_name v="IFsh1_OnWriteEnd" />
-        <Priority v="same as interrupt" />
-      </event>
+      <event name="OnWriteEnd" v="don&amp;apos;t generate code" />
       <event name="OnSaveBuffer" v="don&amp;apos;t generate code" />
       <event name="OnRestoreBuffer" v="don&amp;apos;t generate code" />
       <event name="OnEraseError" v="don&amp;apos;t generate code" />

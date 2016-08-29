@@ -15,7 +15,7 @@ bool FLAG_SEND = 0;
 bool FLAG_CONTROL_MODE_CONFIRM = 0;
 bool FLAG_UPDATE_MENU = 0;
 bool FLAG_SEND_STOP = 0;
-uint8_t CONTROL_MODE = 0;
+
 
 void Send_Control_Mode(int control){
 	serial_send_block(4,2, Set, Control_Mode);
@@ -178,6 +178,47 @@ void get_update_value(int mode){
 
 void send_stop(){
 	serial_send_block(1,2, Set, Stop);
+	serial_send_char(protocol_setting.DELIMITATOR);
+	serial_send_char(1);
+	serial_send_end();
+}
+
+void send_velocity_cue(){
+	serial_send_block(4, 2, Set, Velocity_ref);
+	serial_send_float(vel.velocity_ref);
+	serial_send_end();
+	vel.acceleration = convert(encoder, 0, 9999);
+	serial_send_block(4,2, Set, Acceleration);
+	serial_send_float(vel.acceleration);
+	serial_send_end();
+	serial_send_block(4,2, Set, Deceleration);
+	serial_send_float(vel.deceleration);
+	serial_send_end();
+}
+
+void send_position_cue(){
+	if(pos.position_ref == 0){
+		serial_send_block(1, 2, Set, Go_Home);
+		serial_send_char(protocol_setting.DELIMITATOR);
+		serial_send_char(1);
+		serial_send_end();
+	}
+	else {
+		serial_send_block(4, 2, Set, Position_ref);
+		serial_send_float(pos.position_ref);
+		serial_send_end();
+	}
+
+	serial_send_block(4,2, Set, Velocity_ref);
+	serial_send_float(pos.velocity_ref);
+	serial_send_end();
+	serial_send_block(4,2, Set, Acceleration);
+	serial_send_float(pos.acceleration);
+	serial_send_end();
+	serial_send_block(4,2, Set, Deceleration);
+	serial_send_float(pos.deceleration);
+	serial_send_end();
+	serial_send_block(1, 2, Set, Pos_go);
 	serial_send_char(protocol_setting.DELIMITATOR);
 	serial_send_char(1);
 	serial_send_end();

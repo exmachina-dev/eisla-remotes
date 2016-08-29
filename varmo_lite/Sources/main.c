@@ -162,15 +162,20 @@ int main(void)
 		  }
 		  FLAG_ENCODER = 0;
 	  }
-	  if (FLAG_PUSH_SHORT == 1){
+
+	  if (FLAG_PUSH_SHORT == 1 && FLAG_MENU == 1){
+		  int temp = select((int)encoder);
 		  if (FLAG_MENU == 1){
-			  int temp = select((int)encoder);
-			  if (FLAG_MENU == 1){
-				  encoder = temp;
-			  }
+			  encoder = temp;
 
 		  }
 		  FLAG_PUSH_SHORT = 0;
+	  }
+
+	  if(FLAG_REC == 1 && FLAG_CUE_MODE == 1){
+		  FLAG_REC = 0;
+		  select_cue(encoder, menu_indicator);
+		  refresh_fct(menu_indicator);
 	  }
 
 	  if (FLAG_PUSH_LONG == 1){

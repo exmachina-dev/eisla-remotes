@@ -60,7 +60,9 @@ int vspfunc(char *, ...);
 
 void print_float_at(float, int,bool, int, int);
 void print_int_at(int, bool, int, int);
-void print_all_cue_array(uint8_t);
+void print_cue_array(uint8_t , uint8_t*, uint8_t);
+
+void print_all_cue(uint8_t, uint8_t);
 
 void led_init(int);
 void load_char(void);
