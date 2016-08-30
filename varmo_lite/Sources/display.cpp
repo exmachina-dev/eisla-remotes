@@ -975,8 +975,15 @@ void pos_rec_cue_fct(void){
 		cue_parameter parameters;
 		FLAG_MENU = 0;
 		FLAG_CUE_MODE = 1;
-		encoder = 1;
+		//encoder = 1;
 		menu_indicator = Pos_Rec_cue;
+		uint8_t temp = get_next_slot_free(CONTROL_MODE);
+		if (temp < 50){
+			encoder = temp + 1;
+		}
+		else{
+			encoder = 1;
+		}
 		LCD_Write_Block((char*)"Record cue",0,0);
 		LCD_Write_Block((char*)"                ",1,0);
 		LCD_Write_Block((char*)"                ",2,0);
@@ -1262,8 +1269,15 @@ void vel_rec_cue_fct(void){
 		cue_parameter parameters;
 		FLAG_MENU = 0;
 		FLAG_CUE_MODE = 1;
-		encoder = 1;
+		//encoder = 1;
 		menu_indicator = Vel_Rec_cue;
+		uint8_t temp = get_next_slot_free(CONTROL_MODE);
+		if (temp < 50){
+			encoder = temp + 1;
+		}
+		else{
+			encoder = 1;
+		}
 		LCD_Write_Block((char*)"Record cue",0,0);
 		LCD_Write_Block((char*)"                ",1,0);
 		LCD_Write_Block((char*)"                ",2,0);
