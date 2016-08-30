@@ -193,7 +193,7 @@ int main(void)
 			  FLAG_CUE_MODE = 0;
 		  }
 	  }
-	  else if(FLAG_REC == 1 && FLAG_CUE_MODE == 0){
+	  else if(FLAG_REC == 1 && FLAG_MENU == 0){
 		  FLAG_REC = 0;
 		  old_menu_indicator = menu_indicator;
 		  if (CONTROL_MODE == 2){
@@ -272,6 +272,12 @@ int main(void)
 		  update_icon_drive_enable();
 	  }
 
+	  if (vel.velocity == 0 || pos.velocity == 0 || tor.torque == 0){
+		  LED_MOTOR_MOVE_ClrVal();
+	  }
+	  else{
+		  LED_MOTOR_MOVE_SetVal();
+	  }
 	  //Check message received
 	  binaryRepr size;
 	  if (FLAG_MSG_RCV == 1){
@@ -304,9 +310,9 @@ int main(void)
 	  }
 
 	  //COMMUNICATION ERR
-	  if (FLAG_MSG_ERR == 1){
+	 /* if (FLAG_MSG_ERR == 1){
 		  LED_STATUS_4_SetVal();
-	  }
+	  }*/
 
   }
 

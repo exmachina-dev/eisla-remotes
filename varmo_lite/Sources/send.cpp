@@ -250,6 +250,7 @@ void velocity_ref_processing(char* value){
 		temp.toBytes[i] = value[i];
 	}
 	vel.velocity_ref = temp.toFloat;
+	pos.velocity_ref = temp.toFloat;
 }
 
 void acceleration_processing(char* value){
