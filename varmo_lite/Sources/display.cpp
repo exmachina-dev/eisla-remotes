@@ -20,7 +20,7 @@ sub_menu2 vel_mod_cue = init_sub_menu2((char *)"Modify Cue    ", 1, vel_mod_cue_
 sub_menu2 vel_del_cue = init_sub_menu2((char *)"Delete Cue    ", 1, vel_del_cue_fct);
 
 sub_menu2 sub_menu_velocity_cue[]= {vel_play_cue, vel_rec_cue, vel_mod_cue, vel_del_cue, back_sub_menu};
-sub_menu2_list menu_velocity_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu Vel");
+sub_menu2_list menu_velocity_cue = init_sub_menu2_list(sub_menu_velocity_cue, sizeof(sub_menu_velocity_cue)/sizeof(sub_menu_velocity_cue[0]), (char*)"Cue Menu     ");
 
 sub_menu2 pos_play_cue = init_sub_menu2((char *)"Play Cue      ", 1, pos_play_cue_fct);
 sub_menu2 pos_rec_cue = init_sub_menu2((char *)"Record Cue    ", 1, pos_rec_cue_fct);
@@ -28,7 +28,7 @@ sub_menu2 pos_mod_cue = init_sub_menu2((char *)"Modify Cue    ", 1, pos_mod_cue_
 sub_menu2 pos_del_cue = init_sub_menu2((char *)"Delete Cue    ", 1, pos_del_cue_fct);
 
 sub_menu2 sub_menu_pos_cue[]= {pos_play_cue, pos_rec_cue, pos_mod_cue, pos_del_cue, back_sub_menu};
-sub_menu2_list menu_pos_cue = init_sub_menu2_list(sub_menu_pos_cue, sizeof(sub_menu_pos_cue)/sizeof(sub_menu_pos_cue[0]), (char*)"Cue Menu Pos");
+sub_menu2_list menu_pos_cue = init_sub_menu2_list(sub_menu_pos_cue, sizeof(sub_menu_pos_cue)/sizeof(sub_menu_pos_cue[0]), (char*)"Cue Menu     ");
 
 
 sub_menu back_menu = init_sub_menu((char *)"Back",1,{0}, back_fct);
@@ -41,7 +41,7 @@ sub_menu vel_cue = 		init_sub_menu((char *)"Cue         ",0, menu_velocity_cue, 
 sub_menu sub_menu_velocity[] = {vel_velocity, vel_acc, vel_dec, vel_cue, back_menu};
 sub_menu_list menu_velocity = init_sub_menu_list(sub_menu_velocity, sizeof(sub_menu_velocity)/sizeof(sub_menu_velocity[0]), (char*)"Velocy Menu  ");
 
-sub_menu pos_position = init_sub_menu((char *)"Postion     ",1,{0}, pos_position_fct);
+sub_menu pos_position = init_sub_menu((char *)"Position     ",1,{0}, pos_position_fct);
 sub_menu pos_velocity = init_sub_menu((char *)"Velocity    ",1,{0}, pos_velocity_fct);
 sub_menu pos_acc = 		init_sub_menu((char *)"Acceleration",1,{0}, pos_acceleration_fct);
 sub_menu pos_dec = 		init_sub_menu((char *)"Deceleration",1,{0}, pos_deceleration_fct);
@@ -49,7 +49,7 @@ sub_menu pos_cue = 		init_sub_menu((char *)"Cue         ",0, menu_pos_cue, void_
 sub_menu pos_set_home = init_sub_menu((char *)"Set Home", 1, {0}, pos_set_home_fct);
 
 sub_menu sub_menu_position[] = {pos_position, pos_velocity, pos_acc, pos_dec, pos_cue, pos_set_home,back_menu};
-sub_menu_list menu_position = init_sub_menu_list(sub_menu_position, sizeof(sub_menu_position)/sizeof(sub_menu_position[0]), (char*)"Postion Menu ");
+sub_menu_list menu_position = init_sub_menu_list(sub_menu_position, sizeof(sub_menu_position)/sizeof(sub_menu_position[0]), (char*)"Position Menu");
 
 sub_menu tor_torque = 		init_sub_menu((char *)"Torque        ",1,{0}, torque_fct);
 sub_menu tor_torque_rise = 	init_sub_menu((char *)"Torque Rise   ",1,{0}, torque_rise_fct);
@@ -906,7 +906,7 @@ void pos_play_cue_fct(void){
 
 		if (cue_saved_size == 0){
 			//No cue saved
-			LCD_Write_Block((char*)"No cue saved", 1, 0);
+			LCD_Write_Block((char*)"No cue saved", 2, 0);
 		}
 		else{
 			if (encoder < 1){
@@ -1176,7 +1176,7 @@ void vel_play_cue_fct(void){
 
 		if (cue_saved_size == 0){
 			//No cue saved
-			LCD_Write_Block((char*)"No cue saved", 1, 0);
+			LCD_Write_Block((char*)"No cue saved", 2, 0);
 		}
 		else{
 			if (encoder < 1){
