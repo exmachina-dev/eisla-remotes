@@ -180,37 +180,38 @@ int main(void)
 		 }
 		FLAG_PUSH_SHORT = 0;
 	  }
-
-	  if(FLAG_REC == 1 && (menu_indicator == Pos_Rec_cue || menu_indicator == Vel_Rec_cue) && FLAG_CUE_MODE == 1){
-		  FLAG_REC = 0;
-		  select_cue(encoder, menu_indicator);
-		  refresh_fct(menu_indicator);
-		  if(FLAG_REC_SHORT_CUT == 1){
-			  FLAG_REC_SHORT_CUT = 0;
-			  FLAG_MENU = 1;
-			  menu_indicator = old_menu_indicator;
+	  if (FLAG_SENS_1 ==1 || FLAG_SENS_2 == 1){
+		  if(FLAG_REC == 1 && (menu_indicator == Pos_Rec_cue || menu_indicator == Vel_Rec_cue) && FLAG_CUE_MODE == 1){
+			  FLAG_REC = 0;
+			  select_cue(encoder, menu_indicator);
 			  refresh_fct(menu_indicator);
-			  FLAG_CUE_MODE = 0;
+			  if(FLAG_REC_SHORT_CUT == 1){
+				  FLAG_REC_SHORT_CUT = 0;
+				  FLAG_MENU = 1;
+				  menu_indicator = old_menu_indicator;
+				  refresh_fct(menu_indicator);
+				  FLAG_CUE_MODE = 0;
+			  }
 		  }
-	  }
-	  else if(FLAG_REC == 1 && FLAG_MENU == 0){
-		  FLAG_REC = 0;
-		  old_menu_indicator = menu_indicator;
-		  if (CONTROL_MODE == 2){
-			  menu_indicator = Vel_Rec_cue;
-			  FLAG_REC_SHORT_CUT = 1;
-			  FLAG_MENU = 1;
-			  refresh_fct(menu_indicator);
+		  else if(FLAG_REC == 1 && FLAG_MENU == 0){
+			  FLAG_REC = 0;
+			  old_menu_indicator = menu_indicator;
+			  if (CONTROL_MODE == 2){
+				  menu_indicator = Vel_Rec_cue;
+				  FLAG_REC_SHORT_CUT = 1;
+				  FLAG_MENU = 1;
+				  refresh_fct(menu_indicator);
+			  }
+			  else if(CONTROL_MODE == 3){
+				  menu_indicator = Pos_Rec_cue;
+				  FLAG_REC_SHORT_CUT = 1;
+				  FLAG_MENU = 1;
+				  refresh_fct(menu_indicator);
+			  }
 		  }
-		  else if(CONTROL_MODE == 3){
-			  menu_indicator = Pos_Rec_cue;
-			  FLAG_REC_SHORT_CUT = 1;
-			  FLAG_MENU = 1;
-			  refresh_fct(menu_indicator);
+		  else{
+			  FLAG_REC = 0;
 		  }
-	  }
-	  else{
-		  FLAG_REC = 0;
 	  }
 
 
@@ -275,11 +276,11 @@ int main(void)
 		  update_icon_drive_enable();
 	  }
 
-	  if (vel.velocity == 0 || pos.velocity == 0 || tor.torque == 0){
-		  LED_MOTOR_MOVE_ClrVal();
+	  if (vel.velocity != 0 || pos.velocity != 0 || tor.torque != 0){
+		  LED_MOTOR_MOVE_SetVal();
 	  }
 	  else{
-		  LED_MOTOR_MOVE_SetVal();
+		  LED_MOTOR_MOVE_ClrVal();
 	  }
 
 	  if(FLAG_COM_TIME_OUT == 0){

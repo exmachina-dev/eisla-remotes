@@ -300,7 +300,6 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 /* ===================================================================*/
 void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-	LED_MOTOR_MOVE_SetVal();
 	if (FLAG_MENU == 0){
 		FLAG_UPDATE_MENU = 1;
 	}
