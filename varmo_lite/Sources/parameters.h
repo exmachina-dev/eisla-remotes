@@ -37,6 +37,7 @@ extern "C" {
 extern bool FLAG_REC;
 
 extern int menu_indicator;
+extern int old_menu_indicator;
 
 extern bool drive_enable_st;
 

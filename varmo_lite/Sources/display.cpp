@@ -984,7 +984,7 @@ void pos_rec_cue_fct(void){
 		else{
 			encoder = 1;
 		}
-		LCD_Write_Block((char*)"Record cue",0,0);
+		LCD_Write_Block((char*)"Record cue   ",0,0);
 		LCD_Write_Block((char*)"                ",1,0);
 		LCD_Write_Block((char*)"                ",2,0);
 		LCD_Write_Block((char*)"                ",3,0);

@@ -15,6 +15,7 @@ extern "C" {
 bool FLAG_REC = 0;
 
 int menu_indicator;
+int old_menu_indicator;
 bool drive_enable_st;
 
 bool FLAG_SET_HOME = 0;
