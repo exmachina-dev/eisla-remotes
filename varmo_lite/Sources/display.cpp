@@ -581,11 +581,24 @@ void acceleration_fct(){
 		print_float_at(encoder,0,1, 2, 8);
 		LCD_Write_At(vertical_bar,1,7);
 		LCD_Write_At(vertical_bar,2,7);
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Acc must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(vel.acceleration,0,1,2, 0);
+		if (encoder
+				== 0){
+			LCD_Write_Block((char*)"Acc must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 }
 
@@ -596,7 +609,6 @@ void deceleration_fct(){
 		LCD_Write_Block((char*)"                ",1,0);
 		LCD_Write_Block((char*)"                ",2,0);
 		LCD_Write_Block((char*)"                ",3,0);
-
 		menu_indicator = Velocity_dec_selected;
 		LCD_Write_Block((char*)"Dec Act",1,0);
 		print_float_at(vel.deceleration,0,1,2, 0);
@@ -605,11 +617,23 @@ void deceleration_fct(){
 		print_float_at(encoder,0,1, 2, 8);
 		LCD_Write_At(vertical_bar,1,7);
 		LCD_Write_At(vertical_bar,2,7);
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Dec must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(vel.deceleration,0,1,2, 0);
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Dec must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 }
 
@@ -727,11 +751,23 @@ void pos_acceleration_fct(){
 		print_float_at(encoder,0,1, 2, 8);
 		LCD_Write_At(vertical_bar,1,7);
 		LCD_Write_At(vertical_bar,2,7);
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Acc must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(pos.acceleration,0,1,2, 0);
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Acc must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 }
 
@@ -751,11 +787,25 @@ void pos_deceleration_fct(){
 		print_float_at(encoder,0,1, 2, 8);
 		LCD_Write_At(vertical_bar,1,7);
 		LCD_Write_At(vertical_bar,2,7);
+
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Dec must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(pos.deceleration,0,1,2, 0);
+
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Dec must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 }
 
@@ -858,11 +908,23 @@ void torque_rise_fct(){
 		print_float_at(encoder,0,1, 2, 8);
 		LCD_Write_At(vertical_bar,1,7);
 		LCD_Write_At(vertical_bar,2,7);
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Tq R must be set",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(tor.torque_rise,0,1,2, 0);
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Tq R must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 }
 
@@ -882,11 +944,23 @@ void torque_fall_fct(){
 		print_float_at(encoder,0,1, 2, 8);
 		LCD_Write_At(vertical_bar,1,7);
 		LCD_Write_At(vertical_bar,2,7);
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Tq F must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 	else{
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(tor.torque_fall,0,1,2, 0);
+		if (encoder == 0){
+			LCD_Write_Block((char*)"Tq F must be set ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
 	}
 }
 
