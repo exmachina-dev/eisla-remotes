@@ -44,9 +44,9 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
-#include "LEVER_DIR1.h"
-#include "ExtIntLdd2.h"
 #include "LEVER_DIR2.h"
+#include "ExtIntLdd2.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
 #include "I2C0.h"
@@ -130,8 +130,8 @@ int main(void)
   //LCD_Write_Block("Varmo V2.0", 1, 3);
 
   menu_init();
-  bool DIR1 = LEVER_DIR1_GetVal();
-  bool DIR2 = LEVER_DIR2_GetVal();
+  bool DIR1 = LEVER_DIR2_GetVal();
+  bool DIR2 = LEVER_DIR1_GetVal();
 
   if (DIR1 == 0 && DIR2 == 1){
 	  FLAG_SENS = 1;

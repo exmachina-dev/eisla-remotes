@@ -7,7 +7,7 @@
 **     Version     : Component 02.105, Driver 01.00, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 16:50, # CodeGen: 62
+**     Date/Time   : 2016-08-30, 15:33, # CodeGen: 269
 **     Abstract    :
 **         This component "ExtInt" implements an external 
 **         interrupt, its control methods and interrupt/event 
@@ -16,8 +16,8 @@
 **         selected edge.
 **     Settings    :
 **          Component name                                 : LEVER_DIR2
-**          Pin                                            : PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT
-**          Pin signal                                     : LEVER_DIR2
+**          Pin                                            : PTC4/LLWU_P8/SPI0_PCS0/UART1_TX/FTM0_CH3/CMP1_OUT
+**          Pin signal                                     : DIR_2
 **          ExtInt_LDD                                     : ExtInt_LDD
 **          Generate interrupt on                          : both edges
 **          Interrupt                                      : INT_PORTC
@@ -84,7 +84,7 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 /* Include inherited beans */
-#include "ExtIntLdd3.h"
+#include "ExtIntLdd2.h"
 
 #include "Cpu.h"
 
@@ -107,9 +107,9 @@ extern "C" {
 **                           logical "1" (High level)
 ** ===================================================================
 */
-#define LEVER_DIR2_GetVal() (ExtIntLdd3_GetVal(ExtIntLdd3_DeviceData))
+#define LEVER_DIR2_GetVal() (ExtIntLdd2_GetVal(ExtIntLdd2_DeviceData))
 
-void ExtIntLdd3_OnInterrupt(LDD_TUserData *UserDataPtr);
+void ExtIntLdd2_OnInterrupt(LDD_TUserData *UserDataPtr);
 
 /* END LEVER_DIR2. */
 

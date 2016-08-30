@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-30, 11:12, # CodeGen: 267
+**     Date/Time   : 2016-08-30, 15:33, # CodeGen: 269
 **     Abstract    :
 **
 **     Settings    :
@@ -312,9 +312,9 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
-#include "LEVER_DIR1.h"
-#include "ExtIntLdd2.h"
 #include "LEVER_DIR2.h"
+#include "ExtIntLdd2.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
 #include "I2C0.h"

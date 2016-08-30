@@ -64,9 +64,9 @@
       <GenExtraFileSrcDir26>lib\Kinetis\startup\</GenExtraFileSrcDir26>
       <GenExtraFileSrcDir22>Repositories\lib\doxygen\</GenExtraFileSrcDir22>
       <XtraAge23>1225953122</XtraAge23>
-      <XtraAge24>1225953122</XtraAge24>
+      <XtraAge24>1226734653</XtraAge24>
       <XtraAge26>1221099532</XtraAge26>
-      <XtraAge27>1226344518</XtraAge27>
+      <XtraAge27>1226734653</XtraAge27>
       <GenExtraFileType27>4</GenExtraFileType27>
       <GenExtraFileType26>5</GenExtraFileType26>
       <GenExtraFileType25>4</GenExtraFileType25>
@@ -411,8 +411,8 @@
         <Line>I2C0_OnTransmitData</Line>
         <Line>I2C0_OnArbitLost</Line>
         <Line>T_100ms_OnCounterRestart</Line>
-        <Line>LEVER_DIR2_OnInterrupt</Line>
         <Line>LEVER_DIR1_OnInterrupt</Line>
+        <Line>LEVER_DIR2_OnInterrupt</Line>
         <Line>ENCODER_PUSH_OnInterrupt</Line>
         <Line>ENCODER_OnPortEvent</Line>
         <Line>T_500ms_OnCounterRestart</Line>
@@ -478,9 +478,9 @@
         <Line>ENCODER</Line>
         <Line>ENCODER_PUSH</Line>
         <Line>ExtIntLdd1</Line>
-        <Line>LEVER_DIR1</Line>
-        <Line>ExtIntLdd2</Line>
         <Line>LEVER_DIR2</Line>
+        <Line>ExtIntLdd2</Line>
+        <Line>LEVER_DIR1</Line>
         <Line>ExtIntLdd3</Line>
         <Line>T_100ms</Line>
         <Line>I2C0</Line>
@@ -505,7 +505,7 @@
     </GenFiles>
     <SignalListFile>Documentation\varmo_lite_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>153</ProjectModificationStamp>
+    <ProjectModificationStamp>154</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>false</Generated>
@@ -583,7 +583,7 @@
     <GenDriverVersion>01.04</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
     <HeaderAge>1226344518</HeaderAge>
-    <CodeAge>1226725770</CodeAge>
+    <CodeAge>1226734653</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetClockConfiguration>false</SetClockConfiguration>
@@ -1889,12 +1889,12 @@
   </ComponentID_45>
   <ComponentID_49>
     <Generated>true</Generated>
-    <GenCompName>LEVER_DIR1</GenCompName>
+    <GenCompName>LEVER_DIR2</GenCompName>
     <GenComponentVersion>02.105</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1223195484</HeaderAge>
-    <CodeAge>1223195484</CodeAge>
+    <HeaderAge>1226734652</HeaderAge>
+    <CodeAge>1226734653</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>5</GenNumMethods>
     <Enable>false</Enable>
@@ -1904,7 +1904,7 @@
     <ConnectPin>false</ConnectPin>
     <GenNumEvents>1</GenNumEvents>
     <OnInterrupt_Selected>2</OnInterrupt_Selected>
-    <OnInterrupt_Name>LEVER_DIR1_OnInterrupt</OnInterrupt_Name>
+    <OnInterrupt_Name>LEVER_DIR2_OnInterrupt</OnInterrupt_Name>
     <OnInterrupt_Priority>same as interrupt</OnInterrupt_Priority>
     <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
     <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
@@ -1945,8 +1945,8 @@
       <GenComponentVersion>02.156</GenComponentVersion>
       <GenDriverVersion>01.02</GenDriverVersion>
       <GenEventModule>Events</GenEventModule>
-      <HeaderAge>1223195484</HeaderAge>
-      <CodeAge>1223195484</CodeAge>
+      <HeaderAge>1226734652</HeaderAge>
+      <CodeAge>1226734652</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>9</GenNumMethods>
       <Init>true</Init>
@@ -2015,12 +2015,12 @@
   </ComponentID_49>
   <ComponentID_51>
     <Generated>true</Generated>
-    <GenCompName>LEVER_DIR2</GenCompName>
+    <GenCompName>LEVER_DIR1</GenCompName>
     <GenComponentVersion>02.105</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1223195484</HeaderAge>
-    <CodeAge>1223195484</CodeAge>
+    <HeaderAge>1226734653</HeaderAge>
+    <CodeAge>1226734653</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>5</GenNumMethods>
     <Enable>false</Enable>
@@ -2030,7 +2030,7 @@
     <ConnectPin>false</ConnectPin>
     <GenNumEvents>1</GenNumEvents>
     <OnInterrupt_Selected>2</OnInterrupt_Selected>
-    <OnInterrupt_Name>LEVER_DIR2_OnInterrupt</OnInterrupt_Name>
+    <OnInterrupt_Name>LEVER_DIR1_OnInterrupt</OnInterrupt_Name>
     <OnInterrupt_Priority>same as interrupt</OnInterrupt_Priority>
     <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
     <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
@@ -2071,8 +2071,8 @@
       <GenComponentVersion>02.156</GenComponentVersion>
       <GenDriverVersion>01.02</GenDriverVersion>
       <GenEventModule>Events</GenEventModule>
-      <HeaderAge>1223195484</HeaderAge>
-      <CodeAge>1223195484</CodeAge>
+      <HeaderAge>1226734652</HeaderAge>
+      <CodeAge>1226734653</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>9</GenNumMethods>
       <Init>true</Init>

@@ -15,8 +15,8 @@
 **         I2C0_OnReceiveData           - void I2C0_OnReceiveData(void);
 **         I2C0_OnTransmitData          - void I2C0_OnTransmitData(void);
 **         T_100ms_OnCounterRestart     - void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr);
-**         LEVER_DIR2_OnInterrupt       - void LEVER_DIR2_OnInterrupt(void);
 **         LEVER_DIR1_OnInterrupt       - void LEVER_DIR1_OnInterrupt(void);
+**         LEVER_DIR2_OnInterrupt       - void LEVER_DIR2_OnInterrupt(void);
 **         ENCODER_PUSH_OnInterrupt     - void ENCODER_PUSH_OnInterrupt(void);
 **         ENCODER_OnPortEvent          - void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr);
 **         T_500ms_OnCounterRestart     - void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr);
@@ -157,31 +157,6 @@ void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 
 /*
 ** ===================================================================
-**     Event       :  LEVER_DIR2_OnInterrupt (module Events)
-**
-**     Component   :  LEVER_DIR2 [ExtInt]
-**     Description :
-**         This event is called when an active signal edge/level has
-**         occurred.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-void LEVER_DIR2_OnInterrupt(void)
-{
-	FLAG_SENS = 1;
-    if (LEVER_DIR2_GetVal() == 0) {
-    	FLAG_SENS_2 = 1;
-    }
-    else{
-    	FLAG_SENS_2 = 0;
-    	FLAG_STOP = 1;
-    }
-
-}
-
-/*
-** ===================================================================
 **     Event       :  LEVER_DIR1_OnInterrupt (module Events)
 **
 **     Component   :  LEVER_DIR1 [ExtInt]
@@ -196,6 +171,31 @@ void LEVER_DIR1_OnInterrupt(void)
 {
 	FLAG_SENS = 1;
     if (LEVER_DIR1_GetVal() == 0) {
+    	FLAG_SENS_2 = 1;
+    }
+    else{
+    	FLAG_SENS_2 = 0;
+    	FLAG_STOP = 1;
+    }
+
+}
+
+/*
+** ===================================================================
+**     Event       :  LEVER_DIR2_OnInterrupt (module Events)
+**
+**     Component   :  LEVER_DIR2 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void LEVER_DIR2_OnInterrupt(void)
+{
+	FLAG_SENS = 1;
+    if (LEVER_DIR2_GetVal() == 0) {
     	FLAG_SENS_1 = 1;
     }
     else{

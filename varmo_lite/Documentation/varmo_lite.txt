@@ -73,11 +73,11 @@ Module "ENCODER"   (component GPIO_LDD)
 Module "ENCODER_PUSH" (component ExtInt)
    - ENCODER_PUSH_GetVal -Returns the actual value of the input pin of the component.
 
-Module "LEVER_DIR1" (component ExtInt)
-   - LEVER_DIR1_GetVal -Returns the actual value of the input pin of the component.
-
 Module "LEVER_DIR2" (component ExtInt)
    - LEVER_DIR2_GetVal -Returns the actual value of the input pin of the component.
+
+Module "LEVER_DIR1" (component ExtInt)
+   - LEVER_DIR1_GetVal -Returns the actual value of the input pin of the component.
 
 Module "T_100ms"   (component TimerUnit_LDD)
    - T_100ms_Init -Initializes the device. Allocates memory for the device data structure, allocates interrupt vectors and sets 

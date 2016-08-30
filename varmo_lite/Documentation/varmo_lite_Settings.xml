@@ -740,10 +740,10 @@ PE_DEBUGHALT();
       </event>
     </Events>
   </Bean>
-  <Bean name="LEVER_DIR1" type="ExtInt">
+  <Bean name="LEVER_DIR2" type="ExtInt">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="LEVER_DIR1" />
+      <Component_name v="LEVER_DIR2" />
       <Pin v="PTC4/LLWU_P8/SPI0_PCS0/UART1_TX/FTM0_CH3/CMP1_OUT" />
       <inhrbean type="ExtInt_LDD">
         <Enabled v="Y" />
@@ -793,15 +793,15 @@ PE_DEBUGHALT();
     <Events>
       <Event_module_name v="Events" />
       <event name="OnInterrupt" v="generate code">
-        <Event_procedure_name v="LEVER_DIR1_OnInterrupt" />
+        <Event_procedure_name v="LEVER_DIR2_OnInterrupt" />
         <Priority v="same as interrupt" />
       </event>
     </Events>
   </Bean>
-  <Bean name="LEVER_DIR2" type="ExtInt">
+  <Bean name="LEVER_DIR1" type="ExtInt">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="LEVER_DIR2" />
+      <Component_name v="LEVER_DIR1" />
       <Pin v="PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT" />
       <inhrbean type="ExtInt_LDD">
         <Enabled v="Y" />
@@ -851,7 +851,7 @@ PE_DEBUGHALT();
     <Events>
       <Event_module_name v="Events" />
       <event name="OnInterrupt" v="generate code">
-        <Event_procedure_name v="LEVER_DIR2_OnInterrupt" />
+        <Event_procedure_name v="LEVER_DIR1_OnInterrupt" />
         <Priority v="same as interrupt" />
       </event>
     </Events>

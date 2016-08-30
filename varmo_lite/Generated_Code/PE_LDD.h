@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-18, 17:58, # CodeGen: 210
+**     Date/Time   : 2016-08-30, 15:33, # CodeGen: 269
 **     Abstract    :
 **
 **     Settings    :
@@ -75,9 +75,9 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
-#include "LEVER_DIR1.h"
-#include "ExtIntLdd2.h"
 #include "LEVER_DIR2.h"
+#include "ExtIntLdd2.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
 #include "I2C0.h"

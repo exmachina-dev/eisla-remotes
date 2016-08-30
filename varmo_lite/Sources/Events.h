@@ -47,9 +47,9 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
-#include "LEVER_DIR1.h"
-#include "ExtIntLdd2.h"
 #include "LEVER_DIR2.h"
+#include "ExtIntLdd2.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
 #include "I2C0.h"
@@ -150,12 +150,12 @@ void ENCODER_PUSH_OnInterrupt(void);
 ** ===================================================================
 */
 
-void LEVER_DIR2_OnInterrupt(void);
+void LEVER_DIR1_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  LEVER_DIR2_OnInterrupt (module Events)
+**     Event       :  LEVER_DIR1_OnInterrupt (module Events)
 **
-**     Component   :  LEVER_DIR2 [ExtInt]
+**     Component   :  LEVER_DIR1 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
@@ -164,12 +164,12 @@ void LEVER_DIR2_OnInterrupt(void);
 ** ===================================================================
 */
 
-void LEVER_DIR1_OnInterrupt(void);
+void LEVER_DIR2_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  LEVER_DIR1_OnInterrupt (module Events)
+**     Event       :  LEVER_DIR2_OnInterrupt (module Events)
 **
-**     Component   :  LEVER_DIR1 [ExtInt]
+**     Component   :  LEVER_DIR2 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.

@@ -3,7 +3,7 @@
   <Header>
     <Name>varmo_lite</Name>
     <SavedBy>Adrian</SavedBy>
-    <ModificationStamp>153</ModificationStamp>
+    <ModificationStamp>154</ModificationStamp>
     <Date>2016-05-30</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1550-0615</PEversion>
@@ -23889,7 +23889,7 @@
     <Repository>file:/${ProcessorExpert_loc}/Repositories/Kinetis_Repository</Repository>
     <ComponentUUID>com.freescale.processorexpert.extint</ComponentUUID>
     <BeanType>ExtInt</BeanType>
-    <Name>LEVER_DIR1</Name>
+    <Name>LEVER_DIR2</Name>
     <CompNumb>49</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
@@ -23904,7 +23904,7 @@
         <ItemSymbol>DeviceName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LEVER_DIR1</Value>
+        <Value>LEVER_DIR2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>_Pin</ItemSymbol>
@@ -23917,7 +23917,7 @@
         <ItemSymbol>PinSignal</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>DIR_1</Value>
+        <Value>DIR_2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>FeatureCondGrpLDD</ItemSymbol>
@@ -24425,7 +24425,7 @@
         <ItemSymbol>OnInterruptName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LEVER_DIR1_OnInterrupt</Value>
+        <Value>LEVER_DIR2_OnInterrupt</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnInterruptPriority</ItemSymbol>
@@ -24452,7 +24452,7 @@
         <ItemSymbol>OnTriggerInterruptName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LEVER_DIR1_OnTriggerInterrupt</Value>
+        <Value>LEVER_DIR2_OnTriggerInterrupt</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnTriggerInterruptPriority</ItemSymbol>
@@ -24466,7 +24466,7 @@
     <Repository>file:/${ProcessorExpert_loc}/Repositories/Kinetis_Repository</Repository>
     <ComponentUUID>com.freescale.processorexpert.extint</ComponentUUID>
     <BeanType>ExtInt</BeanType>
-    <Name>LEVER_DIR2</Name>
+    <Name>LEVER_DIR1</Name>
     <CompNumb>51</CompNumb>
     <CompEnabled>true</CompEnabled>
     <GenCodeMode>ALWAYS_WRITE</GenCodeMode>
@@ -24481,7 +24481,7 @@
         <ItemSymbol>DeviceName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LEVER_DIR2</Value>
+        <Value>LEVER_DIR1</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>_Pin</ItemSymbol>
@@ -24494,7 +24494,7 @@
         <ItemSymbol>PinSignal</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LEVER_DIR2</Value>
+        <Value>LEVER_DIR1</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>FeatureCondGrpLDD</ItemSymbol>
@@ -25002,7 +25002,7 @@
         <ItemSymbol>OnInterruptName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LEVER_DIR2_OnInterrupt</Value>
+        <Value>LEVER_DIR1_OnInterrupt</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnInterruptPriority</ItemSymbol>
@@ -25029,7 +25029,7 @@
         <ItemSymbol>OnTriggerInterruptName</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>LEVER_DIR2_OnTriggerInterrupt</Value>
+        <Value>LEVER_DIR1_OnTriggerInterrupt</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OnTriggerInterruptPriority</ItemSymbol>
