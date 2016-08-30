@@ -20,6 +20,7 @@ extern bool FLAG_SEND;
 extern bool FLAG_CONTROL_MODE_CONFIRM;
 extern bool FLAG_UPDATE_MENU;
 extern bool FLAG_SEND_STOP;
+extern bool FLAG_COM_TIME_OUT;
 
 
 void get_update_drive_en(void);

@@ -278,6 +278,13 @@ int main(void)
 	  else{
 		  LED_MOTOR_MOVE_SetVal();
 	  }
+
+	  if(FLAG_COM_TIME_OUT == 0){
+		  LED_STATUS_2_SetVal();
+	  }
+	  else if(FLAG_COM_TIME_OUT == 1){
+		  LED_STATUS_2_ClrVal();
+	  }
 	  //Check message received
 	  binaryRepr size;
 	  if (FLAG_MSG_RCV == 1){

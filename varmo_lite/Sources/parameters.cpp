@@ -20,7 +20,7 @@ bool drive_enable_st;
 
 bool FLAG_SET_HOME = 0;
 int counter_2s = 0;
-
+int counter_1s = 0;
 bool FLAG_SHORT_CUT = 0;
 
 bool FLAG_UPDATE = 0;

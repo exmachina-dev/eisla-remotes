@@ -15,7 +15,7 @@ bool FLAG_SEND = 0;
 bool FLAG_CONTROL_MODE_CONFIRM = 0;
 bool FLAG_UPDATE_MENU = 0;
 bool FLAG_SEND_STOP = 0;
-
+bool FLAG_COM_TIME_OUT = 0;
 
 void Send_Control_Mode(int control){
 	serial_send_block(4,2, Set, Control_Mode);

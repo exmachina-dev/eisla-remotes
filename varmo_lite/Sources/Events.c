@@ -312,6 +312,14 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 		FLAG_SET_HOME = 0;
 	}
 
+	if(counter_1s >= 2){
+		FLAG_COM_TIME_OUT = 1;
+	}
+	else{
+		FLAG_COM_TIME_OUT = 0;
+		counter_1s ++;
+	}
+
 	if (FLAG_CUE_SELECTED == 1){
 		counter_2s += 1;
 	}
@@ -439,6 +447,7 @@ void AS1_OnRxChar(void)
 void AS1_OnRxCharExt(AS1_TComData Chr)
 {
 	LED_STATUS_3_SetVal();
+	counter_1s = 0;
 	if (cnt > 0){
 		if (Chr == '\n' && in_buffer[cnt-1] == '\r'){
 			//End of a message
