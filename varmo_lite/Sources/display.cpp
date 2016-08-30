@@ -61,9 +61,8 @@ sub_menu_list menu_torque = init_sub_menu_list(sub_menu_torque, sizeof(sub_menu_
 menu velocity = init_menu((char *)"Velocity      ", menu_velocity,1);
 menu position = init_menu((char *)"Position      ", menu_position,1);
 menu torque = 	init_menu((char *)"Torque        ", menu_torque,1);
-menu setting = 	init_menu((char *)"Setting       ", menu_velocity,0);
 
-menu menu_array[] = {velocity, position, torque, setting};
+menu menu_array[] = {velocity, position, torque};
 
 menu_list root_menu= init_menu_list (menu_array, sizeof(menu_array)/sizeof(menu_array[0]), (char*)"Root Menu    ");
 

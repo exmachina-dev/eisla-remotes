@@ -117,6 +117,8 @@ int main(void)
   drive_enable_st = 1;
   LED_STATUS_1_ClrVal();
   LED_STATUS_2_ClrVal();
+  LED_STATUS_3_ClrVal();
+  LED_STATUS_4_ClrVal();
 
 
   int cnt_err = 0;
@@ -235,7 +237,6 @@ int main(void)
 	  if (FLAG_CONTROL_MODE == 1){
 		  FLAG_CONTROL_MODE = 0;
 		  control_mode_fct();
-		  LED_STATUS_1_NegVal();
 	  }
 
 	  if (FLAG_CONTROL_MODE_CONFIRM == 1){
