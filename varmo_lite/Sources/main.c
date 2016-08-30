@@ -209,6 +209,9 @@ int main(void)
 			  refresh_fct(menu_indicator);
 		  }
 	  }
+	  else{
+		  FLAG_REC = 0;
+	  }
 
 
 	  if (FLAG_PUSH_LONG == 1){
