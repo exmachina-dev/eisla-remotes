@@ -182,6 +182,9 @@ int main(void)
 		  select_cue(encoder, menu_indicator);
 		  refresh_fct(menu_indicator);
 	  }
+	  else if(FLAG_REC == 1){
+		  FLAG_REC = 0;
+	  }
 
 
 

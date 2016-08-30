@@ -137,25 +137,31 @@ uint8_t get_next_slot_free(int mode){
 		bool slot_free;
 		byte temp;
 		addr = velocity_offset + cue * 13;
-		while (slot_free == 0 || cue != 50){
+		while (slot_free == 0 && cue < 50){
 			IFsh1_GetByteFlash(addr, &temp);
-			if (temp == 0){
+			if (temp != 0x80){
 				slot_free = 1;
 			}
-			cue ++;
+			else{
+				cue ++;
+				addr = velocity_offset + cue * 13;
+			}
 		}
 	}
 	else if (mode == 3){
 		//Position
 		bool slot_free;
 		byte temp;
-		addr = position_offset + cue * 13;
-		while (slot_free == 0 || cue != 50){
+		addr = position_offset + cue * 17;
+		while (slot_free == 0 && cue < 50){
 			IFsh1_GetByteFlash(addr, &temp);
-			if (temp == 0){
+			if (temp != 0x80){
 				slot_free = 1;
 			}
-			cue ++;
+			else{
+				cue ++;
+				addr = position_offset + cue * 17;
+			}
 		}
 	}
 	return cue;

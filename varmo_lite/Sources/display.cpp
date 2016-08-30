@@ -936,7 +936,7 @@ void pos_play_cue_fct(void){
 		if (cue_saved_size != 0){
 			if (FLAG_CUE_SELECTED == 1){
 				LCD_Write_Block((char*)"                ",2,0);
-				LCD_Write_Block((char*)"Cue loaded",3,0);
+				LCD_Write_Block((char*)"Cue loaded      ",3,0);
 			}
 			else{
 
@@ -1003,7 +1003,7 @@ void pos_rec_cue_fct(void){
 	else{
 		if (FLAG_CUE_SELECTED == 1){
 			LCD_Write_Block((char*)"                ",2,0);
-			LCD_Write_Block((char*)"Cue saved",3,0);
+			LCD_Write_Block((char*)"Cue saved       ",3,0);
 		}
 		else{
 			if(encoder < 1){
@@ -1078,7 +1078,7 @@ void pos_mod_cue_fct(void){
 			if (cue_saved_size != 0){
 				if (FLAG_CUE_SELECTED == 1){
 					LCD_Write_Block((char*)"                ",2,0);
-					LCD_Write_Block((char*)"Cue loaded",3,0);
+					LCD_Write_Block((char*)"Cue loaded      ",3,0);
 				}
 				else{
 					if(encoder < 1){
@@ -1126,7 +1126,7 @@ void pos_del_cue_fct(void){
 
 			if (cue_saved_size == 0){
 				//No cue saved
-				LCD_Write_Block((char*)"No cue saved", 2, 0);
+				LCD_Write_Block((char*)"No cue saved    ", 2, 0);
 			}
 			else{
 				if (encoder < 1){
@@ -1234,7 +1234,7 @@ void vel_play_cue_fct(void){
 		if (cue_saved_size != 0){
 			if (FLAG_CUE_SELECTED == 1){
 				LCD_Write_Block((char*)"                ",2,0);
-				LCD_Write_Block((char*)"Cue loaded",3,0);
+				LCD_Write_Block((char*)"Cue loaded      ",3,0);
 			}
 			else{
 
@@ -1297,7 +1297,7 @@ void vel_rec_cue_fct(void){
 	else{
 		if (FLAG_CUE_SELECTED == 1){
 			LCD_Write_Block((char*)"                ",2,0);
-			LCD_Write_Block((char*)"Cue saved",3,0);
+			LCD_Write_Block((char*)"Cue saved       ",3,0);
 		}
 		else{
 			if(encoder < 1){
@@ -1369,7 +1369,7 @@ void vel_mod_cue_fct(void){
 		if (cue_saved_size != 0){
 			if (FLAG_CUE_SELECTED == 1){
 				LCD_Write_Block((char*)"                ",2,0);
-				LCD_Write_Block((char*)"Cue loaded",3,0);
+				LCD_Write_Block((char*)"Cue loaded      ",3,0);
 			}
 			else{
 				if(encoder < 1){
