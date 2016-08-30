@@ -40,7 +40,7 @@ void load_cue(uint8_t nb_cue, int mode){
 	}
 	else if (mode == 3){
 		//Position
-		addr = velocity_offset + (nb_cue * 13);
+		addr = velocity_offset + (nb_cue * 17);
 		byte temp;
 		IFsh1_GetByteFlash(addr, &temp);
 		if ((temp || 0x80 >> 7) == 1 ){
@@ -92,7 +92,7 @@ void write_cue(uint8_t nb_cue, int mode){
 	else if (mode == 3){
 		//Position
 
-		addr = position_offset + nb_cue  * 13;
+		addr = position_offset + nb_cue  * 17;
 		byte temp = 0x80;
 		IFsh1_SetByteFlash(addr, temp);
 		addr += 1;
@@ -122,7 +122,7 @@ void erase_cue(uint8_t nb_cue, int mode){
 		IFsh1_SetByteFlash(addr, 0x00);
 	}
 	else if (mode == 3){
-		addr = position_offset + nb_cue * 13;
+		addr = position_offset + nb_cue * 17;
 		IFsh1_SetByteFlash(addr, 0x00);
 	}
 }
@@ -193,7 +193,7 @@ uint8_t get_slot_saved(int mode, uint8_t *slot_saved){
 		addr = position_offset;
 		for (uint8_t i = 0; i<50; i++){
 			byte temp;
-			addr = position_offset +  i * 13;
+			addr = position_offset +  i * 17;
 			IFsh1_GetByteFlash(addr, &temp);
 			if (temp  == 0X80 ){
 				slot_saved[cue] = i+1;
@@ -229,7 +229,7 @@ cue_parameter get_cue_values(int mode, uint8_t nb_cue){
 	}
 	else if(mode == 3){
 		byte temp;
-		addr = position_offset +  nb_cue * 13;
+		addr = position_offset +  nb_cue * 17;
 		IFsh1_GetByteFlash(addr, &temp);
 		if (temp  == 0X80 ){
 			cue.data = 1;
