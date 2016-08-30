@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-25, 10:57, # CodeGen: 243
+**     Date/Time   : 2016-08-30, 11:12, # CodeGen: 267
 **     Abstract    :
 **
 **     Settings    :
@@ -73,12 +73,7 @@
 **          Watchdog disable                               : yes
 **          Internal peripherals                           : 
 **            NMI pin                                      : Disabled
-**            Reset control                                : Enabled
-**              Reset pin                                  : RESET_b
-**              Reset pin signal                           : 
-**              Filter in STOP                             : Disabled
-**              Filter in RUN/WAIT                         : Disabled
-**              Filter width                               : 1
+**            Reset control                                : Disabled
 **            Debug interface (JTAG)                       : 
 **              JTAG Mode                                  : JTAG
 **                TDI                                      : Enabled
@@ -2039,14 +2034,6 @@ void PE_low_level_init(void)
     PEX_RTOS_INIT();                   /* Initialization of the selected RTOS. Macro is defined by the RTOS component. */
   #endif
       /* Initialization of the SIM module */
-        /* Initialization of the RCM module */
-  /* RCM_RPFW: RSTFLTSEL=0 */
-  RCM_RPFW &= (uint8_t)~(uint8_t)(RCM_RPFW_RSTFLTSEL(0x1F));
-  /* RCM_RPFC: RSTFLTSS=0,RSTFLTSRW=0 */
-  RCM_RPFC &= (uint8_t)~(uint8_t)(
-               RCM_RPFC_RSTFLTSS_MASK |
-               RCM_RPFC_RSTFLTSRW(0x03)
-              );
         /* Initialization of the FTFL_FlashConfig module */
       /* Initialization of the PMC module */
   /* PMC_LVDSC1: LVDACK=1,LVDIE=0,LVDRE=1,LVDV=0 */
