@@ -68,6 +68,8 @@
 #include "TU1.h"
 #include "IFsh1.h"
 #include "IntFlashLdd1.h"
+#include "LED_MOTOR_MOVE.h"
+#include "BitIoLdd8.h"
 #include "KSDK1.h"
 #include "CS1.h"
 

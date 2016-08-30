@@ -592,8 +592,7 @@ void acceleration_fct(){
 		encoder = convert(encoder, 0, 9999);
 		print_float_at(encoder,0,1, 2, 8);
 		print_float_at(vel.acceleration,0,1,2, 0);
-		if (encoder
-				== 0){
+		if (encoder == 0){
 			LCD_Write_Block((char*)"Acc must be set ",3,0);
 		}
 		else{

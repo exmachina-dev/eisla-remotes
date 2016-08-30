@@ -65,6 +65,8 @@
 #include "TU1.h"
 #include "IFsh1.h"
 #include "IntFlashLdd1.h"
+#include "LED_MOTOR_MOVE.h"
+#include "BitIoLdd8.h"
 #include "KSDK1.h"
 #include "CS1.h"
 /* Including shared modules, which are used for whole project */
@@ -297,20 +299,14 @@ int main(void)
 	  if (FLAG_MSG_OK == 1){
 		  FLAG_MSG_ERR = msg_parse(msg, size.toInt.int0);
 		  FLAG_MSG_OK  = 0;
+		  LED_STATUS_4_ClrVal();
 	  }
-	  /*
+
 	  //COMMUNICATION ERR
 	  if (FLAG_MSG_ERR == 1){
-		  cnt_err += 1;
-		  LED_STATUS_2_SetVal();
-		  LED_STATUS_1_SetVal();
-		  FLAG_MSG_ERR = 0;
+		  LED_STATUS_4_SetVal();
 	  }
-	  else if (FLAG_MSG_ERR == 0) {
-		  cnt_ok += 1;
-		  LED_STATUS_1_ClrVal();
-		  LED_STATUS_2_ClrVal();
-	  }*/
+
   }
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/

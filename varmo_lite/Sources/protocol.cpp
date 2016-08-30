@@ -256,7 +256,7 @@ bool msg_processing(int n, ...){
  	}
 
 	va_end(arg);
-	return 1;
+	return 0;
 }
 
 #ifdef __cplusplus

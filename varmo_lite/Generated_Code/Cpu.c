@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-30, 15:33, # CodeGen: 269
+**     Date/Time   : 2016-08-30, 16:22, # CodeGen: 271
 **     Abstract    :
 **
 **     Settings    :
@@ -335,6 +335,8 @@
 #include "TU1.h"
 #include "IFsh1.h"
 #include "IntFlashLdd1.h"
+#include "LED_MOTOR_MOVE.h"
+#include "BitIoLdd8.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -2105,6 +2107,8 @@ void PE_low_level_init(void)
   (void)TU1_Init(NULL);
   /* ### IntFLASH "IFsh1" init code ... */
   IFsh1_Init();
+  /* ### BitIO_LDD "BitIoLdd8" component auto initialization. Auto initialization feature can be disabled by component property "Auto initialization". */
+  (void)BitIoLdd8_Init(NULL);
   /* Enable interrupts of the given priority level */
   Cpu_SetBASEPRI(0U);
 }

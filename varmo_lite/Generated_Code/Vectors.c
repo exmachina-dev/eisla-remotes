@@ -6,7 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-30, 15:33, # CodeGen: 269
+**     Date/Time   : 2016-08-30, 16:22, # CodeGen: 271
 **     Abstract    :
 **
 **     Settings    :
@@ -92,6 +92,8 @@
   #include "TU1.h"
   #include "IFsh1.h"
   #include "IntFlashLdd1.h"
+  #include "LED_MOTOR_MOVE.h"
+  #include "BitIoLdd8.h"
   #include "Events.h"
 
 

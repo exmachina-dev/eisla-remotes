@@ -150,8 +150,6 @@ void T_100ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
         FLAG_PUSH_LONG = 1;
         FLAG_PUSH_SHORT = 0;
         T_100ms_Disable(T_100ms_DeviceData);
-        LED_STATUS_1_SetVal();
-        LED_STATUS_2_ClrVal();
     }
 }
 
@@ -232,8 +230,6 @@ void ENCODER_PUSH_OnInterrupt(void)
         counter_100ms = 5;
         FLAG_PUSH_SHORT = 1;
         FLAG_PUSH_LONG = 0;
-        LED_STATUS_2_SetVal();
-        LED_STATUS_1_ClrVal();
     }
     else if (ENCODER_PUSH_GetVal() == 1){
     	T_100ms_Disable(T_100ms_DeviceData);
@@ -304,6 +300,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 /* ===================================================================*/
 void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
+	LED_MOTOR_MOVE_NegVal();
 	if (FLAG_MENU == 0){
 		FLAG_UPDATE_MENU = 1;
 	}
@@ -371,7 +368,7 @@ void I2C0_OnArbitLost(void)
 */
 void AS1_OnTxComplete(void)
 {
-	LED_STATUS_4_ClrVal();
+	LED_STATUS_3_ClrVal();
 	/* Write your code here ... */
 }
 
@@ -441,15 +438,13 @@ void AS1_OnRxChar(void)
 */
 void AS1_OnRxCharExt(AS1_TComData Chr)
 {
-
+	LED_STATUS_3_SetVal();
 	if (cnt > 0){
 		if (Chr == '\n' && in_buffer[cnt-1] == '\r'){
-				//End of a message
-
-				in_buffer[cnt] = Chr;
-				FLAG_MSG_RCV = 1;
-				LED_STATUS_3_ClrVal();
-				AS1_ClearRxBuf();
+			//End of a message
+			in_buffer[cnt] = Chr;
+			FLAG_MSG_RCV = 1;
+			AS1_ClearRxBuf();
 		}
 		else{
 			if (Chr == '\0'){
@@ -462,13 +457,11 @@ void AS1_OnRxCharExt(AS1_TComData Chr)
 		}
 	}
 	else if(cnt>512){
-		LED_STATUS_3_ClrVal();
 		AS1_ClearRxBuf();
 	}
 	else{
 		in_buffer[cnt]= Chr;
 		cnt ++;
-		LED_STATUS_3_SetVal();
 	}
 
 }
@@ -486,7 +479,6 @@ void AS1_OnRxCharExt(AS1_TComData Chr)
 */
 void AS1_OnTxChar(void)
 {
-	LED_STATUS_4_SetVal();
 	/* Write your code here ... */
 }
 
@@ -506,7 +498,6 @@ void AS1_OnTxChar(void)
 void AS1_OnFullRxBuf(void)
 {
 	AS1_ClearRxBuf();
-	LED_STATUS_3_ClrVal();
 	FLAG_MSG_ERR = 1;
 }
 
