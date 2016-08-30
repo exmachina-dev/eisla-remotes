@@ -250,7 +250,7 @@ int main(void)
 		  refresh_fct(menu_indicator);
 	  }
 
-	  if (FLAG_UPDATE_MENU == 1 && FLAG_MENU == 0 && FLAG_CUE_MODE == 0){
+	  if (FLAG_UPDATE_MENU == 1 && CONTROL_MODE != 0){
 		  get_update_value(CONTROL_MODE);
 		  FLAG_UPDATE_MENU = 0;
 		  refresh_fct(menu_indicator);
