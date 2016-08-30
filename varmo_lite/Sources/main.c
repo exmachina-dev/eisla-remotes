@@ -170,14 +170,20 @@ int main(void)
 			encoder = temp;
 			}
 		 }
+		 else if (FLAG_CUE_MODE == 1 && menu_indicator != Pos_Rec_cue && menu_indicator != Vel_Rec_cue){
+			  select_cue(encoder, menu_indicator);
+			  refresh_fct(menu_indicator);
+		 }
 		FLAG_PUSH_SHORT = 0;
 	  }
 
-	  if(FLAG_REC == 1 && FLAG_CUE_MODE == 1){
+	  if(FLAG_REC == 1 && (menu_indicator == Pos_Rec_cue || menu_indicator == Vel_Rec_cue) && FLAG_CUE_MODE == 1){
 		  FLAG_REC = 0;
 		  select_cue(encoder, menu_indicator);
 		  refresh_fct(menu_indicator);
 	  }
+
+
 
 	  if (FLAG_PUSH_LONG == 1){
 		  encoder = back((int) encoder);

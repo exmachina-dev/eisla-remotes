@@ -164,7 +164,7 @@ void get_update_value(int mode){
 		serial_send_end();
 
 		if (FLAG_UPDATE_MENU == 0){
-			serial_send_block(0,2, Get, Velocity);
+			serial_send_block(0,2, Get, Velocity_ref);
 			serial_send_end();
 
 			serial_send_block(0,2, Get, Acceleration);
