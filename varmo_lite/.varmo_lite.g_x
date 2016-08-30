@@ -76,7 +76,7 @@
       <File Name="Generated_Code/BitIoLdd1.c" FileDate="2016-06-29, 14:58:00" FileAge="1467205080692" FileType="45637" CompNumb="8" />
       <File Name="Generated_Code/CS1.c" FileDate="2016-07-08, 15:48:38" FileAge="1467985718630" FileType="45637" CompNumb="78" />
       <File Name="Documentation/doxygen/BitIoLdd6_component.txt" FileDate="2016-07-12, 18:02:53" FileAge="1468339373470" FileType="45637" CompNumb="87" />
-      <File Name="Sources/main.c" FileDate="2016-08-29, 15:36:51" FileAge="1472477811296" FileType="128" />
+      <File Name="Sources/main.c" FileDate="2016-08-29, 18:30:30" FileAge="1472488230449" FileType="128" />
       <File Name="Generated_Code/PE_Error.h" FileDate="2016-05-30, 20:36:32" FileAge="1464633392599" FileType="45637" />
       <File Name="Documentation/doxygen/pex.doxyfile" FileDate="2016-05-30, 15:08:14" FileAge="1464613694854" FileType="45637" CompNumb="37" />
       <File Name="Generated_Code/IntI2cLdd1.h" FileDate="2016-07-13, 10:15:17" FileAge="1468397717508" FileType="45637" CompNumb="58" />
@@ -92,7 +92,7 @@
       <File Name="Sources/Events.h" FileDate="2016-08-24, 17:02:13" FileAge="1472050933730" FileType="131328" />
       <File Name="Generated_Code/KSDK1.h" FileDate="2016-08-25, 11:33:21" FileAge="1472117601394" FileType="45637" CompNumb="76" />
       <File Name="Generated_Code/ENCODER_PUSH.h" FileDate="2016-08-10, 11:23:55" FileAge="1470821035385" FileType="45637" CompNumb="45" />
-      <File Name="Sources/Events.c" FileDate="2016-08-29, 15:32:14" FileAge="1472477534354" FileType="131328" />
+      <File Name="Sources/Events.c" FileDate="2016-08-29, 18:31:44" FileAge="1472488304293" FileType="131328" />
       <File Name="Generated_Code/KSDK1.c" FileDate="2016-08-25, 11:33:21" FileAge="1472117601263" FileType="45637" CompNumb="76" />
       <File Name="Generated_Code/ENCODER_PUSH.c" FileDate="2016-08-10, 11:23:55" FileAge="1470821035379" FileType="45637" CompNumb="45" />
       <File Name="Documentation/doxygen/ExtIntLdd1_component.txt" FileDate="2016-08-10, 11:23:55" FileAge="1470821035443" FileType="45637" CompNumb="46" />
@@ -129,7 +129,7 @@
       <File Name="Generated_Code/PUSH_BUTTON_SEND.h" FileDate="2016-07-08, 15:26:57" FileAge="1467984417091" FileType="45637" CompNumb="68" />
       <File Name="Documentation/doxygen/ASerialLdd1_component.txt" FileDate="2016-07-08, 15:48:38" FileAge="1467985718547" FileType="45637" CompNumb="80" />
       <File Name="Documentation/doxygen/BitIoLdd1_component.txt" FileDate="2016-06-27, 18:11:22" FileAge="1467043882513" FileType="45637" CompNumb="8" />
-      <File Name="Documentation/varmo_lite_SIGNALS.txt" FileDate="2016-08-29, 17:37:21" FileAge="1472485041954" FileType="3072" />
+      <File Name="Documentation/varmo_lite_SIGNALS.txt" FileDate="2016-08-30, 09:44:16" FileAge="1472543056414" FileType="3072" />
       <File Name="Generated_Code/ExtIntLdd4.h" FileDate="2016-07-08, 15:26:56" FileAge="1467984416856" FileType="45637" CompNumb="69" />
       <File Name="Generated_Code/PUSH_BUTTON_SEND.c" FileDate="2016-07-08, 15:26:57" FileAge="1467984417067" FileType="45637" CompNumb="68" />
       <File Name="Documentation/doxygen/BitIoLdd4_component.txt" FileDate="2016-06-27, 16:46:17" FileAge="1467038777190" FileType="45637" CompNumb="25" />
@@ -171,5 +171,5 @@
       <File Name="Documentation/doxygen/BitIoLdd2_component.txt" FileDate="2016-06-27, 18:11:22" FileAge="1467043882528" FileType="45637" CompNumb="21" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>266</CodeGenReference>
+  <CodeGenReference>267</CodeGenReference>
 </CodeGenerationInfo>
