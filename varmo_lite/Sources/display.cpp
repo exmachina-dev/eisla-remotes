@@ -64,13 +64,13 @@ sub_menu setting_baud_rate = 	init_sub_menu((char *)"Baud Rate      ",1,{0}, sel
 sub_menu setting_update_val = 	init_sub_menu((char *)"Update Value   ",1,{0}, select_update_menu_fct);
 
 sub_menu sub_menu_setting[] = {setting_baud_rate, setting_update_val, back_menu};
-sub_menu_list menu_setting = init_sub_menu_list(sub_menu_setting, sizeof(sub_menu_setting)/sizeof(sub_menu_setting[0]), (char*)"Setting Menu ");
+sub_menu_list menu_setting = init_sub_menu_list(sub_menu_setting, sizeof(sub_menu_setting)/sizeof(sub_menu_setting[0]), (char*)"Settings Menu");
 
 
 menu velocity = init_menu((char *)"Velocity      ", menu_velocity,1);
 menu position = init_menu((char *)"Position      ", menu_position,1);
 menu torque = 	init_menu((char *)"Torque        ", menu_torque,1);
-menu setting = 	init_menu((char *)"Setting       ", menu_setting,1);
+menu setting = 	init_menu((char *)"Settings       ", menu_setting,1);
 
 menu menu_array[] = {velocity, position, torque, setting};
 
@@ -441,6 +441,21 @@ void update_icon_drive_enable(void){
 	}
 	else if (drive_enable_st == 0){
 		LCD_Write_At(not_drive_enable, 0, 15);
+	}
+}
+
+void select_setting(int flag){
+	switch(flag){
+		case Baud_rate_setting:
+			FLAG_SETTING_SELECTED = 1;
+			counter_2s = 0;
+			select_baud_rate(encoder - 1);
+			break;
+		case Update_setting:
+			FLAG_SETTING_SELECTED = 1;
+			counter_2s = 0;
+			FLAG_UPDATE_SETTING = encoder -1;
+			break;
 	}
 }
 
@@ -1584,11 +1599,18 @@ void select_baud_rate_fct(void){
 		LCD_Write_Block((char*)"                ", 1, 0);
 		LCD_Write_Block((char*)"                ", 2, 0);
 		LCD_Write_Block((char*)"                ", 3, 0);
-		LCD_Write_Block((char*)"152000         ", 1, 1);
-		LCD_Write_Block((char*)"57600          ", 2, 1);
+		LCD_Write_Block((char*)"57600          ", 1, 1);
+		LCD_Write_Block((char*)"152000         ", 2, 1);
 		LCD_Write_At(arrow_right,encoder,0);
 	}
 	else{
+		if (FLAG_SETTING_SELECTED == 1){
+			LCD_Write_Block((char*)"Setting loaded  ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
+
 		if(encoder<1){
 			encoder = 1;
 		}
@@ -1616,6 +1638,13 @@ void select_update_menu_fct(void){
 		LCD_Write_At(arrow_right,encoder,0);
 	}
 	else{
+		if (FLAG_SETTING_SELECTED == 1){
+			LCD_Write_Block((char*)"Setting loaded  ",3,0);
+		}
+		else{
+			LCD_Write_Block((char*)"                ",3,0);
+		}
+
 		if(encoder<1){
 			encoder = 1;
 		}

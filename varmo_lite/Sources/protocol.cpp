@@ -260,6 +260,10 @@ bool msg_processing(int n, ...){
 	return 0;
 }
 
+bool select_baud_rate(byte mode){
+	AS1_SetBaudRateMode(mode);
+}
+
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif

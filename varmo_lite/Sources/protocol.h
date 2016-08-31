@@ -126,8 +126,7 @@ void serial_send_end(void);
 bool msg_parse(char*, int);
 bool msg_processing(int n,...);
 
-
-void test_protocol();
+bool select_baud_rate(byte);
 
 #ifdef __cplusplus
 }  /* extern "C" */

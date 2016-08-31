@@ -133,6 +133,7 @@ int main(void)
   //LCD_Cursor_Blink_On();
   //LCD_Write_Block("Varmo V2.0", 1, 3);
 
+  WAIT1_Waitms(15);
   menu_init();
   bool DIR1 = LEVER_DIR2_GetVal();
   bool DIR2 = LEVER_DIR1_GetVal();
@@ -150,6 +151,9 @@ int main(void)
   else {
 	  FLAG_STOP = 1;
   }
+
+  select_baud_rate(0);
+
   update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
   update_icon_drive_enable();
 
@@ -179,21 +183,26 @@ int main(void)
 			  refresh_fct(menu_indicator);
 		 }
 		 else if (FLAG_SETTING == 1){
-
+			 select_setting(menu_indicator);
+			 refresh_fct(menu_indicator);
 		 }
+
 		FLAG_PUSH_SHORT = 0;
 	  }
+
 	  if (FLAG_SENS_1 == 1 || FLAG_SENS_2 == 1){
 		  if(FLAG_REC == 1 && (menu_indicator == Pos_Rec_cue || menu_indicator == Vel_Rec_cue) && FLAG_CUE_MODE == 1){
 			  FLAG_REC = 0;
-			  select_cue(encoder, menu_indicator);
-			  refresh_fct(menu_indicator);
 			  if(FLAG_REC_SHORT_CUT == 1){
 				  FLAG_REC_SHORT_CUT = 0;
 				  FLAG_MENU = 1;
 				  menu_indicator = old_menu_indicator;
 				  refresh_fct(menu_indicator);
 				  FLAG_CUE_MODE = 0;
+			  }
+			  else{
+				  select_cue(encoder, menu_indicator);
+				  refresh_fct(menu_indicator);
 			  }
 		  }
 		  else if(FLAG_REC == 1 && FLAG_MENU == 0){
@@ -216,7 +225,6 @@ int main(void)
 			  FLAG_REC = 0;
 		  }
 	  }
-
 	  else{
 		  FLAG_REC = 0;
 	  }
@@ -256,12 +264,13 @@ int main(void)
 		  get_update_value(CONTROL_MODE);
 	  }
 
-	  if (FLAG_UPDATE_CUE == 1){
+	  if (FLAG_UPDATE_CUE == 1 || FLAG_UPDATE_SETTING_SELECTED == 1){
 		  FLAG_UPDATE_CUE = 0;
+		  FLAG_UPDATE_SETTING_SELECTED = 0;
 		  refresh_fct(menu_indicator);
 	  }
 
-	  if (FLAG_UPDATE_MENU == 1 && CONTROL_MODE != 0 && FLAG_CUE_MODE != 1){
+	  if (FLAG_UPDATE_MENU == 1 && CONTROL_MODE != 0 && FLAG_CUE_MODE != 1 && FLAG_UPDATE_SETTING == 0){
 		  get_update_value(CONTROL_MODE);
 		  FLAG_UPDATE_MENU = 0;
 		  refresh_fct(menu_indicator);
@@ -280,7 +289,7 @@ int main(void)
 		  send_stop();
 	  }
 
-	  if (FLAG_UPDATE == 1){
+	  if (FLAG_UPDATE == 1 && FLAG_UPDATE_SETTING == 0){
 		  FLAG_UPDATE = 0;
 		  get_update_drive_en();
 		  update_icon_drive_enable();

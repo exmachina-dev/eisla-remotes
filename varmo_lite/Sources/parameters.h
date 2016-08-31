@@ -48,6 +48,9 @@ extern int counter_2s;
 extern int counter_1s;
 
 extern bool FLAG_SHORT_CUT;
+extern bool FLAG_UPDATE_SETTING;
+extern bool FLAG_SETTING_SELECTED;
+extern bool FLAG_UPDATE_SETTING_SELECTED;
 
 extern bool FLAG_UPDATE;
 extern uint8_t CONTROL_MODE;

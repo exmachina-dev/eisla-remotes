@@ -328,6 +328,16 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 		counter_2s = 0;
 	}
 
+	if(FLAG_SETTING_SELECTED == 1){
+		counter_2s += 1;
+	}
+	if(counter_2s == 4){
+		FLAG_SETTING_SELECTED = 0;
+		FLAG_UPDATE_SETTING_SELECTED = 1;
+		counter_2s = 0;
+	}
+
+
 	if (FLAG_STOP == 1){
 		FLAG_SEND_STOP = 1;
 	}
