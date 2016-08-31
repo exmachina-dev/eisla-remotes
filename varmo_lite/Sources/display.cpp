@@ -569,6 +569,26 @@ void velocity_fct(){
 			print_float_at(encoder,0,1,3,8);
 		}
 	}
+	else if (FLAG_UPDATE_VALUE == 1){
+		vel.velocity_ref = convert(vel.velocity_ref,vel.velocity_minimum, vel.velocity_maximum);
+
+		encoder = abs(vel.velocity_ref);
+		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
+			if (encoder < 0){
+				encoder *= -1;
+			}
+			print_float_at(encoder,0,0,3,8);
+		}
+		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
+			if (encoder > 0){
+				encoder *= -1;
+			}
+			print_float_at(encoder,0,0,3,8);
+		}
+		else{
+			print_float_at(encoder,0,1,3,8);
+		}
+	}
 	else {
 		print_float_at(vel.velocity, 0,0,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
@@ -1605,7 +1625,7 @@ void select_baud_rate_fct(void){
 	}
 	else{
 		if (FLAG_SETTING_SELECTED == 1){
-			LCD_Write_Block((char*)"Setting loaded  ",3,0);
+			LCD_Write_Block((char*)"Setting updated ",3,0);
 		}
 		else{
 			LCD_Write_Block((char*)"                ",3,0);
@@ -1639,7 +1659,7 @@ void select_update_menu_fct(void){
 	}
 	else{
 		if (FLAG_SETTING_SELECTED == 1){
-			LCD_Write_Block((char*)"Setting loaded  ",3,0);
+			LCD_Write_Block((char*)"Setting updated ",3,0);
 		}
 		else{
 			LCD_Write_Block((char*)"                ",3,0);

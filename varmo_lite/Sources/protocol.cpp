@@ -193,12 +193,21 @@ bool msg_processing(int n, ...){
  		else if (strcmp(data, Set_Home) == 0){
  			FLAG_SET_HOME = 1;
  			counter_2s = 0;
+ 			return 0;
  		}
- 		else if (strcmp(data, Velocity_ref) == 0 && menu_indicator == Position_vel_selected){
- 			FLAG_SHORT_CUT = 1;
+ 		else if (strcmp(data, Velocity_ref) == 0){
+ 			data = va_arg(arg, char*);
+ 			velocity_ref_processing(data);
+ 			if (menu_indicator == Position_vel_selected){
+ 				FLAG_SHORT_CUT = 1;
+ 			}
+ 			FLAG_UPDATE_VALUE = 1;
+ 			return 0;
  		}
- 		else if (strcmp(data, Stop) == 0){
- 			FLAG_STOP = 0;
+ 		else if (strcmp(data, Velocity_ref) == 0){
+ 			data = va_arg(arg, char*);
+ 			velocity_ref_processing(data);
+ 			return 0;
  		}
 	}
  	else if (strcmp(data, Set_ERR) == 0){
@@ -245,6 +254,7 @@ bool msg_processing(int n, ...){
 		else if(strcmp(data,Drive_Enable) == 0){
 			data =va_arg(arg, char*);
 			drive_enable_processing(data);
+			return 0;
 		}
 		//return 0;
 	}
@@ -252,6 +262,7 @@ bool msg_processing(int n, ...){
  		data = va_arg(arg, char*);
 		if(strcmp(data,Drive_Enable) == 0){
 			//clear_drive_enable();
+			return 0;
 		}
  		return 1;
  	}

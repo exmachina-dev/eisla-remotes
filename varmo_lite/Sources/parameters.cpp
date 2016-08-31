@@ -25,6 +25,7 @@ bool FLAG_SHORT_CUT = 0;
 bool FLAG_UPDATE_SETTING = 0;
 bool FLAG_SETTING_SELECTED = 0;
 bool FLAG_UPDATE_SETTING_SELECTED = 0;
+bool FLAG_UPDATE_VALUE = 0;
 
 bool FLAG_UPDATE = 0;
 uint8_t CONTROL_MODE = 0;
@@ -37,8 +38,8 @@ void parameters_init(void){
 	vel.control_mode = 2;
 	vel.velocity_ref = 0;
 	vel.velocity = 0;
-	vel.velocity_maximum = 100;
-	vel.velocity_minimum = -100;
+	vel.velocity_maximum = 9999;
+	vel.velocity_minimum = -9999;
 	vel.acceleration = 0;
 	vel.deceleration = 0;
 

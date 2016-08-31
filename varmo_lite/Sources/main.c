@@ -152,7 +152,7 @@ int main(void)
 	  FLAG_STOP = 1;
   }
 
-  select_baud_rate(0);
+  //select_baud_rate(0);
 
   update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
   update_icon_drive_enable();
@@ -268,6 +268,11 @@ int main(void)
 		  FLAG_UPDATE_CUE = 0;
 		  FLAG_UPDATE_SETTING_SELECTED = 0;
 		  refresh_fct(menu_indicator);
+	  }
+
+	  if (FLAG_UPDATE_VALUE == 1){
+		  refresh_fct(menu_indicator);
+		  FLAG_UPDATE_VALUE = 0;
 	  }
 
 	  if (FLAG_UPDATE_MENU == 1 && CONTROL_MODE != 0 && FLAG_CUE_MODE != 1 && FLAG_UPDATE_SETTING == 0){
