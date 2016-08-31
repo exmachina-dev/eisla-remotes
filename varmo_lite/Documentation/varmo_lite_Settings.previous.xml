@@ -1320,7 +1320,7 @@ PE_DEBUGHALT();
         <boolgroup name="Transmitter" v="Enabled">
           <TxD v="TSI0_CH10/PTB17/UART0_TX/EWM_OUT_b" />
         </boolgroup>
-        <Baud_rate v="115200 baud" />
+        <Baud_rate init="57600 baud" runtime_settings="list" mode_1="115200 baud" />
         <Break_signal v="Disabled" />
         <Wakeup_condition v="Idle line wakeup" />
         <Transmitter_output v="Not inverted" />
@@ -1357,7 +1357,7 @@ PE_DEBUGHALT();
               <Parity v="None" />
               <Stop_bits v="1" />
               <Loop_mode v="Normal" />
-              <Baud_rate v="115200 baud" />
+              <Baud_rate init="57600 baud" runtime_settings="list" mode_1="115200 baud" />
               <Wakeup_condition v="Idle line wakeup" />
               <Stop_in_wait_mode v="no" />
               <Idle_line_mode v="Starts after start bit" />
@@ -1400,7 +1400,7 @@ PE_DEBUGHALT();
             <GetTxCompleteStatus v="don&amp;apos;t generate code" />
             <SetEventMask v="don&amp;apos;t generate code" />
             <GetEventMask v="don&amp;apos;t generate code" />
-            <SelectBaudRate v="don&amp;apos;t generate code" />
+            <SelectBaudRate v="generate code" />
             <GetSelectedBaudRate v="don&amp;apos;t generate code" />
             <SetParity v="don&amp;apos;t generate code" />
             <GetParity v="don&amp;apos;t generate code" />
@@ -1459,7 +1459,7 @@ PE_DEBUGHALT();
       <GetCharsInRxBuf v="generate code" />
       <CharsInTxBuf v="don&amp;apos;t generate code" />
       <GetCharsInTxBuf v="generate code" />
-      <SetBaudRateMode v="don&amp;apos;t generate code" />
+      <SetBaudRateMode v="generate code" />
       <GetError v="don&amp;apos;t generate code" />
       <GetBreak v="don&amp;apos;t generate code" />
       <SetBreak v="don&amp;apos;t generate code" />
@@ -1899,7 +1899,7 @@ PE_DEBUGHALT();
           <PutVal v="generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
-          <NegVal v="don&amp;apos;t generate code" />
+          <NegVal v="generate code" />
           <ConnectPin v="don&amp;apos;t generate code" />
           <GetRawVal v="don&amp;apos;t generate code" />
         </Methods>
@@ -1924,7 +1924,7 @@ PE_DEBUGHALT();
       <PutVal v="generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
-      <NegVal v="don&amp;apos;t generate code" />
+      <NegVal v="generate code" />
       <ConnectPin v="don&amp;apos;t generate code" />
       <GetRawVal v="don&amp;apos;t generate code" />
     </Methods>

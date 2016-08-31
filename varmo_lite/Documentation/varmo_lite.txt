@@ -178,6 +178,12 @@ Module "AS1"       (component AsynchroSerial)
                 property is enabled.
    - AS1_GetCharsInTxBuf -Returns the number of characters in the output buffer. This method is available only if the 
                 transmitter property is enabled.
+   - AS1_SetBaudRateMode -This method changes the channel communication speed (baud rate). This method is enabled only if the 
+                user specifies a list of possible period settings at design time (see <Timing dialog box> - Runtime setting - 
+                from a list of values). Each of these settings constitutes a _/mode/_ and Processor Expert assigns them a 
+                _/mode identifier/_. The prescaler and compare values corresponding to each mode are calculated at design time. 
+                The user may switch modes at runtime by referring to a mode identifier. No run-time calculations are performed, 
+                all the calculations are performed at design time.
 
 Module "LCD_CTR"   (component BitIO)
    - LCD_CTR_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 

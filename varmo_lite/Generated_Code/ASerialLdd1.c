@@ -7,7 +7,7 @@
 **     Version     : Component 01.188, Driver 01.12, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-29, 16:08, # CodeGen: 80
+**     Date/Time   : 2016-08-31, 11:04, # CodeGen: 276
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -63,10 +63,11 @@
 **            Clock configuration 6                        : This component disabled
 **            Clock configuration 7                        : This component disabled
 **     Contents    :
-**         Init         - LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr);
-**         SendBlock    - LDD_TError ASerialLdd1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
-**         ReceiveBlock - LDD_TError ASerialLdd1_ReceiveBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
-**         GetError     - LDD_TError ASerialLdd1_GetError(LDD_TDeviceData *DeviceDataPtr,...
+**         Init           - LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr);
+**         SendBlock      - LDD_TError ASerialLdd1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
+**         ReceiveBlock   - LDD_TError ASerialLdd1_ReceiveBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
+**         GetError       - LDD_TError ASerialLdd1_GetError(LDD_TDeviceData *DeviceDataPtr,...
+**         SelectBaudRate - LDD_TError ASerialLdd1_SelectBaudRate(LDD_TDeviceData *DeviceDataPtr,...
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -206,6 +207,9 @@ LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr)
   NVICISER1 |= NVIC_ISER_SETENA(0x4000);
   UART_PDD_EnableTransmitter(UART0_BASE_PTR, PDD_DISABLE); /* Disable transmitter. */
   UART_PDD_EnableReceiver(UART0_BASE_PTR, PDD_DISABLE); /* Disable receiver. */
+  DeviceDataPrv->BaudAdjustValueSpeed0 = 0x02u; /* Baudrate adjust value in speed 0 mode */
+  DeviceDataPrv->BaudDivisorSpeed0 = 0x34u; /* Baudrate divisor in speed 0 mode */
+  DeviceDataPrv->BaudMode = ASerialLdd1_BM_115200BAUD; /* Initial baud rate mode index */
   DeviceDataPrv->SerFlag = 0x00U;      /* Reset flags */
   DeviceDataPrv->ErrFlag = 0x00U;      /* Reset error flags */
   /* UART0_C1: LOOPS=0,UARTSWAI=0,RSRC=0,M=0,WAKE=0,ILT=0,PE=0,PT=0 */
@@ -353,6 +357,64 @@ LDD_TError ASerialLdd1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData *Buff
   UART_PDD_EnableInterrupt(UART0_BASE_PTR, UART_PDD_INTERRUPT_TRANSMITTER); /* Enable TX interrupt */
   /* {Default RTOS Adapter} Critical section end, general PE function is used */
   ExitCritical();
+  return ERR_OK;                       /* OK */
+}
+
+/*
+** ===================================================================
+**     Method      :  ASerialLdd1_SelectBaudRate (component Serial_LDD)
+*/
+/*!
+**     @brief
+**         This method changes the channel communication speed (baud
+**         rate). This method is enabled only if the user specifies a
+**         list of possible period settings at design time (see [Timing
+**         dialog box] - Runtime setting - from a list of values). Each
+**         of these settings constitutes a _/mode/_ and Processor
+**         Expert assigns them a _/mode identifier/_. The prescaler and
+**         compare values corresponding to each mode are calculated in
+**         design time. The user may switch modes at runtime by
+**         referring to a mode identifier. No run-time calculations are
+**         performed, all the calculations are performed at design time.
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by [Init] method.
+**     @param
+**         Mode            - Timing mode to set
+**                           Note: Special constant is generated in the
+**                           components header file for each mode from
+**                           the list of values.
+**                           This constant can be directly passed to the
+**                           parameter. Format of the constant is:
+**                           <BeanName>_BM_<Timing> e.g.
+**                           "as1_BM_9600BAUD" for baud rate set to 9600
+**                           baud and component name "as1". See header
+**                           file of the generated code for details.
+**     @return
+**                         - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - The component does not work in
+**                           the active clock configuration.
+**                           ERR_DISABLED - The component or device is
+**                           disabled.
+**                           ERR_PARAM_MODE - Invalid ID of the baud
+**                           rate mode.
+*/
+/* ===================================================================*/
+LDD_TError ASerialLdd1_SelectBaudRate(LDD_TDeviceData *DeviceDataPtr, LDD_SERIAL_TBaudMode Mode)
+{
+  ASerialLdd1_TDeviceDataPtr DeviceDataPrv = (ASerialLdd1_TDeviceDataPtr)DeviceDataPtr;
+  static const uint8_t ASerialLdd1_BaudAdjustValueSpeed0[0x02] = {0x02u,0x05u};
+  static const uint16_t ASerialLdd1_BaudDivisorSpeed0[0x02] = {0x34u,0x68u};
+
+  if (Mode >= 0x02U) {                 /* Is mode in baud mode list */
+    return ERR_PARAM_MODE ;            /* If no then error */
+  }
+  DeviceDataPrv->BaudMode = Mode;
+  DeviceDataPrv->BaudAdjustValueSpeed0 = ASerialLdd1_BaudAdjustValueSpeed0[Mode]; /* Prescaler in clock configuration 0. */
+  DeviceDataPrv->BaudDivisorSpeed0 = ASerialLdd1_BaudDivisorSpeed0[Mode]; /* Prescaler in clock configuration 0. */
+  UART_PDD_SetBaudRateFineAdjust(UART0_BASE_PTR, DeviceDataPrv->BaudAdjustValueSpeed0); /* Set the baud rate adjust value in high clock configuration. */
+  UART_PDD_SetBaudRate(UART0_BASE_PTR, DeviceDataPrv->BaudDivisorSpeed0); /* Set the baud rate register in high clock configuration. */
   return ERR_OK;                       /* OK */
 }
 

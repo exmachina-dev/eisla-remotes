@@ -7,7 +7,7 @@
 **     Version     : Component 01.188, Driver 01.12, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-29, 16:08, # CodeGen: 80
+**     Date/Time   : 2016-08-31, 11:04, # CodeGen: 276
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -63,10 +63,11 @@
 **            Clock configuration 6                        : This component disabled
 **            Clock configuration 7                        : This component disabled
 **     Contents    :
-**         Init         - LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr);
-**         SendBlock    - LDD_TError ASerialLdd1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
-**         ReceiveBlock - LDD_TError ASerialLdd1_ReceiveBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
-**         GetError     - LDD_TError ASerialLdd1_GetError(LDD_TDeviceData *DeviceDataPtr,...
+**         Init           - LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr);
+**         SendBlock      - LDD_TError ASerialLdd1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
+**         ReceiveBlock   - LDD_TError ASerialLdd1_ReceiveBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
+**         GetError       - LDD_TError ASerialLdd1_GetError(LDD_TDeviceData *DeviceDataPtr,...
+**         SelectBaudRate - LDD_TError ASerialLdd1_SelectBaudRate(LDD_TDeviceData *DeviceDataPtr,...
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -120,6 +121,9 @@
 
 /* MODULE ASerialLdd1. */
 
+#define ASerialLdd1_BM_115200BAUD 0u   /* Baud rate constant for switch to the baud rate mode 0 */
+#define ASerialLdd1_BM_57600BAUD  1u   /* Baud rate constant for switch to the baud rate mode 1 */
+
 
 #include "Cpu.h"
 
@@ -136,6 +140,7 @@ extern "C" {
 #define ASerialLdd1_SendBlock_METHOD_ENABLED /*!< SendBlock method of the component ASerialLdd1 is enabled (generated) */
 #define ASerialLdd1_ReceiveBlock_METHOD_ENABLED /*!< ReceiveBlock method of the component ASerialLdd1 is enabled (generated) */
 #define ASerialLdd1_GetError_METHOD_ENABLED /*!< GetError method of the component ASerialLdd1 is enabled (generated) */
+#define ASerialLdd1_SelectBaudRate_METHOD_ENABLED /*!< SelectBaudRate method of the component ASerialLdd1 is enabled (generated) */
 
 /* Events configuration constants - generated for all enabled component's events */
 #define ASerialLdd1_OnBlockReceived_EVENT_ENABLED /*!< OnBlockReceived event of the component ASerialLdd1 is enabled (generated) */
@@ -152,7 +157,10 @@ extern "C" {
 /*! Device data structure type */
 typedef struct {
   uint16_t SerFlag;                    /*!< Flags for serial communication */
+  LDD_SERIAL_TBaudMode BaudMode;       /*!< Baud rate mode */
   LDD_SERIAL_TError ErrFlag;           /*!< Error flags mirror of SerFlag */
+  uint8_t  BaudAdjustValueSpeed0;      /*!< Baudrate adjust value in speed 0 mode */
+  uint16_t BaudDivisorSpeed0;          /*!< Baudrate prescaler in speed 0 mode */
   uint16_t InpRecvDataNum;             /*!< The counter of received characters */
   uint8_t *InpDataPtr;                 /*!< The buffer pointer for received characters */
   uint16_t InpDataNumReq;              /*!< The counter of characters to receive by ReceiveBlock() */
@@ -274,6 +282,49 @@ LDD_TError ASerialLdd1_ReceiveBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData *B
 */
 /* ===================================================================*/
 LDD_TError ASerialLdd1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData *BufferPtr, uint16_t Size);
+
+/*
+** ===================================================================
+**     Method      :  ASerialLdd1_SelectBaudRate (component Serial_LDD)
+*/
+/*!
+**     @brief
+**         This method changes the channel communication speed (baud
+**         rate). This method is enabled only if the user specifies a
+**         list of possible period settings at design time (see [Timing
+**         dialog box] - Runtime setting - from a list of values). Each
+**         of these settings constitutes a _/mode/_ and Processor
+**         Expert assigns them a _/mode identifier/_. The prescaler and
+**         compare values corresponding to each mode are calculated in
+**         design time. The user may switch modes at runtime by
+**         referring to a mode identifier. No run-time calculations are
+**         performed, all the calculations are performed at design time.
+**     @param
+**         DeviceDataPtr   - Device data structure
+**                           pointer returned by [Init] method.
+**     @param
+**         Mode            - Timing mode to set
+**                           Note: Special constant is generated in the
+**                           components header file for each mode from
+**                           the list of values.
+**                           This constant can be directly passed to the
+**                           parameter. Format of the constant is:
+**                           <BeanName>_BM_<Timing> e.g.
+**                           "as1_BM_9600BAUD" for baud rate set to 9600
+**                           baud and component name "as1". See header
+**                           file of the generated code for details.
+**     @return
+**                         - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - The component does not work in
+**                           the active clock configuration.
+**                           ERR_DISABLED - The component or device is
+**                           disabled.
+**                           ERR_PARAM_MODE - Invalid ID of the baud
+**                           rate mode.
+*/
+/* ===================================================================*/
+LDD_TError ASerialLdd1_SelectBaudRate(LDD_TDeviceData *DeviceDataPtr, LDD_SERIAL_TBaudMode Mode);
 
 /*
 ** ===================================================================

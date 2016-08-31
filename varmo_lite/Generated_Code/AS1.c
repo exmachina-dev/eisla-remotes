@@ -7,7 +7,7 @@
 **     Version     : Component 02.611, Driver 01.01, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-10, 11:58, # CodeGen: 186
+**     Date/Time   : 2016-08-31, 11:04, # CodeGen: 276
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -66,6 +66,7 @@
 **         ClearTxBuf      - byte AS1_ClearTxBuf(void);
 **         GetCharsInRxBuf - word AS1_GetCharsInRxBuf(void);
 **         GetCharsInTxBuf - word AS1_GetCharsInTxBuf(void);
+**         SetBaudRateMode - byte AS1_SetBaudRateMode(byte Mod);
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -466,6 +467,43 @@ word AS1_GetCharsInRxBuf(void)
 word AS1_GetCharsInTxBuf(void)
 {
   return AS1_OutLen;                   /* Return number of chars in the transmitter buffer */
+}
+
+/*
+** ===================================================================
+**     Method      :  AS1_SetBaudRateMode (component AsynchroSerial)
+**     Description :
+**         This method changes the channel communication speed (baud
+**         rate). This method can be used only if the user specifies
+**         a list of possible period settings at design time (see
+**         <Timing dialog box> - Runtime setting - from a list of
+**         values). Each of these settings constitutes a _/mode/_
+**         and Processor Expert^[TM] assigns them a _/mode
+**         identifier/_. The prescaler and compare values
+**         corresponding to each mode are calculated at design time.
+**         The user may switch modes at runtime by referring to a
+**         mode identifier. No run-time calculations are performed,
+**         all the calculations are performed at design time.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         Mod             - Timing mode to set
+**
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte AS1_SetBaudRateMode(byte Mod)
+{
+  LDD_TError Error;
+
+  Error = ASerialLdd1_SelectBaudRate(ASerialLdd1_DeviceDataPtr, (LDD_SERIAL_TBaudMode)Mod); /* Set baud rate mode. */
+  if (Error == ERR_PARAM_MODE) {
+    Error = ERR_VALUE;
+  }
+  return (byte)Error;
 }
 
 /*

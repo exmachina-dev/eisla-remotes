@@ -375,7 +375,7 @@ void I2C0_OnArbitLost(void)
 */
 void AS1_OnTxComplete(void)
 {
-	LED_STATUS_3_ClrVal();
+	LED_STATUS_3_SetVal();
 	/* Write your code here ... */
 }
 
@@ -445,7 +445,7 @@ void AS1_OnRxChar(void)
 */
 void AS1_OnRxCharExt(AS1_TComData Chr)
 {
-	LED_STATUS_3_SetVal();
+	LED_STATUS_3_ClrVal();
 	counter_1s = 0;
 	if (cnt > 0){
 		if (Chr == '\n' && in_buffer[cnt-1] == '\r'){
