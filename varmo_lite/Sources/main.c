@@ -303,7 +303,7 @@ int main(void)
 		  update_icon_drive_enable();
 	  }
 
-	  if ((CONTROL_MODE == 2 && abs(vel.velocity) < 0.01) || (CONTROL_MODE == 3 && abs(pos.velocity) < 0.01) || (CONTROL_MODE == 1 && abs(tor.torque) < 0.01)){
+	  if ((CONTROL_MODE == 2 && abs(vel.velocity) > 0.01) || (CONTROL_MODE == 3 && abs(pos.velocity) > 0.5) || (CONTROL_MODE == 1 && abs(tor.torque) > 0.01)){
 		  LED_MOTOR_MOVE_SetVal();
 	  }
 	  else{

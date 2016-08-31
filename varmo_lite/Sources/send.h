@@ -39,6 +39,7 @@ void torque_rise_processing(char*);
 void torque_fall_processing(char*);
 
 void position_ref_processing(char*);
+void position_processing(char*);
 
 void control_mode_processing(char*);
 

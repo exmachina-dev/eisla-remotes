@@ -115,13 +115,6 @@ void serial_send_end(void){
 	serial_send_string(protocol_setting.END);
 }
 
-void test_protocol(){
-	/*
-	serial_send_block(2, Get_OK, Velocity_ref);
-	serial_send_block(2, Set_OK, Position_ref);
-	*/
-}
-
 bool msg_parse(char* msg, int size){
 	  int offset = 22;
 	  char chr = msg[offset];
@@ -257,6 +250,11 @@ bool msg_processing(int n, ...){
 		else if(strcmp(data,Torque_fall) == 0){
 			data = va_arg(arg, char*);
 			torque_fall_processing(data);
+			return 0;
+		}
+		else if(strcmp(data, Position) == 0){
+			data = va_arg(arg, char*);
+			position_processing(data);
 			return 0;
 		}
 		else if(strcmp(data,Drive_Enable) == 0){

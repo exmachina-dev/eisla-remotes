@@ -311,6 +311,14 @@ void position_ref_processing(char* value){
 	pos.position_ref = temp.toFloat;
 }
 
+void position_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[i] = value[i];
+	}
+	pos.position = temp.toFloat;
+}
+
 void control_mode_processing(char* value){
 		convert_to_send temp;
 		FLAG_CONTROL_MODE_CONFIRM = 1;
