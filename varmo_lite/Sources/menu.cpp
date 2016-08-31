@@ -120,6 +120,10 @@ void print_menu(int pointer, menu_list menu){
 		   LCD_Write_At(arrow_down, 3, 15);
 	   }
   }
+  else{
+	  LCD_Write_At(' ',1,15);
+	  LCD_Write_At(' ',3,15);
+  }
 
 }
 
