@@ -276,7 +276,7 @@ int main(void)
 		  update_icon_drive_enable();
 	  }
 
-	  if (vel.velocity != 0 || pos.velocity != 0 || tor.torque != 0){
+	  if ((CONTROL_MODE == 2 && vel.velocity != 0) || (CONTROL_MODE == 3 && pos.velocity != 0) || (CONTROL_MODE == 1 && tor.torque != 0)){
 		  LED_MOTOR_MOVE_SetVal();
 	  }
 	  else{

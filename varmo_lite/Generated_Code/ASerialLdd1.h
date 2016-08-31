@@ -7,7 +7,7 @@
 **     Version     : Component 01.188, Driver 01.12, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-31, 11:04, # CodeGen: 276
+**     Date/Time   : 2016-08-31, 11:15, # CodeGen: 277
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -30,7 +30,7 @@
 **            Parity                                       : None
 **            Stop bits                                    : 1
 **            Loop mode                                    : Normal
-**            Baud rate                                    : 115200 baud
+**            Baud rate                                    : 57600 baud
 **            Wakeup condition                             : Idle line wakeup
 **            Stop in wait mode                            : no
 **            Idle line mode                               : Starts after start bit
@@ -121,8 +121,8 @@
 
 /* MODULE ASerialLdd1. */
 
-#define ASerialLdd1_BM_115200BAUD 0u   /* Baud rate constant for switch to the baud rate mode 0 */
-#define ASerialLdd1_BM_57600BAUD  1u   /* Baud rate constant for switch to the baud rate mode 1 */
+#define ASerialLdd1_BM_57600BAUD  0u   /* Baud rate constant for switch to the baud rate mode 0 */
+#define ASerialLdd1_BM_115200BAUD 1u   /* Baud rate constant for switch to the baud rate mode 1 */
 
 
 #include "Cpu.h"

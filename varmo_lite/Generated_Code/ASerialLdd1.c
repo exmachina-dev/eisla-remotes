@@ -7,7 +7,7 @@
 **     Version     : Component 01.188, Driver 01.12, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-31, 11:04, # CodeGen: 276
+**     Date/Time   : 2016-08-31, 11:15, # CodeGen: 277
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -30,7 +30,7 @@
 **            Parity                                       : None
 **            Stop bits                                    : 1
 **            Loop mode                                    : Normal
-**            Baud rate                                    : 115200 baud
+**            Baud rate                                    : 57600 baud
 **            Wakeup condition                             : Idle line wakeup
 **            Stop in wait mode                            : no
 **            Idle line mode                               : Starts after start bit
@@ -207,9 +207,9 @@ LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr)
   NVICISER1 |= NVIC_ISER_SETENA(0x4000);
   UART_PDD_EnableTransmitter(UART0_BASE_PTR, PDD_DISABLE); /* Disable transmitter. */
   UART_PDD_EnableReceiver(UART0_BASE_PTR, PDD_DISABLE); /* Disable receiver. */
-  DeviceDataPrv->BaudAdjustValueSpeed0 = 0x02u; /* Baudrate adjust value in speed 0 mode */
-  DeviceDataPrv->BaudDivisorSpeed0 = 0x34u; /* Baudrate divisor in speed 0 mode */
-  DeviceDataPrv->BaudMode = ASerialLdd1_BM_115200BAUD; /* Initial baud rate mode index */
+  DeviceDataPrv->BaudAdjustValueSpeed0 = 0x05u; /* Baudrate adjust value in speed 0 mode */
+  DeviceDataPrv->BaudDivisorSpeed0 = 0x68u; /* Baudrate divisor in speed 0 mode */
+  DeviceDataPrv->BaudMode = ASerialLdd1_BM_57600BAUD; /* Initial baud rate mode index */
   DeviceDataPrv->SerFlag = 0x00U;      /* Reset flags */
   DeviceDataPrv->ErrFlag = 0x00U;      /* Reset error flags */
   /* UART0_C1: LOOPS=0,UARTSWAI=0,RSRC=0,M=0,WAKE=0,ILT=0,PE=0,PT=0 */
@@ -222,8 +222,8 @@ LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr)
   UART0_S2 = 0x00U;                    /*  Set the S2 register */
   /* UART0_MODEM: ??=0,??=0,??=0,??=0,RXRTSE=0,TXRTSPOL=0,TXRTSE=0,TXCTSE=0 */
   UART0_MODEM = 0x00U;                 /*  Set the MODEM register */
-  UART_PDD_SetBaudRateFineAdjust(UART0_BASE_PTR, 2u); /* Set baud rate fine adjust */
-  UART_PDD_SetBaudRate(UART0_BASE_PTR, 52U); /* Set the baud rate register. */
+  UART_PDD_SetBaudRateFineAdjust(UART0_BASE_PTR, 5u); /* Set baud rate fine adjust */
+  UART_PDD_SetBaudRate(UART0_BASE_PTR, 104U); /* Set the baud rate register. */
   UART_PDD_EnableFifo(UART0_BASE_PTR, (UART_PDD_TX_FIFO_ENABLE | UART_PDD_RX_FIFO_ENABLE)); /* Enable RX and TX FIFO */
   UART_PDD_FlushFifo(UART0_BASE_PTR, (UART_PDD_TX_FIFO_FLUSH | UART_PDD_RX_FIFO_FLUSH)); /* Flush RX and TX FIFO */
   UART_PDD_EnableTransmitter(UART0_BASE_PTR, PDD_ENABLE); /* Enable transmitter */
@@ -404,8 +404,8 @@ LDD_TError ASerialLdd1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData *Buff
 LDD_TError ASerialLdd1_SelectBaudRate(LDD_TDeviceData *DeviceDataPtr, LDD_SERIAL_TBaudMode Mode)
 {
   ASerialLdd1_TDeviceDataPtr DeviceDataPrv = (ASerialLdd1_TDeviceDataPtr)DeviceDataPtr;
-  static const uint8_t ASerialLdd1_BaudAdjustValueSpeed0[0x02] = {0x02u,0x05u};
-  static const uint16_t ASerialLdd1_BaudDivisorSpeed0[0x02] = {0x34u,0x68u};
+  static const uint8_t ASerialLdd1_BaudAdjustValueSpeed0[0x02] = {0x05u,0x02u};
+  static const uint16_t ASerialLdd1_BaudDivisorSpeed0[0x02] = {0x68u,0x34u};
 
   if (Mode >= 0x02U) {                 /* Is mode in baud mode list */
     return ERR_PARAM_MODE ;            /* If no then error */
