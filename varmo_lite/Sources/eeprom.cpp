@@ -208,6 +208,12 @@ uint8_t get_slot_saved(int mode, uint8_t *slot_saved){
 	return nb_cue;
 }
 
+void get_cues_saved_values(int mode, cue_parameter* value_array,uint8_t *cue_saved, uint8_t size){
+	for (uint8_t i = 0; i>size; i++){
+		value_array[i] = get_cue_values(mode, cue_saved[i]-1);
+	}
+}
+
 cue_parameter get_cue_values(int mode, uint8_t nb_cue){
 	long unsigned int offset;
 	long unsigned int addr;

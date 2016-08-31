@@ -17,8 +17,8 @@
 extern "C" {
 #endif
 
-#define velocity_offset 0x30410
-#define position_offset 0X30820
+#define velocity_offset 0x3F000
+#define position_offset 0X3F2BC
 
 typedef union {
 	float Tofloat;
@@ -41,6 +41,8 @@ uint8_t get_next_slot_free(int);
 uint8_t get_slot_saved(int, uint8_t *);
 
 cue_parameter get_cue_values(int, uint8_t);
+
+void get_cues_saved_values(int, cue_parameter*, uint8_t *, uint8_t );
 
 #ifdef __cplusplus
 }  /* extern "C" */
