@@ -279,6 +279,14 @@ void torque_processing(char* value){
 	tor.torque = temp.toFloat;
 }
 
+void torque_ref_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[i] = value[i];
+	}
+	tor.torque_ref = temp.toFloat;
+}
+
 void torque_rise_processing(char* value){
 	convert_to_send temp;
 	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
@@ -293,6 +301,14 @@ void torque_fall_processing(char* value){
 		temp.toBytes[i] = value[i];
 	}
 	tor.torque_fall = temp.toFloat;
+}
+
+void position_ref_processing(char* value){
+	convert_to_send temp;
+	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		temp.toBytes[i] = value[i];
+	}
+	pos.position_ref = temp.toFloat;
 }
 
 void control_mode_processing(char* value){

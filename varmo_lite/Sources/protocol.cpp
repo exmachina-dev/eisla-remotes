@@ -204,11 +204,19 @@ bool msg_processing(int n, ...){
  			FLAG_UPDATE_VALUE = 1;
  			return 0;
  		}
- 		else if (strcmp(data, Velocity_ref) == 0){
+ 		else if (strcmp(data, Position_ref) == 0){
  			data = va_arg(arg, char*);
- 			velocity_ref_processing(data);
+ 			position_ref_processing(data);
+ 			FLAG_UPDATE_VALUE = 1;
  			return 0;
  		}
+ 		else if (strcmp(data, Torque_ref) == 0){
+ 			data = va_arg(arg, char*);
+ 			torque_ref_processing(data);
+ 			FLAG_UPDATE_VALUE = 1;
+ 			return 0;
+ 		}
+
 	}
  	else if (strcmp(data, Set_ERR) == 0){
  		return 1;

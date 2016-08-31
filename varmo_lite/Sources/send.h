@@ -34,8 +34,11 @@ void acceleration_processing(char*);
 void deceleration_processing(char*);
 
 void torque_processing(char*);
+void torque_ref_processing(char*);
 void torque_rise_processing(char*);
 void torque_fall_processing(char*);
+
+void position_ref_processing(char*);
 
 void control_mode_processing(char*);
 
