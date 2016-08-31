@@ -31,32 +31,24 @@ Module "LED_STATUS_1" (component BitIO)
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_1_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
-   - LED_STATUS_1_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
-                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_2" (component BitIO)
    - LED_STATUS_2_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_2_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
-   - LED_STATUS_2_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
-                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_3" (component BitIO)
    - LED_STATUS_3_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_3_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
-   - LED_STATUS_3_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
-                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_4" (component BitIO)
    - LED_STATUS_4_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_4_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
-   - LED_STATUS_4_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
-                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "ENCODER"   (component GPIO_LDD)
    - ENCODER_Init -This method initializes the associated peripheral(s) and the component internal variables. The method is 

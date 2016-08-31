@@ -44,11 +44,11 @@ extern int old_menu_indicator;
 extern bool drive_enable_st;
 
 extern bool FLAG_SET_HOME;
-extern int counter_2s;
-extern int counter_1s;
-extern int counter_update;
-extern int counter_update_menu;
-extern int counter_send_stop;
+extern uint8_t counter_2s;
+extern uint8_t counter_1s;
+extern uint8_t counter_update;
+extern uint8_t counter_update_menu;
+extern uint8_t counter_send_stop;
 
 
 extern bool FLAG_SHORT_CUT;
@@ -63,8 +63,6 @@ extern struct velocity{
 	int control_mode;
 	float velocity_ref;
 	float velocity;
-	float velocity_maximum;
-	float velocity_minimum;
 	float acceleration;
 	float deceleration;
 }vel;
@@ -74,8 +72,6 @@ extern struct position{
 	int control_mode;
 	float position_ref;
 	float position;
-	float position_maximum;
-	float position_minimum;
 	float velocity_ref;
 	float velocity;
 	float acceleration;
@@ -86,8 +82,6 @@ extern struct torque{
 	int control_mode;
 	float torque_ref;
 	float torque;
-	float torque_maximum;
-	float torque_minimum;
 	float torque_rise;
 	float torque_fall;
 }tor;

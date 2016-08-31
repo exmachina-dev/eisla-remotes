@@ -26,7 +26,7 @@ void Send_Control_Mode(int control){
 void send_fct(int flag){
 	switch (flag){
 		case Velocity_selected:
-			encoder = convert(encoder, vel.velocity_minimum, vel.velocity_maximum);
+			encoder = convert(encoder, -9999, 9999);
 			serial_send_block(4, 2, Set, Velocity_ref);
 			serial_send_float(encoder);
 			serial_send_end();
@@ -51,7 +51,7 @@ void send_fct(int flag){
 			break;
 
 		case Position_selected:
-			encoder = convert(encoder, pos.position_minimum, pos.position_maximum);
+			encoder = convert(encoder, -9999, 9999);
 			if(encoder == 0){
 				serial_send_block(1, 2, Set, Go_Home);
 				serial_send_char(protocol_setting.DELIMITATOR);
@@ -103,7 +103,7 @@ void send_fct(int flag){
 			break;
 
 		case Torque_selected:
-			encoder = convert(encoder, tor.torque_minimum, tor.torque_maximum);
+			encoder = convert(encoder, -9999, 9999);
 			serial_send_block(4,2, Set, Torque_ref);
 			serial_send_float(encoder);
 			serial_send_end();
@@ -237,7 +237,7 @@ void send_position_cue(){
 
 void velocity_processing(char* value){
 	convert_to_send temp;
-	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+	for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 		temp.toBytes[i] = value[i];
 	}
 	vel.velocity = temp.toFloat;
@@ -246,7 +246,7 @@ void velocity_processing(char* value){
 
 void velocity_ref_processing(char* value){
 	convert_to_send temp;
-	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+	for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 		temp.toBytes[i] = value[i];
 	}
 	vel.velocity_ref = temp.toFloat;
@@ -255,7 +255,7 @@ void velocity_ref_processing(char* value){
 
 void acceleration_processing(char* value){
 	convert_to_send temp;
-	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+	for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 		temp.toBytes[i] = value[i];
 	}
 	vel.acceleration = temp.toFloat;
@@ -264,7 +264,7 @@ void acceleration_processing(char* value){
 
 void deceleration_processing(char* value){
 	convert_to_send temp;
-	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+	for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 		temp.toBytes[i] = value[i];
 	}
 	vel.deceleration = temp.toFloat;
@@ -273,7 +273,7 @@ void deceleration_processing(char* value){
 
 void torque_processing(char* value){
 	convert_to_send temp;
-	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+	for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 		temp.toBytes[i] = value[i];
 	}
 	tor.torque = temp.toFloat;
@@ -281,7 +281,7 @@ void torque_processing(char* value){
 
 void torque_ref_processing(char* value){
 	convert_to_send temp;
-	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+	for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 		temp.toBytes[i] = value[i];
 	}
 	tor.torque_ref = temp.toFloat;
@@ -289,7 +289,7 @@ void torque_ref_processing(char* value){
 
 void torque_rise_processing(char* value){
 	convert_to_send temp;
-	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+	for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 		temp.toBytes[i] = value[i];
 	}
 	tor.torque_rise = temp.toFloat;
@@ -297,7 +297,7 @@ void torque_rise_processing(char* value){
 
 void torque_fall_processing(char* value){
 	convert_to_send temp;
-	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+	for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 		temp.toBytes[i] = value[i];
 	}
 	tor.torque_fall = temp.toFloat;
@@ -305,7 +305,7 @@ void torque_fall_processing(char* value){
 
 void position_ref_processing(char* value){
 	convert_to_send temp;
-	for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+	for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 		temp.toBytes[i] = value[i];
 	}
 	pos.position_ref = temp.toFloat;
@@ -322,7 +322,7 @@ void position_processing(char* value){
 void control_mode_processing(char* value){
 		convert_to_send temp;
 		FLAG_CONTROL_MODE_CONFIRM = 1;
-		for (int i = 0; i < sizeof(value)/sizeof(value[0]); i++){
+		for (uint8_t i = 0; i < sizeof(value)/sizeof(value[0]); i++){
 			temp.toBytes[i] = value[i];
 		}
 		if (temp.toInt.int0 == 1){

@@ -550,7 +550,7 @@ void velocity_fct(){
 		print_int_at(vel.deceleration, 1,1,8);
 		print_float_at(vel.velocity, 0,0,3,0);
 
-		vel.velocity_ref = convert(vel.velocity_ref,vel.velocity_minimum, vel.velocity_maximum);
+		vel.velocity_ref = convert(vel.velocity_ref,-9999, 9999);
 
 		encoder = abs(vel.velocity_ref);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
@@ -570,7 +570,7 @@ void velocity_fct(){
 		}
 	}
 	else if (FLAG_UPDATE_VALUE == 1){
-		vel.velocity_ref = convert(vel.velocity_ref,vel.velocity_minimum, vel.velocity_maximum);
+		vel.velocity_ref = convert(vel.velocity_ref, -9999, 9999);
 
 		encoder = abs(vel.velocity_ref);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
@@ -595,7 +595,7 @@ void velocity_fct(){
 			if (encoder < 0 && FLAG_SENS == 0){
 				encoder = 0;
 			}
-			encoder = convert(abs(encoder), 0, vel.velocity_maximum);
+			encoder = convert(abs(encoder), 0, 9999);
 			if (encoder < 0){
 				encoder *= -1;
 			}
@@ -606,7 +606,7 @@ void velocity_fct(){
 			if (encoder > 0 && FLAG_SENS == 0){
 				encoder = 0;
 			}
-			encoder = convert(abs(encoder), 0, abs(vel.velocity_minimum));
+			encoder = convert(abs(encoder), 0, 9999);
 			if (encoder > 0){
 				encoder *= -1;
 			}
@@ -722,7 +722,7 @@ void pos_position_fct(){
 		LCD_Write_At(vertical_bar,2,7);
 		LCD_Write_At(vertical_bar,3,7);
 
-		pos.position_ref = convert(pos.position_ref,pos.position_minimum, pos.position_maximum);
+		pos.position_ref = convert(pos.position_ref, -9999, 9999);
 		encoder = abs(pos.position_ref);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0){
@@ -747,7 +747,7 @@ void pos_position_fct(){
 			if (encoder < 0){
 				encoder = 0;
 			}
-			encoder = convert(abs(encoder), 0, pos.position_maximum);
+			encoder = convert(abs(encoder), 0, 9999);
 			if (encoder < 0 && FLAG_SENS_2 == 0 ){
 				encoder *= -1;
 			}
@@ -755,7 +755,7 @@ void pos_position_fct(){
 			print_float_at(encoder,0,0,3,8);
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
-			encoder = convert(abs(encoder), 0, abs(pos.position_minimum));
+			encoder = convert(abs(encoder), 0, 9999);
 			if (encoder > 0 && FLAG_SENS_2 == 0 ){
 				encoder = 0;
 			}
@@ -912,7 +912,7 @@ void torque_fct(){
 		LCD_Write_At(vertical_bar,2,7);
 		LCD_Write_At(vertical_bar,3,7);
 
-		tor.torque_ref = convert(tor.torque_ref,tor.torque_minimum, tor.torque_maximum);
+		tor.torque_ref = convert(tor.torque_ref, -9999, 9999);
 		encoder = abs(tor.torque_ref);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0){
@@ -936,7 +936,7 @@ void torque_fct(){
 			if (encoder < 0 && FLAG_SENS_2 == 0 ){
 				encoder = 0;
 			}
-			encoder = convert(abs(encoder), 0, tor.torque_maximum);
+			encoder = convert(abs(encoder), 0, 9999);
 			if (encoder < 0){
 				encoder *= -1;
 			}
@@ -946,7 +946,7 @@ void torque_fct(){
 			if (encoder > 0 && FLAG_SENS_2 == 0 ){
 				encoder = 0;
 			}
-			encoder = convert(abs(encoder), 0, abs(tor.torque_minimum));
+			encoder = convert(abs(encoder), 0, 9999);
 			if (encoder > 0){
 				encoder *= -1;
 			}

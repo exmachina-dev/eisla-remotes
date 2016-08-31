@@ -26,7 +26,6 @@ bool FLAG_MSG_ERR;
 bool FLAG_MSG_OK;
 char msg[100];
 int nb_data;
-uint8_t mode[2] = {0, 1};
 
 void serial_send_block(int nb_value_byte,int n,...)
 {

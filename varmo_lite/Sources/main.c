@@ -121,8 +121,6 @@ int main(void)
   LED_STATUS_4_ClrVal();
 
 
-  int cnt_err = 0;
-  int cnt_ok = 0;
   WAIT1_Waitms(15);
   PCA9670_Init();
   T_100ms_Disable(T_100ms_DeviceData);
@@ -159,7 +157,6 @@ int main(void)
 
   for(;;){
 	  char msg[cnt];
-	  int nb_data = 0;
 
 	  if (FLAG_ENCODER == 1){
 		  if (FLAG_MENU == 1){

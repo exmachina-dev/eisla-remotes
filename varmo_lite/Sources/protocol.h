@@ -35,7 +35,6 @@ static const char *Velocity_ref = "machine.velocity_ref";
 
 static const char *Position = "machine.position";
 static const char *Position_ref = "machine.position_ref";
-static const char *Position_Target = "machine.position_target";
 static const char *Pos_go = "machine.command.go";
 static const char *Set_Home = "machine.command.set_home";
 static const char *Go_Home = "machine.command.go_home";
@@ -50,13 +49,9 @@ static const char *Torque_fall = "machine.torque_fall_time";
 
 static const char *Enable = "machine.command.enable";
 static const char *Cancel = "machine.command.cancel";
-static const char *Stop = "machine.command.stop";
 
 static const char *Drive_Enable = "machine.status.drive_enable";
 
-static const char *Reset = "machine.command.reset";
-
-static const char *Move_Mode = "machine.command.move_mode";
 static const char *Control_Mode = "machine.command.control_mode";
 
 static const char *Device_serial_num = "machine.serialnumber";
