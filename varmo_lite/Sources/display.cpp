@@ -12,6 +12,8 @@
 extern "C" {
 #endif
 
+bool FLAG_SETTING = 0;
+
 sub_menu2 back_sub_menu = init_sub_menu2((char *)"Back", 1, back_fct);
 
 sub_menu2 vel_play_cue = init_sub_menu2((char *)"Play Cue       ", 1, vel_play_cue_fct);
@@ -39,7 +41,7 @@ sub_menu vel_dec = 		init_sub_menu((char *)"Deceleration   ",1,{0}, deceleration
 sub_menu vel_cue = 		init_sub_menu((char *)"Cue            ",0, menu_velocity_cue, void_function);
 
 sub_menu sub_menu_velocity[] = {vel_velocity, vel_acc, vel_dec, vel_cue, back_menu};
-sub_menu_list menu_velocity = init_sub_menu_list(sub_menu_velocity, sizeof(sub_menu_velocity)/sizeof(sub_menu_velocity[0]), (char*)"Velocy Menu  ");
+sub_menu_list menu_velocity = init_sub_menu_list(sub_menu_velocity, sizeof(sub_menu_velocity)/sizeof(sub_menu_velocity[0]), (char*)"Velocity Menu");
 
 sub_menu pos_position = init_sub_menu((char *)"Position       ", 1, {0}, pos_position_fct);
 sub_menu pos_velocity = init_sub_menu((char *)"Velocity       ", 1, {0}, pos_velocity_fct);
@@ -58,11 +60,19 @@ sub_menu tor_torque_fall = 	init_sub_menu((char *)"Torque Fall    ",1,{0}, torqu
 sub_menu sub_menu_torque[] = {tor_torque, tor_torque_rise, tor_torque_fall, back_menu};
 sub_menu_list menu_torque = init_sub_menu_list(sub_menu_torque, sizeof(sub_menu_torque)/sizeof(sub_menu_torque[0]), (char*)"Torque Menu  ");
 
+sub_menu setting_baud_rate = 	init_sub_menu((char *)"Baud Rate      ",1,{0}, select_baud_rate_fct);
+sub_menu setting_update_val = 	init_sub_menu((char *)"Update Value   ",1,{0}, select_update_menu_fct);
+
+sub_menu sub_menu_setting[] = {setting_baud_rate, setting_update_val, back_menu};
+sub_menu_list menu_setting = init_sub_menu_list(sub_menu_setting, sizeof(sub_menu_setting)/sizeof(sub_menu_setting[0]), (char*)"Setting Menu ");
+
+
 menu velocity = init_menu((char *)"Velocity      ", menu_velocity,1);
 menu position = init_menu((char *)"Position      ", menu_position,1);
 menu torque = 	init_menu((char *)"Torque        ", menu_torque,1);
+menu setting = 	init_menu((char *)"Setting       ", menu_setting,1);
 
-menu menu_array[] = {velocity, position, torque};
+menu menu_array[] = {velocity, position, torque, setting};
 
 menu_list root_menu= init_menu_list (menu_array, sizeof(menu_array)/sizeof(menu_array[0]), (char*)"Root Menu    ");
 
@@ -382,6 +392,7 @@ int select(int pointer){
 
 int back(int pointer){
 	FLAG_MENU = 1;
+	FLAG_SETTING = 0;
 	FLAG_CUE_MODE = 0;
 	pointer = menu_back(root_menu);
 	return pointer;
@@ -492,8 +503,12 @@ void refresh_fct(int flag){
 		case Torque_fall_selected:
 			torque_fall_fct();
 			break;
-
-
+		case Baud_rate_setting:
+			select_baud_rate_fct();
+			break;
+		case Update_setting :
+			select_update_menu_fct();
+			break;
 	}
 }
 
@@ -1338,7 +1353,7 @@ void vel_play_cue_fct(void){
 					cue_parameter parameters;
 					print_cue_array(encoder, cue_saved, cue_saved_size);
 					parameters = get_cue_values(CONTROL_MODE, encoder -1);
-						if(parameters.data == 0){
+					if(parameters.data == 0){
 						LCD_Write_Block((char*)"Slot Free       ",2,0);
 						LCD_Write_Block((char*)"                ",3,0);
 					}
@@ -1368,7 +1383,7 @@ void vel_rec_cue_fct(void){
 		else{
 			encoder = 1;
 		}
-		LCD_Write_Block((char*)"Record cue",0,0);
+		LCD_Write_Block((char*)"Record cue   ",0,0);
 		LCD_Write_Block((char*)"                ",1,0);
 		LCD_Write_Block((char*)"                ",2,0);
 		LCD_Write_Block((char*)"                ",3,0);
@@ -1560,8 +1575,60 @@ void vel_del_cue_fct(void){
 	}
 }
 
+void select_baud_rate_fct(void){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		FLAG_SETTING = 1;
+		encoder = 1;
+		menu_indicator = Baud_rate_setting;
+		LCD_Write_Block((char*)"                ", 1, 0);
+		LCD_Write_Block((char*)"                ", 2, 0);
+		LCD_Write_Block((char*)"                ", 3, 0);
+		LCD_Write_Block((char*)"152000         ", 1, 1);
+		LCD_Write_Block((char*)"57600          ", 2, 1);
+		LCD_Write_At(arrow_right,encoder,0);
+	}
+	else{
+		if(encoder<1){
+			encoder = 1;
+		}
+		else if(encoder > 2){
+			encoder = 2;
+		}
+		else{
+			LCD_Write_At(arrow_right, encoder, 0);
+		}
+	}
+}
+void select_update_menu_fct(void){
+	if (FLAG_MENU == 1){
+		FLAG_MENU = 0;
+		FLAG_SETTING = 1;
+		encoder = 1;
+		menu_indicator = Update_setting;
+		LCD_Write_Block((char*)"                ", 1, 0);
+		LCD_Write_Block((char*)"                ", 2, 0);
+		LCD_Write_Block((char*)"                ", 3, 0);
+		LCD_Write_Block((char*)"Yes            ", 1, 1);
+		LCD_Write_Block((char*)"No             ", 2, 1);
+		LCD_Write_At(arrow_right,encoder,0);
+	}
+	else{
+		if(encoder<1){
+			encoder = 1;
+		}
+		else if(encoder > 2){
+			encoder = 2;
+		}
+		else{
+			LCD_Write_At(arrow_right, encoder, 0);
+		}
+	}
+}
+
 void short_cut_position_menu(){
 	FLAG_MENU = 1;
+
 	if (menu_indicator == Position_vel_selected){
 		//Disable position velocity ref
 		root_menu.array[1].sub.array[1].select = 0;

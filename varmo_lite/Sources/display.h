@@ -55,6 +55,7 @@ extern "C" {
 
 char buffer[80];
 bool FLAG_MENU;
+extern bool FLAG_SETTING;
 
 int vspfunc(char *, ...);
 
@@ -106,6 +107,9 @@ void vel_play_cue_fct(void);
 void vel_rec_cue_fct(void);
 void vel_mod_cue_fct(void);
 void vel_del_cue_fct(void);
+
+void select_baud_rate_fct(void);
+void select_update_menu_fct(void);
 
 void short_cut_position_menu(void);
 

@@ -33,6 +33,8 @@ extern "C" {
 #define Torque_selected 17
 #define Torque_rise_selected 18
 #define Torque_fall_selected 19
+#define Baud_rate_setting 20
+#define Update_setting 21
 
 extern bool FLAG_REC;
 

@@ -67,6 +67,7 @@ extern bool FLAG_MSG_ERR;
 extern bool FLAG_MSG_OK;
 extern char msg[100];
 extern int nb_data;
+extern uint8_t mode[2];
 
 typedef union {
 	struct{
