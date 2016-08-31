@@ -188,7 +188,7 @@ void get_update_value(int mode){
 }
 
 void send_stop(){
-	serial_send_block(1,2, Set, Stop);
+	serial_send_block(1,2, Set, Cancel);
 	serial_send_char(protocol_setting.DELIMITATOR);
 	serial_send_char(1);
 	serial_send_end();

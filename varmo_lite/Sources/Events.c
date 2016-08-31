@@ -302,8 +302,25 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 /* ===================================================================*/
 void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-	if (FLAG_MENU == 0){
+	if (FLAG_MENU ==0){
+		counter_update_menu ++;
+	}
+	if (counter_update_menu == 2){
 		FLAG_UPDATE_MENU = 1;
+	}
+
+	if (FLAG_STOP == 1){
+		counter_send_stop ++;
+	}
+	if (counter_send_stop == 2){
+		FLAG_SEND_STOP = 1;
+	}
+
+	if (FLAG_UPDATE == 0){
+		counter_update ++;
+	}
+	if (counter_update == 2){
+		FLAG_UPDATE = 1;
 	}
 
 	if (FLAG_SET_HOME == 1){
@@ -339,14 +356,6 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 		FLAG_SETTING_SELECTED = 0;
 		FLAG_UPDATE_SETTING_SELECTED = 1;
 		counter_2s = 0;
-	}
-
-	if (FLAG_STOP == 1){
-		FLAG_SEND_STOP = 1;
-	}
-
-	if (FLAG_UPDATE == 0){
-		FLAG_UPDATE = 1;
 	}
 }
 

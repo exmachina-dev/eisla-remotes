@@ -46,6 +46,10 @@ extern bool drive_enable_st;
 extern bool FLAG_SET_HOME;
 extern int counter_2s;
 extern int counter_1s;
+extern int counter_update;
+extern int counter_update_menu;
+extern int counter_send_stop;
+
 
 extern bool FLAG_SHORT_CUT;
 extern bool FLAG_UPDATE_SETTING;

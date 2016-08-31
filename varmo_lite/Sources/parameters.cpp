@@ -21,6 +21,10 @@ bool drive_enable_st;
 bool FLAG_SET_HOME = 0;
 int counter_2s = 0;
 int counter_1s = 0;
+int counter_update = 0;
+int counter_update_menu = 0;
+int counter_send_stop = 0;
+
 bool FLAG_SHORT_CUT = 0;
 bool FLAG_UPDATE_SETTING = 0;
 bool FLAG_SETTING_SELECTED = 0;

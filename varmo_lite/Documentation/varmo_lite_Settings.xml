@@ -183,7 +183,7 @@ PE_DEBUGHALT();
               <Name v="m_interrupts" />
               <Qualifier v="RX" />
               <Address v="0" />
-              <Size v="444" />
+              <Size v="1022" />
             </boolgroup>
           </group>
           <group name="MemoryArea1">
@@ -194,7 +194,7 @@ PE_DEBUGHALT();
               <Name v="m_text" />
               <Qualifier v="RX" />
               <Address v="1040" />
-              <Size v="196608" />
+              <Size v="257008" />
             </boolgroup>
           </group>
           <group name="MemoryArea3">

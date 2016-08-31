@@ -183,7 +183,7 @@ PE_DEBUGHALT();
               <Name v="m_interrupts" />
               <Qualifier v="RX" />
               <Address v="0" />
-              <Size v="444" />
+              <Size v="1022" />
             </boolgroup>
           </group>
           <group name="MemoryArea1">
@@ -1320,7 +1320,7 @@ PE_DEBUGHALT();
         <boolgroup name="Transmitter" v="Enabled">
           <TxD v="TSI0_CH10/PTB17/UART0_TX/EWM_OUT_b" />
         </boolgroup>
-        <Baud_rate init="115200 baud" runtime_settings="list" mode_1="57600 baud" />
+        <Baud_rate init="57600 baud" runtime_settings="list" mode_1="115200 baud" />
         <Break_signal v="Disabled" />
         <Wakeup_condition v="Idle line wakeup" />
         <Transmitter_output v="Not inverted" />
@@ -1357,7 +1357,7 @@ PE_DEBUGHALT();
               <Parity v="None" />
               <Stop_bits v="1" />
               <Loop_mode v="Normal" />
-              <Baud_rate init="115200 baud" runtime_settings="list" mode_1="57600 baud" />
+              <Baud_rate init="57600 baud" runtime_settings="list" mode_1="115200 baud" />
               <Wakeup_condition v="Idle line wakeup" />
               <Stop_in_wait_mode v="no" />
               <Idle_line_mode v="Starts after start bit" />

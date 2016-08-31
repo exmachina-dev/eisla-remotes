@@ -278,6 +278,7 @@ int main(void)
 	  if (FLAG_UPDATE_MENU == 1 && CONTROL_MODE != 0 && FLAG_CUE_MODE != 1 && FLAG_UPDATE_SETTING == 0){
 		  get_update_value(CONTROL_MODE);
 		  FLAG_UPDATE_MENU = 0;
+		  counter_update_menu = 0;
 		  refresh_fct(menu_indicator);
 	  }
 	  else{
@@ -291,16 +292,18 @@ int main(void)
 
 	  if (FLAG_SEND_STOP == 1){
 		  FLAG_SEND_STOP = 0;
+		  counter_send_stop = 0;
 		  send_stop();
 	  }
 
 	  if (FLAG_UPDATE == 1 && FLAG_UPDATE_SETTING == 0){
 		  FLAG_UPDATE = 0;
+		  counter_update = 0;
 		  get_update_drive_en();
 		  update_icon_drive_enable();
 	  }
 
-	  if ((CONTROL_MODE == 2 && vel.velocity != 0) || (CONTROL_MODE == 3 && pos.velocity != 0) || (CONTROL_MODE == 1 && tor.torque != 0)){
+	  if ((CONTROL_MODE == 2 && abs(vel.velocity) < 0.01) || (CONTROL_MODE == 3 && abs(pos.velocity) < 0.01) || (CONTROL_MODE == 1 && abs(tor.torque) < 0.01)){
 		  LED_MOTOR_MOVE_SetVal();
 	  }
 	  else{
