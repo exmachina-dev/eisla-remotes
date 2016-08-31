@@ -234,8 +234,8 @@ int main(void)
 	  }
 
 	  if (FLAG_MENU == 0 && FLAG_SENS == 1){
-		  FLAG_SENS = 0;
 		  refresh_fct(menu_indicator);
+		  FLAG_SENS = 0;
 	  }
 
 	  if (FLAG_CONTROL_MODE == 1){
