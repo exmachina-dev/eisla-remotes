@@ -177,7 +177,7 @@ PE_DEBUGHALT();
         <Default_memory_for_interrupts v="INTERNAL FLASH" />
         <Default_memory_for_code v="INTERNAL FLASH" />
         <Default_memory_for_data v="INTERNAL RAM" />
-        <list name="ROM/RAM Areas" v="5">
+        <list name="ROM/RAM Areas" v="6">
           <group name="MemoryArea0">
             <boolgroup name="ROM/RAM Area" v="Enabled">
               <Name v="m_interrupts" />
@@ -211,6 +211,14 @@ PE_DEBUGHALT();
               <Qualifier v="RW" />
               <Address v="536870912" />
               <Size v="32768" />
+            </boolgroup>
+          </group>
+          <group name="MemoryArea5">
+            <boolgroup name="ROM/RAM Area" v="Enabled">
+              <Name v="m_cue" />
+              <Qualifier v="RW" />
+              <Address v="258048" />
+              <Size v="4094" />
             </boolgroup>
           </group>
         </list>

@@ -4090,6 +4090,7 @@ m_interrupts     0x00000000         0x000003fe         xr
 m_text           0x00000410         0x0003ebf0         xr
 m_data           0x1fff8000         0x00008000         rw
 m_data_20000000  0x20000000         0x00008000         rw
+m_cue            0x0003f000         0x00000ffe         rw
 m_cfmprotrom     0x00000400         0x00000010         xr
 *default*        0x00000000         0xffffffff
 
@@ -5978,7 +5979,16 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x20000000                ___m_data_20000000_RAMEnd = .
                 0x20000000                . = ALIGN (0x4)
                 0x00000000                ___m_data_20000000_ROMSize = (___m_data_20000000_RAMEnd - ___m_data_20000000_RAMStart)
-                0x20000000                . = ALIGN (0x4)
+                0x000103b0                ___m_cue_ROMStart = (___m_data_20000000_ROMStart + SIZEOF (.m_data_20000000))
+
+.m_cue          0x0003f000        0x0 load address 0x000103b0
+                0x0003f000                . = ALIGN (0x4)
+                0x0003f000                ___m_cue_RAMStart = .
+ *(.m_cue)
+                0x0003f000                ___m_cue_RAMEnd = .
+                0x0003f000                . = ALIGN (0x4)
+                0x00000000                ___m_cue_ROMSize = (___m_cue_RAMEnd - ___m_cue_RAMStart)
+                0x0003f000                . = ALIGN (0x4)
 
 .bss            0x1fff80f4     0x1620 load address 0x000103b0
                 0x1fff80f4                __START_BSS = .
@@ -6400,9 +6410,9 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x1fff9714                . = ALIGN (0x4)
                 0x1fff9714                __END_BSS = .
                 0x1fff9714                PROVIDE (__bss_end__, __END_BSS)
-                0x000103b0                _romp_at = ((___ROM_AT + SIZEOF (.data)) + SIZEOF (.m_data_20000000))
+                0x000103b0                _romp_at = (((___ROM_AT + SIZEOF (.data)) + SIZEOF (.m_data_20000000)) + SIZEOF (.m_cue))
 
-.romp           0x1fff9714       0x24 load address 0x000103b0
+.romp           0x1fff9714       0x30 load address 0x000103b0
                 0x000103b0                __S_romp = _romp_at
                 0x1fff9714        0x4 LONG 0x102bc ___ROM_AT
                 0x1fff9718        0x4 LONG 0x1fff8000 _sdata
@@ -6410,26 +6420,29 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x1fff9720        0x4 LONG 0x103b0 ___m_data_20000000_ROMStart
                 0x1fff9724        0x4 LONG 0x20000000 ___m_data_20000000_RAMStart
                 0x1fff9728        0x4 LONG 0x0 ___m_data_20000000_ROMSize
-                0x1fff972c        0x4 LONG 0x0
-                0x1fff9730        0x4 LONG 0x0
-                0x1fff9734        0x4 LONG 0x0
+                0x1fff972c        0x4 LONG 0x103b0 ___m_cue_ROMStart
+                0x1fff9730        0x4 LONG 0x3f000 ___m_cue_RAMStart
+                0x1fff9734        0x4 LONG 0x0 ___m_cue_ROMSize
+                0x1fff9738        0x4 LONG 0x0
+                0x1fff973c        0x4 LONG 0x0
+                0x1fff9740        0x4 LONG 0x0
                 0x0003f000                text_end = (ORIGIN (m_text) + 0x3ebf0)
-                0x000103d4                data_init_end = ((___m_data_20000000_ROMStart + SIZEOF (.m_data_20000000)) + SIZEOF (.romp))
+                0x000103e0                data_init_end = ((___m_cue_ROMStart + SIZEOF (.m_cue)) + SIZEOF (.romp))
                 0x00000001                ASSERT ((data_init_end <= text_end), region m_text overflowed with text and data)
 
 ._user_heap_stack
-                0x1fff9738      0x400 load address 0x000103d4
-                0x1fff9738                . = ALIGN (0x4)
-                0x1fff9738                PROVIDE (end, .)
-                0x1fff9738                PROVIDE (_end, .)
-                0x1fff9738                PROVIDE (__end__, .)
-                0x1fff9738                __heap_addr = .
-                0x1fff9738                __HeapBase = .
-                0x1fff9738                . = (. + __heap_size)
-                0x1fff9738                __HeapLimit = .
-                0x1fff9b38                . = (. + __stack_size)
- *fill*         0x1fff9738      0x400 
-                0x1fff9b38                . = ALIGN (0x4)
+                0x1fff9744      0x400 load address 0x000103e0
+                0x1fff9744                . = ALIGN (0x4)
+                0x1fff9744                PROVIDE (end, .)
+                0x1fff9744                PROVIDE (_end, .)
+                0x1fff9744                PROVIDE (__end__, .)
+                0x1fff9744                __heap_addr = .
+                0x1fff9744                __HeapBase = .
+                0x1fff9744                . = (. + __heap_size)
+                0x1fff9744                __HeapLimit = .
+                0x1fff9b44                . = (. + __stack_size)
+ *fill*         0x1fff9744      0x400 
+                0x1fff9b44                . = ALIGN (0x4)
 
 .ARM.attributes
                 0x00000000       0x2a

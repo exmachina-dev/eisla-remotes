@@ -3,7 +3,7 @@
   <Header>
     <Name>varmo_lite</Name>
     <SavedBy>Adrian</SavedBy>
-    <ModificationStamp>163</ModificationStamp>
+    <ModificationStamp>164</ModificationStamp>
     <Date>2016-05-30</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1550-0615</PEversion>
@@ -17903,7 +17903,7 @@
         <ItemState>
           <ItemSymbol>C_RomRamList</ItemSymbol>
           <ReadOnly>false</ReadOnly>
-          <ListItemCount>5</ListItemCount>
+          <ListItemCount>6</ListItemCount>
           <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
           <Expanded>true</Expanded>
         </ItemState>
@@ -18198,6 +18198,64 @@
           <StrgList lines_count="0" />
         </ItemState>
         <ItemState>
+          <ItemSymbol>C_MemoryArea5</ItemSymbol>
+          <ReadOnly>false</ReadOnly>
+          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+          <Expanded>true</Expanded>
+        </ItemState>
+        <ItemState>
+          <ItemSymbol>C_RomRamArea5</ItemSymbol>
+          <ReadOnly>false</ReadOnly>
+          <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
+          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+          <Value>true</Value>
+          <Expanded>true</Expanded>
+        </ItemState>
+        <ItemState>
+          <ItemSymbol>C_RomRamName5</ItemSymbol>
+          <ReadOnly>false</ReadOnly>
+          <Value>m_cue</Value>
+          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+        </ItemState>
+        <ItemState>
+          <ItemSymbol>C_RomRamQualifier5</ItemSymbol>
+          <ReadOnly>false</ReadOnly>
+          <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
+          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+          <Index>2</Index>
+          <EnumSymbVal>RW</EnumSymbVal>
+        </ItemState>
+        <ItemState>
+          <ItemSymbol>C_RomRamPhysicalType5</ItemSymbol>
+          <ReadOnly>false</ReadOnly>
+          <Value />
+          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+        </ItemState>
+        <ItemState>
+          <ItemSymbol>C_RomRamAddr5</ItemSymbol>
+          <ReadOnly>false</ReadOnly>
+          <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
+          <Value>258048</Value>
+          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+          <Base>HEX</Base>
+          <Area />
+        </ItemState>
+        <ItemState>
+          <ItemSymbol>C_RomRamSize5</ItemSymbol>
+          <ReadOnly>false</ReadOnly>
+          <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
+          <Value>4094</Value>
+          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+          <Base>HEX</Base>
+        </ItemState>
+        <ItemState>
+          <ItemSymbol>C_RomRamGroupContent5</ItemSymbol>
+          <ReadOnly>false</ReadOnly>
+          <Value>(string list)</Value>
+          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
+          <StrgList lines_count="0" />
+        </ItemState>
+        <ItemState>
           <ItemSymbol>C_PECompilerSupportCondGrp</ItemSymbol>
           <ReadOnly>false</ReadOnly>
           <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
@@ -18355,64 +18413,6 @@
           <ItemSymbol>GNUC_ARM_Directory</ItemSymbol>
           <ReadOnly>false</ReadOnly>
           <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-        </ItemState>
-        <ItemState>
-          <ItemSymbol>C_MemoryArea5</ItemSymbol>
-          <ReadOnly>false</ReadOnly>
-          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-          <Expanded>true</Expanded>
-        </ItemState>
-        <ItemState>
-          <ItemSymbol>C_RomRamArea5</ItemSymbol>
-          <ReadOnly>false</ReadOnly>
-          <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-          <Value>true</Value>
-          <Expanded>false</Expanded>
-        </ItemState>
-        <ItemState>
-          <ItemSymbol>C_RomRamName5</ItemSymbol>
-          <ReadOnly>false</ReadOnly>
-          <Value>eeprom</Value>
-          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-        </ItemState>
-        <ItemState>
-          <ItemSymbol>C_RomRamQualifier5</ItemSymbol>
-          <ReadOnly>false</ReadOnly>
-          <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-          <Index>2</Index>
-          <EnumSymbVal>RW</EnumSymbVal>
-        </ItemState>
-        <ItemState>
-          <ItemSymbol>C_RomRamPhysicalType5</ItemSymbol>
-          <ReadOnly>false</ReadOnly>
-          <Value />
-          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-        </ItemState>
-        <ItemState>
-          <ItemSymbol>C_RomRamAddr5</ItemSymbol>
-          <ReadOnly>false</ReadOnly>
-          <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-          <Value>268435456</Value>
-          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-          <Base>HEX</Base>
-          <Area />
-        </ItemState>
-        <ItemState>
-          <ItemSymbol>C_RomRamSize5</ItemSymbol>
-          <ReadOnly>false</ReadOnly>
-          <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-          <Value>2048</Value>
-          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-          <Base>HEX</Base>
-        </ItemState>
-        <ItemState>
-          <ItemSymbol>C_RomRamGroupContent5</ItemSymbol>
-          <ReadOnly>false</ReadOnly>
-          <Value>(string list)</Value>
-          <ItemWasNeverEnabledInChgScript>true</ItemWasNeverEnabledInChgScript>
-          <StrgList lines_count="0" />
         </ItemState>
         <ItemState>
           <ItemSymbol>C_MemoryArea6</ItemSymbol>
