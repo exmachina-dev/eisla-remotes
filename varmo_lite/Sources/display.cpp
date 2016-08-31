@@ -542,14 +542,20 @@ void velocity_fct(){
 	else {
 		print_float_at(vel.velocity, 0,0,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
+			if (encoder < 0){
+				encoder = 0;
+			}
 			encoder = convert(abs(encoder), 0, vel.velocity_maximum);
 			if (encoder < 0){
 				encoder *= -1;
 			}
 
-			print_float_at(encoder,0,0,3,8);
+  			print_float_at(encoder,0,0,3,8);
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
+			if (encoder > 0){
+				encoder = 0;
+			}
 			encoder = convert(abs(encoder), 0, abs(vel.velocity_minimum));
 			if (encoder > 0){
 				encoder *= -1;
@@ -688,6 +694,9 @@ void pos_position_fct(){
 		print_float_at(pos.velocity,0, 0, 1,0);
 		print_float_at(pos.position, 0, 0,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
+			if (encoder < 0){
+				encoder = 0;
+			}
 			encoder = convert(abs(encoder), 0, pos.position_maximum);
 			if (encoder < 0){
 				encoder *= -1;
@@ -697,6 +706,9 @@ void pos_position_fct(){
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
 			encoder = convert(abs(encoder), 0, abs(pos.position_minimum));
+			if (encoder > 0){
+				encoder = 0;
+			}
 			if (encoder > 0){
 				encoder *= -1;
 			}
@@ -871,6 +883,9 @@ void torque_fct(){
 	else {
 		print_float_at(tor.torque, 0, 0,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
+			if (encoder < 0){
+				encoder = 0;
+			}
 			encoder = convert(abs(encoder), 0, tor.torque_maximum);
 			if (encoder < 0){
 				encoder *= -1;
@@ -878,6 +893,9 @@ void torque_fct(){
 			print_float_at(encoder,0,0,3,8);
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
+			if (encoder > 0){
+				encoder = 0;
+			}
 			encoder = convert(abs(encoder), 0, abs(tor.torque_minimum));
 			if (encoder > 0){
 				encoder *= -1;
