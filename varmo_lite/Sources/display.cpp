@@ -1596,6 +1596,8 @@ void select_baud_rate_fct(void){
 			encoder = 2;
 		}
 		else{
+			LCD_Write_At(' ',1,0);
+			LCD_Write_At(' ',2,0);
 			LCD_Write_At(arrow_right, encoder, 0);
 		}
 	}
@@ -1621,7 +1623,10 @@ void select_update_menu_fct(void){
 			encoder = 2;
 		}
 		else{
+			LCD_Write_At(' ',1,0);
+			LCD_Write_At(' ',2,0);
 			LCD_Write_At(arrow_right, encoder, 0);
+
 		}
 	}
 }
