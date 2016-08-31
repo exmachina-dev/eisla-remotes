@@ -170,6 +170,7 @@ void LEVER_DIR1_OnInterrupt(void)
 	FLAG_SENS = 1;
     if (LEVER_DIR1_GetVal() == 0) {
     	FLAG_SENS_2 = 1;
+    	FLAG_STOP = 0;
     }
     else{
     	FLAG_SENS_2 = 0;
@@ -195,6 +196,7 @@ void LEVER_DIR2_OnInterrupt(void)
 	FLAG_SENS = 1;
     if (LEVER_DIR2_GetVal() == 0) {
     	FLAG_SENS_1 = 1;
+    	FLAG_STOP = 0;
     }
     else{
     	FLAG_SENS_1 = 0;
@@ -322,6 +324,7 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 	if (FLAG_CUE_SELECTED == 1){
 		counter_2s += 1;
 	}
+
 	if(counter_2s == 4){
 		FLAG_CUE_SELECTED = 0;
 		FLAG_UPDATE_CUE = 1;
@@ -331,12 +334,12 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 	if(FLAG_SETTING_SELECTED == 1){
 		counter_2s += 1;
 	}
+
 	if(counter_2s == 4){
 		FLAG_SETTING_SELECTED = 0;
 		FLAG_UPDATE_SETTING_SELECTED = 1;
 		counter_2s = 0;
 	}
-
 
 	if (FLAG_STOP == 1){
 		FLAG_SEND_STOP = 1;
@@ -345,8 +348,6 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 	if (FLAG_UPDATE == 0){
 		FLAG_UPDATE = 1;
 	}
-
-
 }
 
 /*
