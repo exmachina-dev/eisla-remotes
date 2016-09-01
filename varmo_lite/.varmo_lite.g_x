@@ -93,7 +93,7 @@
       <File Name="Sources/Events.h" FileDate="2016-08-31, 19:42:48" FileAge="1472665368736" FileType="131328" />
       <File Name="Generated_Code/KSDK1.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622481" FileType="45637" CompNumb="76" />
       <File Name="Generated_Code/ENCODER_PUSH.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622384" FileType="45637" CompNumb="45" />
-      <File Name="Sources/Events.c" FileDate="2016-08-31, 23:23:22" FileAge="1472678602721" FileType="131328" />
+      <File Name="Sources/Events.c" FileDate="2016-09-01, 15:09:40" FileAge="1472735380802" FileType="131328" />
       <File Name="Generated_Code/KSDK1.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622479" FileType="45637" CompNumb="76" />
       <File Name="Generated_Code/ENCODER_PUSH.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622379" FileType="45637" CompNumb="45" />
       <File Name="Documentation/doxygen/ExtIntLdd1_component.txt" FileDate="2016-08-10, 11:23:55" FileAge="1470821035443" FileType="45637" CompNumb="46" />
@@ -101,9 +101,9 @@
       <File Name="Static_Code/PDD/WDOG_PDD.h" FileDate="2016-05-30, 15:08:14" FileAge="1464613694838" FileType="1048576" />
       <File Name="Documentation/doxygen/ENCODER_component.txt" FileDate="2016-08-02, 13:59:05" FileAge="1470139145837" FileType="45637" CompNumb="41" />
       <File Name="Documentation/doxygen/ExtIntLdd4_component.txt" FileDate="2016-08-31, 19:42:48" FileAge="1472665368319" FileType="45637" CompNumb="69" />
-      <File Name="Project_Settings/Linker_Files/ProcessorExpert.ld" FileDate="2016-08-31, 23:21:39" FileAge="1472678499702" FileType="8" CompNumb="37" />
+      <File Name="Project_Settings/Linker_Files/ProcessorExpert.ld" FileDate="2016-09-01, 15:12:18" FileAge="1472735538673" FileType="8" CompNumb="37" />
       <File Name="Generated_Code/ASerialLdd1.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622267" FileType="45637" CompNumb="80" />
-      <File Name="Documentation/varmo_lite_Settings.xml" FileDate="2016-08-31, 23:21:39" FileAge="1472678499946" FileType="3072" />
+      <File Name="Documentation/varmo_lite_Settings.xml" FileDate="2016-09-01, 15:12:18" FileAge="1472735538994" FileType="3072" />
       <File Name="Generated_Code/ENCODER.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622377" FileType="45637" CompNumb="41" />
       <File Name="Documentation/doxygen/T_100ms_component.txt" FileDate="2016-07-08, 15:26:56" FileAge="1467984416603" FileType="45637" CompNumb="53" />
       <File Name="ProjectInfo.xml" FileDate="2016-08-31, 19:42:48" FileAge="1472665368709" FileType="45637" />
@@ -132,7 +132,7 @@
       <File Name="Generated_Code/PUSH_BUTTON_SEND.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622601" FileType="45637" CompNumb="68" />
       <File Name="Documentation/doxygen/ASerialLdd1_component.txt" FileDate="2016-08-31, 19:42:48" FileAge="1472665368296" FileType="45637" CompNumb="80" />
       <File Name="Documentation/doxygen/BitIoLdd1_component.txt" FileDate="2016-06-27, 18:11:22" FileAge="1467043882513" FileType="45637" CompNumb="8" />
-      <File Name="Documentation/varmo_lite_SIGNALS.txt" FileDate="2016-08-31, 23:23:39" FileAge="1472678619392" FileType="3072" />
+      <File Name="Documentation/varmo_lite_SIGNALS.txt" FileDate="2016-09-01, 15:12:18" FileAge="1472735538743" FileType="3072" />
       <File Name="Generated_Code/ExtIntLdd4.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622421" FileType="45637" CompNumb="69" />
       <File Name="Generated_Code/PUSH_BUTTON_SEND.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622596" FileType="45637" CompNumb="68" />
       <File Name="Documentation/doxygen/BitIoLdd4_component.txt" FileDate="2016-06-27, 16:46:17" FileAge="1467038777190" FileType="45637" CompNumb="25" />
@@ -176,5 +176,5 @@
       <File Name="Documentation/doxygen/BitIoLdd2_component.txt" FileDate="2016-06-27, 18:11:22" FileAge="1467043882528" FileType="45637" CompNumb="21" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>284</CodeGenReference>
+  <CodeGenReference>285</CodeGenReference>
 </CodeGenerationInfo>

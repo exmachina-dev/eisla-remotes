@@ -10,7 +10,7 @@
 /*##                                   */
 /*##     Compiler  : GNU C Compiler    */
 /*##                                   */
-/*##     Date/Time : 2016-08-31, 23:21, # CodeGen: 282 */
+/*##     Date/Time : 2016-09-01, 15:12, # CodeGen: 284 */
 /*##                                   */
 /*##     Abstract  :                   */
 /*##                                   */
@@ -41,7 +41,7 @@ MEMORY {
   m_text      (RX) : ORIGIN = 0x00000410, LENGTH = 0x0003EBF0
   m_data      (RW) : ORIGIN = 0x1FFF8000, LENGTH = 0x00008000
   m_data_20000000 (RW) : ORIGIN = 0x20000000, LENGTH = 0x00008000
-  m_cue       (RW) : ORIGIN = 0x0003F000, LENGTH = 0x00000FFE
+  m_cue       (RWX) : ORIGIN = 0x0003F000, LENGTH = 0x00000FFE
   m_cfmprotrom  (RX) : ORIGIN = 0x00000400, LENGTH = 0x00000010
 }
 
@@ -172,18 +172,6 @@ SECTIONS
   ___m_data_20000000_ROMSize = ___m_data_20000000_RAMEnd - ___m_data_20000000_RAMStart;
 
 
-  ___m_cue_ROMStart = ___m_data_20000000_ROMStart + SIZEOF(.m_data_20000000);
-  .m_cue : AT(___m_cue_ROMStart)
-  {
-     . = ALIGN(4);
-     ___m_cue_RAMStart = .;
-     *(.m_cue) /* This is an User defined section */
-     ___m_cue_RAMEnd = .;
-     . = ALIGN(4);
-  } > m_cue
-  ___m_cue_ROMSize = ___m_cue_RAMEnd - ___m_cue_RAMStart;
-
-
   
   /* Uninitialized data section */
   . = ALIGN(4);
@@ -202,7 +190,7 @@ SECTIONS
  	  PROVIDE ( __bss_end__ = __END_BSS );
   } > m_data
 
-  _romp_at = ___ROM_AT + SIZEOF(.data) +SIZEOF(.m_data_20000000) +SIZEOF(.m_cue);
+  _romp_at = ___ROM_AT + SIZEOF(.data) +SIZEOF(.m_data_20000000);
   .romp : AT(_romp_at)
   {
     __S_romp = _romp_at;
@@ -212,16 +200,13 @@ SECTIONS
     LONG(___m_data_20000000_ROMStart);
     LONG(___m_data_20000000_RAMStart);
     LONG(___m_data_20000000_ROMSize);
-    LONG(___m_cue_ROMStart);
-    LONG(___m_cue_RAMStart);
-    LONG(___m_cue_ROMSize);
     LONG(0);
     LONG(0);
     LONG(0);
   } > m_data
   
   text_end = ORIGIN(m_text) + LENGTH(m_text);
-  data_init_end = ___m_cue_ROMStart + SIZEOF(.m_cue) + SIZEOF(.romp);
+  data_init_end = ___m_data_20000000_ROMStart + SIZEOF(.m_data_20000000) + SIZEOF(.romp);
   ASSERT( data_init_end <= text_end, "region m_text overflowed with text and data")
   
   /* User_heap_stack section, used to check that there is enough RAM left */

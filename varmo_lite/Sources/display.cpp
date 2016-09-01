@@ -1135,9 +1135,13 @@ void pos_rec_cue_fct(void){
 			LCD_Write_Block((char*)"                ",3,0);
 		}
 		else if (parameters.data == 1){
-			LCD_Write_Block((char*)"Position :      ",2,0);
+			LCD_Write_Block((char*)"Pos : ",2,0);
+			LCD_Write_Block((char*)"Vel : ",2,8);
 			LCD_Write_Block((char*)"                ",3,0);
 			print_float_at(parameters.position,2,0, 3, 0);
+			print_float_at(parameters.velocity,2,0, 3, 8);
+			LCD_Write_At(vertical_bar,2,7);
+			LCD_Write_At(vertical_bar,3,7);
 		}
 	}
 	else{
@@ -1161,9 +1165,13 @@ void pos_rec_cue_fct(void){
 					LCD_Write_Block((char*)"                ",3,0);
 				}
 				else if (parameters.data == 1){
-					LCD_Write_Block((char*)"Position :      ",2,0);
+					LCD_Write_Block((char*)"Pos : ",2,0);
+					LCD_Write_Block((char*)"Vel : ",2,8);
 					LCD_Write_Block((char*)"                ",3,0);
 					print_float_at(parameters.position,2,0, 3, 0);
+					print_float_at(parameters.velocity,2,0, 3, 8);
+					LCD_Write_At(vertical_bar,2,7);
+					LCD_Write_At(vertical_bar,3,7);
 				}
 			}
 

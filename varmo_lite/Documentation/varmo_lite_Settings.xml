@@ -216,7 +216,7 @@ PE_DEBUGHALT();
           <group name="MemoryArea5">
             <boolgroup name="ROM/RAM Area" v="Enabled">
               <Name v="m_cue" />
-              <Qualifier v="RW" />
+              <Qualifier v="RWX" />
               <Address v="258048" />
               <Size v="4094" />
             </boolgroup>

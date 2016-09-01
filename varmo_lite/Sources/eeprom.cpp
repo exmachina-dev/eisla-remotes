@@ -73,20 +73,21 @@ void write_cue(uint8_t nb_cue, int mode){
 		//Velocity
 		addr = velocity_offset + nb_cue  * 13;
 		byte temp = 0x80;
-		IFsh1_SetByteFlash(addr, temp);
+		byte ERR;
+		ERR = IFsh1_SetByteFlash(addr, temp);
 
 		addr += 1;
 		data.Tofloat= vel.velocity_ref;
 
-		IFsh1_SetLongFlash(addr, data.Todword);
+		ERR = IFsh1_SetLongFlash(addr, data.Todword);
 
 		addr += 4;
-		data.Tofloat =(dword) vel.acceleration;
-		IFsh1_SetLongFlash(addr, data.Todword);
+		data.Tofloat = vel.acceleration;
+		ERR = IFsh1_SetLongFlash(addr, data.Todword);
 
 		addr += 4;
-		data.Tofloat = (dword) vel.deceleration;
-		IFsh1_SetLongFlash(addr, data.Todword);
+		data.Tofloat = vel.deceleration;
+		ERR = IFsh1_SetLongFlash(addr, data.Todword);
 		addr += 4;
 	}
 	else if (mode == 3){
@@ -96,19 +97,19 @@ void write_cue(uint8_t nb_cue, int mode){
 		byte temp = 0x80;
 		IFsh1_SetByteFlash(addr, temp);
 		addr += 1;
-		data.Tofloat = (dword) pos.position_ref;
+		data.Tofloat = pos.position_ref;
 		IFsh1_SetLongFlash(addr, data.Todword);
 
 		addr += 4;
-		data.Tofloat = (dword) pos.velocity_ref;
+		data.Tofloat = pos.velocity_ref;
 		IFsh1_SetLongFlash(addr, data.Todword);
 
 		addr += 4;
-		data.Tofloat = (dword) pos.acceleration ;
+		data.Tofloat = pos.acceleration ;
 		IFsh1_SetLongFlash(addr, data.Todword);
 
 		addr += 4;
-		data.Tofloat = (dword) pos.deceleration;
+		data.Tofloat = pos.deceleration;
 		IFsh1_SetLongFlash(addr, data.Todword);
 	}
 }
