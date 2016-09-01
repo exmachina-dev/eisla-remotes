@@ -464,10 +464,8 @@ void AS1_OnRxCharExt(AS1_TComData Chr)
 {
 	LED_STATUS_3_ClrVal();
 	counter_1s = 0;
-	if(cnt>512){
-		AS1_ClearRxBuf();
-	}
-	else if (cnt > 0){
+
+	if (cnt > 0){
 		if (Chr == '\n' && in_buffer[cnt-1] == '\r'){
 			//End of a message
 			in_buffer[cnt] = Chr;
@@ -484,10 +482,13 @@ void AS1_OnRxCharExt(AS1_TComData Chr)
 			cnt ++;
 		}
 	}
-
 	else{
 		in_buffer[cnt]= Chr;
 		cnt ++;
+	}
+	if(cnt>512){
+		AS1_ClearRxBuf();
+		cnt = 0;
 	}
 }
 
