@@ -731,21 +731,21 @@ void pos_position_fct(){
 		LCD_Write_At(vertical_bar,3,7);
 
 		pos.position_ref = convert(pos.position_ref, -99999, 99999);
-		encoder = abs(pos.position_ref);
+		encoder = abs(pos.position_ref) / resolution;
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0){
 				encoder *= -1;
 			}
-			print_float_at(encoder,1,0,3,8);
+			print_float_at(encoder*resolution,1,0,3,8);
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
 			if (encoder > 0){
 				encoder *= -1;
 			}
-			print_float_at(encoder,1,0,3,8);
+			print_float_at(encoder*resolution,1,0,3,8);
 		}
 		else{
-			print_float_at(encoder,1,1,3,8);
+			print_float_at(encoder*resolution,1,1,3,8);
 		}
 	}
 	else if (FLAG_RESOLUTION == 0){
@@ -755,25 +755,24 @@ void pos_position_fct(){
 			if (encoder < 0){
 				encoder = 0;
 			}
-			encoder = convert(abs(encoder), 0, 99999);
+			encoder = convert(abs(encoder *resolution) , 0, 99999)/ resolution;
 			if (encoder < 0 && FLAG_SENS_2 == 0 ){
 				encoder *= -1;
 			}
-
-			print_float_at(encoder,1,0,3,8);
+			print_float_at(encoder*resolution,1,0,3,8);
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
-			encoder = convert(abs(encoder), 0, 99999);
+			encoder = convert(abs(encoder * resolution), 0, 99999) / resolution;
 			if (encoder > 0 && FLAG_SENS_2 == 0 ){
 				encoder = 0;
 			}
 			if (encoder > 0){
 				encoder *= -1;
 			}
-			print_float_at(encoder,1,0,3,8);
+			print_float_at(encoder* resolution,1,0,3,8);
 		}
 		else{
-			print_float_at(encoder,1,1,3,8);
+			print_float_at(encoder*resolution,1,1,3,8);
 		}
 	}
 	if(FLAG_RESOLUTION == 1){
@@ -1745,9 +1744,22 @@ int get_cursor_resolution_position(void){
 		case 10000:
 			return 1;
 	}
-
 }
 
+int get_resolution(void){
+	switch(int(encoder)){
+		case 5 :
+			return 1;
+		case 4 :
+			return 10;
+		case 3 :
+			return 100;
+		case 2 :
+			return 1000;
+		case 1:
+			return 10000;
+	}
+}
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif

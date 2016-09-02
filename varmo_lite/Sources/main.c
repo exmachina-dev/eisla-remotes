@@ -180,7 +180,10 @@ int main(void)
 		 }
 		 else if(FLAG_RESOLUTION == 1){
 			 FLAG_RESOLUTION = 0;
-			 encoder = old_encoder;
+			 old_encoder = old_encoder * resolution;
+			 resolution = get_resolution();
+			 encoder = old_encoder / resolution;
+			 old_encoder = encoder;
 		 }
 		 else if (FLAG_MENU == 1){
 			int temp = select((int)encoder);
@@ -199,7 +202,7 @@ int main(void)
 		FLAG_PUSH_SHORT = 0;
 	  }
 
-	  if (FLAG_SENS_1 == 1 || FLAG_SENS_2 == 1){
+	  if ((FLAG_SENS_1 == 1 || FLAG_SENS_2 == 1)  && FLAG_RESOLUTION == 0){
 		  if(FLAG_REC == 1 && (menu_indicator == Pos_Rec_cue || menu_indicator == Vel_Rec_cue) && FLAG_CUE_MODE == 1){
 			  FLAG_REC = 0;
 			  select_cue(encoder, menu_indicator);
@@ -235,7 +238,7 @@ int main(void)
 		  FLAG_PUSH_LONG = 0;
 	  }
 
-	  if (FLAG_SEND == 1 && FLAG_MENU == 0 && !(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0)){
+	  if (FLAG_SEND == 1 && FLAG_MENU == 0 && !(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0) && FLAG_RESOLUTION == 0){
 		  send_fct(menu_indicator);
 		  refresh_fct(menu_indicator);
 		  FLAG_SEND = 0;

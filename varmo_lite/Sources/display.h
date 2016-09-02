@@ -118,6 +118,7 @@ void short_cut_position_menu(void);
 
 void display_resolution(void);
 int get_cursor_resolution_position(void);
+int get_resolution(void);
 
 #ifdef __cplusplus
 }  /* extern "C" */
