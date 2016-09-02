@@ -718,7 +718,7 @@ void pos_position_fct(){
 		LCD_Write_Block((char*)"Vel", 0, 8);
 		print_float_at(pos.velocity_ref, 0, 0,1,8);
 		LCD_Write_Block((char*)"Pos Act", 2, 0);
-		print_float_at(pos.position, 0, 0,3,0);
+		print_float_at(pos.position, 1, 1,3,0);
 		LCD_Write_Block((char*)"Pos", 2, 8);
 		LCD_Write_At(vertical_bar,0,7);
 		LCD_Write_At(vertical_bar,1,7);
@@ -745,7 +745,7 @@ void pos_position_fct(){
 	}
 	else {
 		print_float_at(pos.velocity,0, 0, 1,0);
-		print_float_at(pos.position, 0, 0,3,0);
+		print_float_at(pos.position, 1, 1,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0){
 				encoder = 0;
