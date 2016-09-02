@@ -4,6 +4,7 @@
  *  Created on: 2016-08-04
  *      Author: Adrian
  */
+#include "WAIT1.h"
 #include "parameters.h"
 #include "encoder_variable.h"
 #include "protocol.h"

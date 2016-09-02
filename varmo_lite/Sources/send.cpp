@@ -208,6 +208,21 @@ void send_velocity_cue(){
 }
 
 void send_position_cue(){
+	serial_send_block(4,2, Set, Acceleration);
+	serial_send_float(pos.acceleration);
+	serial_send_end();
+
+	WAIT1_Waitms(5);
+	serial_send_block(4,2, Set, Deceleration);
+	serial_send_float(pos.deceleration);
+	serial_send_end();
+	WAIT1_Waitms(5);
+
+	serial_send_block(4,2, Set, Velocity_ref);
+	serial_send_float(pos.velocity_ref);
+	serial_send_end();
+	WAIT1_Waitms(5);
+
 	if(pos.position_ref == 0){
 		serial_send_block(1, 2, Set, Go_Home);
 		serial_send_char(protocol_setting.DELIMITATOR);
@@ -220,15 +235,8 @@ void send_position_cue(){
 		serial_send_end();
 	}
 
-	serial_send_block(4,2, Set, Velocity_ref);
-	serial_send_float(pos.velocity_ref);
-	serial_send_end();
-	serial_send_block(4,2, Set, Acceleration);
-	serial_send_float(pos.acceleration);
-	serial_send_end();
-	serial_send_block(4,2, Set, Deceleration);
-	serial_send_float(pos.deceleration);
-	serial_send_end();
+	WAIT1_Waitms(5);
+
 	serial_send_block(1, 2, Set, Pos_go);
 	serial_send_char(protocol_setting.DELIMITATOR);
 	serial_send_char(1);
