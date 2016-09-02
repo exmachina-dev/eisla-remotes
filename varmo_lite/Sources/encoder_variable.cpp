@@ -27,7 +27,7 @@ int counter_100ms;
 float encoder;
 float old_encoder;
 
-int resolution = 100;
+int resolution = 1;
 
 #ifdef __cplusplus
 }  /* extern "C" */
