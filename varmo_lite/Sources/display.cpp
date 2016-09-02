@@ -400,6 +400,7 @@ int back(int pointer){
 	FLAG_CUE_MODE = 0;
 	LCD_Cursor_Off();
 	pointer = menu_back(root_menu);
+	LCD_Cursor_Off();
 	return pointer;
 }
 
