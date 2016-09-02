@@ -56,6 +56,7 @@ extern "C" {
 char buffer[80];
 bool FLAG_MENU;
 extern bool FLAG_SETTING;
+extern bool FLAG_RESOLUTION;
 
 int vspfunc(char *, ...);
 
@@ -114,6 +115,9 @@ void select_baud_rate_fct(void);
 void select_update_menu_fct(void);
 
 void short_cut_position_menu(void);
+
+void display_resolution(void);
+int get_cursor_resolution_position(void);
 
 #ifdef __cplusplus
 }  /* extern "C" */

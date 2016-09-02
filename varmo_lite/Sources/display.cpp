@@ -13,6 +13,7 @@ extern "C" {
 #endif
 
 bool FLAG_SETTING = 0;
+bool FLAG_RESOLUTION = 0;
 
 sub_menu2 back_sub_menu = init_sub_menu2((char *)"Back", 1, back_fct);
 
@@ -397,6 +398,7 @@ int back(int pointer){
 	FLAG_MENU = 1;
 	FLAG_SETTING = 0;
 	FLAG_CUE_MODE = 0;
+	LCD_Cursor_Off();
 	pointer = menu_back(root_menu);
 	return pointer;
 }
@@ -427,6 +429,7 @@ void control_mode_fct(){
 }
 
 void update_icon_dir(bool DIR1, bool DIR2){
+	LCD_Cursor_Off();
 	if (DIR1 == 0 && DIR2 == 1){
 		LCD_Write_At(DIR_right, 0, 14);
 	}
@@ -439,6 +442,7 @@ void update_icon_dir(bool DIR1, bool DIR2){
 }
 
 void update_icon_drive_enable(void){
+	LCD_Cursor_Off();
 	if (drive_enable_st == 1){
 		LCD_Write_At(drive_enable, 0, 15);
 	}
@@ -700,6 +704,7 @@ void back_fct(){
 }
 
 void pos_position_fct(){
+	LCD_Cursor_Off();
 	if (FLAG_MENU == 1 && pos.velocity_ref == 0){
 		menu_indicator = Position_selected;
 		FLAG_SHORT_CUT = 1;
@@ -731,7 +736,7 @@ void pos_position_fct(){
 			if (encoder < 0){
 				encoder *= -1;
 			}
-			print_float_at(encoder,1,0,3,9);
+			print_float_at(encoder,1,0,3,8);
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
 			if (encoder > 0){
@@ -743,7 +748,7 @@ void pos_position_fct(){
 			print_float_at(encoder,1,1,3,8);
 		}
 	}
-	else {
+	else if (FLAG_RESOLUTION == 0){
 		print_float_at(pos.velocity,0, 0, 1,0);
 		print_float_at(pos.position, 1, 1,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
@@ -770,6 +775,13 @@ void pos_position_fct(){
 		else{
 			print_float_at(encoder,1,1,3,8);
 		}
+	}
+	if(FLAG_RESOLUTION == 1){
+		LCD_Cursor_On_At(3, 8 + encoder);
+	}
+	else{
+		int temp = get_cursor_resolution_position();
+		LCD_Cursor_On_At(3, 8 + temp);
 	}
 }
 
@@ -1708,6 +1720,32 @@ void short_cut_position_menu(){
 		root_menu.array[1].sub.array[1].select = 1;
 		pos_velocity_fct();
 	}
+}
+
+void display_resolution(){
+	if (encoder > 5){
+		encoder = 5;
+	}
+	else if (encoder < 1){
+		encoder = 1;
+	}
+	LCD_Cursor_On_At(3, 8 + encoder);
+}
+
+int get_cursor_resolution_position(void){
+	switch(resolution){
+		case 1 :
+			return 5;
+		case 10 :
+			return 4;
+		case 100 :
+			return 3;
+		case 1000 :
+			return 2;
+		case 10000:
+			return 1;
+	}
+
 }
 
 #ifdef __cplusplus

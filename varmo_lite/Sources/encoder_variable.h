@@ -26,7 +26,9 @@ extern int counter_100ms;
 
 
 extern float encoder;
+extern float old_encoder;
 
+extern int resolution;
 
 #ifdef __cplusplus
 }  /* extern "C" */

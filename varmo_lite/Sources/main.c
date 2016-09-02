@@ -159,7 +159,10 @@ int main(void)
 	  char msg[cnt];
 
 	  if (FLAG_ENCODER == 1){
-		  if (FLAG_MENU == 1){
+		  if (FLAG_RESOLUTION == 1){
+			  display_resolution();
+		  }
+		  else if (FLAG_MENU == 1){
 			  encoder = refresh((int)encoder);
 		  }
 		  else {
@@ -169,10 +172,20 @@ int main(void)
 	  }
 
 	  if (FLAG_PUSH_SHORT == 1){
-		 if (FLAG_MENU == 1){
+		 if (FLAG_MENU == 0 && menu_indicator == Position_selected && FLAG_RESOLUTION == 0){
+			 FLAG_RESOLUTION = 1;
+			 old_encoder = encoder;
+			 encoder = get_cursor_resolution_position();
+			 display_resolution();
+		 }
+		 else if(FLAG_RESOLUTION == 1){
+			 FLAG_RESOLUTION = 0;
+			 encoder = old_encoder;
+		 }
+		 else if (FLAG_MENU == 1){
 			int temp = select((int)encoder);
 			if (FLAG_MENU == 1){
-			encoder = temp;
+				encoder = temp;
 			}
 		 }
 		 else if (FLAG_CUE_MODE == 1 && menu_indicator != Pos_Rec_cue && menu_indicator != Vel_Rec_cue){
@@ -183,7 +196,6 @@ int main(void)
 			 select_setting(menu_indicator);
 			 refresh_fct(menu_indicator);
 		 }
-
 		FLAG_PUSH_SHORT = 0;
 	  }
 
