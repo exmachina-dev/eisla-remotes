@@ -1,5 +1,5 @@
 /*
- * display.cpp
+0 * display.cpp
  *
  *  Created on: 2016-06-10
  *      Author: Adrian
@@ -109,9 +109,12 @@ void print_float_at(float f, int res,bool absolute, int y, int x){
 	}
 
 
-    if (res != 0){
+    if (res == 2){
     	int digits = (int) round(remainder * pow(10,res));
     	vspfunc((char*)"%4d.%02d", abs(int_part), digits);
+    }
+    else if(res == 1){
+    	vspfunc((char*)"%5d", abs(int_part));
     }
     else{
     	vspfunc((char*)"%4d", abs(int_part));
@@ -722,22 +725,22 @@ void pos_position_fct(){
 		LCD_Write_At(vertical_bar,2,7);
 		LCD_Write_At(vertical_bar,3,7);
 
-		pos.position_ref = convert(pos.position_ref, -9999, 9999);
+		pos.position_ref = convert(pos.position_ref, -99999, 99999);
 		encoder = abs(pos.position_ref);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0){
 				encoder *= -1;
 			}
-			print_float_at(encoder,0,0,3,8);
+			print_float_at(encoder,1,0,3,9);
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
 			if (encoder > 0){
 				encoder *= -1;
 			}
-			print_float_at(encoder,0,0,3,8);
+			print_float_at(encoder,1,0,3,8);
 		}
 		else{
-			print_float_at(encoder,0,1,3,8);
+			print_float_at(encoder,1,1,3,8);
 		}
 	}
 	else {
@@ -747,25 +750,25 @@ void pos_position_fct(){
 			if (encoder < 0){
 				encoder = 0;
 			}
-			encoder = convert(abs(encoder), 0, 9999);
+			encoder = convert(abs(encoder), 0, 99999);
 			if (encoder < 0 && FLAG_SENS_2 == 0 ){
 				encoder *= -1;
 			}
 
-			print_float_at(encoder,0,0,3,8);
+			print_float_at(encoder,1,0,3,8);
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
-			encoder = convert(abs(encoder), 0, 9999);
+			encoder = convert(abs(encoder), 0, 99999);
 			if (encoder > 0 && FLAG_SENS_2 == 0 ){
 				encoder = 0;
 			}
 			if (encoder > 0){
 				encoder *= -1;
 			}
-			print_float_at(encoder,0,0,3,8);
+			print_float_at(encoder,1,0,3,8);
 		}
 		else{
-			print_float_at(encoder,0,1,3,8);
+			print_float_at(encoder,1,1,3,8);
 		}
 	}
 }
@@ -1064,8 +1067,8 @@ void pos_play_cue_fct(void){
 				LCD_Write_Block((char*)"Pos : ",2,0);
 				LCD_Write_Block((char*)"Vel : ",2,8);
 				LCD_Write_Block((char*)"                ",3,0);
-				print_float_at(parameters.position,2,0, 3, 0);
-				print_float_at(parameters.velocity,2,0, 3, 8);
+				print_float_at(parameters.position,1,0, 3, 0);
+				print_float_at(parameters.velocity,0,1, 3, 8);
 				LCD_Write_At(vertical_bar,2,7);
 				LCD_Write_At(vertical_bar,3,7);
 			}
@@ -1098,8 +1101,8 @@ void pos_play_cue_fct(void){
 						LCD_Write_Block((char*)"Pos : ",2,0);
 						LCD_Write_Block((char*)"Vel : ",2,8);
 						LCD_Write_Block((char*)"                ",3,0);
-						print_float_at(parameters.position,2,0, 3, 0);
-						print_float_at(parameters.velocity,2,0, 3, 8);
+						print_float_at(parameters.position,1,0, 3, 0);
+						print_float_at(parameters.velocity,0,1, 3, 8);
 						LCD_Write_At(vertical_bar,2,7);
 						LCD_Write_At(vertical_bar,3,7);
 					}
@@ -1138,8 +1141,8 @@ void pos_rec_cue_fct(void){
 			LCD_Write_Block((char*)"Pos : ",2,0);
 			LCD_Write_Block((char*)"Vel : ",2,8);
 			LCD_Write_Block((char*)"                ",3,0);
-			print_float_at(parameters.position,2,0, 3, 0);
-			print_float_at(parameters.velocity,2,0, 3, 8);
+			print_float_at(parameters.position,1,0, 3, 0);
+			print_float_at(parameters.velocity,0,1, 3, 8);
 			LCD_Write_At(vertical_bar,2,7);
 			LCD_Write_At(vertical_bar,3,7);
 		}
@@ -1168,8 +1171,8 @@ void pos_rec_cue_fct(void){
 					LCD_Write_Block((char*)"Pos : ",2,0);
 					LCD_Write_Block((char*)"Vel : ",2,8);
 					LCD_Write_Block((char*)"                ",3,0);
-					print_float_at(parameters.position,2,0, 3, 0);
-					print_float_at(parameters.velocity,2,0, 3, 8);
+					print_float_at(parameters.position,1,0, 3, 0);
+					print_float_at(parameters.velocity,0,1, 3, 8);
 					LCD_Write_At(vertical_bar,2,7);
 					LCD_Write_At(vertical_bar,3,7);
 				}
@@ -1214,8 +1217,8 @@ void pos_mod_cue_fct(void){
 					LCD_Write_Block((char*)"Pos : ",2,0);
 					LCD_Write_Block((char*)"Vel : ",2,8);
 					LCD_Write_Block((char*)"                ",3,0);
-					print_float_at(parameters.position,2,0, 3, 0);
-					print_float_at(parameters.velocity,2,0, 3, 8);
+					print_float_at(parameters.position,1,0, 3, 0);
+					print_float_at(parameters.velocity,0,1, 3, 8);
 					LCD_Write_At(vertical_bar,2,7);
 					LCD_Write_At(vertical_bar,3,7);
 				}
@@ -1247,8 +1250,8 @@ void pos_mod_cue_fct(void){
 							LCD_Write_Block((char*)"Pos : ",2,0);
 							LCD_Write_Block((char*)"Vel : ",2,8);
 							LCD_Write_Block((char*)"                ",3,0);
-							print_float_at(parameters.position,2,0, 3, 0);
-							print_float_at(parameters.velocity,2,0, 3, 8);
+							print_float_at(parameters.position,1,0, 3, 0);
+							print_float_at(parameters.velocity,0,1, 3, 8);
 							LCD_Write_At(vertical_bar,2,7);
 							LCD_Write_At(vertical_bar,3,7);
 						}
@@ -1292,8 +1295,8 @@ void pos_del_cue_fct(void){
 					LCD_Write_Block((char*)"Pos : ",2,0);
 					LCD_Write_Block((char*)"Vel : ",2,8);
 					LCD_Write_Block((char*)"                ",3,0);
-					print_float_at(parameters.position,2,0, 3, 0);
-					print_float_at(parameters.velocity,2,0, 3, 8);
+					print_float_at(parameters.position,1,0, 3, 0);
+					print_float_at(parameters.velocity,1,1, 3, 8);
 					LCD_Write_At(vertical_bar,2,7);
 					LCD_Write_At(vertical_bar,3,7);
 				}
@@ -1329,10 +1332,10 @@ void pos_del_cue_fct(void){
 					LCD_Write_Block((char*)"Pos : ",2,0);
 					LCD_Write_Block((char*)"Vel : ",2,8);
 					LCD_Write_Block((char*)"                ",3,0);
-					print_float_at(parameters.position,2,0, 3, 0);
-					print_float_at(parameters.velocity,2,0, 3, 8);
-					LCD_Write_At(vertical_bar,2,7);
-					LCD_Write_At(vertical_bar,3,7);
+					print_float_at(parameters.position,1,0, 3, 0);
+					print_float_at(parameters.velocity,1,1, 3, 9);
+					LCD_Write_At(vertical_bar,2,8);
+					LCD_Write_At(vertical_bar,3,8);
 				}
 			}
 		}

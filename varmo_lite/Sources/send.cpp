@@ -51,7 +51,7 @@ void send_fct(int flag){
 			break;
 
 		case Position_selected:
-			encoder = convert(encoder, -9999, 9999);
+			encoder = convert(encoder, -99999, 99999);
 			if(encoder == 0){
 				serial_send_block(1, 2, Set, Go_Home);
 				serial_send_char(protocol_setting.DELIMITATOR);
