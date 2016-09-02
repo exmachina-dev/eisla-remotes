@@ -7025,7 +7025,7 @@ OUTPUT(varmo_lite.elf elf32-littlearm)
  .debug_macro   0x00029b91      0x35e ./Generated_Code/Vectors.o
  .debug_macro   0x00029eef       0x9a ./Generated_Code/WAIT1.o
 
-.debug_line     0x00000000     0xdd7a
+.debug_line     0x00000000     0xdd72
  .debug_line    0x00000000      0x892 ./Sources/Events.o
  .debug_line    0x00000892      0x579 ./Sources/LCD.o
  .debug_line    0x00000e0b      0x35e ./Sources/PCA9670.o
@@ -7033,44 +7033,44 @@ OUTPUT(varmo_lite.elf elf32-littlearm)
  .debug_line    0x000015fd      0xd26 ./Sources/display.o
  .debug_line    0x00002323      0x440 ./Sources/eeprom.o
  .debug_line    0x00002763       0x56 ./Sources/encoder_variable.o
- .debug_line    0x000027b9      0x831 ./Sources/main.o
- .debug_line    0x00002fea      0x4e1 ./Sources/menu.o
- .debug_line    0x000034cb      0x1a3 ./Sources/parameters.o
- .debug_line    0x0000366e      0x5ba ./Sources/protocol.o
- .debug_line    0x00003c28      0x654 ./Sources/send.o
- .debug_line    0x0000427c      0x3e1 ./Project_Settings/Startup_Code/startup.o
- .debug_line    0x0000465d      0x82a ./Generated_Code/AS1.o
- .debug_line    0x00004e87      0x3c4 ./Generated_Code/ASerialLdd1.o
- .debug_line    0x0000524b      0x2e3 ./Generated_Code/BitIoLdd1.o
- .debug_line    0x0000552e      0x2aa ./Generated_Code/BitIoLdd2.o
- .debug_line    0x000057d8      0x2aa ./Generated_Code/BitIoLdd3.o
- .debug_line    0x00005a82      0x2aa ./Generated_Code/BitIoLdd4.o
- .debug_line    0x00005d2c      0x2aa ./Generated_Code/BitIoLdd5.o
- .debug_line    0x00005fd6      0x2aa ./Generated_Code/BitIoLdd6.o
- .debug_line    0x00006280      0x2aa ./Generated_Code/BitIoLdd7.o
- .debug_line    0x0000652a      0x2e3 ./Generated_Code/BitIoLdd8.o
- .debug_line    0x0000680d      0xfb1 ./Generated_Code/Cpu.o
- .debug_line    0x000077be      0x682 ./Generated_Code/ENCODER.o
- .debug_line    0x00007e40      0x5a7 ./Generated_Code/ENCODER_PUSH.o
- .debug_line    0x000083e7      0x2d3 ./Generated_Code/ExtIntLdd1.o
- .debug_line    0x000086ba      0x2d1 ./Generated_Code/ExtIntLdd2.o
- .debug_line    0x0000898b      0x2d1 ./Generated_Code/ExtIntLdd3.o
- .debug_line    0x00008c5c      0x2d7 ./Generated_Code/ExtIntLdd4.o
- .debug_line    0x00008f33      0x2d6 ./Generated_Code/ExtIntLdd5.o
- .debug_line    0x00009209      0x67c ./Generated_Code/I2C0.o
- .debug_line    0x00009885      0x406 ./Generated_Code/IFsh1.o
- .debug_line    0x00009c8b      0x47c ./Generated_Code/IntFlashLdd1.o
- .debug_line    0x0000a107      0x431 ./Generated_Code/IntI2cLdd1.o
- .debug_line    0x0000a538      0x5a3 ./Generated_Code/LEVER_DIR1.o
- .debug_line    0x0000aadb      0x5a3 ./Generated_Code/LEVER_DIR2.o
- .debug_line    0x0000b07e      0x54a ./Generated_Code/PE_LDD.o
- .debug_line    0x0000b5c8      0x5ad ./Generated_Code/PUSH_BUTTON_REC.o
- .debug_line    0x0000bb75      0x5af ./Generated_Code/PUSH_BUTTON_SEND.o
- .debug_line    0x0000c124      0x5f2 ./Generated_Code/TU1.o
- .debug_line    0x0000c716      0x5fa ./Generated_Code/T_100ms.o
- .debug_line    0x0000cd10      0x5d8 ./Generated_Code/T_500ms.o
- .debug_line    0x0000d2e8      0x7fd ./Generated_Code/Vectors.o
- .debug_line    0x0000dae5      0x295 ./Generated_Code/WAIT1.o
+ .debug_line    0x000027b9      0x829 ./Sources/main.o
+ .debug_line    0x00002fe2      0x4e1 ./Sources/menu.o
+ .debug_line    0x000034c3      0x1a3 ./Sources/parameters.o
+ .debug_line    0x00003666      0x5ba ./Sources/protocol.o
+ .debug_line    0x00003c20      0x654 ./Sources/send.o
+ .debug_line    0x00004274      0x3e1 ./Project_Settings/Startup_Code/startup.o
+ .debug_line    0x00004655      0x82a ./Generated_Code/AS1.o
+ .debug_line    0x00004e7f      0x3c4 ./Generated_Code/ASerialLdd1.o
+ .debug_line    0x00005243      0x2e3 ./Generated_Code/BitIoLdd1.o
+ .debug_line    0x00005526      0x2aa ./Generated_Code/BitIoLdd2.o
+ .debug_line    0x000057d0      0x2aa ./Generated_Code/BitIoLdd3.o
+ .debug_line    0x00005a7a      0x2aa ./Generated_Code/BitIoLdd4.o
+ .debug_line    0x00005d24      0x2aa ./Generated_Code/BitIoLdd5.o
+ .debug_line    0x00005fce      0x2aa ./Generated_Code/BitIoLdd6.o
+ .debug_line    0x00006278      0x2aa ./Generated_Code/BitIoLdd7.o
+ .debug_line    0x00006522      0x2e3 ./Generated_Code/BitIoLdd8.o
+ .debug_line    0x00006805      0xfb1 ./Generated_Code/Cpu.o
+ .debug_line    0x000077b6      0x682 ./Generated_Code/ENCODER.o
+ .debug_line    0x00007e38      0x5a7 ./Generated_Code/ENCODER_PUSH.o
+ .debug_line    0x000083df      0x2d3 ./Generated_Code/ExtIntLdd1.o
+ .debug_line    0x000086b2      0x2d1 ./Generated_Code/ExtIntLdd2.o
+ .debug_line    0x00008983      0x2d1 ./Generated_Code/ExtIntLdd3.o
+ .debug_line    0x00008c54      0x2d7 ./Generated_Code/ExtIntLdd4.o
+ .debug_line    0x00008f2b      0x2d6 ./Generated_Code/ExtIntLdd5.o
+ .debug_line    0x00009201      0x67c ./Generated_Code/I2C0.o
+ .debug_line    0x0000987d      0x406 ./Generated_Code/IFsh1.o
+ .debug_line    0x00009c83      0x47c ./Generated_Code/IntFlashLdd1.o
+ .debug_line    0x0000a0ff      0x431 ./Generated_Code/IntI2cLdd1.o
+ .debug_line    0x0000a530      0x5a3 ./Generated_Code/LEVER_DIR1.o
+ .debug_line    0x0000aad3      0x5a3 ./Generated_Code/LEVER_DIR2.o
+ .debug_line    0x0000b076      0x54a ./Generated_Code/PE_LDD.o
+ .debug_line    0x0000b5c0      0x5ad ./Generated_Code/PUSH_BUTTON_REC.o
+ .debug_line    0x0000bb6d      0x5af ./Generated_Code/PUSH_BUTTON_SEND.o
+ .debug_line    0x0000c11c      0x5f2 ./Generated_Code/TU1.o
+ .debug_line    0x0000c70e      0x5fa ./Generated_Code/T_100ms.o
+ .debug_line    0x0000cd08      0x5d8 ./Generated_Code/T_500ms.o
+ .debug_line    0x0000d2e0      0x7fd ./Generated_Code/Vectors.o
+ .debug_line    0x0000dadd      0x295 ./Generated_Code/WAIT1.o
 
 .debug_str      0x00000000    0x82bbb
  .debug_str     0x00000000    0x6c7fc ./Sources/Events.o

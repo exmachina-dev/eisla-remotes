@@ -191,13 +191,7 @@ int main(void)
 		  if(FLAG_REC == 1 && (menu_indicator == Pos_Rec_cue || menu_indicator == Vel_Rec_cue) && FLAG_CUE_MODE == 1){
 			  FLAG_REC = 0;
 			  select_cue(encoder, menu_indicator);
-			  if(FLAG_REC_SHORT_CUT == 1){
-				  FLAG_REC_SHORT_CUT = 0;
-				  FLAG_MENU = 1;
-				  menu_indicator = old_menu_indicator;
-				  refresh_fct(menu_indicator);
-				  FLAG_CUE_MODE = 0;
-			  }
+			  refresh_fct(menu_indicator);
 		  }
 		  else if(FLAG_REC == 1 && FLAG_MENU == 0){
 			  FLAG_REC = 0;
@@ -259,6 +253,12 @@ int main(void)
 	  }
 
 	  if (FLAG_UPDATE_CUE == 1 || FLAG_UPDATE_SETTING_SELECTED == 1){
+		  if(FLAG_REC_SHORT_CUT == 1){
+			  FLAG_REC_SHORT_CUT = 0;
+			  FLAG_MENU = 1;
+			  menu_indicator = old_menu_indicator;
+			  FLAG_CUE_MODE = 0;
+		  }
 		  FLAG_UPDATE_CUE = 0;
 		  FLAG_UPDATE_SETTING_SELECTED = 0;
 		  refresh_fct(menu_indicator);
