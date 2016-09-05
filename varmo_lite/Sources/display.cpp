@@ -398,6 +398,7 @@ int back(int pointer){
 	FLAG_MENU = 1;
 	FLAG_SETTING = 0;
 	FLAG_CUE_MODE = 0;
+	FLAG_RESOLUTION = 0;
 	LCD_Cursor_Off();
 	pointer = menu_back(root_menu);
 	LCD_Cursor_Off();
