@@ -230,6 +230,7 @@ bool msg_processing(int n, ...){
 		else if(strcmp(data,Velocity_ref) == 0){
 			data = va_arg(arg, char*);
 			velocity_ref_processing(data);
+			FLAG_UPDATE_VALUE = 1;
 			return 0;
 		}
 		else if(strcmp(data,Acceleration) == 0){
