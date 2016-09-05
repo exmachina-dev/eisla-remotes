@@ -63,6 +63,8 @@ void send_fct(int flag){
 				serial_send_float(encoder * resolution);
 				serial_send_end();
 			}
+			WAIT1_Waitms(5);
+
 			serial_send_block(1, 2, Set, Pos_go);
 			serial_send_char(protocol_setting.DELIMITATOR);
 			serial_send_char(1);
@@ -139,15 +141,19 @@ void get_update_value(int mode){
 		//Torque
 		serial_send_block(0,2, Get, Torque);
 		serial_send_end();
+		WAIT1_Waitms(5);
 		if (FLAG_UPDATE_MENU == 0){
 			serial_send_block(0,2, Get, Torque_rise);
 			serial_send_end();
+			WAIT1_Waitms(5);
 
 			serial_send_block(0,2, Get, Torque_fall);
 			serial_send_end();
+			WAIT1_Waitms(5);
 
 			serial_send_block(0,2, Get, Torque_ref);
 			serial_send_end();
+			WAIT1_Waitms(5);
 		}
 
 	}
@@ -155,12 +161,15 @@ void get_update_value(int mode){
 		//Velocity
 		serial_send_block(0,2, Get, Velocity);
 		serial_send_end();
+		WAIT1_Waitms(5);
 		if (FLAG_UPDATE_MENU == 0){
 			serial_send_block(0,2, Get, Acceleration);
 			serial_send_end();
+			WAIT1_Waitms(5);
 
 			serial_send_block(0,2, Get, Deceleration);
 			serial_send_end();
+			WAIT1_Waitms(5);
 
 			serial_send_block(0,2, Get, Velocity_ref);
 			serial_send_end();
@@ -171,15 +180,20 @@ void get_update_value(int mode){
 		//Position
 		serial_send_block(0,2, Get, Position);
 		serial_send_end();
+		WAIT1_Waitms(5);
+
 		serial_send_block(0,2, Get, Velocity);
 		serial_send_end();
+		WAIT1_Waitms(5);
 
 		if (FLAG_UPDATE_MENU == 0){
 			serial_send_block(0,2, Get, Velocity_ref);
 			serial_send_end();
+			WAIT1_Waitms(5);
 
 			serial_send_block(0,2, Get, Acceleration);
 			serial_send_end();
+			WAIT1_Waitms(5);
 
 			serial_send_block(0,2, Get, Deceleration);
 			serial_send_end();
@@ -198,10 +212,14 @@ void send_velocity_cue(){
 	serial_send_block(4, 2, Set, Velocity_ref);
 	serial_send_float(vel.velocity_ref);
 	serial_send_end();
+	WAIT1_Waitms(5);
+
 	vel.acceleration = convert(encoder, 0, 9999);
 	serial_send_block(4,2, Set, Acceleration);
 	serial_send_float(vel.acceleration);
 	serial_send_end();
+	WAIT1_Waitms(5);
+
 	serial_send_block(4,2, Set, Deceleration);
 	serial_send_float(vel.deceleration);
 	serial_send_end();
@@ -211,8 +229,8 @@ void send_position_cue(){
 	serial_send_block(4,2, Set, Acceleration);
 	serial_send_float(pos.acceleration);
 	serial_send_end();
-
 	WAIT1_Waitms(5);
+
 	serial_send_block(4,2, Set, Deceleration);
 	serial_send_float(pos.deceleration);
 	serial_send_end();
@@ -234,7 +252,6 @@ void send_position_cue(){
 		serial_send_float(pos.position_ref);
 		serial_send_end();
 	}
-
 	WAIT1_Waitms(5);
 
 	serial_send_block(1, 2, Set, Pos_go);

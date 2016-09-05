@@ -295,16 +295,6 @@ int main(void)
 		  FLAG_UPDATE_VALUE = 0;
 	  }
 
-	  if (FLAG_UPDATE_MENU == 1 && CONTROL_MODE != 0 && FLAG_CUE_MODE != 1 && FLAG_UPDATE_SETTING == 0){
-		  get_update_value(CONTROL_MODE);
-		  FLAG_UPDATE_MENU = 0;
-		  counter_update_menu = 0;
-		  refresh_fct(menu_indicator);
-	  }
-	  else{
-		  FLAG_UPDATE_MENU = 0;
-	  }
-
 	  if (FLAG_SHORT_CUT == 1){
 		  FLAG_SHORT_CUT = 0;
 		  short_cut_position_menu();
@@ -317,10 +307,20 @@ int main(void)
 	  }
 
 	  if (FLAG_UPDATE == 1 && FLAG_UPDATE_SETTING == 0){
-		  FLAG_UPDATE = 0;
 		  counter_update = 0;
 		  get_update_drive_en();
+		  WAIT1_Waitms(5);
 		  update_icon_drive_enable();
+		  if (CONTROL_MODE != 0 && FLAG_MENU == 0){
+			  FLAG_UPDATE_MENU = 1;
+			  get_update_value(CONTROL_MODE);
+			  refresh_fct(menu_indicator);
+			  FLAG_UPDATE_MENU = 0;
+		  }
+		  else{
+			  FLAG_UPDATE_MENU = 0;
+		  }
+		  FLAG_UPDATE = 0;
 	  }
 
 	  if ((CONTROL_MODE == 2 && abs(vel.velocity) > 0.01) || (CONTROL_MODE == 3 && abs(pos.velocity) > 0.5) || (CONTROL_MODE == 1 && abs(tor.torque) > 0.01)){
