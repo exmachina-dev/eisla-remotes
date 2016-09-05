@@ -246,6 +246,7 @@ bool msg_processing(int n, ...){
 		else if(strcmp(data,Torque) == 0){
 			data = va_arg(arg, char*);
 			torque_processing(data);
+			FLAG_UPDATE_VALUE = 1;
 			return 0;
 		}
 		else if(strcmp(data,Torque_rise) == 0){
@@ -261,6 +262,7 @@ bool msg_processing(int n, ...){
 		else if(strcmp(data, Position) == 0){
 			data = va_arg(arg, char*);
 			position_processing(data);
+			FLAG_UPDATE_VALUE = 1;
 			return 0;
 		}
 		else if(strcmp(data,Drive_Enable) == 0){
