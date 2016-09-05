@@ -302,7 +302,6 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 /* ===================================================================*/
 void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-
 	if (FLAG_STOP == 1){
 		counter_send_stop ++;
 	}

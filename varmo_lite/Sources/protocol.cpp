@@ -210,6 +210,10 @@ bool msg_processing(int n, ...){
  			return 0;
  		}
 
+ 		else if (strcmp(data, Cancel) == 0){
+ 			FLAG_STOP = 0;
+ 			return 0;
+ 		}
 	}
  	else if (strcmp(data, Set_ERR) == 0){
  		data = va_arg(arg, char*);
