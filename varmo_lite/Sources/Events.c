@@ -302,11 +302,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 /* ===================================================================*/
 void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 {
-/*
-	if(FLAG_MENU ==0){
-		FLAG_UPDATE_MENU = 1;
-	}
-*/
+
 	if (FLAG_STOP == 1){
 		counter_send_stop ++;
 	}

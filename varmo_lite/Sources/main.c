@@ -267,13 +267,8 @@ int main(void)
 
 	  if (FLAG_CONTROL_MODE == 1){
 		  FLAG_CONTROL_MODE = 0;
-		  control_mode_fct();
-	  }
-
-	  if (FLAG_CONTROL_MODE_CONFIRM == 1){
 		  FLAG_CONTROL_MODE_CONFIRM = 0;
-		  controle_mode_display(CONTROL_MODE);
-		  get_update_value(CONTROL_MODE);
+		  //control_mode_fct();
 	  }
 
 	  if (FLAG_UPDATE_CUE == 1 || FLAG_UPDATE_SETTING_SELECTED == 1){
@@ -311,14 +306,19 @@ int main(void)
 		  get_update_drive_en();
 		  WAIT1_Waitms(5);
 		  update_icon_drive_enable();
-		  if (CONTROL_MODE != 0 && FLAG_MENU == 0){
+		  if(FLAG_CONTROL_MODE_CONFIRM == 0){
+			  control_mode_fct();
+		  }
+		  else if (CONTROL_MODE != 0 && FLAG_MENU == 0){
 			  FLAG_UPDATE_MENU = 1;
 			  get_update_value(CONTROL_MODE);
 			  refresh_fct(menu_indicator);
 			  FLAG_UPDATE_MENU = 0;
 		  }
-		  else{
-			  FLAG_UPDATE_MENU = 0;
+		  else if (FLAG_CONTROL_MODE_CONFIRM == 1 && FLAG_ENTER_CONTROL_MODE == 1){
+			  FLAG_ENTER_CONTROL_MODE = 0;
+			  controle_mode_display(CONTROL_MODE);
+			  get_update_value(CONTROL_MODE);
 		  }
 		  FLAG_UPDATE = 0;
 	  }

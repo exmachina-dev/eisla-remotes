@@ -180,6 +180,7 @@ bool msg_processing(int n, ...){
  		if (strcmp(data,Control_Mode) == 0) {
  			data = va_arg(arg, char*);
  			control_mode_processing(data);
+ 			FLAG_ENTER_CONTROL_MODE = 1;
  			return 0;
  		}
  		else if (strcmp(data, Set_Home) == 0){
@@ -211,6 +212,11 @@ bool msg_processing(int n, ...){
 
 	}
  	else if (strcmp(data, Set_ERR) == 0){
+ 		data = va_arg(arg, char*);
+ 		if (strcmp(data,Control_Mode) == 0) {
+ 			FLAG_CONTROL_MODE_CONFIRM = 0;
+ 			return 0;
+ 		}
  		return 1;
  	}
 

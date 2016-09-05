@@ -13,6 +13,7 @@ extern "C" {
 
 bool FLAG_SEND = 0;
 bool FLAG_CONTROL_MODE_CONFIRM = 0;
+bool FLAG_ENTER_CONTROL_MODE = 0;
 bool FLAG_UPDATE_MENU = 0;
 bool FLAG_SEND_STOP = 0;
 bool FLAG_COM_TIME_OUT = 0;
