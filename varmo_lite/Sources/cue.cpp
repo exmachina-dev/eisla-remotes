@@ -16,7 +16,7 @@ bool FLAG_CUE_MODE = 0;
 uint8_t cue_saved_size = 0;
 bool FLAG_CUE_SELECTED = 0;
 bool FLAG_UPDATE_CUE = 0;
-bool FLAG_REC_SHORT_CUT = 0;
+
 
 void select_cue(uint8_t encoder, uint8_t flag){
 	if (CONTROL_MODE == 2 || CONTROL_MODE == 3){

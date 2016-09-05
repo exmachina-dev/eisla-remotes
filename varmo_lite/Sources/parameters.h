@@ -57,6 +57,8 @@ extern bool FLAG_SETTING_SELECTED;
 extern bool FLAG_UPDATE_SETTING_SELECTED;
 extern bool FLAG_UPDATE_VALUE;
 
+extern bool FLAG_REC_SHORT_CUT;
+
 extern bool FLAG_UPDATE;
 extern uint8_t CONTROL_MODE;
 extern struct velocity{
