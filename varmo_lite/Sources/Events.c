@@ -309,6 +309,13 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 		FLAG_SEND_STOP = 1;
 	}
 
+	if (FLAG_VEL_INST == 1){
+		counter_vel_inst ++;
+	}
+	if (counter_vel_inst == 2){
+		FLAG_SEND_VEL = 1;
+	}
+
 	if (FLAG_UPDATE == 0){
 		counter_update ++;
 	}

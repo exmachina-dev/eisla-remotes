@@ -16,6 +16,7 @@ bool FLAG_CONTROL_MODE_CONFIRM = 0;
 bool FLAG_ENTER_CONTROL_MODE = 0;
 bool FLAG_UPDATE_MENU = 0;
 bool FLAG_SEND_STOP = 0;
+bool FLAG_SEND_VEL = 0;
 bool FLAG_COM_TIME_OUT = 0;
 
 void Send_Control_Mode(int control){
@@ -49,6 +50,12 @@ void send_fct(int flag){
 				serial_send_float(vel.deceleration);
 				serial_send_end();
 			}
+			break;
+		case Velocity_instant_selected:
+			vel.velocity_ref = convert(vel.velocity_ref, -9999, 9999);
+			serial_send_block(4, 2, Set, Velocity_ref);
+			serial_send_float(vel.velocity_ref);
+			serial_send_end();
 			break;
 
 		case Position_selected:

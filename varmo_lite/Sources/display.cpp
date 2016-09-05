@@ -37,11 +37,12 @@ sub_menu2_list menu_pos_cue = init_sub_menu2_list(sub_menu_pos_cue, sizeof(sub_m
 sub_menu back_menu = init_sub_menu((char *)"Back",1,{0}, back_fct);
 
 sub_menu vel_velocity = init_sub_menu((char *)"Velocity       ",1,{0}, velocity_fct);
+sub_menu vel_velocity_instant = init_sub_menu((char*) "Instant Mode   ",1,{0}, velocity_instant_fct);
 sub_menu vel_acc = 		init_sub_menu((char *)"Acceleration   ",1,{0}, acceleration_fct);
 sub_menu vel_dec = 		init_sub_menu((char *)"Deceleration   ",1,{0}, deceleration_fct);
-sub_menu vel_cue = 		init_sub_menu((char *)"Cue            ",0, menu_velocity_cue, void_function);
+//sub_menu vel_cue = 		init_sub_menu((char *)"Cue            ",0, menu_velocity_cue, void_function);
 
-sub_menu sub_menu_velocity[] = {vel_velocity, vel_acc, vel_dec, vel_cue, back_menu};
+sub_menu sub_menu_velocity[] = {vel_velocity, vel_acc, vel_dec, vel_velocity_instant, back_menu};
 sub_menu_list menu_velocity = init_sub_menu_list(sub_menu_velocity, sizeof(sub_menu_velocity)/sizeof(sub_menu_velocity[0]), (char*)"Velocity Menu");
 
 sub_menu pos_position = init_sub_menu((char *)"Position       ", 1, {0}, pos_position_fct);
@@ -479,6 +480,9 @@ void refresh_fct(int flag){
 		case Velocity_dec_selected:
 			deceleration_fct();
 			break;
+		case Velocity_instant_selected:
+			velocity_instant_fct();
+			break;
 		case Vel_play_cue:
 			vel_play_cue_fct();
 			break;
@@ -664,6 +668,100 @@ void acceleration_fct(){
 			LCD_Write_Block((char*)"                ",3,0);
 		}
 	}
+}
+
+void velocity_instant_fct(){
+	if (FLAG_MENU == 1){
+			FLAG_MENU = 0;
+			FLAG_VEL_INST = 1;
+			counter_vel_inst =0;
+			LCD_Write_Block((char*)"             ",0,0);
+			LCD_Write_Block((char*)"                ",1,0);
+			LCD_Write_Block((char*)"                ",2,0);
+			LCD_Write_Block((char*)"                ",3,0);
+
+			menu_indicator = Velocity_instant_selected;
+
+			LCD_Write_Block((char*)"Acc", 0, 0);
+			LCD_Write_Block((char*)"Dec", 0, 8);
+			LCD_Write_Block((char*)"Vel Act", 2, 0);
+			LCD_Write_Block((char*)"Vel", 2, 8);
+			LCD_Write_At(vertical_bar,0,7);
+			LCD_Write_At(vertical_bar,1,7);
+			LCD_Write_At(vertical_bar,2,7);
+			LCD_Write_At(vertical_bar,3,7);
+
+			print_int_at(vel.acceleration, 1, 1,0);
+			print_int_at(vel.deceleration, 1,1,8);
+			print_float_at(vel.velocity, 0,0,3,0);
+
+			vel.velocity_ref = convert(vel.velocity_ref,-9999, 9999);
+			encoder = abs(vel.velocity_ref);
+
+			if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
+				if (vel.velocity_ref < 0){
+					vel.velocity_ref *= -1;
+				}
+				print_float_at(vel.velocity_ref,0,0,3,8);
+			}
+			else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
+				if (vel.velocity_ref > 0){
+					vel.velocity_ref *= -1;
+				}
+				print_float_at(vel.velocity_ref,0,0,3,8);
+			}
+			else{
+				print_float_at(vel.velocity_ref,0,1,3,8);
+			}
+		}
+		else if (FLAG_UPDATE_VALUE == 1){
+			vel.velocity_ref = abs(convert(encoder, -9999, 9999));
+
+			if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
+				if (vel.velocity_ref < 0){
+					vel.velocity_ref *= -1;
+				}
+				print_float_at(vel.velocity_ref,0,0,3,8);
+			}
+			else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
+				if (vel.velocity_ref > 0){
+					vel.velocity_ref *= -1;
+				}
+				print_float_at(vel.velocity_ref,0,0,3,8);
+			}
+			else{
+				print_float_at(vel.velocity_ref,0,1,3,8);
+			}
+		}
+		else {
+			vel.velocity_ref = abs(convert(encoder, -9999, 9999));
+			print_float_at(vel.velocity, 0,0,3,0);
+			if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
+				if (vel.velocity_ref < 0 && FLAG_SENS == 0){
+					vel.velocity_ref = 0;
+				}
+				vel.velocity_ref = convert(abs(vel.velocity_ref), 0, 9999);
+				if (vel.velocity_ref < 0){
+					vel.velocity_ref *= -1;
+				}
+	  			print_float_at(vel.velocity_ref,0,0,3,8);
+			}
+			else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
+				if (vel.velocity_ref > 0 && FLAG_SENS == 0){
+					vel.velocity_ref = 0;
+				}
+				vel.velocity_ref = convert(abs(vel.velocity_ref), 0, 9999);
+				if (encoder > 0){
+					vel.velocity_ref *= -1;
+				}
+				print_float_at(vel.velocity_ref,0,0,3,8);
+			}
+			else{
+				print_float_at(vel.velocity_ref,0,1,3,8);
+			}
+		}
+
+
 }
 
 void deceleration_fct(){

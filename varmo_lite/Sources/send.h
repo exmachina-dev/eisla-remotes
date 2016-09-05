@@ -22,6 +22,7 @@ extern bool FLAG_CONTROL_MODE_CONFIRM;
 extern bool FLAG_ENTER_CONTROL_MODE;
 extern bool FLAG_UPDATE_MENU;
 extern bool FLAG_SEND_STOP;
+extern bool FLAG_SEND_VEL;
 extern bool FLAG_COM_TIME_OUT;
 
 

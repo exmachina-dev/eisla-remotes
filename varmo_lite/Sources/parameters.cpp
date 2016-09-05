@@ -24,6 +24,7 @@ uint8_t counter_1s = 0;
 uint8_t counter_update = 0;
 uint8_t counter_update_menu = 0;
 uint8_t counter_send_stop = 0;
+uint8_t counter_vel_inst = 0;
 
 bool FLAG_SHORT_CUT = 0;
 bool FLAG_UPDATE_SETTING = 0;
@@ -33,6 +34,7 @@ bool FLAG_UPDATE_VALUE = 0;
 bool FLAG_REC_SHORT_CUT = 0;
 
 bool FLAG_UPDATE = 0;
+bool FLAG_VEL_INST = 0;
 uint8_t CONTROL_MODE = 0;
 struct velocity vel;
 struct position pos;

@@ -17,24 +17,25 @@ extern "C" {
 #define Velocity_selected 1
 #define Velocity_acc_selected 2
 #define Velocity_dec_selected 3
-#define Vel_play_cue 4
-#define Vel_Rec_cue 5
-#define Vel_Mod_cue 6
-#define Vel_Del_cue 7
-#define Position_selected 8
-#define Position_vel_selected 9
-#define Position_acc_selected 10
-#define Position_dec_selected 11
-#define Position_set_home 12
-#define Pos_play_cue 13
-#define Pos_Rec_cue 14
-#define Pos_Mod_cue 15
-#define Pos_Del_cue 16
-#define Torque_selected 17
-#define Torque_rise_selected 18
-#define Torque_fall_selected 19
-#define Baud_rate_setting 20
-#define Update_setting 21
+#define Velocity_instant_selected 4
+#define Vel_play_cue 5
+#define Vel_Rec_cue 6
+#define Vel_Mod_cue 7
+#define Vel_Del_cue 8
+#define Position_selected 9
+#define Position_vel_selected 10
+#define Position_acc_selected 11
+#define Position_dec_selected 12
+#define Position_set_home 13
+#define Pos_play_cue 14
+#define Pos_Rec_cue 15
+#define Pos_Mod_cue 16
+#define Pos_Del_cue 17
+#define Torque_selected 18
+#define Torque_rise_selected 19
+#define Torque_fall_selected 20
+#define Baud_rate_setting 21
+#define Update_setting 22
 
 extern bool FLAG_REC;
 
@@ -49,6 +50,7 @@ extern uint8_t counter_1s;
 extern uint8_t counter_update;
 extern uint8_t counter_update_menu;
 extern uint8_t counter_send_stop;
+extern uint8_t counter_vel_inst;
 
 
 extern bool FLAG_SHORT_CUT;
@@ -60,6 +62,7 @@ extern bool FLAG_UPDATE_VALUE;
 extern bool FLAG_REC_SHORT_CUT;
 
 extern bool FLAG_UPDATE;
+extern bool FLAG_VEL_INST;
 extern uint8_t CONTROL_MODE;
 extern struct velocity{
 	int control_mode;

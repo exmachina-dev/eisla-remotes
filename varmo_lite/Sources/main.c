@@ -150,8 +150,6 @@ int main(void)
 	  FLAG_STOP = 1;
   }
 
-  //select_baud_rate(0);
-
   update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
   update_icon_drive_enable();
 
@@ -264,6 +262,11 @@ int main(void)
 		  FLAG_SEND = 0;
 	  }
 
+	 if (!(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0) &&FLAG_SEND_VEL == 1 && FLAG_MENU == 0 && menu_indicator == Velocity_instant_selected){
+		 counter_vel_inst = 0;
+		 send_fct(menu_indicator);
+	 }
+
 	  if(FLAG_SENS == 1){
 		  update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
 	  }
@@ -308,9 +311,15 @@ int main(void)
 	  }
 
 	  if (FLAG_SEND_STOP == 1){
-		  FLAG_SEND_STOP = 0;
-		  counter_send_stop = 0;
-		  send_stop();
+		  if (FLAG_MENU == 0 && menu_indicator == Velocity_instant_selected){
+			  vel.velocity_ref = 0;
+			  send_fct(menu_indicator);
+		  }
+		  else{
+			  FLAG_SEND_STOP = 0;
+			  counter_send_stop = 0;
+			  send_stop();
+		  }
 	  }
 
 	  if (FLAG_UPDATE == 1 && FLAG_UPDATE_SETTING == 0){
