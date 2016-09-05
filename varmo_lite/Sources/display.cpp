@@ -782,7 +782,7 @@ void pos_position_fct(){
 		}
 	}
 	if(FLAG_RESOLUTION == 1){
-		LCD_Cursor_On_At(3, 8 + encoder);
+		LCD_Cursor_Blink_On_At(3, 8 + encoder);
 	}
 	else{
 		int temp = get_cursor_resolution_position();
@@ -1735,7 +1735,13 @@ void display_resolution(){
 	else if (encoder < 1){
 		encoder = 1;
 	}
-	LCD_Cursor_On_At(3, 8 + encoder);
+	if(FLAG_RESOLUTION == 0){
+		LCD_Cursor_On_At(3, 8 + encoder);
+	}
+	else {
+		LCD_Cursor_Blink_On_At(3, 8 + encoder);
+	}
+	//LCD_Cursor_On_At(3, 8 + encoder);
 }
 
 int get_cursor_resolution_position(void){

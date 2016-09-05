@@ -180,6 +180,7 @@ int main(void)
 		 }
 		 else if(FLAG_RESOLUTION == 1){
 			 FLAG_RESOLUTION = 0;
+			 display_resolution();
 			 old_encoder = old_encoder * resolution;
 			 resolution = get_resolution();
 			 encoder = old_encoder / resolution;

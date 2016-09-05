@@ -18,6 +18,7 @@ void LCD_Cursor_Blink_On(void);
 void LCD_Cursor_Blink_Off(void);
 void LCD_Cursor_Home(void);
 void LCD_Set_Cursor(uint8_t, uint8_t);
+void LCD_Cursor_Blink_On_At(uint8_t , uint8_t);
 void LCD_Cursor_On_At(uint8_t, uint8_t);
 void LCD_Write(uint8_t);
 void load_custom_char(uint8_t, uint8_t*);

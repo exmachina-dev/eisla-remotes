@@ -148,6 +148,11 @@ void LCD_Set_Cursor(uint8_t line, uint8_t x){
 	LCD_command(GotoXYCmd|RAM_Adr);
 }
 
+void LCD_Cursor_Blink_On_At(uint8_t line, uint8_t x){
+	LCD_Set_Cursor(line, x);
+	LCD_Cursor_Blink_On();
+}
+
 void LCD_Cursor_On_At(uint8_t line, uint8_t x){
 	LCD_Set_Cursor(line, x);
 	LCD_Cursor_On();
