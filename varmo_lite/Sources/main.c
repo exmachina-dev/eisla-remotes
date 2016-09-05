@@ -249,8 +249,7 @@ int main(void)
 		  FLAG_SEND = 0;
 	  }
 	  else if (FLAG_SEND == 1 && FLAG_MENU == 0 && FLAG_RESOLUTION == 0){
-		  if (
-				  menu_indicator != Velocity_selected && menu_indicator != Position_selected && menu_indicator != Torque_selected){
+		  if (menu_indicator != Velocity_selected && menu_indicator != Position_selected && menu_indicator != Torque_selected){
 		  send_fct(menu_indicator);
 		  refresh_fct(menu_indicator);
 		  }
