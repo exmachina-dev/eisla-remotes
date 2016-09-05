@@ -191,7 +191,9 @@ int main(void)
 				encoder = temp;
 			}
 		 }
-		 else if (FLAG_CUE_MODE == 1 && menu_indicator != Pos_Rec_cue && menu_indicator != Vel_Rec_cue){
+		 else if (FLAG_CUE_MODE == 1
+				 && menu_indicator != Pos_Rec_cue && menu_indicator != Vel_Rec_cue
+				 && menu_indicator != Pos_play_cue && menu_indicator != Vel_play_cue){
 			  select_cue(encoder, menu_indicator);
 			  refresh_fct(menu_indicator);
 		 }
@@ -202,7 +204,7 @@ int main(void)
 		FLAG_PUSH_SHORT = 0;
 	  }
 
-	  if ((FLAG_SENS_1 == 1 || FLAG_SENS_2 == 1)  && FLAG_RESOLUTION == 0){
+	  if ((FLAG_SENS_1 == 1 || FLAG_SENS_2 == 1) ){
 		  if(FLAG_REC == 1 && (menu_indicator == Pos_Rec_cue || menu_indicator == Vel_Rec_cue) && FLAG_CUE_MODE == 1){
 			  FLAG_REC = 0;
 			  select_cue(encoder, menu_indicator);
@@ -211,6 +213,7 @@ int main(void)
 		  else if(FLAG_REC == 1 && FLAG_MENU == 0){
 			  FLAG_REC = 0;
 			  old_menu_indicator = menu_indicator;
+			  old_encoder = encoder;
 			  if (CONTROL_MODE == 2){
 				  menu_indicator = Vel_Rec_cue;
 				  FLAG_REC_SHORT_CUT = 1;
@@ -238,7 +241,13 @@ int main(void)
 		  FLAG_PUSH_LONG = 0;
 	  }
 
-	  if (FLAG_SEND == 1 && FLAG_MENU == 0 && !(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0) && FLAG_RESOLUTION == 0){
+	 if(FLAG_SEND == 1 && FLAG_MENU == 0 && FLAG_CUE_MODE == 1
+			  && (menu_indicator == Vel_play_cue || menu_indicator == Pos_play_cue)){
+		  select_cue(encoder, menu_indicator);
+		  refresh_fct(menu_indicator);
+		  FLAG_SEND = 0;
+	  }
+	  else if (FLAG_SEND == 1 && FLAG_MENU == 0 && !(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0) && FLAG_RESOLUTION == 0){
 		  send_fct(menu_indicator);
 		  refresh_fct(menu_indicator);
 		  FLAG_SEND = 0;
@@ -269,10 +278,12 @@ int main(void)
 
 	  if (FLAG_UPDATE_CUE == 1 || FLAG_UPDATE_SETTING_SELECTED == 1){
 		  if(FLAG_REC_SHORT_CUT == 1){
-			  FLAG_REC_SHORT_CUT = 0;
 			  FLAG_MENU = 1;
 			  menu_indicator = old_menu_indicator;
+			  encoder = old_encoder;
 			  FLAG_CUE_MODE = 0;
+			  refresh_fct(menu_indicator);
+			  FLAG_REC_SHORT_CUT = 0;
 		  }
 		  FLAG_UPDATE_CUE = 0;
 		  FLAG_UPDATE_SETTING_SELECTED = 0;
