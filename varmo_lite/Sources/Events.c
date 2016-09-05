@@ -327,7 +327,7 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 		FLAG_SET_HOME = 0;
 	}
 
-	if(counter_1s >= 2){
+	if(counter_1s >= 6){
 		FLAG_COM_TIME_OUT = 1;
 	}
 	else{
