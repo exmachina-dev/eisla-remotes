@@ -557,10 +557,11 @@ void velocity_fct(){
 		print_int_at(vel.acceleration, 1, 1,0);
 		print_int_at(vel.deceleration, 1,1,8);
 		print_float_at(vel.velocity, 0,0,3,0);
+		if (FLAG_REC_SHORT_CUT == 0){
+			vel.velocity_ref = convert(vel.velocity_ref,-9999, 9999);
+			encoder = abs(vel.velocity_ref);
+		}
 
-		vel.velocity_ref = convert(vel.velocity_ref,-9999, 9999);
-
-		encoder = abs(vel.velocity_ref);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0){
 				encoder *= -1;
@@ -731,8 +732,11 @@ void pos_position_fct(){
 		LCD_Write_At(vertical_bar,2,7);
 		LCD_Write_At(vertical_bar,3,7);
 
-		pos.position_ref = convert(pos.position_ref, -99999, 99999);
-		encoder = abs(pos.position_ref) / resolution;
+		if (FLAG_REC_SHORT_CUT == 0){
+			pos.position_ref = convert(pos.position_ref, -99999, 99999);
+			encoder = abs(pos.position_ref) / resolution;
+		}
+
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0){
 				encoder *= -1;
