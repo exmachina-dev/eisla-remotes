@@ -758,20 +758,20 @@ void pos_position_fct(){
 		print_float_at(pos.velocity,0, 0, 1,0);
 		print_float_at(pos.position, 1, 1,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
-			if (encoder < 0){
+			if (encoder < 0 && FLAG_SENS == 0){
 				encoder = 0;
 			}
 			encoder = convert(abs(encoder *resolution) , 0, 99999)/ resolution;
-			if (encoder < 0 && FLAG_SENS_2 == 0 ){
+			if (encoder < 0){
 				encoder *= -1;
 			}
 			print_float_at(encoder*resolution,1,0,3,8);
 		}
 		else if(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1 ){
-			encoder = convert(abs(encoder * resolution), 0, 99999) / resolution;
-			if (encoder > 0 && FLAG_SENS_2 == 0 ){
+			if (encoder > 0 && FLAG_SENS == 0){
 				encoder = 0;
 			}
+			encoder = convert(abs(encoder * resolution), 0, 99999) / resolution;
 			if (encoder > 0){
 				encoder *= -1;
 			}
@@ -791,6 +791,7 @@ void pos_position_fct(){
 }
 
 void pos_velocity_fct(){
+	LCD_Cursor_Off();
 	if (FLAG_MENU == 1){
 		FLAG_MENU = 0;
 		LCD_Write_Block((char*)"             ",0,0);
