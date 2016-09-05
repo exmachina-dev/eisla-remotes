@@ -40,7 +40,7 @@ void load_cue(uint8_t nb_cue, int mode){
 	}
 	else if (mode == 3){
 		//Position
-		addr = velocity_offset + (nb_cue * 17);
+		addr = position_offset + (nb_cue * 17);
 		byte temp;
 		IFsh1_GetByteFlash(addr, &temp);
 		if ((temp || 0x80 >> 7) == 1 ){
@@ -77,8 +77,13 @@ void write_cue(uint8_t nb_cue, int mode){
 		ERR = IFsh1_SetByteFlash(addr, temp);
 
 		addr += 1;
-		data.Tofloat= vel.velocity_ref;
-
+		if ( FLAG_REC_SHORT_CUT == 1
+				){
+			data.Tofloat = old_encoder * resolution;
+		}
+		else{
+			data.Tofloat= vel.velocity_ref;
+		}
 		ERR = IFsh1_SetLongFlash(addr, data.Todword);
 
 		addr += 4;
@@ -97,7 +102,12 @@ void write_cue(uint8_t nb_cue, int mode){
 		byte temp = 0x80;
 		IFsh1_SetByteFlash(addr, temp);
 		addr += 1;
-		data.Tofloat = pos.position_ref;
+		if (FLAG_REC_SHORT_CUT == 1){
+			data.Tofloat = old_encoder * resolution;
+		}
+		else{
+			data.Tofloat = pos.position_ref;
+		}
 		IFsh1_SetLongFlash(addr, data.Todword);
 
 		addr += 4;

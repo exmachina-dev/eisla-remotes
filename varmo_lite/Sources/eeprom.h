@@ -9,6 +9,8 @@
 
 #include "stdint.h"
 #include "parameters.h"
+#include "encoder_variable.h"
+
 
 #ifndef SOURCES_EEPROM_H_
 #define SOURCES_EEPROM_H_
