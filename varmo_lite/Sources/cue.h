@@ -29,6 +29,7 @@ extern "C" {
 
 extern uint8_t cue_saved[50];
 extern uint8_t cue_saved_size;
+extern cue_parameter cue_value_saved[50];
 
 extern bool FLAG_CUE_MODE;
 extern bool FLAG_CUE_SELECTED;

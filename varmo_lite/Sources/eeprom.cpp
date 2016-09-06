@@ -77,8 +77,7 @@ void write_cue(uint8_t nb_cue, int mode){
 		ERR = IFsh1_SetByteFlash(addr, temp);
 
 		addr += 1;
-		if ( FLAG_REC_SHORT_CUT == 1
-				){
+		if ( FLAG_REC_SHORT_CUT == 1){
 			data.Tofloat = old_encoder * resolution;
 		}
 		else{
@@ -220,7 +219,7 @@ uint8_t get_slot_saved(int mode, uint8_t *slot_saved){
 }
 
 void get_cues_saved_values(int mode, cue_parameter* value_array,uint8_t *cue_saved, uint8_t size){
-	for (uint8_t i = 0; i>size; i++){
+	for (uint8_t i = 0; i<size; i++){
 		value_array[i] = get_cue_values(mode, cue_saved[i]-1);
 	}
 }

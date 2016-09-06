@@ -128,8 +128,8 @@ int main(void)
   LCD_Init();
   parameters_init();
 
-  //LCD_Cursor_Blink_On();
-  //LCD_Write_Block("Varmo V2.0", 1, 3);
+  //LCD_Write_Block(" ExMachina ",1,3);
+  //LCD_Write_Block("Varmo  V0.2", 2, 3);
 
   WAIT1_Waitms(15);
   menu_init();

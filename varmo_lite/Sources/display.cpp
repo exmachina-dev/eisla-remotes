@@ -1163,8 +1163,9 @@ void pos_play_cue_fct(void){
 		LCD_Write_Block((char*)"                ",2,0);
 		LCD_Write_Block((char*)"                ",3,0);
 
-		cue_saved_size = get_slot_saved(CONTROL_MODE, cue_saved);
-
+		cue_saved_size = get_slot_saved(3, cue_saved);
+		get_cues_saved_values(3, cue_value_saved, cue_saved,  cue_saved_size);
+		menu_indicator = Pos_play_cue;
 		if (cue_saved_size == 0){
 			//No cue saved
 			LCD_Write_Block((char*)"No cue saved", 2, 0);
@@ -1177,7 +1178,9 @@ void pos_play_cue_fct(void){
 				encoder = cue_saved_size;
 			}
 			print_cue_array(encoder, cue_saved, cue_saved_size);
-			parameters = get_cue_values(CONTROL_MODE, encoder -1);
+			//parameters = get_cue_values(CONTROL_MODE, encoder -1);
+			parameters = cue_value_saved[(int)encoder-1];
+
 			if(parameters.data == 0){
 				LCD_Write_Block((char*)"Slot Free       ",2,0);
 			}
@@ -1210,7 +1213,8 @@ void pos_play_cue_fct(void){
 				else{
 					cue_parameter parameters;
 					print_cue_array(encoder, cue_saved, cue_saved_size);
-					parameters = get_cue_values(CONTROL_MODE, encoder -1);
+					//parameters = get_cue_values(CONTROL_MODE, encoder -1);
+					parameters = cue_value_saved[(int)encoder-1];
 						if(parameters.data == 0){
 						LCD_Write_Block((char*)"Slot Free       ",2,0);
 						LCD_Write_Block((char*)"                ",3,0);
@@ -1238,7 +1242,7 @@ void pos_rec_cue_fct(void){
 		FLAG_CUE_MODE = 1;
 		//encoder = 1;
 		menu_indicator = Pos_Rec_cue;
-		uint8_t temp = get_next_slot_free(CONTROL_MODE);
+		uint8_t temp = get_next_slot_free(3);
 		if (temp < 50){
 			encoder = temp + 1;
 		}
@@ -1250,7 +1254,7 @@ void pos_rec_cue_fct(void){
 		LCD_Write_Block((char*)"                ",2,0);
 		LCD_Write_Block((char*)"                ",3,0);
 		print_all_cue(encoder, cue_max);
-		parameters = get_cue_values(CONTROL_MODE, encoder -1);
+		parameters = get_cue_values(3, encoder -1);
 		if(parameters.data == 0){
 			LCD_Write_Block((char*)"Slot Free       ",2,0);
 			LCD_Write_Block((char*)"                ",3,0);
@@ -1280,7 +1284,7 @@ void pos_rec_cue_fct(void){
 			else{
 				cue_parameter parameters;
 				print_all_cue(encoder, cue_max);
-				parameters = get_cue_values(CONTROL_MODE, encoder -1);
+				parameters = get_cue_values(3, encoder -1);
 				if(parameters.data == 0){
 					LCD_Write_Block((char*)"Slot Free       ",2,0);
 					LCD_Write_Block((char*)"                ",3,0);
@@ -1312,7 +1316,8 @@ void pos_mod_cue_fct(void){
 			LCD_Write_Block((char*)"                ",2,0);
 			LCD_Write_Block((char*)"                ",3,0);
 
-			cue_saved_size = get_slot_saved(CONTROL_MODE, cue_saved);
+			cue_saved_size = get_slot_saved(3, cue_saved);
+			get_cues_saved_values(3, cue_value_saved, cue_saved,  cue_saved_size);
 
 			if (cue_saved_size == 0){
 				//No cue saved
@@ -1326,7 +1331,8 @@ void pos_mod_cue_fct(void){
 					encoder = cue_saved_size;
 				}
 				print_cue_array(encoder, cue_saved, cue_saved_size);
-				parameters = get_cue_values(CONTROL_MODE, encoder -1);
+				//parameters = get_cue_values(CONTROL_MODE, encoder -1);
+				parameters = cue_value_saved[(int)encoder-1];
 				if(parameters.data == 0){
 					LCD_Write_Block((char*)"Slot Free       ",2,0);
 					LCD_Write_Block((char*)"                ",3,0);
@@ -1359,7 +1365,8 @@ void pos_mod_cue_fct(void){
 					else{
 						cue_parameter parameters;
 						print_cue_array(encoder, cue_saved, cue_saved_size);
-						parameters = get_cue_values(CONTROL_MODE, encoder -1);
+						//parameters = get_cue_values(CONTROL_MODE, encoder -1);
+						parameters = cue_value_saved[(int)encoder-1];
 						if(parameters.data == 0){
 							LCD_Write_Block((char*)"Slot Free       ",2,0);
 							LCD_Write_Block((char*)"                ",3,0);
@@ -1391,7 +1398,8 @@ void pos_del_cue_fct(void){
 			LCD_Write_Block((char*)"                ",2,0);
 			LCD_Write_Block((char*)"                ",3,0);
 
-			cue_saved_size = get_slot_saved(CONTROL_MODE, cue_saved);
+			cue_saved_size = get_slot_saved(3, cue_saved);
+			get_cues_saved_values(3, cue_value_saved, cue_saved, cue_saved_size);
 
 			if (cue_saved_size == 0){
 				//No cue saved
@@ -1405,7 +1413,8 @@ void pos_del_cue_fct(void){
 					encoder = cue_saved_size;
 				}
 				print_cue_array(encoder, cue_saved, cue_saved_size);
-				parameters = get_cue_values(CONTROL_MODE, encoder -1);
+				//parameters = get_cue_values(CONTROL_MODE, encoder -1);
+				parameters = cue_value_saved[(int)encoder-1];
 				if(parameters.data == 0){
 					LCD_Write_Block((char*)"Slot Free       ",2,0);
 				}
@@ -1442,7 +1451,8 @@ void pos_del_cue_fct(void){
 			else{
 				cue_parameter parameters;
 				print_cue_array(encoder, cue_saved, cue_saved_size);
-				parameters = get_cue_values(CONTROL_MODE, encoder -1);
+				//parameters = get_cue_values(CONTROL_MODE, encoder -1);
+				parameters = cue_value_saved[(int)encoder-1];
 				if(parameters.data == 0){
 					LCD_Write_Block((char*)"Slot Free       ",2,0);
 				}
@@ -1452,8 +1462,8 @@ void pos_del_cue_fct(void){
 					LCD_Write_Block((char*)"                ",3,0);
 					print_float_at(parameters.position,1,0, 3, 0);
 					print_float_at(parameters.velocity,1,1, 3, 9);
-					LCD_Write_At(vertical_bar,2,8);
-					LCD_Write_At(vertical_bar,3,8);
+					LCD_Write_At(vertical_bar,2,7);
+					LCD_Write_At(vertical_bar,3,7);
 				}
 			}
 		}
