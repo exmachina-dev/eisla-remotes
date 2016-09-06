@@ -265,7 +265,10 @@ int main(void)
 	 if (!(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0) &&FLAG_SEND_VEL == 1 && FLAG_MENU == 0 && menu_indicator == Velocity_instant_selected){
 		 FLAG_SEND_VEL = 0;
 		 counter_vel_inst = 0;
-		 send_fct(menu_indicator);
+		 if (vel.velocity_ref != last_value_send){
+			 send_fct(menu_indicator);
+			 last_value_send = vel.velocity_ref;
+		 }
 	 }
 
 	  if(FLAG_SENS == 1){

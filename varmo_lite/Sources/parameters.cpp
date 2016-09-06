@@ -36,6 +36,9 @@ bool FLAG_REC_SHORT_CUT = 0;
 bool FLAG_UPDATE = 0;
 bool FLAG_VEL_INST = 0;
 uint8_t CONTROL_MODE = 0;
+
+float last_value_send = 0;
+
 struct velocity vel;
 struct position pos;
 struct torque tor;

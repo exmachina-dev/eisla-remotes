@@ -64,6 +64,9 @@ extern bool FLAG_REC_SHORT_CUT;
 extern bool FLAG_UPDATE;
 extern bool FLAG_VEL_INST;
 extern uint8_t CONTROL_MODE;
+
+extern float last_value_send;
+
 extern struct velocity{
 	int control_mode;
 	float velocity_ref;
