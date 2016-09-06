@@ -315,13 +315,6 @@ int main(void)
 	  }
 
 	  if (FLAG_SEND_STOP == 1){
-		/*  if (FLAG_MENU == 0 && menu_indicator == Velocity_instant_selected){
-			  FLAG_SEND_STOP = 0;
-			  vel.velocity_ref = 0;
-			  encoder = 0;
-			  refresh_fct(menu_indicator);
-			  send_fct(menu_indicator);
-		  }*/
 		  FLAG_SEND_STOP = 0;
 		  counter_send_stop = 0;
 		  send_stop();
