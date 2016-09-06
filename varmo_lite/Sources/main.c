@@ -114,7 +114,7 @@ int main(void)
   FLAG_SENS_2 = 0;
 
   nb_data = 0;
-  drive_enable_st = 1;
+  drive_enable_st = 0;
   LED_STATUS_1_ClrVal();
   LED_STATUS_2_ClrVal();
   LED_STATUS_3_ClrVal();
