@@ -263,6 +263,7 @@ int main(void)
 	  }
 
 	 if (!(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0) &&FLAG_SEND_VEL == 1 && FLAG_MENU == 0 && menu_indicator == Velocity_instant_selected){
+		 FLAG_SEND_VEL = 0;
 		 counter_vel_inst = 0;
 		 send_fct(menu_indicator);
 	 }
@@ -296,7 +297,7 @@ int main(void)
 		  refresh_fct(menu_indicator);
 	  }
 
-	  if (FLAG_UPDATE_VALUE == 1){
+	  if (FLAG_UPDATE_VALUE == 1 && FLAG_MENU == 0){
 		  if(FLAG_ENTER_CONTROL_MODE == 1){
 			  FLAG_MENU = 1;
 			  FLAG_ENTER_CONTROL_MODE = 0;
@@ -311,15 +312,16 @@ int main(void)
 	  }
 
 	  if (FLAG_SEND_STOP == 1){
-		  if (FLAG_MENU == 0 && menu_indicator == Velocity_instant_selected){
-			  vel.velocity_ref = 0;
-			  send_fct(menu_indicator);
-		  }
-		  else{
+		/*  if (FLAG_MENU == 0 && menu_indicator == Velocity_instant_selected){
 			  FLAG_SEND_STOP = 0;
-			  counter_send_stop = 0;
-			  send_stop();
-		  }
+			  vel.velocity_ref = 0;
+			  encoder = 0;
+			  refresh_fct(menu_indicator);
+			  send_fct(menu_indicator);
+		  }*/
+		  FLAG_SEND_STOP = 0;
+		  counter_send_stop = 0;
+		  send_stop();
 	  }
 
 	  if (FLAG_UPDATE == 1 && FLAG_UPDATE_SETTING == 0){
@@ -387,7 +389,7 @@ int main(void)
 	  if (FLAG_MSG_OK == 1){
 		  FLAG_MSG_ERR = msg_parse(msg, size.toInt.int0);
 		  FLAG_MSG_OK  = 0;
-		  LED_STATUS_4_ClrVal();
+		  //LED_STATUS_4_ClrVal();
 	  }
 
 	  //COMMUNICATION ERR

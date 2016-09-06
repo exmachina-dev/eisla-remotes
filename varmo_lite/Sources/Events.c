@@ -374,7 +374,7 @@ void T_500ms_OnCounterRestart(LDD_TUserData *UserDataPtr)
 */
 void I2C0_OnArbitLost(void)
 {
-  //I2C0_SendStop();
+
 }
 
 /*

@@ -67,7 +67,7 @@
       <XtraAge24>1226810529</XtraAge24>
       <XtraAge25>1227009129</XtraAge25>
       <XtraAge27>1221099532</XtraAge27>
-      <XtraAge28>1227009129</XtraAge28>
+      <XtraAge28>1227250984</XtraAge28>
       <GenExtraFileType28>4</GenExtraFileType28>
       <GenExtraFileType27>5</GenExtraFileType27>
       <GenExtraFileType26>4</GenExtraFileType26>
@@ -511,7 +511,7 @@
     </GenFiles>
     <SignalListFile>Documentation\varmo_lite_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>165</ProjectModificationStamp>
+    <ProjectModificationStamp>169</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>false</Generated>
@@ -1368,8 +1368,8 @@
     <GenComponentVersion>02.086</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1226815592</HeaderAge>
-    <CodeAge>1226815592</CodeAge>
+    <HeaderAge>1227249816</HeaderAge>
+    <CodeAge>1227249816</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>11</GenNumMethods>
     <GetDir>false</GetDir>
@@ -1423,8 +1423,8 @@
       <GenComponentVersion>01.033</GenComponentVersion>
       <GenDriverVersion>01.03</GenDriverVersion>
       <GenEventModule />
-      <HeaderAge>1226815592</HeaderAge>
-      <CodeAge>1226815592</CodeAge>
+      <HeaderAge>1227249816</HeaderAge>
+      <CodeAge>1227249816</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>13</GenNumMethods>
       <Init>true</Init>
@@ -2990,8 +2990,8 @@
     <GenComponentVersion>02.611</GenComponentVersion>
     <GenDriverVersion>01.01</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1226810529</HeaderAge>
-    <CodeAge>1226810529</CodeAge>
+    <HeaderAge>1227250984</HeaderAge>
+    <CodeAge>1227250984</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>24</GenNumMethods>
     <Enable>false</Enable>
@@ -3277,8 +3277,8 @@
       <GenComponentVersion>01.188</GenComponentVersion>
       <GenDriverVersion>01.12</GenDriverVersion>
       <GenEventModule>Events</GenEventModule>
-      <HeaderAge>1226810529</HeaderAge>
-      <CodeAge>1226810529</CodeAge>
+      <HeaderAge>1227250984</HeaderAge>
+      <CodeAge>1227250984</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>36</GenNumMethods>
       <Init>true</Init>
