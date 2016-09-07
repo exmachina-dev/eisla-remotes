@@ -261,7 +261,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 {
     if (FLAG_DEBOUNCE == 1){
     	TU1_Disable(TU1_DeviceData);
-    	//WAIT1_Waitms(8);
+    	WAIT1_Waitms(2.5);
 		uint8_t ENC_A = ENCODER_GetFieldValue(&UserDataPtr, ENCODER_A);
 		uint8_t ENC_B = ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B);
 		if ( ENC_B == 1){

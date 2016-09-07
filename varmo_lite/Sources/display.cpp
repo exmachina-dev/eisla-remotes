@@ -1440,7 +1440,7 @@ void pos_del_cue_fct(void){
 				}
 				else{
 					cue_parameter parameters;
-					print_cue_array(temp, cue_saved, cue_saved_size);
+					 print_cue_array(temp, cue_saved, cue_saved_size);
 					//parameters = get_cue_values(CONTROL_MODE, encoder -1);
 					parameters = cue_value_saved[temp-1];
 					if(parameters.data == 0){
