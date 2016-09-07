@@ -90,7 +90,7 @@ void back_fct(void);
 void velocity_fct(void);
 void acceleration_fct(void);
 void deceleration_fct(void);
-void velocity_instant_fct();
+void velocity_instant_fct(void);
 
 void pos_position_fct(void);
 void pos_velocity_fct(void);

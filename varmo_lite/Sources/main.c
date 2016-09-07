@@ -283,7 +283,9 @@ int main(void)
 	  if (FLAG_CONTROL_MODE == 1){
 		  FLAG_CONTROL_MODE = 0;
 		  FLAG_CONTROL_MODE_CONFIRM = 0;
-		  //control_mode_fct();
+		  if(FLAG_UPDATE_SETTING == 1){
+			  control_mode_fct();
+		  }
 	  }
 
 	  if (FLAG_UPDATE_CUE == 1 || FLAG_UPDATE_SETTING_SELECTED == 1){
@@ -300,12 +302,15 @@ int main(void)
 		  refresh_fct(menu_indicator);
 	  }
 
-	  if (FLAG_UPDATE_VALUE == 1 && FLAG_MENU == 0){
+	  if (FLAG_UPDATE_VALUE == 1 && FLAG_MENU == 0 && FLAG_CUE_MODE == 0 && FLAG_UPDATE_SETTING == 1){
 		  if(FLAG_ENTER_CONTROL_MODE == 1){
 			  FLAG_MENU = 1;
 			  FLAG_ENTER_CONTROL_MODE = 0;
 		  }
 		  refresh_fct(menu_indicator);
+		  FLAG_UPDATE_VALUE = 0;
+	  }
+	  else if (FLAG_UPDATE_SETTING == 0){
 		  FLAG_UPDATE_VALUE = 0;
 	  }
 
@@ -338,7 +343,9 @@ int main(void)
 		  else if (CONTROL_MODE != 0 && FLAG_MENU == 0 && FLAG_CONTROL_MODE_CONFIRM == 1){
 			  FLAG_UPDATE_MENU = 1;
 			  get_update_value(CONTROL_MODE);
-			  refresh_fct(menu_indicator);
+			  if(FLAG_CUE_MODE == 0){
+				  refresh_fct(menu_indicator);
+			  }
 			  FLAG_UPDATE_MENU = 0;
 		  }
 		  FLAG_UPDATE = 0;

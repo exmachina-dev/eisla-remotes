@@ -27,7 +27,7 @@ uint8_t counter_send_stop = 0;
 uint8_t counter_vel_inst = 0;
 
 bool FLAG_SHORT_CUT = 0;
-bool FLAG_UPDATE_SETTING = 0;
+bool FLAG_UPDATE_SETTING = 1;
 bool FLAG_SETTING_SELECTED = 0;
 bool FLAG_UPDATE_SETTING_SELECTED = 0;
 bool FLAG_UPDATE_VALUE = 0;

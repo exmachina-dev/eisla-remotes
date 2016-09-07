@@ -1203,7 +1203,6 @@ void pos_play_cue_fct(void){
 				LCD_Write_Block((char*)"Cue loaded      ",3,0);
 			}
 			else{
-
 				if(encoder < 1){
 					encoder = 1;
 				}
