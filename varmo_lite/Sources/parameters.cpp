@@ -39,6 +39,8 @@ uint8_t CONTROL_MODE = 0;
 
 float last_value_send = 0;
 
+uint8_t OLD_ENC_A = 1;
+
 struct velocity vel;
 struct position pos;
 struct torque tor;

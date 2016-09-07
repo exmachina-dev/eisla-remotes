@@ -67,6 +67,8 @@ extern uint8_t CONTROL_MODE;
 
 extern float last_value_send;
 
+extern uint8_t OLD_ENC_A;
+
 extern struct velocity{
 	int control_mode;
 	float velocity_ref;
