@@ -716,27 +716,34 @@ void velocity_instant_fct(){
 		}
 		else {
 			print_float_at(vel.velocity, 0,0,3,0);
-			vel.velocity_ref = convert(encoder, -9999, 9999);
+			float temp = convert(encoder, -9999, 9999);
+			//vel.velocity_ref = convert(encoder, -9999, 9999);
 			if ((FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 )|| (FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1)){
-				if (vel.velocity_ref < 0 && FLAG_SENS == 0){
-					vel.velocity_ref = 0;
+				if (temp < 0 && FLAG_SENS == 0){
+					temp = 0;
 				}
-				vel.velocity_ref = convert(abs(vel.velocity_ref), 0, 9999);
+				temp = convert(abs(temp), 0, 9999);
 				if(FLAG_SENS_1 == 1){
-					if (vel.velocity_ref < 0){
-						vel.velocity_ref *= -1;
+					if (temp < 0){
+						temp *= -1;
 					}
+					vel.velocity_ref = temp;
 					encoder = vel.velocity_ref;
 				}
 				if(FLAG_SENS_2 == 1){
-					vel.velocity_ref *= -1;
-					encoder = -1 *vel.velocity_ref;
+					temp *= -1;
+					vel.velocity_ref = temp;
+					encoder = -1 * vel.velocity_ref;
 				}
 	  			print_float_at(vel.velocity_ref,0,0,3,8);
 			}
 			else{
+				if (temp < 0){
+					temp = 0;
+				}
+				vel.velocity_ref = temp;
 				print_float_at(vel.velocity_ref,0,1,3,8);
-				//encoder = vel.velocity_ref;
+				encoder = vel.velocity_ref;
 			}
 		}
 }
