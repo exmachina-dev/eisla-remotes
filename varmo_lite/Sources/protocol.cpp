@@ -198,9 +198,11 @@ bool msg_processing(int n, ...){
  			return 0;
  		}
  		else if (strcmp(data, Position_ref) == 0){
- 			data = va_arg(arg, char*);
- 			position_ref_processing(data);
- 			FLAG_UPDATE_VALUE = 1;
+ 			if (menu_indicator != Velocity_instant_selected){
+				data = va_arg(arg, char*);
+				position_ref_processing(data);
+				FLAG_UPDATE_VALUE = 1;
+ 			}
  			return 0;
  		}
  		else if (strcmp(data, Torque_ref) == 0){

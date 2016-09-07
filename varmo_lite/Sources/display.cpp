@@ -733,12 +733,10 @@ void velocity_instant_fct(){
 					encoder = -1 *vel.velocity_ref;
 				}
 	  			print_float_at(vel.velocity_ref,0,0,3,8);
-
 			}
 			else{
-				vel.velocity_ref = 0;
-				print_float_at(vel.velocity_ref,0,0,3,8);
-				encoder = vel.velocity_ref;
+				print_float_at(vel.velocity_ref,0,1,3,8);
+				//encoder = vel.velocity_ref;
 			}
 		}
 }

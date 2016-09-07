@@ -276,6 +276,10 @@ int main(void)
 	  }
 
 	  if (FLAG_MENU == 0 && FLAG_SENS == 1){
+		  if(FLAG_STOP == 1 && menu_indicator == Velocity_instant_selected){
+			  encoder = 0;
+			  vel.velocity_ref = 0;
+		  }
 		  refresh_fct(menu_indicator);
 		  FLAG_SENS = 0;
 	  }
