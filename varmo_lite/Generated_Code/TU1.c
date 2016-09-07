@@ -7,7 +7,7 @@
 **     Version     : Component 01.164, Driver 01.11, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-02, 12:04, # CodeGen: 165
+**     Date/Time   : 2016-09-07, 16:05, # CodeGen: 301
 **     Abstract    :
 **          This TimerUnit component provides a low level API for unified hardware access across
 **          various timer devices using the Prescaler-Counter-Compare-Capture timer structure.
@@ -22,7 +22,7 @@
 **            Counter frequency                            : 1.024 kHz
 **          Counter restart                                : On-match
 **            Period device                                : FTM2_MOD
-**            Period                                       : 15 ms
+**            Period                                       : 5 ms
 **            Interrupt                                    : Enabled
 **              Interrupt                                  : INT_FTM2
 **              Interrupt priority                         : medium priority
@@ -173,8 +173,8 @@ LDD_TDeviceData* TU1_Init(LDD_TUserData *UserDataPtr)
   FTM2_C0SC = 0x00U;                   /* Clear channel status and control register */
   /* FTM2_C1SC: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,CHF=0,CHIE=0,MSB=0,MSA=0,ELSB=0,ELSA=0,??=0,DMA=0 */
   FTM2_C1SC = 0x00U;                   /* Clear channel status and control register */
-  /* FTM2_MOD: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,MOD=0x0E */
-  FTM2_MOD = FTM_MOD_MOD(0x0E);        /* Set up modulo register */
+  /* FTM2_MOD: ??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,MOD=4 */
+  FTM2_MOD = FTM_MOD_MOD(0x04);        /* Set up modulo register */
   DeviceDataPrv->EnEvents = 0x0100U;   /* Enable selected events */
   DeviceDataPrv->Source = FTM_PDD_FIXED; /* Store clock source */
   /* NVICIP64: PRI64=0x80 */

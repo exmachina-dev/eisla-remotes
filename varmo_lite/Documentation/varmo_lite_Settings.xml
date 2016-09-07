@@ -1677,7 +1677,7 @@ PE_DEBUGHALT();
       </enumgroup>
       <enumgroup name="Counter restart" v="On-match">
         <Period_device v="FTM2_MOD" />
-        <Period v="15 ms" />
+        <Period v="5 ms" />
         <boolgroup name="Interrupt" v="Enabled">
           <Interrupt v="INT_FTM2" />
           <Interrupt_priority v="medium priority" />

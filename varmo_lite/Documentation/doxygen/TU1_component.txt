@@ -36,7 +36,7 @@ by the component.
 <td class="regResetVal">0x00000000</td>
  <td>FTM2_C1SC register, peripheral TU1.</td></tr>
 <tr><td>0x400B8008</td><td>FTM2_MOD</td>
-<td class="regNotResetVal">0x0000000E</td>
+<td class="regNotResetVal">0x00000004</td>
  <td>FTM2_MOD register, peripheral TU1.</td></tr>
 <tr><td>0xE000E440</td><td>NVICIP64</td>
 <td class="regNotResetVal">0x00000080</td>
@@ -471,7 +471,7 @@ registers of the peripheral(s) configured by the component.
         
 </div>
 <table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x400B8008</td></tr>
-<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x0000000E</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000004</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
 <tr><td>0 - 15</td><td>MOD</td><td>0x00</td><td>Modulo value</td>
@@ -556,7 +556,7 @@ registers of the peripheral(s) configured by the component.
 **            Counter frequency                            : 1.024 kHz
 **          Counter restart                                : On-match
 **            Period device                                : FTM2_MOD
-**            Period                                       : 15 ms
+**            Period                                       : 5 ms
 **            Interrupt                                    : Enabled
 **              Interrupt                                  : INT_FTM2
 **              Interrupt priority                         : medium priority

@@ -29,11 +29,11 @@
 ** @brief
 **         This is user's event module.
 **         Put your event handler code here.
-*/         
+*/
 /*!
 **  @addtogroup Events_module Events module documentation
 **  @{
-*/         
+*/
 /* MODULE Events */
 
 #include "Cpu.h"
@@ -41,7 +41,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif 
+#endif
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
@@ -261,7 +261,7 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 {
     if (FLAG_DEBOUNCE == 1){
     	TU1_Disable(TU1_DeviceData);
-    	WAIT1_Waitms(2.5);
+    	//WAIT1_Waitms(8);
 		uint8_t ENC_A = ENCODER_GetFieldValue(&UserDataPtr, ENCODER_A);
 		uint8_t ENC_B = ENCODER_GetFieldValue(&UserDataPtr, ENCODER_B);
 		if ( ENC_B == 1){
@@ -270,15 +270,18 @@ void ENCODER_OnPortEvent(LDD_TUserData *UserDataPtr)
 				encoder -= 1;
 				TU1_Enable(TU1_DeviceData);
 				FLAG_ENCODER = 1;
+				OLD_ENC_A = ENC_A;
+
 			}
 			else if (ENC_A == 1){
 				FLAG_DEBOUNCE = 0;
 				encoder += 1;
 				TU1_Enable(TU1_DeviceData);
 				FLAG_ENCODER = 1;
+				OLD_ENC_A = ENC_A;
 			}
 		}
-	}
+    }
 }
 
 /*
@@ -518,7 +521,7 @@ void AS1_OnTxChar(void)
 **     Component   :  AS1 [AsynchroSerial]
 **     Description :
 **         This event is called when the input buffer is full;
-**         i.e. after reception of the last character 
+**         i.e. after reception of the last character
 **         that was successfully placed into input buffer.
 **     Parameters  : None
 **     Returns     : Nothing
@@ -577,7 +580,7 @@ void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr)
 
 #ifdef __cplusplus
 }  /* extern "C" */
-#endif 
+#endif
 
 /*!
 ** @}

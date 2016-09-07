@@ -1308,7 +1308,7 @@ PE_DEBUGHALT();
         <Interrupt_RxD v="INT_UART0_RX_TX" />
         <Interrupt_RxD_priority v="medium priority" />
         <Interrupt_TxD v="INT_UART0_RX_TX" />
-        <Interrupt_TxD_priority v="maximal priority" />
+        <Interrupt_TxD_priority v="medium priority" />
         <Interrupt_Error v="INT_UART0_ERR" />
         <Interrupt_Error_priority v="medium priority" />
         <Input_buffer_size v="512" />
@@ -1356,7 +1356,7 @@ PE_DEBUGHALT();
               <Interrupt_RxD v="INT_UART0_RX_TX" />
               <Interrupt_RxD_priority v="medium priority" />
               <Interrupt_TxD v="INT_UART0_RX_TX" />
-              <Interrupt_TxD_priority v="maximal priority" />
+              <Interrupt_TxD_priority v="medium priority" />
               <Interrupt_Error v="INT_UART0_ERR" />
               <Interrupt_Error_priority v="medium priority" />
             </boolgroup>

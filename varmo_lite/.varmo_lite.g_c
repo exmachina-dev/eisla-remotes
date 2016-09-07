@@ -511,7 +511,7 @@
     </GenFiles>
     <SignalListFile>Documentation\varmo_lite_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>169</ProjectModificationStamp>
+    <ProjectModificationStamp>174</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>false</Generated>
@@ -1497,8 +1497,8 @@
     <GenComponentVersion>01.128</GenComponentVersion>
     <GenDriverVersion>01.08</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1226810529</HeaderAge>
-    <CodeAge>1226810529</CodeAge>
+    <HeaderAge>1227324522</HeaderAge>
+    <CodeAge>1227324522</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>27</GenNumMethods>
     <Init>true</Init>
@@ -3844,8 +3844,8 @@
     <GenComponentVersion>01.164</GenComponentVersion>
     <GenDriverVersion>01.11</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1226810529</HeaderAge>
-    <CodeAge>1226810529</CodeAge>
+    <HeaderAge>1227325608</HeaderAge>
+    <CodeAge>1227325608</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>22</GenNumMethods>
     <Init>true</Init>
