@@ -280,6 +280,9 @@ int main(void)
 			  encoder = 0;
 			  vel.velocity_ref = 0;
 		  }
+		  if(FLAG_STOP == 1){
+			  send_stop();
+		  }
 		  refresh_fct(menu_indicator);
 		  FLAG_SENS = 0;
 	  }
