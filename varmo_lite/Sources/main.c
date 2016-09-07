@@ -306,7 +306,7 @@ int main(void)
 		  refresh_fct(menu_indicator);
 	  }
 
-	  if (FLAG_UPDATE_VALUE == 1 && FLAG_MENU == 0 && FLAG_CUE_MODE == 0 && FLAG_UPDATE_SETTING == 1){
+	  if (FLAG_UPDATE_VALUE == 1 && FLAG_MENU == 0 && FLAG_CUE_MODE == 0 && FLAG_UPDATE_SETTING == 0){
 		  if(FLAG_ENTER_CONTROL_MODE == 1){
 			  FLAG_MENU = 1;
 			  FLAG_ENTER_CONTROL_MODE = 0;
