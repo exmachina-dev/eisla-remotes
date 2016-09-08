@@ -282,6 +282,7 @@ int main(void)
 		  }
 		  if(FLAG_STOP == 1){
 			  send_stop();
+			  counter_send_stop = 0;
 		  }
 		  refresh_fct(menu_indicator);
 		  FLAG_SENS = 0;
