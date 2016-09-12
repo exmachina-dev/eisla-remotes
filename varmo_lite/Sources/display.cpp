@@ -715,6 +715,7 @@ void velocity_instant_fct(){
 			}
 		}
 		else {
+			LCD_Write_At(' ', 3, 13);
 			print_float_at(vel.velocity, 0,0,3,0);
 			float temp = convert(encoder, -9999, 9999);
 			//vel.velocity_ref = convert(encoder, -9999, 9999);
@@ -1455,7 +1456,7 @@ void pos_del_cue_fct(void){
 						LCD_Write_Block((char*)"Vel : ",2,8);
 						LCD_Write_Block((char*)"                ",3,0);
 						print_float_at(parameters.position,1,0, 3, 0);
-						print_float_at(parameters.velocity,1,1, 3, 9);
+						print_float_at(parameters.velocity,1,1, 3, 8);
 						LCD_Write_At(vertical_bar,2,7);
 						LCD_Write_At(vertical_bar,3,7);
 					}
