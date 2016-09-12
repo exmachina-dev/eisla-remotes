@@ -1445,7 +1445,7 @@ void pos_del_cue_fct(void){
 				}
 				else{
 					cue_parameter parameters;
-					 print_cue_array(temp, cue_saved, cue_saved_size);
+					print_cue_array(temp, cue_saved, cue_saved_size);
 					parameters = cue_value_saved[temp-1];
 					if(parameters.data == 0){
 						LCD_Write_Block((char*)"Slot Free       ",2,0);

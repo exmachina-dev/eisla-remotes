@@ -262,15 +262,6 @@ int main(void)
 		  FLAG_SEND = 0;
 	  }
 
-	 if (!(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0) &&FLAG_SEND_VEL == 1 && FLAG_MENU == 0 && menu_indicator == Velocity_instant_selected){
-		 FLAG_SEND_VEL = 0;
-		 counter_vel_inst = 0;
-		 if (vel.velocity_ref != last_value_send){
-			 send_fct(menu_indicator);
-			 last_value_send = vel.velocity_ref;
-		 }
-	 }
-
 	  if(FLAG_SENS == 1){
 		  update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
 	  }
@@ -287,6 +278,15 @@ int main(void)
 		  refresh_fct(menu_indicator);
 		  FLAG_SENS = 0;
 	  }
+
+	 if (!(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0) &&FLAG_SEND_VEL == 1 && FLAG_MENU == 0 && menu_indicator == Velocity_instant_selected){
+		 FLAG_SEND_VEL = 0;
+		 counter_vel_inst = 0;
+		 if (vel.velocity_ref != last_value_send){
+			 send_fct(menu_indicator);
+			 last_value_send = vel.velocity_ref;
+		 }
+	 }
 
 	  if (FLAG_CONTROL_MODE == 1){
 		  FLAG_CONTROL_MODE = 0;
@@ -337,6 +337,7 @@ int main(void)
 		  counter_update = 0;
 		  get_update_drive_en();
 		  WAIT1_Waitms(5);
+
 		  update_icon_drive_enable();
 		  if(FLAG_CONTROL_MODE_CONFIRM == 0){
 			  control_mode_fct();
