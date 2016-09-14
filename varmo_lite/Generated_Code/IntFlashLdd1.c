@@ -7,7 +7,7 @@
 **     Version     : Component 01.106, Driver 01.15, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-25, 10:57, # CodeGen: 243
+**     Date/Time   : 2016-09-14, 11:05, # CodeGen: 305
 **     Abstract    :
 **          This embedded component implements an access to an on-chip flash memory.
 **          Using this component the flash memory could be written to, erased,
@@ -430,7 +430,11 @@ LDD_TError IntFlashLdd1_Erase(LDD_TDeviceData *DeviceDataPtr, LDD_FLASH_TAddress
      !(DeviceDataPrv->CurrentOperationStatus == LDD_FLASH_FAILED)) {
     return ERR_BUSY;
   }
-  EraseUnitMask = IntFlashLdd1_PFLASH_ERASABLE_UNIT_SIZE - 1U; /* Set the current data size */
+  if (FromAddress >= IntFlashLdd1_DFLASH_ADDRESS) {
+    EraseUnitMask = IntFlashLdd1_DFLASH_ERASABLE_UNIT_SIZE - 1U; /* Set the current data size */
+  } else {
+    EraseUnitMask = IntFlashLdd1_PFLASH_ERASABLE_UNIT_SIZE - 1U; /* Set the current data size */
+  }
   if (RangeCheck(FromAddress, Size) != (LDD_TError)ERR_OK) { /* Is an address range of desired operation out of used flash memory areas? */
     return ERR_PARAM_ADDRESS;          /* If yes, return error. */
   }
@@ -490,6 +494,7 @@ LDD_FLASH_TOperationStatus IntFlashLdd1_GetOperationStatus(LDD_TDeviceData *Devi
 **                           pointer returned by [Init] method.
 */
 /* ===================================================================*/
+#define FLEX_MEMORY_BASE_ADDRESS    0x10000000U
 #define FLEX_MEMORY_ADDRESS_SWITCH  0x00800000U
 #define UNLIMITED_BATCH_SIZE 0U
 #define WRITE_BATCH_SIZE 1U
@@ -511,6 +516,7 @@ void IntFlashLdd1_Main(LDD_TDeviceData *DeviceDataPtr)
   uint16_t StepsOfBatch = 0U;          /* Number of batch cycles to be proceeded */
   bool NextBatchCycle;                 /* Unlimited batch flag */
   uint8_t CurrentFlags;                /* Auxiliary variable - current hw flags */
+  LDD_FLASH_TAddress CurrentFlashAddress; /* Auxiliary variable - Current flash address */
 
   if ((DeviceDataPrv->CurrentOperationStatus != LDD_FLASH_RUNNING) && /* If there is not an operation in progress or pending then end */\
      (DeviceDataPrv->CurrentOperationStatus != LDD_FLASH_START) && \
@@ -621,7 +627,12 @@ void IntFlashLdd1_Main(LDD_TDeviceData *DeviceDataPtr)
     }
     if (DeviceDataPrv->CurrentOperation != LDD_FLASH_READ) {
       FTFL_PDD_SetFCCOBCommand(FTFL_BASE_PTR, DeviceDataPrv->CurrentCommand); /* Set the desired flash operation command */
-      FTFL_PDD_SetFCCOBAddress(FTFL_BASE_PTR, ((uint32_t)(DeviceDataPrv->CurrentFlashAddress - DstAddrOffset))); /* Set an address of the flash memory location for the current flash operation command */
+      if (DeviceDataPrv->CurrentFlashAddress >= FTFE_FLEXNVM_START_ADDR) {
+        CurrentFlashAddress = (LDD_FLASH_TAddress)((DeviceDataPrv->CurrentFlashAddress ^ FTFE_FLEXNVM_START_ADDR) | FTFE_FLEXNVM_CCOB_START_ADDR);
+      } else {
+        CurrentFlashAddress = DeviceDataPrv->CurrentFlashAddress;
+      }
+      FTFL_PDD_SetFCCOBAddress(FTFL_BASE_PTR, ((uint32_t)(CurrentFlashAddress - DstAddrOffset))); /* Set an address of the flash memory location for the current flash operation command */
       SafeRoutineCaller();             /* Call of the safe routine caller - the safe routine's code will be placed to stack and run */
     }
   }
@@ -674,12 +685,23 @@ void IntFlashLdd1_GetError(LDD_TDeviceData *DeviceDataPtr, LDD_FLASH_TErrorStatu
 */
 static LDD_TError RangeCheck(LDD_FLASH_TAddress Address, LDD_FLASH_TDataSize Size)
 {
-  if ((Size > IntFlashLdd1_PFLASH_SIZE) || (Size == 0U) || (Address > (IntFlashLdd1_PFLASH_SIZE - Size))) {
+  if (Size != 0U) {
+    if (Address > IntFlashLdd1_PFLASH_SIZE) {
+      if ((Address < IntFlashLdd1_DFLASH_ADDRESS) || \
+         (Address > (IntFlashLdd1_DFLASH_ADDRESS + (IntFlashLdd1_DFLASH_SIZE - 1U))) || \
+         (Size > IntFlashLdd1_DFLASH_ADDRESS) || \
+         (Address > (IntFlashLdd1_DFLASH_ADDRESS + (IntFlashLdd1_DFLASH_SIZE - Size)))) {
+        return ERR_PARAM_ADDRESS;
+      }
+    } else {
+      if ((Size > IntFlashLdd1_PFLASH_SIZE) || (Address > (IntFlashLdd1_PFLASH_SIZE - Size))) {
+        return ERR_PARAM_ADDRESS;
+      }
+    }
+  } else {
     return ERR_PARAM_ADDRESS;
   }
-  else {
-    return ERR_OK;
-  }
+  return ERR_OK;
 }
 
 /*

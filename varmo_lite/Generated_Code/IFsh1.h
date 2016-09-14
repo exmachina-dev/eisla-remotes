@@ -7,7 +7,7 @@
 **     Version     : Component 02.409, Driver 01.02, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-25, 10:57, # CodeGen: 243
+**     Date/Time   : 2016-09-14, 11:05, # CodeGen: 305
 **     Abstract    :
 **         This component "IntFLASH" implements an access to internal FLASH.
 **         The component support reading/writing data into FLASH, erasing of
@@ -126,11 +126,7 @@ extern "C" {
 
 #define IFsh1_WRITE_TYPE_SAFE
 /* Number of flash memory areas. For each area there are several constants with information about the area. */
-#define IFsh1_AREA_COUNT                (0x01U)
-/* Size of programming phrase. */
-#define IFsh1_PROGRAMMING_PHRASE        (0x04U)
-/* Minimal erasable unit. Value is in minimal addressable units. */
-#define IFsh1_AREA_SECTOR_SIZE          (0x0800U)
+#define IFsh1_AREA_COUNT                (0x02U)
 /* TRUE if the component setting allows rewrite of already programmed flash memory location. */
 #define IFsh1_ALLOW_CLEAR               (TRUE)
 

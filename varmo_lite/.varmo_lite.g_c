@@ -511,7 +511,7 @@
     </GenFiles>
     <SignalListFile>Documentation\varmo_lite_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>174</ProjectModificationStamp>
+    <ProjectModificationStamp>175</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>false</Generated>
@@ -589,7 +589,7 @@
     <GenDriverVersion>01.04</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
     <HeaderAge>1226810529</HeaderAge>
-    <CodeAge>1227009129</CodeAge>
+    <CodeAge>1227774124</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetClockConfiguration>false</SetClockConfiguration>
@@ -3969,7 +3969,7 @@
     <GenComponentVersion>02.409</GenComponentVersion>
     <GenDriverVersion>01.02</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1226810529</HeaderAge>
+    <HeaderAge>1227774124</HeaderAge>
     <CodeAge>1226810529</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>27</GenNumMethods>
@@ -4033,78 +4033,78 @@
       <MethodPos0>Init</MethodPos0>
       <MethodType>internal_method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>138</LineBeg>
-      <LineEnd>147</LineEnd>
+      <LineBeg>134</LineBeg>
+      <LineEnd>143</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos1>DisableEvent</MethodPos1>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>148</LineBeg>
-      <LineEnd>165</LineEnd>
+      <LineBeg>144</LineBeg>
+      <LineEnd>161</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos2>EnableEvent</MethodPos2>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>166</LineBeg>
-      <LineEnd>183</LineEnd>
+      <LineBeg>162</LineBeg>
+      <LineEnd>179</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos3>SetByteFlash</MethodPos3>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>184</LineBeg>
-      <LineEnd>213</LineEnd>
+      <LineBeg>180</LineBeg>
+      <LineEnd>209</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos4>GetByteFlash</MethodPos4>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>214</LineBeg>
-      <LineEnd>233</LineEnd>
+      <LineBeg>210</LineBeg>
+      <LineEnd>229</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos5>SetWordFlash</MethodPos5>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>234</LineBeg>
-      <LineEnd>263</LineEnd>
+      <LineBeg>230</LineBeg>
+      <LineEnd>259</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos6>GetWordFlash</MethodPos6>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>264</LineBeg>
-      <LineEnd>285</LineEnd>
+      <LineBeg>260</LineBeg>
+      <LineEnd>281</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos7>SetLongFlash</MethodPos7>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>286</LineBeg>
-      <LineEnd>315</LineEnd>
+      <LineBeg>282</LineBeg>
+      <LineEnd>311</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos8>GetLongFlash</MethodPos8>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>316</LineBeg>
-      <LineEnd>337</LineEnd>
+      <LineBeg>312</LineBeg>
+      <LineEnd>333</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos9>FLASH_LDD OnOperationComplete</MethodPos9>
       <MethodType>inherited_event</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>338</LineBeg>
-      <LineEnd>339</LineEnd>
+      <LineBeg>334</LineBeg>
+      <LineEnd>335</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos10>FLASH_LDD OnError</MethodPos10>
       <MethodType>inherited_event</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>340</LineBeg>
-      <LineEnd>341</LineEnd>
+      <LineBeg>336</LineBeg>
+      <LineEnd>337</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos11>Init</MethodPos11>
@@ -4204,8 +4204,8 @@
       <GenComponentVersion>01.106</GenComponentVersion>
       <GenDriverVersion>01.15</GenDriverVersion>
       <GenEventModule>Events</GenEventModule>
-      <HeaderAge>1226810529</HeaderAge>
-      <CodeAge>1226810529</CodeAge>
+      <HeaderAge>1227774124</HeaderAge>
+      <CodeAge>1227774124</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>20</GenNumMethods>
       <Init>true</Init>
@@ -4245,57 +4245,57 @@
         <MethodPos0>Init</MethodPos0>
         <MethodType>method</MethodType>
         <ModuleType>Header</ModuleType>
-        <LineBeg>150</LineBeg>
-        <LineEnd>174</LineEnd>
+        <LineBeg>160</LineBeg>
+        <LineEnd>184</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos1>Write</MethodPos1>
         <MethodType>method</MethodType>
         <ModuleType>Header</ModuleType>
-        <LineBeg>175</LineBeg>
-        <LineEnd>220</LineEnd>
+        <LineBeg>185</LineBeg>
+        <LineEnd>230</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos2>Read</MethodPos2>
         <MethodType>method</MethodType>
         <ModuleType>Header</ModuleType>
-        <LineBeg>221</LineBeg>
-        <LineEnd>256</LineEnd>
+        <LineBeg>231</LineBeg>
+        <LineEnd>266</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos3>Erase</MethodPos3>
         <MethodType>method</MethodType>
         <ModuleType>Header</ModuleType>
-        <LineBeg>257</LineBeg>
-        <LineEnd>310</LineEnd>
+        <LineBeg>267</LineBeg>
+        <LineEnd>320</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos4>GetOperationStatus</MethodPos4>
         <MethodType>method</MethodType>
         <ModuleType>Header</ModuleType>
-        <LineBeg>311</LineBeg>
-        <LineEnd>328</LineEnd>
+        <LineBeg>321</LineBeg>
+        <LineEnd>338</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos5>Main</MethodPos5>
         <MethodType>method</MethodType>
         <ModuleType>Header</ModuleType>
-        <LineBeg>329</LineBeg>
-        <LineEnd>351</LineEnd>
+        <LineBeg>339</LineBeg>
+        <LineEnd>361</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos6>GetError</MethodPos6>
         <MethodType>method</MethodType>
         <ModuleType>Header</ModuleType>
-        <LineBeg>352</LineBeg>
-        <LineEnd>371</LineEnd>
+        <LineBeg>362</LineBeg>
+        <LineEnd>381</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos7>GetDriverState</MethodPos7>
         <MethodType>method</MethodType>
         <ModuleType>Header</ModuleType>
-        <LineBeg>372</LineBeg>
-        <LineEnd>399</LineEnd>
+        <LineBeg>382</LineBeg>
+        <LineEnd>409</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos8>RangeCheck</MethodPos8>
@@ -4330,49 +4330,49 @@
         <MethodType>method</MethodType>
         <ModuleType>Code</ModuleType>
         <LineBeg>369</LineBeg>
-        <LineEnd>449</LineEnd>
+        <LineEnd>453</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos13>GetOperationStatus</MethodPos13>
         <MethodType>method</MethodType>
         <ModuleType>Code</ModuleType>
-        <LineBeg>450</LineBeg>
-        <LineEnd>470</LineEnd>
+        <LineBeg>454</LineBeg>
+        <LineEnd>474</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos14>Main</MethodPos14>
         <MethodType>method</MethodType>
         <ModuleType>Code</ModuleType>
-        <LineBeg>471</LineBeg>
-        <LineEnd>628</LineEnd>
+        <LineBeg>475</LineBeg>
+        <LineEnd>639</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos15>GetError</MethodPos15>
         <MethodType>method</MethodType>
         <ModuleType>Code</ModuleType>
-        <LineBeg>629</LineBeg>
-        <LineEnd>663</LineEnd>
+        <LineBeg>640</LineBeg>
+        <LineEnd>674</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos16>RangeCheck</MethodPos16>
         <MethodType>internal_method</MethodType>
         <ModuleType>Code</ModuleType>
-        <LineBeg>664</LineBeg>
-        <LineEnd>683</LineEnd>
+        <LineBeg>675</LineBeg>
+        <LineEnd>705</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos17>SafeRoutineCaller</MethodPos17>
         <MethodType>internal_method</MethodType>
         <ModuleType>Code</ModuleType>
-        <LineBeg>684</LineBeg>
-        <LineEnd>709</LineEnd>
+        <LineBeg>706</LineBeg>
+        <LineEnd>731</LineEnd>
       </MethodPos>
       <MethodPos>
         <MethodPos18>GetDriverState</MethodPos18>
         <MethodType>method</MethodType>
         <ModuleType>Code</ModuleType>
-        <LineBeg>710</LineBeg>
-        <LineEnd>746</LineEnd>
+        <LineBeg>732</LineBeg>
+        <LineEnd>768</LineEnd>
       </MethodPos>
       <GenExtraFilesCount>1</GenExtraFilesCount>
       <ExtraFile0>Documentation\doxygen\IntFlashLdd1_component.txt</ExtraFile0>

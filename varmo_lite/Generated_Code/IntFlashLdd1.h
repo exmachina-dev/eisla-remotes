@@ -7,7 +7,7 @@
 **     Version     : Component 01.106, Driver 01.15, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-08-25, 10:57, # CodeGen: 243
+**     Date/Time   : 2016-09-14, 11:05, # CodeGen: 305
 **     Abstract    :
 **          This embedded component implements an access to an on-chip flash memory.
 **          Using this component the flash memory could be written to, erased,
@@ -121,11 +121,21 @@ extern "C" {
 #define IntFlashLdd1_BLOCK0_ERASABLE_UNIT_SIZE 0x0800LU
 #define IntFlashLdd1_BLOCK0_PROT_UNIT_SIZE     0x2000LU
 
+#define IntFlashLdd1_BLOCK1_ADDRESS            0x10000000LU
+#define IntFlashLdd1_BLOCK1_SIZE               0x8000LU
+#define IntFlashLdd1_BLOCK1_ERASABLE_UNIT_SIZE 0x0400LU
+#define IntFlashLdd1_BLOCK1_PROT_UNIT_SIZE     0x1000LU
+
 /* Parameters of the flash memory blocks used by the component - CPU specific format */
 #define IntFlashLdd1_PFLASH_ADDRESS            0x00LU
 #define IntFlashLdd1_PFLASH_SIZE               0x00040000LU
 #define IntFlashLdd1_PFLASH_ERASABLE_UNIT_SIZE 0x0800LU
 #define IntFlashLdd1_PFLASH_PROT_UNIT_SIZE     0x2000LU
+
+#define IntFlashLdd1_DFLASH_ADDRESS            0x10000000LU
+#define IntFlashLdd1_DFLASH_SIZE               0x8000LU
+#define IntFlashLdd1_DFLASH_ERASABLE_UNIT_SIZE 0x0400LU
+#define IntFlashLdd1_DFLASH_PROT_UNIT_SIZE     0x1000LU
 #define IntFlashLdd1_ERASABLE_UNIT_SIZE        0x0800LU
 #define IntFlashLdd1_ERASABLE_UNIT_MASK        0x07FFLU
 #define IntFlashLdd1_WRITE_UNIT_SIZE           0x04LU

@@ -8,7 +8,7 @@
 **     Repository  : Kinetis
 **     Datasheet   : K20P144M72SF1RM Rev. 0, Nov 2011
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-09-02, 21:34, # CodeGen: 286
+**     Date/Time   : 2016-09-14, 11:05, # CodeGen: 305
 **     Abstract    :
 **
 **     Settings    :
@@ -90,23 +90,28 @@
 **                  TMS Pin signal                         : 
 **                nTRST                                    : Disabled
 **            Flash memory organization                    : 
-**              FlexNVM settings                           : Partition code: 0x0303
+**              FlexNVM settings                           : Partition code: 0xFFFF
 **                FlexNVM size                             : 32 KB
-**                DFlash size                              : 0 KB
-**                EEPROM size                              : 2048 bytes
-**                  EEPROM split factor                    : Subsystem A: 1/8 , Subsystem B: 7/8
-**                  EEPROM backup size                     : 32 KB
+**                DFlash size                              : 32 KB
+**                EEPROM size                              : 0 bytes
 **                  Start                                  : 0x10000000
-**                  Size                                   : 0x8000
+**                  Size                                   : 0x0
 **                  Start                                  : 0x14000000
-**                  Size                                   : 0x800
-**              Flash blocks                               : 1
+**                  Size                                   : 0x0
+**                  FlexRAM                                : Disabled
+**              Flash blocks                               : 2
 **                Flash block 0                            : PFlash
 **                  Address                                : 0x0
 **                  Size                                   : 262144
 **                  Write unit size                        : 4
 **                  Erase unit size                        : 2048
 **                  Protection unit size                   : 8192
+**                Flash block 1                            : DFlash
+**                  Address                                : 0x10000000
+**                  Size                                   : 32768
+**                  Write unit size                        : 4
+**                  Erase unit size                        : 1024
+**                  Protection unit size                   : 4096
 **            Flexible memory controller                   : Disabled
 **            Flash configuration field                    : Enabled
 **              Security settings                          : 
@@ -160,7 +165,7 @@
 **                    Protection region 30                 : Unprotected
 **                    Protection region 31                 : Unprotected
 **                D-Flash protection settings              : 
-**                  Protection region size                 : 1024
+**                  Protection region size                 : 4096
 **                  D-Flash protection                     : 0xFF
 **                  Protection regions                     : 
 **                    Protection region 0                  : Unprotected
@@ -172,7 +177,7 @@
 **                    Protection region 6                  : Unprotected
 **                    Protection region 7                  : Unprotected
 **                Eeprom protection settings               : 
-**                  Protection region size                 : 256
+**                  Protection region size                 : 0
 **                  Eeprom protection                      : 0xFF
 **                  Protection regions                     : 
 **                    Protection region 0                  : Unprotected

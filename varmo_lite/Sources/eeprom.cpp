@@ -99,7 +99,8 @@ void write_cue(uint8_t nb_cue, int mode){
 
 		addr = position_offset + nb_cue  * 17;
 		byte temp = 0x80;
-		IFsh1_SetByteFlash(addr, temp);
+		byte ERR;
+		ERR = IFsh1_SetByteFlash(addr, temp);
 		addr += 1;
 		if (FLAG_REC_SHORT_CUT == 1){
 			data.Tofloat = old_encoder * resolution;

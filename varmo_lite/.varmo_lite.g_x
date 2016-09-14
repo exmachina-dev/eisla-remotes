@@ -27,7 +27,7 @@
       <File Name="Generated_Code/Cpu.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622368" FileType="45637" CompNumb="37" />
       <File Name="Documentation/doxygen/BitIoLdd8_component.txt" FileDate="2016-08-31, 19:42:48" FileAge="1472665368306" FileType="45637" CompNumb="106" />
       <File Name="Generated_Code/WAIT1.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622641" FileType="45637" CompNumb="90" />
-      <File Name="Generated_Code/Cpu.c" FileDate="2016-09-02, 21:35:18" FileAge="1472844918111" FileType="45637" CompNumb="37" />
+      <File Name="Generated_Code/Cpu.c" FileDate="2016-09-14, 11:05:25" FileAge="1473843925848" FileType="45637" CompNumb="37" />
       <File Name="Documentation/varmo_lite.txt" FileDate="2016-09-06, 11:04:50" FileAge="1473152690440" FileType="3072" />
       <File Name="Generated_Code/WAIT1.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622637" FileType="45637" CompNumb="90" />
       <File Name="Static_Code/PDD/ADC_PDD.h" FileDate="2016-05-30, 15:08:14" FileAge="1464613694745" FileType="1048576" />
@@ -58,7 +58,7 @@
       <File Name="Generated_Code/LCD_EN.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622489" FileType="45637" CompNumb="93" />
       <File Name="Generated_Code/ExtIntLdd1.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622389" FileType="45637" CompNumb="46" />
       <File Name="Static_Code/PDD/LPTMR_PDD.h" FileDate="2016-05-30, 15:08:14" FileAge="1464613694792" FileType="1048576" />
-      <File Name="Generated_Code/IFsh1.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622449" FileType="45637" CompNumb="98" />
+      <File Name="Generated_Code/IFsh1.h" FileDate="2016-09-14, 11:05:25" FileAge="1473843925964" FileType="45637" CompNumb="98" />
       <File Name="Generated_Code/BitIoLdd7.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622341" FileType="45637" CompNumb="94" />
       <File Name="Generated_Code/IFsh1.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622445" FileType="45637" CompNumb="98" />
       <File Name="Generated_Code/BitIoLdd7.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622336" FileType="45637" CompNumb="94" />
@@ -81,9 +81,9 @@
       <File Name="Generated_Code/PE_Error.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622569" FileType="45637" />
       <File Name="Documentation/doxygen/pex.doxyfile" FileDate="2016-05-30, 15:08:14" FileAge="1464613694854" FileType="45637" CompNumb="37" />
       <File Name="Generated_Code/IntI2cLdd1.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622475" FileType="45637" CompNumb="58" />
-      <File Name="Generated_Code/IntFlashLdd1.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622464" FileType="45637" CompNumb="99" />
+      <File Name="Generated_Code/IntFlashLdd1.h" FileDate="2016-09-14, 11:05:25" FileAge="1473843925936" FileType="45637" CompNumb="99" />
       <File Name="Generated_Code/IntI2cLdd1.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622471" FileType="45637" CompNumb="58" />
-      <File Name="Generated_Code/IntFlashLdd1.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622459" FileType="45637" CompNumb="99" />
+      <File Name="Generated_Code/IntFlashLdd1.c" FileDate="2016-09-14, 11:05:25" FileAge="1473843925949" FileType="45637" CompNumb="99" />
       <File Name="Static_Code/PDD/MCM_PDD.h" FileDate="2016-05-30, 15:08:14" FileAge="1464613694792" FileType="1048576" />
       <File Name="Generated_Code/I2C0.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622440" FileType="45637" CompNumb="57" />
       <File Name="Static_Code/PDD/RTC_PDD.h" FileDate="2016-05-30, 15:08:14" FileAge="1464613694807" FileType="1048576" />
@@ -101,9 +101,9 @@
       <File Name="Static_Code/PDD/WDOG_PDD.h" FileDate="2016-05-30, 15:08:14" FileAge="1464613694838" FileType="1048576" />
       <File Name="Documentation/doxygen/ENCODER_component.txt" FileDate="2016-09-07, 15:35:20" FileAge="1473255320918" FileType="45637" CompNumb="41" />
       <File Name="Documentation/doxygen/ExtIntLdd4_component.txt" FileDate="2016-09-07, 15:35:21" FileAge="1473255321010" FileType="45637" CompNumb="69" />
-      <File Name="Project_Settings/Linker_Files/ProcessorExpert.ld" FileDate="2016-09-01, 15:12:18" FileAge="1472735538673" FileType="8" CompNumb="37" />
+      <File Name="Project_Settings/Linker_Files/ProcessorExpert.ld" FileDate="2016-09-14, 11:05:25" FileAge="1473843925986" FileType="8" CompNumb="37" />
       <File Name="Generated_Code/ASerialLdd1.c" FileDate="2016-09-06, 11:41:16" FileAge="1473154876586" FileType="45637" CompNumb="80" />
-      <File Name="Documentation/varmo_lite_Settings.xml" FileDate="2016-09-07, 16:05:18" FileAge="1473257118044" FileType="3072" />
+      <File Name="Documentation/varmo_lite_Settings.xml" FileDate="2016-09-14, 11:05:26" FileAge="1473843926321" FileType="3072" />
       <File Name="Generated_Code/ENCODER.h" FileDate="2016-09-07, 15:35:20" FileAge="1473255320871" FileType="45637" CompNumb="41" />
       <File Name="Documentation/doxygen/T_100ms_component.txt" FileDate="2016-07-08, 15:26:56" FileAge="1467984416603" FileType="45637" CompNumb="53" />
       <File Name="ProjectInfo.xml" FileDate="2016-08-31, 19:42:48" FileAge="1472665368709" FileType="45637" />
@@ -123,7 +123,7 @@
       <File Name="Generated_Code/LED_MOTOR_MOVE.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622511" FileType="45637" CompNumb="105" />
       <File Name="Generated_Code/T_100ms.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622618" FileType="45637" CompNumb="53" />
       <File Name="Generated_Code/LED_STATUS_2.h" FileDate="2016-08-31, 23:03:16" FileAge="1472677396961" FileType="45637" CompNumb="22" />
-      <File Name="Documentation/doxygen/varmo_lite_project.txt" FileDate="2016-08-31, 20:37:02" FileAge="1472668622235" FileType="45637" CompNumb="37" />
+      <File Name="Documentation/doxygen/varmo_lite_project.txt" FileDate="2016-09-14, 11:05:25" FileAge="1473843925973" FileType="45637" CompNumb="37" />
       <File Name="Generated_Code/LED_MOTOR_MOVE.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622506" FileType="45637" CompNumb="105" />
       <File Name="Generated_Code/LEVER_DIR1.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622549" FileType="45637" CompNumb="51" />
       <File Name="Generated_Code/T_100ms.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622613" FileType="45637" CompNumb="53" />
@@ -132,7 +132,7 @@
       <File Name="Generated_Code/PUSH_BUTTON_SEND.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622601" FileType="45637" CompNumb="68" />
       <File Name="Documentation/doxygen/ASerialLdd1_component.txt" FileDate="2016-09-06, 11:41:16" FileAge="1473154876675" FileType="45637" CompNumb="80" />
       <File Name="Documentation/doxygen/BitIoLdd1_component.txt" FileDate="2016-06-27, 18:11:22" FileAge="1467043882513" FileType="45637" CompNumb="8" />
-      <File Name="Documentation/varmo_lite_SIGNALS.txt" FileDate="2016-09-12, 22:07:16" FileAge="1473710836349" FileType="3072" />
+      <File Name="Documentation/varmo_lite_SIGNALS.txt" FileDate="2016-09-14, 11:05:26" FileAge="1473843926073" FileType="3072" />
       <File Name="Generated_Code/ExtIntLdd4.h" FileDate="2016-08-31, 20:37:02" FileAge="1472668622421" FileType="45637" CompNumb="69" />
       <File Name="Generated_Code/PUSH_BUTTON_SEND.c" FileDate="2016-08-31, 20:37:02" FileAge="1472668622596" FileType="45637" CompNumb="68" />
       <File Name="Documentation/doxygen/BitIoLdd4_component.txt" FileDate="2016-06-27, 16:46:17" FileAge="1467038777190" FileType="45637" CompNumb="25" />
@@ -176,5 +176,5 @@
       <File Name="Documentation/doxygen/BitIoLdd2_component.txt" FileDate="2016-06-27, 18:11:22" FileAge="1467043882528" FileType="45637" CompNumb="21" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>304</CodeGenReference>
+  <CodeGenReference>306</CodeGenReference>
 </CodeGenerationInfo>
