@@ -247,12 +247,12 @@ int main(void)
 		  FLAG_SEND = 0;
 	  }
 	  else if (FLAG_SEND == 1 && FLAG_MENU == 0 && FLAG_RESOLUTION == 0){
-		  if (menu_indicator != Velocity_selected && menu_indicator != Position_selected && menu_indicator != Torque_selected){
+		  if (menu_indicator != Velocity_selected && menu_indicator != Velocity_instant_selected && menu_indicator != Position_selected && menu_indicator != Torque_selected){
 		  send_fct(menu_indicator);
 		  refresh_fct(menu_indicator);
 		  }
 		  else if (!(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0)
-				  && (menu_indicator == Velocity_selected || menu_indicator == Position_selected || menu_indicator == Torque_selected)){
+				  && (menu_indicator == Velocity_selected || menu_indicator == Position_selected || menu_indicator == Torque_selected || menu_indicator == Velocity_instant_selected)){
 					  send_fct(menu_indicator);
 					  refresh_fct(menu_indicator);
 				  }
