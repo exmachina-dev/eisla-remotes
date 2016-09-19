@@ -561,7 +561,7 @@ void velocity_fct(){
 
 		print_int_at(vel.acceleration, 1, 1,0);
 		print_int_at(vel.deceleration, 1,1,8);
-		print_float_at(vel.velocity, 0,0,3,0);
+		print_float_at((float)vel.velocity, 0,0,3,0);
 		if (FLAG_REC_SHORT_CUT == 0){
 			vel.velocity_ref = convert(vel.velocity_ref,-9999, 9999);
 			encoder = abs(vel.velocity_ref);
@@ -604,7 +604,7 @@ void velocity_fct(){
 		}
 	}
 	else {
-		print_float_at(vel.velocity, 0,0,3,0);
+		print_float_at((float)vel.velocity, 0,0,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0 && FLAG_SENS == 0){
 				encoder = 0;
@@ -693,7 +693,7 @@ void velocity_instant_fct(){
 
 			print_int_at(vel.acceleration, 1, 1,0);
 			print_int_at(vel.deceleration, 1,1,8);
-			print_float_at(vel.velocity, 0,0,3,0);
+			print_float_at((float)vel.velocity, 0,0,3,0);
 
 			vel.velocity_ref = convert(vel.velocity_ref,-9999, 9999);
 			encoder = abs(vel.velocity_ref);
@@ -716,7 +716,7 @@ void velocity_instant_fct(){
 		}
 		else {
 			LCD_Write_At(' ', 3, 13);
-			print_float_at(vel.velocity, 0,0,3,0);
+			print_float_at((float)vel.velocity, 0,0,3,0);
 			float temp = convert(encoder, -9999, 9999);
 			//vel.velocity_ref = convert(encoder, -9999, 9999);
 			if ((FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 )|| (FLAG_SENS_1 == 0 && FLAG_SENS_2 == 1)){
@@ -809,7 +809,7 @@ void pos_position_fct(){
 		LCD_Write_Block((char*)"Vel", 0, 8);
 		print_float_at(pos.velocity_ref, 0, 0,1,8);
 		LCD_Write_Block((char*)"Pos Act", 2, 0);
-		print_float_at(pos.position, 1, 1,3,0);
+		print_float_at((float)pos.position, 1, 1,3,0);
 		LCD_Write_Block((char*)"Pos", 2, 8);
 		LCD_Write_At(vertical_bar,0,7);
 		LCD_Write_At(vertical_bar,1,7);
@@ -839,7 +839,7 @@ void pos_position_fct(){
 	}
 	else if (FLAG_RESOLUTION == 0){
 		print_float_at(pos.velocity,0, 0, 1,0);
-		print_float_at(pos.position, 1, 1,3,0);
+		print_float_at((float)pos.position, 1, 1,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0 && FLAG_SENS == 0){
 				encoder = 0;
@@ -1008,7 +1008,7 @@ void torque_fct(){
 		LCD_Write_Block((char*)"Tq F", 0, 8);
 		print_float_at(tor.torque_fall, 0, 0,1,8);
 		LCD_Write_Block((char*)"Tq Act", 2, 0);
-		print_float_at(tor.torque, 0, 0,3,0);
+		print_float_at((float)tor.torque, 0, 0,3,0);
 		LCD_Write_Block((char*)"Torque", 2, 8);
 
 		LCD_Write_At(vertical_bar,0,7);
@@ -1035,7 +1035,7 @@ void torque_fct(){
 		}
 	}
 	else {
-		print_float_at(tor.torque, 0, 0,3,0);
+		print_float_at((float)tor.torque, 0, 0,3,0);
 		if (FLAG_SENS_1 == 1 && FLAG_SENS_2 == 0 ){
 			if (encoder < 0 && FLAG_SENS_2 == 0 ){
 				encoder = 0;
