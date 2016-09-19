@@ -379,9 +379,9 @@ int main(void)
 		  size.toUint_8.toUint_8_1 = in_buffer[8];
 		  size.toUint_8.toUint_8_0 = in_buffer[9];
 		  size.toInt.int0 = (size.toUint_8.toUint_8_1 && 0xFF00) + size.toUint_8.toUint_8_0;
-		  if ( size.toInt.int0 == (cnt + 1)){
+		  if ( size.toInt.int0 == (temp + 1)){
 			  cnt = 0;
-			  for (int f =0; f<=temp; f++){
+			  for (int f =0; f<temp; f++){
 				  msg[f] = in_buffer[f];
 				  if (msg[f] == ':' || msg[f]== '\r'){
 					  nb_data += 1;
