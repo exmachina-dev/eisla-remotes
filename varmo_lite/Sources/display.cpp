@@ -1156,7 +1156,7 @@ void pos_play_cue_fct(void){
 		else{
 			int temp = (int)encoder;
 			if (temp < 1){
-				temp == 1;
+				temp = 1;
 			}
 			else if (temp > cue_saved_size){
 				temp = cue_saved_size;
@@ -1313,7 +1313,7 @@ void pos_mod_cue_fct(void){
 			else{
 				int temp = (int)encoder;
 				if (temp < 1){
-					temp == 1;
+					temp = 1;
 				}
 				else if (temp > cue_saved_size){
 					temp = cue_saved_size;
@@ -1399,7 +1399,7 @@ void pos_del_cue_fct(void){
 			else{
 				int temp = (int)encoder;
 				if (temp < 1){
-					temp == 1;
+					temp = 1;
 				}
 				else if (temp > cue_saved_size){
 					temp = cue_saved_size;
@@ -1487,7 +1487,7 @@ void vel_play_cue_fct(void){
 		}
 		else{
 			if (encoder < 1){
-				encoder == 1;
+				encoder = 1;
 			}
 			else if (encoder > cue_saved_size){
 				encoder = cue_saved_size;
@@ -1624,7 +1624,7 @@ void vel_mod_cue_fct(void){
 		}
 		else{
 			if (encoder < 1){
-				encoder == 1;
+				encoder = 1;
 			}
 			else if (encoder > cue_saved_size){
 				encoder = cue_saved_size;
@@ -1695,7 +1695,7 @@ void vel_del_cue_fct(void){
 		}
 		else{
 			if (encoder < 1){
-				encoder == 1;
+				encoder = 1;
 			}
 			else if (encoder > cue_saved_size){
 				encoder = cue_saved_size;
