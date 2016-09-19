@@ -74,9 +74,9 @@ int refresh(int);
 int select(int);
 int back(int);
 
-void select_setting(int);
-
 void refresh_fct(int);
+
+void select_setting(int);
 
 void controle_mode_display(int);
 

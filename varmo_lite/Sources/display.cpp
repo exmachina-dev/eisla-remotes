@@ -90,7 +90,7 @@ int vspfunc(char *format, ...)
 
 void print_float_at(float f, int res,bool absolute, int y, int x){
     int int_part = int(f);
-    float remainder = (f - (float)int_part);
+    float remainder_int = (f - (float)int_part);
 	if(absolute == 1){
 		f = fabs(f);
 		LCD_Write_At(' ', y, x);
@@ -112,7 +112,7 @@ void print_float_at(float f, int res,bool absolute, int y, int x){
 
 
     if (res == 2){
-    	int digits = (int) round(remainder * pow(10,res));
+    	int digits = (int) round(remainder_int * pow(10,res));
     	vspfunc((char*)"%4d.%02d", abs(int_part), digits);
     }
     else if(res == 1){
@@ -715,7 +715,7 @@ void velocity_instant_fct(){
 			}
 		}
 		else {
-			LCD_Write_At(' ', 3, 13);
+			LCD_Write_Block((char*)"   ", 3, 13);
 			print_float_at((float)vel.velocity, 0,0,3,0);
 			float temp = convert(encoder, -9999, 9999);
 			//vel.velocity_ref = convert(encoder, -9999, 9999);

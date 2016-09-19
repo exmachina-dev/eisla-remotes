@@ -4479,106 +4479,105 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x00003b30      0x16c ./Sources/display.o
                 0x00003b30                acceleration_fct
  .text.velocity_instant_fct
-                0x00003c9c      0x370 ./Sources/display.o
+                0x00003c9c      0x374 ./Sources/display.o
                 0x00003c9c                velocity_instant_fct
  .text.deceleration_fct
-                0x0000400c      0x16c ./Sources/display.o
-                0x0000400c                deceleration_fct
+                0x00004010      0x16c ./Sources/display.o
+                0x00004010                deceleration_fct
  .text.back_fct
-                0x00004178       0x30 ./Sources/display.o
-                0x00004178                back_fct
+                0x0000417c       0x30 ./Sources/display.o
+                0x0000417c                back_fct
  .text.pos_position_fct
-                0x000041a8      0x518 ./Sources/display.o
-                0x000041a8                pos_position_fct
+                0x000041ac      0x518 ./Sources/display.o
+                0x000041ac                pos_position_fct
  .text.pos_velocity_fct
-                0x000046c0      0x118 ./Sources/display.o
-                0x000046c0                pos_velocity_fct
+                0x000046c4      0x118 ./Sources/display.o
+                0x000046c4                pos_velocity_fct
  .text.pos_acceleration_fct
-                0x000047d8      0x16c ./Sources/display.o
-                0x000047d8                pos_acceleration_fct
+                0x000047dc      0x16c ./Sources/display.o
+                0x000047dc                pos_acceleration_fct
  .text.pos_deceleration_fct
-                0x00004944      0x16c ./Sources/display.o
-                0x00004944                pos_deceleration_fct
+                0x00004948      0x16c ./Sources/display.o
+                0x00004948                pos_deceleration_fct
  .text.pos_set_home_fct
-                0x00004ab0       0x8c ./Sources/display.o
-                0x00004ab0                pos_set_home_fct
+                0x00004ab4       0x8c ./Sources/display.o
+                0x00004ab4                pos_set_home_fct
  .text.torque_fct
-                0x00004b3c      0x370 ./Sources/display.o
-                0x00004b3c                torque_fct
+                0x00004b40      0x370 ./Sources/display.o
+                0x00004b40                torque_fct
  .text.torque_rise_fct
-                0x00004eac      0x16c ./Sources/display.o
-                0x00004eac                torque_rise_fct
+                0x00004eb0      0x16c ./Sources/display.o
+                0x00004eb0                torque_rise_fct
  .text.torque_fall_fct
-                0x00005018      0x168 ./Sources/display.o
-                0x00005018                torque_fall_fct
+                0x0000501c      0x168 ./Sources/display.o
+                0x0000501c                torque_fall_fct
  .text.pos_play_cue_fct
-                0x00005180      0x2bc ./Sources/display.o
-                0x00005180                pos_play_cue_fct
+                0x00005184      0x2bc ./Sources/display.o
+                0x00005184                pos_play_cue_fct
  .text.pos_rec_cue_fct
-                0x0000543c      0x278 ./Sources/display.o
-                0x0000543c                pos_rec_cue_fct
+                0x00005440      0x278 ./Sources/display.o
+                0x00005440                pos_rec_cue_fct
  .text.pos_mod_cue_fct
-                0x000056b4      0x2c0 ./Sources/display.o
-                0x000056b4                pos_mod_cue_fct
+                0x000056b8      0x2c0 ./Sources/display.o
+                0x000056b8                pos_mod_cue_fct
  .text.pos_del_cue_fct
-                0x00005974      0x2dc ./Sources/display.o
-                0x00005974                pos_del_cue_fct
+                0x00005978      0x2dc ./Sources/display.o
+                0x00005978                pos_del_cue_fct
  .text.vel_play_cue_fct
-                0x00005c50      0x2c0 ./Sources/display.o
-                0x00005c50                vel_play_cue_fct
+                0x00005c54      0x2c0 ./Sources/display.o
+                0x00005c54                vel_play_cue_fct
  .text.vel_rec_cue_fct
-                0x00005f10      0x210 ./Sources/display.o
-                0x00005f10                vel_rec_cue_fct
+                0x00005f14      0x210 ./Sources/display.o
+                0x00005f14                vel_rec_cue_fct
  .text.vel_mod_cue_fct
-                0x00006120      0x2c0 ./Sources/display.o
-                0x00006120                vel_mod_cue_fct
+                0x00006124      0x2c0 ./Sources/display.o
+                0x00006124                vel_mod_cue_fct
  .text.vel_del_cue_fct
-                0x000063e0      0x2d0 ./Sources/display.o
-                0x000063e0                vel_del_cue_fct
+                0x000063e4      0x2d0 ./Sources/display.o
+                0x000063e4                vel_del_cue_fct
  .text.select_baud_rate_fct
-                0x000066b0      0x120 ./Sources/display.o
-                0x000066b0                select_baud_rate_fct
+                0x000066b4      0x120 ./Sources/display.o
+                0x000066b4                select_baud_rate_fct
  .text.select_update_menu_fct
-                0x000067d0      0x120 ./Sources/display.o
-                0x000067d0                select_update_menu_fct
+                0x000067d4      0x120 ./Sources/display.o
+                0x000067d4                select_update_menu_fct
  .text.short_cut_position_menu
-                0x000068f0       0x68 ./Sources/display.o
-                0x000068f0                short_cut_position_menu
+                0x000068f4       0x68 ./Sources/display.o
+                0x000068f4                short_cut_position_menu
  .text.display_resolution
-                0x00006958       0x9c ./Sources/display.o
-                0x00006958                display_resolution
+                0x0000695c       0x9c ./Sources/display.o
+                0x0000695c                display_resolution
  .text.get_cursor_resolution_position
-                0x000069f4       0x4c ./Sources/display.o
-                0x000069f4                get_cursor_resolution_position
+                0x000069f8       0x4c ./Sources/display.o
+                0x000069f8                get_cursor_resolution_position
  .text.get_resolution
-                0x00006a40       0x50 ./Sources/display.o
-                0x00006a40                get_resolution
+                0x00006a44       0x50 ./Sources/display.o
+                0x00006a44                get_resolution
  .text._Z41__static_initialization_and_destruction_0ii
-                0x00006a90      0x8a4 ./Sources/display.o
+                0x00006a94      0x8a4 ./Sources/display.o
  .text._GLOBAL__sub_I_buffer
-                0x00007334       0x10 ./Sources/display.o
+                0x00007338       0x10 ./Sources/display.o
  .text.load_cue
-                0x00007344      0x10c ./Sources/eeprom.o
-                0x00007344                load_cue
+                0x00007348      0x10c ./Sources/eeprom.o
+                0x00007348                load_cue
  .text.write_cue
-                0x00007450      0x174 ./Sources/eeprom.o
-                0x00007450                write_cue
+                0x00007454      0x174 ./Sources/eeprom.o
+                0x00007454                write_cue
  .text.erase_cue
-                0x000075c4       0x58 ./Sources/eeprom.o
-                0x000075c4                erase_cue
+                0x000075c8       0x58 ./Sources/eeprom.o
+                0x000075c8                erase_cue
  .text.get_next_slot_free
-                0x0000761c       0xd0 ./Sources/eeprom.o
-                0x0000761c                get_next_slot_free
+                0x00007620       0xd0 ./Sources/eeprom.o
+                0x00007620                get_next_slot_free
  .text.get_slot_saved
-                0x000076ec      0x110 ./Sources/eeprom.o
-                0x000076ec                get_slot_saved
+                0x000076f0      0x110 ./Sources/eeprom.o
+                0x000076f0                get_slot_saved
  .text.get_cues_saved_values
-                0x000077fc       0x64 ./Sources/eeprom.o
-                0x000077fc                get_cues_saved_values
+                0x00007800       0x64 ./Sources/eeprom.o
+                0x00007800                get_cues_saved_values
  .text.get_cue_values
-                0x00007860       0xd4 ./Sources/eeprom.o
-                0x00007860                get_cue_values
- *fill*         0x00007934        0x4 
+                0x00007864       0xd4 ./Sources/eeprom.o
+                0x00007864                get_cue_values
  .text.main     0x00007938      0xb68 ./Sources/main.o
                 0x00007938                main
  .text.init_menu
@@ -7177,7 +7176,7 @@ OUTPUT(varmo_lite.elf elf32-littlearm)
  .debug_line    0x0000d520      0x7fd ./Generated_Code/Vectors.o
  .debug_line    0x0000dd1d      0x295 ./Generated_Code/WAIT1.o
 
-.debug_str      0x00000000    0x82e0b
+.debug_str      0x00000000    0x82e0f
  .debug_str     0x00000000    0x6c943 ./Sources/Events.o
                               0x6cbaa (size before relaxing)
  .debug_str     0x0006c943      0xae1 ./Sources/LCD.o
@@ -7186,87 +7185,87 @@ OUTPUT(varmo_lite.elf elf32-littlearm)
                               0x532f9 (size before relaxing)
  .debug_str     0x0006d47f       0x70 ./Sources/cue.o
                               0x5d445 (size before relaxing)
- .debug_str     0x0006d4ef      0x9e6 ./Sources/display.o
-                              0x5f77f (size before relaxing)
- .debug_str     0x0006ded5       0xc0 ./Sources/eeprom.o
+ .debug_str     0x0006d4ef      0x9ea ./Sources/display.o
+                              0x5f783 (size before relaxing)
+ .debug_str     0x0006ded9       0xc0 ./Sources/eeprom.o
                               0x598b1 (size before relaxing)
- .debug_str     0x0006df95       0x20 ./Sources/encoder_variable.o
+ .debug_str     0x0006df99       0x20 ./Sources/encoder_variable.o
                                0x2526 (size before relaxing)
- .debug_str     0x0006dfb5       0xa3 ./Sources/main.o
+ .debug_str     0x0006dfb9       0xa3 ./Sources/main.o
                               0x6cb49 (size before relaxing)
- .debug_str     0x0006e058       0xf5 ./Sources/menu.o
+ .debug_str     0x0006e05c       0xf5 ./Sources/menu.o
                                0x6293 (size before relaxing)
- .debug_str     0x0006e14d       0x46 ./Sources/parameters.o
+ .debug_str     0x0006e151       0x46 ./Sources/parameters.o
                                0x3389 (size before relaxing)
- .debug_str     0x0006e193      0x14f ./Sources/protocol.o
+ .debug_str     0x0006e197      0x14f ./Sources/protocol.o
                               0x566b0 (size before relaxing)
- .debug_str     0x0006e2e2      0x1ac ./Sources/send.o
+ .debug_str     0x0006e2e6      0x1ac ./Sources/send.o
                               0x55843 (size before relaxing)
- .debug_str     0x0006e48e      0x10b ./Project_Settings/Startup_Code/startup.o
+ .debug_str     0x0006e492      0x10b ./Project_Settings/Startup_Code/startup.o
                               0x4c40d (size before relaxing)
- .debug_str     0x0006e599      0x349 ./Generated_Code/AS1.o
+ .debug_str     0x0006e59d      0x349 ./Generated_Code/AS1.o
                               0x6904f (size before relaxing)
- .debug_str     0x0006e8e2     0xec34 ./Generated_Code/ASerialLdd1.o
+ .debug_str     0x0006e8e6     0xec34 ./Generated_Code/ASerialLdd1.o
                               0x60d42 (size before relaxing)
- .debug_str     0x0007d516       0xf3 ./Generated_Code/BitIoLdd1.o
+ .debug_str     0x0007d51a       0xf3 ./Generated_Code/BitIoLdd1.o
                               0x528b2 (size before relaxing)
- .debug_str     0x0007d609       0x7e ./Generated_Code/BitIoLdd2.o
+ .debug_str     0x0007d60d       0x7e ./Generated_Code/BitIoLdd2.o
                               0x5280e (size before relaxing)
- .debug_str     0x0007d687       0x7e ./Generated_Code/BitIoLdd3.o
+ .debug_str     0x0007d68b       0x7e ./Generated_Code/BitIoLdd3.o
                               0x5280e (size before relaxing)
- .debug_str     0x0007d705       0x7e ./Generated_Code/BitIoLdd4.o
+ .debug_str     0x0007d709       0x7e ./Generated_Code/BitIoLdd4.o
                               0x5280e (size before relaxing)
- .debug_str     0x0007d783       0x7e ./Generated_Code/BitIoLdd5.o
+ .debug_str     0x0007d787       0x7e ./Generated_Code/BitIoLdd5.o
                               0x5280e (size before relaxing)
- .debug_str     0x0007d801       0x7e ./Generated_Code/BitIoLdd6.o
+ .debug_str     0x0007d805       0x7e ./Generated_Code/BitIoLdd6.o
                               0x52810 (size before relaxing)
- .debug_str     0x0007d87f       0x7e ./Generated_Code/BitIoLdd7.o
+ .debug_str     0x0007d883       0x7e ./Generated_Code/BitIoLdd7.o
                               0x5280e (size before relaxing)
- .debug_str     0x0007d8fd       0xb1 ./Generated_Code/BitIoLdd8.o
+ .debug_str     0x0007d901       0xb1 ./Generated_Code/BitIoLdd8.o
                               0x528b2 (size before relaxing)
- .debug_str     0x0007d9ae      0x96b ./Generated_Code/Cpu.o
+ .debug_str     0x0007d9b2      0x96b ./Generated_Code/Cpu.o
                               0x697a3 (size before relaxing)
- .debug_str     0x0007e319      0x153 ./Generated_Code/ENCODER.o
+ .debug_str     0x0007e31d      0x153 ./Generated_Code/ENCODER.o
                               0x68f7e (size before relaxing)
- .debug_str     0x0007e46c       0x38 ./Generated_Code/ENCODER_PUSH.o
+ .debug_str     0x0007e470       0x38 ./Generated_Code/ENCODER_PUSH.o
                               0x68c9b (size before relaxing)
- .debug_str     0x0007e4a4       0x87 ./Generated_Code/ExtIntLdd1.o
+ .debug_str     0x0007e4a8       0x87 ./Generated_Code/ExtIntLdd1.o
                               0x55db7 (size before relaxing)
- .debug_str     0x0007e52b       0x87 ./Generated_Code/ExtIntLdd2.o
+ .debug_str     0x0007e52f       0x87 ./Generated_Code/ExtIntLdd2.o
                               0x55db1 (size before relaxing)
- .debug_str     0x0007e5b2       0x87 ./Generated_Code/ExtIntLdd3.o
+ .debug_str     0x0007e5b6       0x87 ./Generated_Code/ExtIntLdd3.o
                               0x55db1 (size before relaxing)
- .debug_str     0x0007e639       0x87 ./Generated_Code/ExtIntLdd4.o
+ .debug_str     0x0007e63d       0x87 ./Generated_Code/ExtIntLdd4.o
                               0x55dbd (size before relaxing)
- .debug_str     0x0007e6c0       0x87 ./Generated_Code/ExtIntLdd5.o
+ .debug_str     0x0007e6c4       0x87 ./Generated_Code/ExtIntLdd5.o
                               0x55dbb (size before relaxing)
- .debug_str     0x0007e747      0x1b7 ./Generated_Code/I2C0.o
+ .debug_str     0x0007e74b      0x1b7 ./Generated_Code/I2C0.o
                               0x68e9b (size before relaxing)
- .debug_str     0x0007e8fe      0x645 ./Generated_Code/IFsh1.o
+ .debug_str     0x0007e902      0x645 ./Generated_Code/IFsh1.o
                               0x59b2a (size before relaxing)
- .debug_str     0x0007ef43      0x56e ./Generated_Code/IntFlashLdd1.o
+ .debug_str     0x0007ef47      0x56e ./Generated_Code/IntFlashLdd1.o
                               0x59dca (size before relaxing)
- .debug_str     0x0007f4b1     0x33ac ./Generated_Code/IntI2cLdd1.o
+ .debug_str     0x0007f4b5     0x33ac ./Generated_Code/IntI2cLdd1.o
                               0x58b3b (size before relaxing)
- .debug_str     0x0008285d       0x36 ./Generated_Code/LEVER_DIR1.o
+ .debug_str     0x00082861       0x36 ./Generated_Code/LEVER_DIR1.o
                               0x68c99 (size before relaxing)
- .debug_str     0x00082893       0x36 ./Generated_Code/LEVER_DIR2.o
+ .debug_str     0x00082897       0x36 ./Generated_Code/LEVER_DIR2.o
                               0x68c99 (size before relaxing)
- .debug_str     0x000828c9      0x177 ./Generated_Code/PE_LDD.o
+ .debug_str     0x000828cd      0x177 ./Generated_Code/PE_LDD.o
                               0x68e20 (size before relaxing)
- .debug_str     0x00082a40       0x3b ./Generated_Code/PUSH_BUTTON_REC.o
+ .debug_str     0x00082a44       0x3b ./Generated_Code/PUSH_BUTTON_REC.o
                               0x68c9e (size before relaxing)
- .debug_str     0x00082a7b       0x3c ./Generated_Code/PUSH_BUTTON_SEND.o
+ .debug_str     0x00082a7f       0x3c ./Generated_Code/PUSH_BUTTON_SEND.o
                               0x68c9f (size before relaxing)
- .debug_str     0x00082ab7      0x189 ./Generated_Code/TU1.o
+ .debug_str     0x00082abb      0x189 ./Generated_Code/TU1.o
                               0x68fc8 (size before relaxing)
- .debug_str     0x00082c40       0xa5 ./Generated_Code/T_100ms.o
+ .debug_str     0x00082c44       0xa5 ./Generated_Code/T_100ms.o
                               0x68fe4 (size before relaxing)
- .debug_str     0x00082ce5       0x86 ./Generated_Code/T_500ms.o
+ .debug_str     0x00082ce9       0x86 ./Generated_Code/T_500ms.o
                               0x68f91 (size before relaxing)
- .debug_str     0x00082d6b       0x1c ./Generated_Code/Vectors.o
+ .debug_str     0x00082d6f       0x1c ./Generated_Code/Vectors.o
                               0x68cb8 (size before relaxing)
- .debug_str     0x00082d87       0x84 ./Generated_Code/WAIT1.o
+ .debug_str     0x00082d8b       0x84 ./Generated_Code/WAIT1.o
                               0x51cc3 (size before relaxing)
 
 .comment        0x00000000       0x70
