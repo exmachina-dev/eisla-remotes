@@ -154,8 +154,6 @@ int main(void)
   update_icon_drive_enable();
 
   for(;;){
-	  char msg[cnt];
-
 	  if (FLAG_ENCODER == 1){
 		  if (FLAG_RESOLUTION == 1){
 			  display_resolution();
@@ -376,11 +374,12 @@ int main(void)
 	  //Check message received
 	  binaryRepr size;
 	  if (FLAG_MSG_RCV == 1){
+		  char msg[cnt];
+		  int temp = cnt;
 		  size.toUint_8.toUint_8_1 = in_buffer[8];
 		  size.toUint_8.toUint_8_0 = in_buffer[9];
 		  size.toInt.int0 = (size.toUint_8.toUint_8_1 && 0xFF00) + size.toUint_8.toUint_8_0;
 		  if ( size.toInt.int0 == (cnt + 1)){
-			  int temp = cnt;
 			  cnt = 0;
 			  for (int f =0; f<=temp; f++){
 				  msg[f] = in_buffer[f];
