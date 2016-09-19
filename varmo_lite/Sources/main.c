@@ -373,9 +373,10 @@ int main(void)
 	  }
 	  //Check message received
 	  binaryRepr size;
+	  int temp = cnt;
+	  char msg[temp];
 	  if (FLAG_MSG_RCV == 1){
-		  char msg[cnt];
-		  int temp = cnt;
+
 		  size.toUint_8.toUint_8_1 = in_buffer[8];
 		  size.toUint_8.toUint_8_0 = in_buffer[9];
 		  size.toInt.int0 = (size.toUint_8.toUint_8_1 && 0xFF00) + size.toUint_8.toUint_8_0;
