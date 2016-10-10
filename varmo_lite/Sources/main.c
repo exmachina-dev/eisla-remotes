@@ -268,6 +268,7 @@ int main(void)
 		  if(FLAG_STOP == 1 && menu_indicator == Velocity_instant_selected){
 			  encoder = 0;
 			  vel.velocity_ref = 0;
+			  last_value_send = 0;
 		  }
 		  if(FLAG_STOP == 1){
 			  send_stop();
