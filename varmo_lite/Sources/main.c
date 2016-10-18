@@ -259,12 +259,13 @@ int main(void)
 	  else if (FLAG_SEND == 1){
 		  FLAG_SEND = 0;
 	  }
-
+/*
 	  if(FLAG_SENS == 1){
 		  update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
 	  }
-
-	  if (FLAG_MENU == 0 && FLAG_SENS == 1){
+*/
+	  if (FLAG_SENS == 1){
+	      if (FLAG_MENU == 0){
 		  if(FLAG_STOP == 1 && menu_indicator == Velocity_instant_selected){
 			  encoder = 0;
 			  vel.velocity_ref = 0;
@@ -275,6 +276,10 @@ int main(void)
 			  counter_send_stop = 0;
 		  }
 		  refresh_fct(menu_indicator);
+	      }
+
+	      update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
+
 		  FLAG_SENS = 0;
 	  }
 
