@@ -1609,7 +1609,7 @@ Discarded input sections
  .text          0x00000000        0x0 ./Generated_Code/BitIoLdd5.o
  .data          0x00000000        0x0 ./Generated_Code/BitIoLdd5.o
  .bss           0x00000000        0x0 ./Generated_Code/BitIoLdd5.o
- .text.BitIoLdd5_SetVal
+ .text.BitIoLdd5_ClrVal
                 0x00000000       0x1c ./Generated_Code/BitIoLdd5.o
  .debug_macro   0x00000000      0x84a ./Generated_Code/BitIoLdd5.o
  .debug_macro   0x00000000       0x16 ./Generated_Code/BitIoLdd5.o
@@ -4191,7 +4191,7 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x00000400                _cfm
                 0x00000410                . = ALIGN (0x4)
 
-.text           0x00000410    0x1071c
+.text           0x00000410    0x1072c
                 0x00000410                . = ALIGN (0x4)
  *(.text)
  .text          0x00000410       0x54 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
@@ -4810,9 +4810,9 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
  .text.BitIoLdd5_Init
                 0x0000b698       0x64 ./Generated_Code/BitIoLdd5.o
                 0x0000b698                BitIoLdd5_Init
- .text.BitIoLdd5_ClrVal
+ .text.BitIoLdd5_SetVal
                 0x0000b6fc       0x1c ./Generated_Code/BitIoLdd5.o
-                0x0000b6fc                BitIoLdd5_ClrVal
+                0x0000b6fc                BitIoLdd5_SetVal
  .text.BitIoLdd6_Init
                 0x0000b718       0x64 ./Generated_Code/BitIoLdd6.o
                 0x0000b718                BitIoLdd6_Init
@@ -5340,606 +5340,607 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x0000e2c8        0x8 ./Generated_Code/WAIT1.o
                 0x0000e2c8                WAIT1_Wait10Cycles
  .text.WAIT1_Wait100Cycles
-                0x0000e2d0       0x1c ./Generated_Code/WAIT1.o
+                0x0000e2d0       0x28 ./Generated_Code/WAIT1.o
                 0x0000e2d0                WAIT1_Wait100Cycles
  .text.WAIT1_WaitCycles
-                0x0000e2ec       0x34 ./Generated_Code/WAIT1.o
-                0x0000e2ec                WAIT1_WaitCycles
+                0x0000e2f8       0x34 ./Generated_Code/WAIT1.o
+                0x0000e2f8                WAIT1_WaitCycles
  .text.WAIT1_WaitLongCycles
-                0x0000e320       0x38 ./Generated_Code/WAIT1.o
-                0x0000e320                WAIT1_WaitLongCycles
+                0x0000e32c       0x38 ./Generated_Code/WAIT1.o
+                0x0000e32c                WAIT1_WaitLongCycles
  .text.WAIT1_Waitms
-                0x0000e358       0x2c ./Generated_Code/WAIT1.o
-                0x0000e358                WAIT1_Waitms
- .text.round    0x0000e384       0x9c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_round.o)
-                0x0000e384                round
- .text.pow      0x0000e420      0x2f8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-w_pow.o)
-                0x0000e420                pow
+                0x0000e364       0x2c ./Generated_Code/WAIT1.o
+                0x0000e364                WAIT1_Waitms
+ .text.round    0x0000e390       0x9c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_round.o)
+                0x0000e390                round
+ .text.pow      0x0000e42c      0x2f8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-w_pow.o)
+                0x0000e42c                pow
+ *fill*         0x0000e724        0x4 
  .text.__ieee754_pow
-                0x0000e718      0xa78 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
-                0x0000e718                __ieee754_pow
+                0x0000e728      0xa78 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
+                0x0000e728                __ieee754_pow
  .text.__ieee754_sqrt
-                0x0000f190      0x180 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_sqrt.o)
-                0x0000f190                __ieee754_sqrt
- .text.fabs     0x0000f310        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_fabs.o)
-                0x0000f310                fabs
- .text.finite   0x0000f318        0xc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_finite.o)
-                0x0000f318                finite
+                0x0000f1a0      0x180 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_sqrt.o)
+                0x0000f1a0                __ieee754_sqrt
+ .text.fabs     0x0000f320        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_fabs.o)
+                0x0000f320                fabs
+ .text.finite   0x0000f328        0xc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_finite.o)
+                0x0000f328                finite
  .text.__fpclassifyd
-                0x0000f324       0x50 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_fpclassify.o)
-                0x0000f324                __fpclassifyd
- .text.matherr  0x0000f374        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_matherr.o)
-                0x0000f374                matherr
- .text.nan      0x0000f378        0xc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_nan.o)
-                0x0000f378                nan
- .text.rint     0x0000f384      0x118 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_rint.o)
-                0x0000f384                rint
- *fill*         0x0000f49c        0x4 
- .text.scalbn   0x0000f4a0      0x118 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_scalbn.o)
-                0x0000f4a0                scalbn
+                0x0000f334       0x50 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_fpclassify.o)
+                0x0000f334                __fpclassifyd
+ .text.matherr  0x0000f384        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_matherr.o)
+                0x0000f384                matherr
+ .text.nan      0x0000f388        0xc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_nan.o)
+                0x0000f388                nan
+ .text.rint     0x0000f394      0x118 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_rint.o)
+                0x0000f394                rint
+ *fill*         0x0000f4ac        0x4 
+ .text.scalbn   0x0000f4b0      0x118 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_scalbn.o)
+                0x0000f4b0                scalbn
  .text.copysign
-                0x0000f5b8       0x14 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_copysign.o)
-                0x0000f5b8                copysign
- .text.abort    0x0000f5cc        0xe c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-abort.o)
-                0x0000f5cc                abort
- *fill*         0x0000f5da        0x2 
- .text.__errno  0x0000f5dc        0xc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-errno.o)
-                0x0000f5dc                __errno
- .text.exit     0x0000f5e8       0x28 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-exit.o)
-                0x0000f5e8                exit
+                0x0000f5c8       0x14 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_copysign.o)
+                0x0000f5c8                copysign
+ .text.abort    0x0000f5dc        0xe c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-abort.o)
+                0x0000f5dc                abort
+ *fill*         0x0000f5ea        0x2 
+ .text.__errno  0x0000f5ec        0xc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-errno.o)
+                0x0000f5ec                __errno
+ .text.exit     0x0000f5f8       0x28 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-exit.o)
+                0x0000f5f8                exit
  .text.__libc_init_array
-                0x0000f610       0x4c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-init.o)
-                0x0000f610                __libc_init_array
- .text.memcpy   0x0000f65c       0x12 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memcpy-stub.o)
-                0x0000f65c                memcpy
- .text.memset   0x0000f66e       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memset.o)
-                0x0000f66e                memset
+                0x0000f620       0x4c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-init.o)
+                0x0000f620                __libc_init_array
+ .text.memcpy   0x0000f66c       0x12 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memcpy-stub.o)
+                0x0000f66c                memcpy
+ .text.memset   0x0000f67e       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memset.o)
+                0x0000f67e                memset
  .text._raise_r
-                0x0000f67e       0x50 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-signal.o)
-                0x0000f67e                _raise_r
- *fill*         0x0000f6ce        0x2 
- .text.raise    0x0000f6d0       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-signal.o)
-                0x0000f6d0                raise
- .text._kill_r  0x0000f6e0       0x24 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-signalr.o)
-                0x0000f6e0                _kill_r
+                0x0000f68e       0x50 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-signal.o)
+                0x0000f68e                _raise_r
+ *fill*         0x0000f6de        0x2 
+ .text.raise    0x0000f6e0       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-signal.o)
+                0x0000f6e0                raise
+ .text._kill_r  0x0000f6f0       0x24 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-signalr.o)
+                0x0000f6f0                _kill_r
  .text._getpid_r
-                0x0000f704        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-signalr.o)
-                0x0000f704                _getpid_r
- .text.strlen   0x0000f708       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-strlen.o)
-                0x0000f708                strlen
+                0x0000f714        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-signalr.o)
+                0x0000f714                _getpid_r
+ .text.strlen   0x0000f718       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-strlen.o)
+                0x0000f718                strlen
  .text._vsprintf_r
-                0x0000f718       0x30 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vsprintf.o)
-                0x0000f718                _vsprintf_r
-                0x0000f718                _vsiprintf_r
+                0x0000f728       0x30 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vsprintf.o)
+                0x0000f728                _vsprintf_r
+                0x0000f728                _vsiprintf_r
  .text.vsprintf
-                0x0000f748       0x1c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vsprintf.o)
-                0x0000f748                vsiprintf
-                0x0000f748                vsprintf
+                0x0000f758       0x1c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vsprintf.o)
+                0x0000f758                vsiprintf
+                0x0000f758                vsprintf
  .text._malloc_r
-                0x0000f764       0xa8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-nano-mallocr.o)
-                0x0000f764                _malloc_r
- .text._sbrk_r  0x0000f80c       0x20 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-sbrkr.o)
-                0x0000f80c                _sbrk_r
+                0x0000f774       0xa8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-nano-mallocr.o)
+                0x0000f774                _malloc_r
+ .text._sbrk_r  0x0000f81c       0x20 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-sbrkr.o)
+                0x0000f81c                _sbrk_r
  .text.__ssputs_r
-                0x0000f82c       0xb8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-svfprintf.o)
-                0x0000f82c                __ssputs_r
+                0x0000f83c       0xb8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-svfprintf.o)
+                0x0000f83c                __ssputs_r
  .text._svfprintf_r
-                0x0000f8e4      0x1dc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-svfprintf.o)
-                0x0000f8e4                _svfiprintf_r
-                0x0000f8e4                _svfprintf_r
+                0x0000f8f4      0x1dc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-svfprintf.o)
+                0x0000f8f4                _svfiprintf_r
+                0x0000f8f4                _svfprintf_r
  .text._printf_common
-                0x0000fac0       0xe4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vfprintf_i.o)
-                0x0000fac0                _printf_common
+                0x0000fad0       0xe4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vfprintf_i.o)
+                0x0000fad0                _printf_common
  .text._printf_i
-                0x0000fba4      0x228 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vfprintf_i.o)
-                0x0000fba4                _printf_i
- .text.memchr   0x0000fdcc       0x1e c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memchr-stub.o)
-                0x0000fdcc                memchr
- .text.memmove  0x0000fdea       0x36 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memmove.o)
-                0x0000fdea                memmove
- .text._free_r  0x0000fe20       0x88 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-nano-freer.o)
-                0x0000fe20                _free_r
+                0x0000fbb4      0x228 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vfprintf_i.o)
+                0x0000fbb4                _printf_i
+ .text.memchr   0x0000fddc       0x1e c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memchr-stub.o)
+                0x0000fddc                memchr
+ .text.memmove  0x0000fdfa       0x36 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-memmove.o)
+                0x0000fdfa                memmove
+ .text._free_r  0x0000fe30       0x88 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-nano-freer.o)
+                0x0000fe30                _free_r
  .text._realloc_r
-                0x0000fea8       0x4c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-nano-reallocr.o)
-                0x0000fea8                _realloc_r
+                0x0000feb8       0x4c c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-nano-reallocr.o)
+                0x0000feb8                _realloc_r
  .text._malloc_usable_size_r
-                0x0000fef4       0x12 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-nano-msizer.o)
-                0x0000fef4                _malloc_usable_size_r
- *fill*         0x0000ff06        0x2 
- .text._getpid  0x0000ff08       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(getpid.o)
-                0x0000ff08                _getpid
- .text._kill    0x0000ff18       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(kill.o)
-                0x0000ff18                _kill
- .text._sbrk    0x0000ff28       0x34 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(sbrk.o)
-                0x0000ff28                _sbrk
- .text._exit    0x0000ff5c        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(_exit.o)
-                0x0000ff5c                _exit
+                0x0000ff04       0x12 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-nano-msizer.o)
+                0x0000ff04                _malloc_usable_size_r
+ *fill*         0x0000ff16        0x2 
+ .text._getpid  0x0000ff18       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(getpid.o)
+                0x0000ff18                _getpid
+ .text._kill    0x0000ff28       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(kill.o)
+                0x0000ff28                _kill
+ .text._sbrk    0x0000ff38       0x34 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(sbrk.o)
+                0x0000ff38                _sbrk
+ .text._exit    0x0000ff6c        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libnosys.a(_exit.o)
+                0x0000ff6c                _exit
  *(.rodata)
- .rodata        0x0000ff60      0x67c ./Sources/display.o
- .rodata        0x000105dc       0x18 ./Sources/menu.o
- .rodata        0x000105f4      0x230 ./Sources/protocol.o
- .rodata        0x00010824      0x230 ./Sources/send.o
+ .rodata        0x0000ff70      0x67c ./Sources/display.o
+ .rodata        0x000105ec       0x18 ./Sources/menu.o
+ .rodata        0x00010604      0x230 ./Sources/protocol.o
+ .rodata        0x00010834      0x230 ./Sources/send.o
  *(.rodata*)
  .rodata.ASerialLdd1_BaudAdjustValueSpeed0.6226
-                0x00010a54        0x4 ./Generated_Code/ASerialLdd1.o
+                0x00010a64        0x4 ./Generated_Code/ASerialLdd1.o
  .rodata.ASerialLdd1_BaudDivisorSpeed0.6227
-                0x00010a58        0x4 ./Generated_Code/ASerialLdd1.o
+                0x00010a68        0x4 ./Generated_Code/ASerialLdd1.o
  .rodata.SafeRoutine
-                0x00010a5c       0x30 ./Generated_Code/IntFlashLdd1.o
+                0x00010a6c       0x30 ./Generated_Code/IntFlashLdd1.o
  .rodata.str1.4
-                0x00010a8c        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-w_pow.o)
- .rodata.dp_h   0x00010a90       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
- .rodata.dp_l   0x00010aa0       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
- .rodata.bp     0x00010ab0       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
+                0x00010a9c        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-w_pow.o)
+ .rodata.dp_h   0x00010aa0       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
+ .rodata.dp_l   0x00010ab0       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
+ .rodata.bp     0x00010ac0       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
  .rodata.str1.4
-                0x00010ac0        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
- *fill*         0x00010ac4        0x4 
- .rodata.TWO52  0x00010ac8       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_rint.o)
+                0x00010ad0        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-e_pow.o)
+ *fill*         0x00010ad4        0x4 
+ .rodata.TWO52  0x00010ad8       0x10 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libm.a(lib_a-s_rint.o)
  .rodata.str1.1
-                0x00010ad8        0x2 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-impure.o)
- *fill*         0x00010ada        0x2 
+                0x00010ae8        0x2 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-impure.o)
+ *fill*         0x00010aea        0x2 
  .rodata._global_impure_ptr
-                0x00010adc        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-impure.o)
-                0x00010adc                _global_impure_ptr
+                0x00010aec        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-impure.o)
+                0x00010aec                _global_impure_ptr
  .rodata.str1.1
-                0x00010ae0       0x11 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-svfprintf.o)
+                0x00010af0       0x11 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-svfprintf.o)
  .rodata.str1.1
-                0x00010af1       0x22 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vfprintf_i.o)
+                0x00010b01       0x22 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m\libg_s.a(lib_a-vfprintf_i.o)
  *(.glue_7)
  .glue_7        0x00000000        0x0 linker stubs
  *(.glue_7t)
  .glue_7t       0x00000000        0x0 linker stubs
  *(.eh_frame)
- *fill*         0x00010b13        0x1 
- .eh_frame      0x00010b14        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
+ *fill*         0x00010b23        0x1 
+ .eh_frame      0x00010b24        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
  *(.init)
- .init          0x00010b14        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crti.o
-                0x00010b14                _init
- .init          0x00010b18        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtn.o
+ .init          0x00010b24        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crti.o
+                0x00010b24                _init
+ .init          0x00010b28        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtn.o
  *(.fini)
- .fini          0x00010b20        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crti.o
-                0x00010b20                _fini
- .fini          0x00010b24        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtn.o
-                0x00010b2c                . = ALIGN (0x4)
-                0x00010b2c                _etext = .
+ .fini          0x00010b30        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crti.o
+                0x00010b30                _fini
+ .fini          0x00010b34        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtn.o
+                0x00010b3c                . = ALIGN (0x4)
+                0x00010b3c                _etext = .
 
-.vfp11_veneer   0x00010b2c        0x0
+.vfp11_veneer   0x00010b3c        0x0
  .vfp11_veneer  0x00000000        0x0 linker stubs
 
-.v4_bx          0x00010b2c        0x0
+.v4_bx          0x00010b3c        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x00010b2c        0x0
+.iplt           0x00010b3c        0x0
  .iplt          0x00000000        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
 
-.ARM.extab      0x00010b2c      0x2d0
+.ARM.extab      0x00010b3c      0x2d0
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  .ARM.extab.text.LCD_command
-                0x00010b2c        0xc ./Sources/LCD.o
+                0x00010b3c        0xc ./Sources/LCD.o
  .ARM.extab.text.LCD_Set_Cursor
-                0x00010b38        0xc ./Sources/LCD.o
+                0x00010b48        0xc ./Sources/LCD.o
  .ARM.extab.text.LCD_Cursor_Blink_On_At
-                0x00010b44        0xc ./Sources/LCD.o
+                0x00010b54        0xc ./Sources/LCD.o
  .ARM.extab.text.LCD_Cursor_On_At
-                0x00010b50        0xc ./Sources/LCD.o
+                0x00010b60        0xc ./Sources/LCD.o
  .ARM.extab.text.LCD_Write
-                0x00010b5c        0xc ./Sources/LCD.o
+                0x00010b6c        0xc ./Sources/LCD.o
  .ARM.extab.text.load_custom_char
-                0x00010b68        0xc ./Sources/LCD.o
+                0x00010b78        0xc ./Sources/LCD.o
  .ARM.extab.text.LCD_Write_At
-                0x00010b74        0xc ./Sources/LCD.o
+                0x00010b84        0xc ./Sources/LCD.o
  .ARM.extab.text.LCD_Write_Block
-                0x00010b80        0xc ./Sources/LCD.o
+                0x00010b90        0xc ./Sources/LCD.o
  .ARM.extab.text.PCA9670_SendByte
-                0x00010b8c        0xc ./Sources/PCA9670.o
+                0x00010b9c        0xc ./Sources/PCA9670.o
  .ARM.extab.text.select_cue
-                0x00010b98        0xc ./Sources/cue.o
+                0x00010ba8        0xc ./Sources/cue.o
  .ARM.extab.text.print_float_at
-                0x00010ba4        0xc ./Sources/display.o
+                0x00010bb4        0xc ./Sources/display.o
  .ARM.extab.text.print_int_at
-                0x00010bb0        0xc ./Sources/display.o
+                0x00010bc0        0xc ./Sources/display.o
  .ARM.extab.text.print_cue_array
-                0x00010bbc        0xc ./Sources/display.o
+                0x00010bcc        0xc ./Sources/display.o
  .ARM.extab.text.print_all_cue
-                0x00010bc8        0xc ./Sources/display.o
+                0x00010bd8        0xc ./Sources/display.o
  .ARM.extab.text.load_char
-                0x00010bd4        0xc ./Sources/display.o
+                0x00010be4        0xc ./Sources/display.o
  .ARM.extab.text.menu_init
-                0x00010be0        0xc ./Sources/display.o
+                0x00010bf0        0xc ./Sources/display.o
  .ARM.extab.text.refresh
-                0x00010bec        0xc ./Sources/display.o
+                0x00010bfc        0xc ./Sources/display.o
  .ARM.extab.text.select
-                0x00010bf8        0xc ./Sources/display.o
+                0x00010c08        0xc ./Sources/display.o
  .ARM.extab.text.back
-                0x00010c04        0xc ./Sources/display.o
+                0x00010c14        0xc ./Sources/display.o
  .ARM.extab.text.controle_mode_display
-                0x00010c10        0xc ./Sources/display.o
+                0x00010c20        0xc ./Sources/display.o
  .ARM.extab.text.update_icon_dir
-                0x00010c1c        0xc ./Sources/display.o
+                0x00010c2c        0xc ./Sources/display.o
  .ARM.extab.text.select_setting
-                0x00010c28        0xc ./Sources/display.o
+                0x00010c38        0xc ./Sources/display.o
  .ARM.extab.text.refresh_fct
-                0x00010c34        0xc ./Sources/display.o
+                0x00010c44        0xc ./Sources/display.o
  .ARM.extab.text.velocity_instant_fct
-                0x00010c40        0xc ./Sources/display.o
+                0x00010c50        0xc ./Sources/display.o
  .ARM.extab.text.pos_position_fct
-                0x00010c4c        0xc ./Sources/display.o
+                0x00010c5c        0xc ./Sources/display.o
  .ARM.extab.text.pos_play_cue_fct
-                0x00010c58        0xc ./Sources/display.o
+                0x00010c68        0xc ./Sources/display.o
  .ARM.extab.text.pos_rec_cue_fct
-                0x00010c64        0xc ./Sources/display.o
+                0x00010c74        0xc ./Sources/display.o
  .ARM.extab.text.pos_mod_cue_fct
-                0x00010c70        0xc ./Sources/display.o
+                0x00010c80        0xc ./Sources/display.o
  .ARM.extab.text.pos_del_cue_fct
-                0x00010c7c        0xc ./Sources/display.o
+                0x00010c8c        0xc ./Sources/display.o
  .ARM.extab.text.vel_play_cue_fct
-                0x00010c88        0xc ./Sources/display.o
+                0x00010c98        0xc ./Sources/display.o
  .ARM.extab.text.vel_rec_cue_fct
-                0x00010c94        0xc ./Sources/display.o
+                0x00010ca4        0xc ./Sources/display.o
  .ARM.extab.text.vel_mod_cue_fct
-                0x00010ca0        0xc ./Sources/display.o
+                0x00010cb0        0xc ./Sources/display.o
  .ARM.extab.text.vel_del_cue_fct
-                0x00010cac        0xc ./Sources/display.o
+                0x00010cbc        0xc ./Sources/display.o
  .ARM.extab.text.load_cue
-                0x00010cb8        0xc ./Sources/eeprom.o
+                0x00010cc8        0xc ./Sources/eeprom.o
  .ARM.extab.text.write_cue
-                0x00010cc4        0xc ./Sources/eeprom.o
+                0x00010cd4        0xc ./Sources/eeprom.o
  .ARM.extab.text.erase_cue
-                0x00010cd0        0xc ./Sources/eeprom.o
+                0x00010ce0        0xc ./Sources/eeprom.o
  .ARM.extab.text.get_next_slot_free
-                0x00010cdc        0xc ./Sources/eeprom.o
+                0x00010cec        0xc ./Sources/eeprom.o
  .ARM.extab.text.get_slot_saved
-                0x00010ce8        0xc ./Sources/eeprom.o
+                0x00010cf8        0xc ./Sources/eeprom.o
  .ARM.extab.text.get_cues_saved_values
-                0x00010cf4        0xc ./Sources/eeprom.o
+                0x00010d04        0xc ./Sources/eeprom.o
  .ARM.extab.text.get_cue_values
-                0x00010d00        0xc ./Sources/eeprom.o
+                0x00010d10        0xc ./Sources/eeprom.o
  .ARM.extab.text.print_menu
-                0x00010d0c        0xc ./Sources/menu.o
+                0x00010d1c        0xc ./Sources/menu.o
  .ARM.extab.text.print_sub_menu
-                0x00010d18        0xc ./Sources/menu.o
+                0x00010d28        0xc ./Sources/menu.o
  .ARM.extab.text.print_sub_menu2
-                0x00010d24        0xc ./Sources/menu.o
+                0x00010d34        0xc ./Sources/menu.o
  .ARM.extab.text.menu_select
-                0x00010d30        0xc ./Sources/menu.o
+                0x00010d40        0xc ./Sources/menu.o
  .ARM.extab.text.menu_back
-                0x00010d3c        0xc ./Sources/menu.o
+                0x00010d4c        0xc ./Sources/menu.o
  .ARM.extab.text.refresh_menu
-                0x00010d48        0xc ./Sources/menu.o
+                0x00010d58        0xc ./Sources/menu.o
  .ARM.extab.text.serial_send_block
-                0x00010d54        0xc ./Sources/protocol.o
+                0x00010d64        0xc ./Sources/protocol.o
  .ARM.extab.text.serial_send_float
-                0x00010d60        0xc ./Sources/protocol.o
+                0x00010d70        0xc ./Sources/protocol.o
  .ARM.extab.text.serial_send_int
-                0x00010d6c        0xc ./Sources/protocol.o
+                0x00010d7c        0xc ./Sources/protocol.o
  .ARM.extab.text.serial_send_string
-                0x00010d78        0xc ./Sources/protocol.o
+                0x00010d88        0xc ./Sources/protocol.o
  .ARM.extab.text.serial_send_char
-                0x00010d84        0xc ./Sources/protocol.o
+                0x00010d94        0xc ./Sources/protocol.o
  .ARM.extab.text.msg_parse
-                0x00010d90        0xc ./Sources/protocol.o
+                0x00010da0        0xc ./Sources/protocol.o
  .ARM.extab.text.msg_processing
-                0x00010d9c        0xc ./Sources/protocol.o
+                0x00010dac        0xc ./Sources/protocol.o
  .ARM.extab.text.select_baud_rate
-                0x00010da8        0xc ./Sources/protocol.o
+                0x00010db8        0xc ./Sources/protocol.o
  .ARM.extab.text.Send_Control_Mode
-                0x00010db4        0xc ./Sources/send.o
+                0x00010dc4        0xc ./Sources/send.o
  .ARM.extab.text.send_fct
-                0x00010dc0        0xc ./Sources/send.o
+                0x00010dd0        0xc ./Sources/send.o
  .ARM.extab.text.get_update_value
-                0x00010dcc        0xc ./Sources/send.o
- .ARM.extab     0x00010dd8        0xc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m\libgcc.a(unwind-arm.o)
- .ARM.extab     0x00010de4       0x18 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m\libgcc.a(pr-support.o)
+                0x00010ddc        0xc ./Sources/send.o
+ .ARM.extab     0x00010de8        0xc c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m\libgcc.a(unwind-arm.o)
+ .ARM.extab     0x00010df4       0x18 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m\libgcc.a(pr-support.o)
 
-.ARM            0x00010dfc      0x318
-                0x00010dfc                __exidx_start = .
+.ARM            0x00010e0c      0x318
+                0x00010e0c                __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x00010dfc        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
+ .ARM.exidx     0x00010e0c        0x8 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7e-m/crt0.o
  .ARM.exidx.text.LCD_Init
-                0x00010ec4        0x8 ./Sources/LCD.o
- .ARM.exidx.text.LCD_command
-                0x00010ecc        0x8 ./Sources/LCD.o
- .ARM.exidx.text.LCD_Cursor_On
                 0x00010ed4        0x8 ./Sources/LCD.o
+ .ARM.exidx.text.LCD_command
+                0x00010edc        0x8 ./Sources/LCD.o
+ .ARM.exidx.text.LCD_Cursor_On
+                0x00010ee4        0x8 ./Sources/LCD.o
  .ARM.exidx.text.LCD_Cursor_Off
-                0x00010edc        0x0 ./Sources/LCD.o
+                0x00010eec        0x0 ./Sources/LCD.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.LCD_Cursor_Blink_On
-                0x00010edc        0x0 ./Sources/LCD.o
+                0x00010eec        0x0 ./Sources/LCD.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.LCD_Set_Cursor
-                0x00010edc        0x8 ./Sources/LCD.o
- .ARM.exidx.text.LCD_Cursor_Blink_On_At
-                0x00010ee4        0x8 ./Sources/LCD.o
- .ARM.exidx.text.LCD_Cursor_On_At
                 0x00010eec        0x8 ./Sources/LCD.o
- .ARM.exidx.text.LCD_Write
+ .ARM.exidx.text.LCD_Cursor_Blink_On_At
                 0x00010ef4        0x8 ./Sources/LCD.o
- .ARM.exidx.text.load_custom_char
+ .ARM.exidx.text.LCD_Cursor_On_At
                 0x00010efc        0x8 ./Sources/LCD.o
- .ARM.exidx.text.LCD_Write_At
+ .ARM.exidx.text.LCD_Write
                 0x00010f04        0x8 ./Sources/LCD.o
- .ARM.exidx.text.LCD_Write_Block
+ .ARM.exidx.text.load_custom_char
                 0x00010f0c        0x8 ./Sources/LCD.o
+ .ARM.exidx.text.LCD_Write_At
+                0x00010f14        0x8 ./Sources/LCD.o
+ .ARM.exidx.text.LCD_Write_Block
+                0x00010f1c        0x8 ./Sources/LCD.o
  .ARM.exidx.text.PCA9670_Init
-                0x00010f14        0x8 ./Sources/PCA9670.o
+                0x00010f24        0x8 ./Sources/PCA9670.o
  .ARM.exidx.text.PCA9670_SendByte
-                0x00010f1c        0x8 ./Sources/PCA9670.o
+                0x00010f2c        0x8 ./Sources/PCA9670.o
  .ARM.exidx.text.select_cue
-                0x00010f24        0x8 ./Sources/cue.o
+                0x00010f34        0x8 ./Sources/cue.o
  .ARM.exidx.text.vspfunc
-                0x00010f2c        0x8 ./Sources/display.o
- .ARM.exidx.text.print_float_at
-                0x00010f34        0x8 ./Sources/display.o
- .ARM.exidx.text.print_int_at
                 0x00010f3c        0x8 ./Sources/display.o
- .ARM.exidx.text.print_cue_array
+ .ARM.exidx.text.print_float_at
                 0x00010f44        0x8 ./Sources/display.o
- .ARM.exidx.text.print_all_cue
+ .ARM.exidx.text.print_int_at
                 0x00010f4c        0x8 ./Sources/display.o
- .ARM.exidx.text.load_char
+ .ARM.exidx.text.print_cue_array
                 0x00010f54        0x8 ./Sources/display.o
- .ARM.exidx.text.menu_init
+ .ARM.exidx.text.print_all_cue
                 0x00010f5c        0x8 ./Sources/display.o
- .ARM.exidx.text.refresh
+ .ARM.exidx.text.load_char
                 0x00010f64        0x8 ./Sources/display.o
- .ARM.exidx.text.select
+ .ARM.exidx.text.menu_init
                 0x00010f6c        0x8 ./Sources/display.o
- .ARM.exidx.text.back
+ .ARM.exidx.text.refresh
                 0x00010f74        0x8 ./Sources/display.o
- .ARM.exidx.text.controle_mode_display
+ .ARM.exidx.text.select
                 0x00010f7c        0x8 ./Sources/display.o
- .ARM.exidx.text.control_mode_fct
+ .ARM.exidx.text.back
                 0x00010f84        0x8 ./Sources/display.o
- .ARM.exidx.text.update_icon_dir
+ .ARM.exidx.text.controle_mode_display
                 0x00010f8c        0x8 ./Sources/display.o
- .ARM.exidx.text.update_icon_drive_enable
+ .ARM.exidx.text.control_mode_fct
                 0x00010f94        0x8 ./Sources/display.o
- .ARM.exidx.text.select_setting
+ .ARM.exidx.text.update_icon_dir
                 0x00010f9c        0x8 ./Sources/display.o
- .ARM.exidx.text.refresh_fct
+ .ARM.exidx.text.update_icon_drive_enable
                 0x00010fa4        0x8 ./Sources/display.o
- .ARM.exidx.text.velocity_fct
+ .ARM.exidx.text.select_setting
                 0x00010fac        0x8 ./Sources/display.o
- .ARM.exidx.text.acceleration_fct
-                0x00010fb4        0x0 ./Sources/display.o
-                                  0x8 (size before relaxing)
- .ARM.exidx.text.velocity_instant_fct
+ .ARM.exidx.text.refresh_fct
                 0x00010fb4        0x8 ./Sources/display.o
- .ARM.exidx.text.deceleration_fct
+ .ARM.exidx.text.velocity_fct
                 0x00010fbc        0x8 ./Sources/display.o
- .ARM.exidx.text.back_fct
+ .ARM.exidx.text.acceleration_fct
                 0x00010fc4        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
- .ARM.exidx.text.pos_position_fct
+ .ARM.exidx.text.velocity_instant_fct
                 0x00010fc4        0x8 ./Sources/display.o
- .ARM.exidx.text.pos_velocity_fct
+ .ARM.exidx.text.deceleration_fct
                 0x00010fcc        0x8 ./Sources/display.o
- .ARM.exidx.text.pos_acceleration_fct
+ .ARM.exidx.text.back_fct
                 0x00010fd4        0x0 ./Sources/display.o
+                                  0x8 (size before relaxing)
+ .ARM.exidx.text.pos_position_fct
+                0x00010fd4        0x8 ./Sources/display.o
+ .ARM.exidx.text.pos_velocity_fct
+                0x00010fdc        0x8 ./Sources/display.o
+ .ARM.exidx.text.pos_acceleration_fct
+                0x00010fe4        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.pos_deceleration_fct
-                0x00010fd4        0x0 ./Sources/display.o
+                0x00010fe4        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.pos_set_home_fct
-                0x00010fd4        0x0 ./Sources/display.o
+                0x00010fe4        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.torque_fct
-                0x00010fd4        0x0 ./Sources/display.o
+                0x00010fe4        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.torque_rise_fct
-                0x00010fd4        0x0 ./Sources/display.o
+                0x00010fe4        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.torque_fall_fct
-                0x00010fd4        0x0 ./Sources/display.o
+                0x00010fe4        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.pos_play_cue_fct
-                0x00010fd4        0x8 ./Sources/display.o
- .ARM.exidx.text.pos_rec_cue_fct
-                0x00010fdc        0x8 ./Sources/display.o
- .ARM.exidx.text.pos_mod_cue_fct
                 0x00010fe4        0x8 ./Sources/display.o
- .ARM.exidx.text.pos_del_cue_fct
+ .ARM.exidx.text.pos_rec_cue_fct
                 0x00010fec        0x8 ./Sources/display.o
- .ARM.exidx.text.vel_play_cue_fct
+ .ARM.exidx.text.pos_mod_cue_fct
                 0x00010ff4        0x8 ./Sources/display.o
- .ARM.exidx.text.vel_rec_cue_fct
+ .ARM.exidx.text.pos_del_cue_fct
                 0x00010ffc        0x8 ./Sources/display.o
- .ARM.exidx.text.vel_mod_cue_fct
+ .ARM.exidx.text.vel_play_cue_fct
                 0x00011004        0x8 ./Sources/display.o
- .ARM.exidx.text.vel_del_cue_fct
+ .ARM.exidx.text.vel_rec_cue_fct
                 0x0001100c        0x8 ./Sources/display.o
- .ARM.exidx.text.select_baud_rate_fct
+ .ARM.exidx.text.vel_mod_cue_fct
                 0x00011014        0x8 ./Sources/display.o
+ .ARM.exidx.text.vel_del_cue_fct
+                0x0001101c        0x8 ./Sources/display.o
+ .ARM.exidx.text.select_baud_rate_fct
+                0x00011024        0x8 ./Sources/display.o
  .ARM.exidx.text.select_update_menu_fct
-                0x0001101c        0x0 ./Sources/display.o
+                0x0001102c        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.short_cut_position_menu
-                0x0001101c        0x0 ./Sources/display.o
+                0x0001102c        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.display_resolution
-                0x0001101c        0x0 ./Sources/display.o
+                0x0001102c        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.get_cursor_resolution_position
-                0x0001101c        0x8 ./Sources/display.o
+                0x0001102c        0x8 ./Sources/display.o
  .ARM.exidx.text.get_resolution
-                0x00011024        0x0 ./Sources/display.o
+                0x00011034        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._Z41__static_initialization_and_destruction_0ii
-                0x00011024        0x0 ./Sources/display.o
+                0x00011034        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text._GLOBAL__sub_I_buffer
-                0x00011024        0x0 ./Sources/display.o
+                0x00011034        0x0 ./Sources/display.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.load_cue
-                0x00011024        0x8 ./Sources/eeprom.o
- .ARM.exidx.text.write_cue
-                0x0001102c        0x8 ./Sources/eeprom.o
- .ARM.exidx.text.erase_cue
                 0x00011034        0x8 ./Sources/eeprom.o
- .ARM.exidx.text.get_next_slot_free
+ .ARM.exidx.text.write_cue
                 0x0001103c        0x8 ./Sources/eeprom.o
- .ARM.exidx.text.get_slot_saved
+ .ARM.exidx.text.erase_cue
                 0x00011044        0x8 ./Sources/eeprom.o
- .ARM.exidx.text.get_cues_saved_values
+ .ARM.exidx.text.get_next_slot_free
                 0x0001104c        0x8 ./Sources/eeprom.o
+ .ARM.exidx.text.get_slot_saved
+                0x00011054        0x8 ./Sources/eeprom.o
+ .ARM.exidx.text.get_cues_saved_values
+                0x0001105c        0x8 ./Sources/eeprom.o
  .ARM.exidx.text.get_cue_values
-                0x00011054       0x10 ./Sources/eeprom.o
+                0x00011064       0x10 ./Sources/eeprom.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.init_menu
-                0x00011064        0x0 ./Sources/menu.o
+                0x00011074        0x0 ./Sources/menu.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.init_sub_menu
-                0x00011064        0x0 ./Sources/menu.o
+                0x00011074        0x0 ./Sources/menu.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.init_sub_menu2
-                0x00011064        0x0 ./Sources/menu.o
+                0x00011074        0x0 ./Sources/menu.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.init_menu_list
-                0x00011064        0x0 ./Sources/menu.o
+                0x00011074        0x0 ./Sources/menu.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.init_sub_menu_list
-                0x00011064        0x0 ./Sources/menu.o
+                0x00011074        0x0 ./Sources/menu.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.init_sub_menu2_list
-                0x00011064        0x0 ./Sources/menu.o
+                0x00011074        0x0 ./Sources/menu.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.print_menu
-                0x00011064        0x8 ./Sources/menu.o
- .ARM.exidx.text.print_sub_menu
-                0x0001106c        0x8 ./Sources/menu.o
- .ARM.exidx.text.print_sub_menu2
                 0x00011074        0x8 ./Sources/menu.o
- .ARM.exidx.text.menu_select
+ .ARM.exidx.text.print_sub_menu
                 0x0001107c        0x8 ./Sources/menu.o
- .ARM.exidx.text.menu_back
+ .ARM.exidx.text.print_sub_menu2
                 0x00011084        0x8 ./Sources/menu.o
- .ARM.exidx.text.refresh_menu
+ .ARM.exidx.text.menu_select
                 0x0001108c        0x8 ./Sources/menu.o
- .ARM.exidx.text.void_function
+ .ARM.exidx.text.menu_back
                 0x00011094        0x8 ./Sources/menu.o
+ .ARM.exidx.text.refresh_menu
+                0x0001109c        0x8 ./Sources/menu.o
+ .ARM.exidx.text.void_function
+                0x000110a4        0x8 ./Sources/menu.o
  .ARM.exidx.text.parameters_init
-                0x0001109c        0x0 ./Sources/parameters.o
+                0x000110ac        0x0 ./Sources/parameters.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.convert
-                0x0001109c        0x0 ./Sources/parameters.o
+                0x000110ac        0x0 ./Sources/parameters.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.serial_send_block
-                0x0001109c        0x8 ./Sources/protocol.o
- .ARM.exidx.text.serial_send_float
-                0x000110a4        0x8 ./Sources/protocol.o
- .ARM.exidx.text.serial_send_int
                 0x000110ac        0x8 ./Sources/protocol.o
- .ARM.exidx.text.serial_send_string
+ .ARM.exidx.text.serial_send_float
                 0x000110b4        0x8 ./Sources/protocol.o
- .ARM.exidx.text.serial_send_char
+ .ARM.exidx.text.serial_send_int
                 0x000110bc        0x8 ./Sources/protocol.o
- .ARM.exidx.text.serial_send_end
+ .ARM.exidx.text.serial_send_string
                 0x000110c4        0x8 ./Sources/protocol.o
- .ARM.exidx.text.msg_parse
+ .ARM.exidx.text.serial_send_char
                 0x000110cc        0x8 ./Sources/protocol.o
- .ARM.exidx.text.msg_processing
+ .ARM.exidx.text.serial_send_end
                 0x000110d4        0x8 ./Sources/protocol.o
- .ARM.exidx.text.select_baud_rate
+ .ARM.exidx.text.msg_parse
                 0x000110dc        0x8 ./Sources/protocol.o
+ .ARM.exidx.text.msg_processing
+                0x000110e4        0x8 ./Sources/protocol.o
+ .ARM.exidx.text.select_baud_rate
+                0x000110ec        0x8 ./Sources/protocol.o
  .ARM.exidx.text.Send_Control_Mode
-                0x000110e4        0x8 ./Sources/send.o
- .ARM.exidx.text.send_fct
-                0x000110ec        0x8 ./Sources/send.o
- .ARM.exidx.text.get_update_drive_en
                 0x000110f4        0x8 ./Sources/send.o
- .ARM.exidx.text.get_update_value
+ .ARM.exidx.text.send_fct
                 0x000110fc        0x8 ./Sources/send.o
- .ARM.exidx.text.send_stop
+ .ARM.exidx.text.get_update_drive_en
                 0x00011104        0x8 ./Sources/send.o
+ .ARM.exidx.text.get_update_value
+                0x0001110c        0x8 ./Sources/send.o
+ .ARM.exidx.text.send_stop
+                0x00011114        0x8 ./Sources/send.o
  .ARM.exidx.text.send_velocity_cue
-                0x0001110c        0x0 ./Sources/send.o
+                0x0001111c        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.send_position_cue
-                0x0001110c        0x0 ./Sources/send.o
+                0x0001111c        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.velocity_processing
-                0x0001110c        0x8 ./Sources/send.o
+                0x0001111c        0x8 ./Sources/send.o
  .ARM.exidx.text.velocity_ref_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.acceleration_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.deceleration_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.torque_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.torque_ref_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.torque_rise_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.torque_fall_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.position_ref_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.position_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.control_mode_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
  .ARM.exidx.text.drive_enable_processing
-                0x00011114        0x0 ./Sources/send.o
+                0x00011124        0x0 ./Sources/send.o
                                   0x8 (size before relaxing)
- .ARM.exidx     0x00010e04       0x88 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m\libgcc.a(unwind-arm.o)
+ .ARM.exidx     0x00010e14       0x88 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m\libgcc.a(unwind-arm.o)
                                  0xd8 (size before relaxing)
- .ARM.exidx     0x00010e8c       0x38 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m\libgcc.a(pr-support.o)
+ .ARM.exidx     0x00010e9c       0x38 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m\libgcc.a(pr-support.o)
                                  0x48 (size before relaxing)
-                0x00011114                __exidx_end = .
+                0x00011124                __exidx_end = .
 
-.rel.dyn        0x00011114        0x0
+.rel.dyn        0x00011124        0x0
  .rel.iplt      0x00000000        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
 
-.ctors          0x00011114        0x0
-                0x00011114                __CTOR_LIST__ = .
+.ctors          0x00011124        0x0
+                0x00011124                __CTOR_LIST__ = .
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *(.ctors)
-                0x00011114                __CTOR_END__ = .
+                0x00011124                __CTOR_END__ = .
 
-.dtors          0x00011114        0x0
-                0x00011114                __DTOR_LIST__ = .
+.dtors          0x00011124        0x0
+                0x00011124                __DTOR_LIST__ = .
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *(.dtors)
-                0x00011114                __DTOR_END__ = .
+                0x00011124                __DTOR_END__ = .
 
-.preinit_array  0x00011114        0x0
-                0x00011114                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x00011124        0x0
+                0x00011124                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
-                0x00011114                PROVIDE (__preinit_array_end, .)
+                0x00011124                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x00011114        0x8
-                0x00011114                PROVIDE (__init_array_start, .)
+.init_array     0x00011124        0x8
+                0x00011124                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array*)
- .init_array    0x00011114        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
- .init_array    0x00011118        0x4 ./Sources/display.o
-                0x0001111c                PROVIDE (__init_array_end, .)
+ .init_array    0x00011124        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
+ .init_array    0x00011128        0x4 ./Sources/display.o
+                0x0001112c                PROVIDE (__init_array_end, .)
 
-.fini_array     0x0001111c        0x4
-                0x0001111c                PROVIDE (__fini_array_start, .)
+.fini_array     0x0001112c        0x4
+                0x0001112c                PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0001111c        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
-                0x00011120                PROVIDE (__fini_array_end, .)
-                0x00011120                ___ROM_AT = .
+ .fini_array    0x0001112c        0x4 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
+                0x00011130                PROVIDE (__fini_array_end, .)
+                0x00011130                ___ROM_AT = .
 
-.data           0x1fff8000      0x100 load address 0x00011120
+.data           0x1fff8000      0x100 load address 0x00011130
                 0x1fff8000                . = ALIGN (0x4)
                 0x1fff8000                _sdata = .
  *(.data)
@@ -6036,25 +6037,25 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x1fff8100                . = ALIGN (0x4)
                 0x1fff8100                _edata = .
                 0x00000100                ___data_size = (_edata - _sdata)
-                0x00011220                ___m_data_20000000_ROMStart = (___ROM_AT + SIZEOF (.data))
+                0x00011230                ___m_data_20000000_ROMStart = (___ROM_AT + SIZEOF (.data))
 
-.jcr            0x1fff8100        0x0 load address 0x00011220
+.jcr            0x1fff8100        0x0 load address 0x00011230
  .jcr           0x1fff8100        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
 
-.igot.plt       0x1fff8100        0x0 load address 0x00011220
+.igot.plt       0x1fff8100        0x0 load address 0x00011230
  .igot.plt      0x00000000        0x0 c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/crtbegin.o
 
 .m_data_20000000
-                0x20000000        0x0 load address 0x00011220
+                0x20000000        0x0 load address 0x00011230
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                ___m_data_20000000_RAMStart = .
  *(.m_data_20000000)
                 0x20000000                ___m_data_20000000_RAMEnd = .
                 0x20000000                . = ALIGN (0x4)
                 0x00000000                ___m_data_20000000_ROMSize = (___m_data_20000000_RAMEnd - ___m_data_20000000_RAMStart)
-                0x00011220                ___m_cue_ROMStart = (___m_data_20000000_ROMStart + SIZEOF (.m_data_20000000))
+                0x00011230                ___m_cue_ROMStart = (___m_data_20000000_ROMStart + SIZEOF (.m_data_20000000))
 
-.m_cue          0x10000000        0x0 load address 0x00011220
+.m_cue          0x10000000        0x0 load address 0x00011230
                 0x10000000                . = ALIGN (0x4)
                 0x10000000                ___m_cue_RAMStart = .
  *(.m_cue)
@@ -6063,7 +6064,7 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x00000000                ___m_cue_ROMSize = (___m_cue_RAMEnd - ___m_cue_RAMStart)
                 0x10000000                . = ALIGN (0x4)
 
-.bss            0x1fff8100     0x187c load address 0x00011220
+.bss            0x1fff8100     0x187c load address 0x00011230
                 0x1fff8100                __START_BSS = .
                 0x1fff8100                PROVIDE (__bss_start__, __START_BSS)
  *(.bss)
@@ -6500,28 +6501,28 @@ LOAD c:/freescale/kds_v3/toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/armv7e-m/c
                 0x1fff997c                . = ALIGN (0x4)
                 0x1fff997c                __END_BSS = .
                 0x1fff997c                PROVIDE (__bss_end__, __END_BSS)
-                0x00011220                _romp_at = (((___ROM_AT + SIZEOF (.data)) + SIZEOF (.m_data_20000000)) + SIZEOF (.m_cue))
+                0x00011230                _romp_at = (((___ROM_AT + SIZEOF (.data)) + SIZEOF (.m_data_20000000)) + SIZEOF (.m_cue))
 
-.romp           0x1fff997c       0x30 load address 0x00011220
-                0x00011220                __S_romp = _romp_at
-                0x1fff997c        0x4 LONG 0x11120 ___ROM_AT
+.romp           0x1fff997c       0x30 load address 0x00011230
+                0x00011230                __S_romp = _romp_at
+                0x1fff997c        0x4 LONG 0x11130 ___ROM_AT
                 0x1fff9980        0x4 LONG 0x1fff8000 _sdata
                 0x1fff9984        0x4 LONG 0x100 ___data_size
-                0x1fff9988        0x4 LONG 0x11220 ___m_data_20000000_ROMStart
+                0x1fff9988        0x4 LONG 0x11230 ___m_data_20000000_ROMStart
                 0x1fff998c        0x4 LONG 0x20000000 ___m_data_20000000_RAMStart
                 0x1fff9990        0x4 LONG 0x0 ___m_data_20000000_ROMSize
-                0x1fff9994        0x4 LONG 0x11220 ___m_cue_ROMStart
+                0x1fff9994        0x4 LONG 0x11230 ___m_cue_ROMStart
                 0x1fff9998        0x4 LONG 0x10000000 ___m_cue_RAMStart
                 0x1fff999c        0x4 LONG 0x0 ___m_cue_ROMSize
                 0x1fff99a0        0x4 LONG 0x0
                 0x1fff99a4        0x4 LONG 0x0
                 0x1fff99a8        0x4 LONG 0x0
                 0x00040000                text_end = (ORIGIN (m_text) + 0x3fbf0)
-                0x00011250                data_init_end = ((___m_cue_ROMStart + SIZEOF (.m_cue)) + SIZEOF (.romp))
+                0x00011260                data_init_end = ((___m_cue_ROMStart + SIZEOF (.m_cue)) + SIZEOF (.romp))
                 0x00000001                ASSERT ((data_init_end <= text_end), region m_text overflowed with text and data)
 
 ._user_heap_stack
-                0x1fff99ac      0x400 load address 0x00011250
+                0x1fff99ac      0x400 load address 0x00011260
                 0x1fff99ac                . = ALIGN (0x4)
                 0x1fff99ac                PROVIDE (end, .)
                 0x1fff99ac                PROVIDE (_end, .)

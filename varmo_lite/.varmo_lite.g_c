@@ -65,9 +65,9 @@
       <GenExtraFileSrcDir27>lib\Kinetis\startup\</GenExtraFileSrcDir27>
       <GenExtraFileSrcDir23>Repositories\lib\doxygen\</GenExtraFileSrcDir23>
       <XtraAge24>1226810529</XtraAge24>
-      <XtraAge25>1227009129</XtraAge25>
+      <XtraAge25>1230082695</XtraAge25>
       <XtraAge27>1221099532</XtraAge27>
-      <XtraAge28>1227250984</XtraAge28>
+      <XtraAge28>1230082695</XtraAge28>
       <GenExtraFileType28>4</GenExtraFileType28>
       <GenExtraFileType27>5</GenExtraFileType27>
       <GenExtraFileType26>4</GenExtraFileType26>
@@ -511,7 +511,7 @@
     </GenFiles>
     <SignalListFile>Documentation\varmo_lite_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>175</ProjectModificationStamp>
+    <ProjectModificationStamp>177</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>false</Generated>
@@ -588,8 +588,8 @@
     <GenComponentVersion>01.001</GenComponentVersion>
     <GenDriverVersion>01.04</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1226810529</HeaderAge>
-    <CodeAge>1227774124</CodeAge>
+    <HeaderAge>1230082695</HeaderAge>
+    <CodeAge>1230082695</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetClockConfiguration>false</SetClockConfiguration>
@@ -1368,8 +1368,8 @@
     <GenComponentVersion>02.086</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1227249816</HeaderAge>
-    <CodeAge>1227249816</CodeAge>
+    <HeaderAge>1230205990</HeaderAge>
+    <CodeAge>1230205990</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>11</GenNumMethods>
     <GetDir>false</GetDir>
@@ -1423,8 +1423,8 @@
       <GenComponentVersion>01.033</GenComponentVersion>
       <GenDriverVersion>01.03</GenDriverVersion>
       <GenEventModule />
-      <HeaderAge>1227249816</HeaderAge>
-      <CodeAge>1227249816</CodeAge>
+      <HeaderAge>1230205990</HeaderAge>
+      <CodeAge>1230205990</CodeAge>
       <AsemblAge>-1</AsemblAge>
       <GenNumMethods>13</GenNumMethods>
       <Init>true</Init>
@@ -2785,8 +2785,8 @@
     <GenComponentVersion>01.005</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1226810529</HeaderAge>
-    <CodeAge>1226810529</CodeAge>
+    <HeaderAge>1230082695</HeaderAge>
+    <CodeAge>1230082695</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>0</GenNumMethods>
     <GenNumEvents>0</GenNumEvents>
@@ -2925,11 +2925,11 @@
   <ComponentID_78>
     <Generated>true</Generated>
     <GenCompName>CS1</GenCompName>
-    <GenComponentVersion>01.008</GenComponentVersion>
+    <GenComponentVersion>01.009</GenComponentVersion>
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1226810529</HeaderAge>
-    <CodeAge>1226810529</CodeAge>
+    <HeaderAge>1230199745</HeaderAge>
+    <CodeAge>1230199745</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>3</GenNumMethods>
     <CriticalVariable>true</CriticalVariable>
@@ -3708,7 +3708,7 @@
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
     <HeaderAge>1226810529</HeaderAge>
-    <CodeAge>1226810529</CodeAge>
+    <CodeAge>1230199745</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>8</GenNumMethods>
     <Wait10Cycles>true</Wait10Cycles>
@@ -3792,49 +3792,49 @@
       <MethodType>method</MethodType>
       <ModuleType>Code</ModuleType>
       <LineBeg>79</LineBeg>
-      <LineEnd>109</LineEnd>
+      <LineEnd>116</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos10>WaitCycles</MethodPos10>
       <MethodType>method</MethodType>
       <ModuleType>Code</ModuleType>
-      <LineBeg>110</LineBeg>
-      <LineEnd>134</LineEnd>
+      <LineBeg>117</LineBeg>
+      <LineEnd>141</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos11>WaitLongCycles</MethodPos11>
       <MethodType>method</MethodType>
       <ModuleType>Code</ModuleType>
-      <LineBeg>135</LineBeg>
-      <LineEnd>156</LineEnd>
+      <LineBeg>142</LineBeg>
+      <LineEnd>163</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos12>Waitms</MethodPos12>
       <MethodType>method</MethodType>
       <ModuleType>Code</ModuleType>
-      <LineBeg>157</LineBeg>
-      <LineEnd>181</LineEnd>
+      <LineBeg>164</LineBeg>
+      <LineEnd>188</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos13>Waitus</MethodPos13>
       <MethodType>method</MethodType>
       <ModuleType>Code</ModuleType>
-      <LineBeg>182</LineBeg>
-      <LineEnd>194</LineEnd>
+      <LineBeg>189</LineBeg>
+      <LineEnd>201</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos14>Waitns</MethodPos14>
       <MethodType>method</MethodType>
       <ModuleType>Code</ModuleType>
-      <LineBeg>195</LineBeg>
-      <LineEnd>206</LineEnd>
+      <LineBeg>202</LineBeg>
+      <LineEnd>213</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos15>WaitOSms</MethodPos15>
       <MethodType>method</MethodType>
       <ModuleType>Code</ModuleType>
-      <LineBeg>207</LineBeg>
-      <LineEnd>223</LineEnd>
+      <LineBeg>214</LineBeg>
+      <LineEnd>230</LineEnd>
     </MethodPos>
     <GenExtraFilesCount>0</GenExtraFilesCount>
   </ComponentID_90>
@@ -4602,8 +4602,8 @@
     <SrcFile7>Drivers\Kinetis\AsynchroSerial.drv=-1</SrcFile7>
     <SrcFile8>Drivers\Common\I2C_LDDInit.inc=-1</SrcFile8>
     <SrcFile9>Drivers\Common\IntFLASHGetByteFlash.inc=-1</SrcFile9>
-    <SrcFile10>Drivers\Common\KinetisSDKAbstract.Inc=1220508938</SrcFile10>
-    <SrcFile11>Drivers\sw\KinetisSDK.drv=1220508939</SrcFile11>
+    <SrcFile10>Drivers\Common\KinetisSDKAbstract.Inc=1230080379</SrcFile10>
+    <SrcFile11>Drivers\sw\KinetisSDK.drv=1230080380</SrcFile11>
     <SrcFile12>Drivers\Common\AsynchroSerialClearRxBuf.inc=-1</SrcFile12>
     <SrcFile13>Drivers\Common\BitIO_LDDAbstract.inc=-1</SrcFile13>
     <SrcFile14>Drivers\Common\FLASH_LDDGetDriverState.inc=-1</SrcFile14>
@@ -4632,7 +4632,7 @@
     <SrcFile37>Drivers\Common\GPIO_LDDAbstract.inc=-1</SrcFile37>
     <SrcFile38>Drivers\Common\GenReg8BitsInitInfo.prg=1183486427</SrcFile38>
     <SrcFile39>Drivers\Common\IntFLASHEnableEvent.inc=-1</SrcFile39>
-    <SrcFile40>Drivers\Common\WaitWaitLongCycles.Inc=1220508945</SrcFile40>
+    <SrcFile40>Drivers\Common\WaitWaitLongCycles.Inc=1230080388</SrcFile40>
     <SrcFile41>Drivers\Common\FLASH_LDDInit.inc=-1</SrcFile41>
     <SrcFile42>Drivers\Common\SetReg8_Rst.prg=1183486427</SrcFile42>
     <SrcFile43>Drivers\VAR\InitIntPriority.prg=1183486427</SrcFile43>
@@ -4644,7 +4644,7 @@
     <SrcFile49>Drivers\Common\OneBitIOClrVal.inc=-1</SrcFile49>
     <SrcFile50>Drivers\Kinetis\IsSupported_RTC0_PDD.prg=1183486082</SrcFile50>
     <SrcFile51>Drivers\Kinetis\GPIO_LDD.drv=-1</SrcFile51>
-    <SrcFile52>Drivers\Common\WaitWait100Cycles.Inc=1220508942</SrcFile52>
+    <SrcFile52>Drivers\Common\WaitWait100Cycles.Inc=1230080385</SrcFile52>
     <SrcFile53>Drivers\Kinetis\Init_AIPS1_KINETIS.prg=1183486058</SrcFile53>
     <SrcFile54>Drivers\Common\InitReg32.prg=1183486427</SrcFile54>
     <SrcFile55>Drivers\AsynchroSerial.src=-1</SrcFile55>
@@ -4692,11 +4692,11 @@
     <SrcFile97>Drivers\Common\AsynchroSerialOnError.inc=-1</SrcFile97>
     <SrcFile98>Drivers\Kinetis\IsSupported_PORT_PDD.prg=1183486100</SrcFile98>
     <SrcFile99>Drivers\Common\IO_MapAbstract.inc=1183486427</SrcFile99>
-    <SrcFile100>Drivers\Common\WaitWaitms.Inc=1220508946</SrcFile100>
+    <SrcFile100>Drivers\Common\WaitWaitms.Inc=1230080389</SrcFile100>
     <SrcFile101>Drivers\Common\AsynchroSerialSetBaudRateMode.inc=-1</SrcFile101>
     <SrcFile102>Drivers\Kinetis\IsSupported_TSI_PDD.prg=1183486085</SrcFile102>
     <SrcFile103>Drivers\Kinetis\IsSupported_MCM_PDD.prg=1183486059</SrcFile103>
-    <SrcFile104>Drivers\Common\CriticalSectionExitCritical.Inc=1220508936</SrcFile104>
+    <SrcFile104>Drivers\Common\CriticalSectionExitCritical.Inc=1230080376</SrcFile104>
     <SrcFile105>Drivers\Common\DataHeader.inc=1183486427</SrcFile105>
     <SrcFile106>Drivers\Kinetis\IsSupported_DRY_PDD.prg=1183486095</SrcFile106>
     <SrcFile107>Drivers\Kinetis\IsSupported_RNGA_PDD.prg=1183486099</SrcFile107>
@@ -4708,8 +4708,8 @@
     <SrcFile113>Drivers\Common\I2C_LDDMasterGetReceivedDataNum.inc=-1</SrcFile113>
     <SrcFile114>Drivers\Common\I2C_LDDCheckBus.inc=-1</SrcFile114>
     <SrcFile115>Drivers\Common\CommonInitialization_NotRst.prg=1183486427</SrcFile115>
-    <SrcFile116>Drivers\Common\WaitWaitCycles.Inc=1220508942</SrcFile116>
-    <SrcFile117>Drivers\Common\WaitWaitns.Inc=1220508944</SrcFile117>
+    <SrcFile116>Drivers\Common\WaitWaitCycles.Inc=1230080385</SrcFile116>
+    <SrcFile117>Drivers\Common\WaitWaitns.Inc=1230080388</SrcFile117>
     <SrcFile118>Drivers\Common\ExtInt_LDDAbstract.inc=-1</SrcFile118>
     <SrcFile119>Drivers\Kinetis\Kinetis.drv=1183486429</SrcFile119>
     <SrcFile120>Drivers\Common\GeneralInternal.inc=1183486427</SrcFile120>
@@ -4722,7 +4722,7 @@
     <SrcFile127>Drivers\Common\IntFLASHAbstract.inc=-1</SrcFile127>
     <SrcFile128>Drivers\Kinetis\BitIO_LDD.drv=-1</SrcFile128>
     <SrcFile129>Drivers\Common\Header.h=1183486427</SrcFile129>
-    <SrcFile130>Drivers\sw\CriticalSection.drv=1220508939</SrcFile130>
+    <SrcFile130>Drivers\sw\CriticalSection.drv=1230080380</SrcFile130>
     <SrcFile131>Drivers\Kinetis\IsSupported_PDB_PDD.prg=1183486100</SrcFile131>
     <SrcFile132>Drivers\Kinetis\Kinetis_InterruptVectorTable.prg=1183486428</SrcFile132>
     <SrcFile133>Drivers\Kinetis\IsSupported_FTFA_PDD.prg=1183486053</SrcFile133>
@@ -4758,13 +4758,13 @@
     <SrcFile163>Drivers\Common\InitReg_GetValue.prg=1183486427</SrcFile163>
     <SrcFile164>Drivers\Kinetis\IsSupported_DMA_PDD.prg=1183486093</SrcFile164>
     <SrcFile165>Drivers\Common\AsynchroSerialSendChar.inc=-1</SrcFile165>
-    <SrcFile166>Drivers\sw\Wait.drv=1220508945</SrcFile166>
-    <SrcFile167>Drivers\KinetisSDK.src=1220508936</SrcFile167>
+    <SrcFile166>Drivers\sw\Wait.drv=1230080389</SrcFile166>
+    <SrcFile167>Drivers\KinetisSDK.src=1230080376</SrcFile167>
     <SrcFile168>Drivers\Common\I2C_LDDMasterGetSentDataNum.inc=-1</SrcFile168>
     <SrcFile169>Drivers\Common\I2C_LDDAbstract.inc=-1</SrcFile169>
     <SrcFile170>Drivers\Common\DoxyGenComponentDoc.prg=1183486427</SrcFile170>
     <SrcFile171>Drivers\Kinetis\IsSupported_GPIO_PDD.prg=1183486056</SrcFile171>
-    <SrcFile172>Drivers\Wait.src=1220508942</SrcFile172>
+    <SrcFile172>Drivers\Wait.src=1230080385</SrcFile172>
     <SrcFile173>Drivers\Common\GeneralParametersNone.inc=1183486427</SrcFile173>
     <SrcFile174>Drivers\Common\ExternalInterruptGetVal.inc=-1</SrcFile174>
     <SrcFile175>Drivers\Common\I2C_LDDOnError.inc=-1</SrcFile175>
@@ -4782,23 +4782,23 @@
     <SrcFile187>Drivers\Common\GeneralParameters.inc=1183486427</SrcFile187>
     <SrcFile188>Drivers\Common\Serial_LDDInit.inc=1183486050</SrcFile188>
     <SrcFile189>Drivers\Common\AsynchroSerialOnRxChar.inc=-1</SrcFile189>
-    <SrcFile190>Drivers\Common\CriticalSectionEnterCritical.Inc=1220508937</SrcFile190>
+    <SrcFile190>Drivers\Common\CriticalSectionEnterCritical.Inc=1230080378</SrcFile190>
     <SrcFile191>Drivers\sw\RTOSAdaptor\Default_RTOSAdaptor.prg=1183482931</SrcFile191>
     <SrcFile192>Drivers\Kinetis\Serial_LDD.drv=1183486077</SrcFile192>
     <SrcFile193>Drivers\Common\AsynchroSerialOnFullRxBuf.inc=-1</SrcFile193>
     <SrcFile194>Drivers\Common\Serial_LDDSendBlock.inc=1183486050</SrcFile194>
     <SrcFile195>Drivers\Common\BitIO_LDDPutVal.inc=-1</SrcFile195>
-    <SrcFile196>Drivers\sw\CommonSupport.prg=1220508946</SrcFile196>
+    <SrcFile196>Drivers\sw\CommonSupport.prg=1230080389</SrcFile196>
     <SrcFile197>Drivers\Common\GeneralPublicGlobal.inc=1183486427</SrcFile197>
     <SrcFile198>Drivers\Common\ExternalInterruptAbstract.inc=-1</SrcFile198>
-    <SrcFile199>Drivers\Common\WaitAbstract.Inc=1220508945</SrcFile199>
+    <SrcFile199>Drivers\Common\WaitAbstract.Inc=1230080388</SrcFile199>
     <SrcFile200>Drivers\Common\GPIO_LDDOnPortEvent.inc=-1</SrcFile200>
     <SrcFile201>Drivers\Common\DataHeader.End=1183486427</SrcFile201>
     <SrcFile202>Drivers\ExtInt_LDD.src=-1</SrcFile202>
     <SrcFile203>Drivers\Kinetis\Kinetis_FlashConfig.prg=1183486434</SrcFile203>
     <SrcFile204>Drivers\Kinetis\Kinetis_MCG.prg=1183486436</SrcFile204>
     <SrcFile205>Drivers\Common\BitIO_LDDGetVal.inc=-1</SrcFile205>
-    <SrcFile206>Drivers\Common\WaitWait10Cycles.Inc=1220508944</SrcFile206>
+    <SrcFile206>Drivers\Common\WaitWait10Cycles.Inc=1230080388</SrcFile206>
     <SrcFile207>Drivers\Kinetis\IsSupported_LCD_PDD.prg=1183486054</SrcFile207>
     <SrcFile208>Drivers\BitIO.src=-1</SrcFile208>
     <SrcFile209>Drivers\Kinetis\Kinetis_EntryPointCode.prg=1183486434</SrcFile209>
@@ -4829,7 +4829,7 @@
     <SrcFile234>Drivers\Kinetis\IsSupported_DAC_PDD.prg=1183486085</SrcFile234>
     <SrcFile235>Drivers\VAR\InitPin.prg=1183486427</SrcFile235>
     <SrcFile236>Drivers\Common\HeaderGeneral.h=1183486427</SrcFile236>
-    <SrcFile237>Drivers\CriticalSection.src=1220508937</SrcFile237>
+    <SrcFile237>Drivers\CriticalSection.src=1230080377</SrcFile237>
     <SrcFile238>Drivers\Common\BitIO_LDDClrVal.inc=-1</SrcFile238>
     <SrcFile239>Drivers\Kinetis\Init_RCM_KINETIS.prg=1183486052</SrcFile239>
     <SrcFile240>Drivers\Common\AsynchroSerialRecvChar.inc=-1</SrcFile240>
@@ -4875,8 +4875,8 @@
     <SrcFile280>Drivers\Kinetis\IsSupported_PIT_PDD.prg=1183486057</SrcFile280>
     <SrcFile281>Drivers\Common\Utils\Misc.inc=1183486427</SrcFile281>
     <SrcFile282>Drivers\Common\ToolChain_Settings.prg=1183486427</SrcFile282>
-    <SrcFile283>Drivers\Common\CriticalSectionAbstract.Inc=1220508936</SrcFile283>
-    <SrcFile284>Drivers\Common\WaitWaitOSms.Inc=1220508944</SrcFile284>
+    <SrcFile283>Drivers\Common\CriticalSectionAbstract.Inc=1230080377</SrcFile283>
+    <SrcFile284>Drivers\Common\WaitWaitOSms.Inc=1230080388</SrcFile284>
     <SrcFile285>Drivers\Kinetis\IsSupported_FTFE_PDD.prg=1183486067</SrcFile285>
     <SrcFile286>Drivers\Kinetis\IsSupported_FMC_PDD.prg=1183486051</SrcFile286>
     <SrcFile287>Drivers\Common\PE_MisraRuleToDocumentation_Kinetis.prg=1183486427</SrcFile287>
@@ -4888,7 +4888,7 @@
     <SrcFile293>Drivers\GPIO_LDD.src=-1</SrcFile293>
     <SrcFile294>Drivers\Common\Serial_LDDOnBlockSent.inc=1183486050</SrcFile294>
     <SrcFile295>Drivers\Kinetis\IsSupported_I2S_PDD.prg=1183486068</SrcFile295>
-    <SrcFile296>Drivers\Common\WaitWaitus.Inc=1220508944</SrcFile296>
+    <SrcFile296>Drivers\Common\WaitWaitus.Inc=1230080388</SrcFile296>
     <SrcFile297>Drivers\Common\InitReg32Block.prg=1183486427</SrcFile297>
     <SrcFile298>Drivers\Kinetis\IsSupported_IRQ_PDD.prg=1183486082</SrcFile298>
     <SrcFile299>Drivers\Kinetis\I2C_LDD.drv=-1</SrcFile299>
@@ -4899,7 +4899,7 @@
     <SrcFile304>Drivers\Common\InternalI2CRecvBlock.inc=-1</SrcFile304>
     <SrcFile305>Drivers\Common\FLASH_LDDGetOperationStatus.inc=-1</SrcFile305>
     <SrcFile306>Drivers\Kinetis\IsSupported_SIM_PDD.prg=1183486066</SrcFile306>
-    <SrcFile307>Drivers\KSDK.prg=1220508935</SrcFile307>
+    <SrcFile307>Drivers\KSDK.prg=1230080376</SrcFile307>
     <SrcFile308>Drivers\Common\I2C_LDDMasterSendBlock.inc=-1</SrcFile308>
     <SrcFile309>Drivers\Kinetis\IsSupported_COP_PDD.prg=1183486071</SrcFile309>
     <SrcFile310>Drivers\Kinetis\IsSupported_NVIC_PDD.prg=1183486071</SrcFile310>
@@ -4915,7 +4915,7 @@
     <SrcFile320>Drivers\Common\FLASH_LDDWrite.inc=-1</SrcFile320>
     <SrcFile321>Drivers\Kinetis\IsSupported_OSC_PDD.prg=1183486053</SrcFile321>
     <SrcFile322>Drivers\Common\FLASH_LDDGetError.inc=-1</SrcFile322>
-    <SrcFile323>Drivers\Common\CriticalSectionCriticalVariable.Inc=1220508938</SrcFile323>
+    <SrcFile323>Drivers\Common\CriticalSectionCriticalVariable.Inc=1230080379</SrcFile323>
     <SrcFile324>Drivers\Common\OneBitIONegVal.inc=-1</SrcFile324>
     <SrcFile325>Drivers\Common\DeclareISR.prg=1183486427</SrcFile325>
     <SrcFile326>Drivers\Common\Serial_LDDOnBlockReceived.inc=1183486050</SrcFile326>

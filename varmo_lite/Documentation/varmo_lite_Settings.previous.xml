@@ -177,13 +177,13 @@ PE_DEBUGHALT();
         <Default_memory_for_interrupts v="INTERNAL FLASH" />
         <Default_memory_for_code v="INTERNAL FLASH" />
         <Default_memory_for_data v="INTERNAL RAM" />
-        <list name="ROM/RAM Areas" v="6">
+        <list name="ROM/RAM Areas" v="8">
           <group name="MemoryArea0">
             <boolgroup name="ROM/RAM Area" v="Enabled">
               <Name v="m_interrupts" />
               <Qualifier v="RX" />
               <Address v="0" />
-              <Size v="1022" />
+              <Size v="444" />
             </boolgroup>
           </group>
           <group name="MemoryArea1">
@@ -194,10 +194,16 @@ PE_DEBUGHALT();
               <Name v="m_text" />
               <Qualifier v="RX" />
               <Address v="1040" />
-              <Size v="257008" />
+              <Size v="261104" />
             </boolgroup>
           </group>
           <group name="MemoryArea3">
+            <boolgroup name="ROM/RAM Area" v="Disabled" />
+          </group>
+          <group name="MemoryArea4">
+            <boolgroup name="ROM/RAM Area" v="Disabled" />
+          </group>
+          <group name="MemoryArea5">
             <boolgroup name="ROM/RAM Area" v="Enabled">
               <Name v="m_data" />
               <Qualifier v="RW" />
@@ -205,7 +211,7 @@ PE_DEBUGHALT();
               <Size v="32768" />
             </boolgroup>
           </group>
-          <group name="MemoryArea4">
+          <group name="MemoryArea6">
             <boolgroup name="ROM/RAM Area" v="Enabled">
               <Name v="m_data_20000000" />
               <Qualifier v="RW" />
@@ -213,12 +219,12 @@ PE_DEBUGHALT();
               <Size v="32768" />
             </boolgroup>
           </group>
-          <group name="MemoryArea5">
+          <group name="MemoryArea7">
             <boolgroup name="ROM/RAM Area" v="Enabled">
               <Name v="m_cue" />
-              <Qualifier v="RWX" />
-              <Address v="258048" />
-              <Size v="4094" />
+              <Qualifier v="RW" />
+              <Address v="268435456" />
+              <Size v="32768" />
             </boolgroup>
           </group>
         </list>
@@ -584,7 +590,7 @@ PE_DEBUGHALT();
           <PutVal v="don&amp;apos;t generate code" />
           <ClrVal v="generate code" />
           <SetVal v="generate code" />
-          <NegVal v="don&amp;apos;t generate code" />
+          <NegVal v="generate code" />
           <ConnectPin v="don&amp;apos;t generate code" />
           <GetRawVal v="don&amp;apos;t generate code" />
         </Methods>
@@ -609,7 +615,7 @@ PE_DEBUGHALT();
       <PutVal v="don&amp;apos;t generate code" />
       <ClrVal v="generate code" />
       <SetVal v="generate code" />
-      <NegVal v="don&amp;apos;t generate code" />
+      <NegVal v="generate code" />
       <ConnectPin v="don&amp;apos;t generate code" />
       <GetRawVal v="don&amp;apos;t generate code" />
     </Methods>
@@ -1751,13 +1757,20 @@ PE_DEBUGHALT();
           <Component_name v="IntFlashLdd1" />
           <Device v="FTFL" />
           <group name="Flash memory organization">
-            <list name="Flash blocks" v="1">
+            <list name="Flash blocks" v="2">
               <group name="Flash block 0">
                 <Address v="0" />
                 <Size v="262144" />
                 <Write_unit_size v="4" />
                 <Erase_unit_size v="2048" />
                 <Protection_unit_size v="8192" />
+              </group>
+              <group name="Flash block 1">
+                <Address v="268435456" />
+                <Size v="32768" />
+                <Write_unit_size v="4" />
+                <Erase_unit_size v="1024" />
+                <Protection_unit_size v="4096" />
               </group>
             </list>
           </group>

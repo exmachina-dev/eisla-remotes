@@ -118,7 +118,7 @@ int main(void)
   LED_STATUS_1_ClrVal();
   LED_STATUS_2_ClrVal();
   LED_STATUS_3_ClrVal();
-  LED_STATUS_4_ClrVal();
+  LED_STATUS_4_SetVal();
 
 
   WAIT1_Waitms(15);
@@ -246,14 +246,14 @@ int main(void)
 	  }
 	  else if (FLAG_SEND == 1 && FLAG_MENU == 0 && FLAG_RESOLUTION == 0){
 		  if (menu_indicator != Velocity_selected && menu_indicator != Velocity_instant_selected && menu_indicator != Position_selected && menu_indicator != Torque_selected){
-		  send_fct(menu_indicator);
-		  refresh_fct(menu_indicator);
+		      refresh_fct(menu_indicator);
+		      send_fct(menu_indicator);
 		  }
 		  else if (!(FLAG_SENS_1 == 0 && FLAG_SENS_2 == 0)
 				  && (menu_indicator == Velocity_selected || menu_indicator == Position_selected || menu_indicator == Torque_selected || menu_indicator == Velocity_instant_selected)){
-					  send_fct(menu_indicator);
-					  refresh_fct(menu_indicator);
-				  }
+		      refresh_fct(menu_indicator);
+		      send_fct(menu_indicator);
+		  }
 		  FLAG_SEND = 0;
 	  }
 	  else if (FLAG_SEND == 1){
@@ -264,6 +264,7 @@ int main(void)
 		  update_icon_dir(FLAG_SENS_1, FLAG_SENS_2);
 	  }
 */
+
 	  if (FLAG_SENS == 1){
 	      if (FLAG_MENU == 0){
 		  if(FLAG_STOP == 1 && menu_indicator == Velocity_instant_selected){
