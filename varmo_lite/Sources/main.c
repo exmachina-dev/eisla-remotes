@@ -118,7 +118,7 @@ int main(void)
   LED_STATUS_1_ClrVal();
   LED_STATUS_2_ClrVal();
   LED_STATUS_3_ClrVal();
-  LED_STATUS_4_SetVal();
+  LED_STATUS_4_ClrVal();
 
 
   WAIT1_Waitms(15);
@@ -288,6 +288,7 @@ int main(void)
 		 FLAG_SEND_VEL = 0;
 		 counter_vel_inst = 0;
 		 if (vel.velocity_ref != last_value_send){
+		       refresh_fct(menu_indicator);
 			 send_fct(menu_indicator);
 			 last_value_send = vel.velocity_ref;
 		 }
