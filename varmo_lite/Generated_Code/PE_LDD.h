@@ -6,11 +6,7 @@
 **     Version     : Component 01.001, Driver 01.04, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-<<<<<<< HEAD
-**     Date/Time   : 2016-06-03, 16:19, # CodeGen: 61
-=======
-**     Date/Time   : 2016-06-03, 16:39, # CodeGen: 61
->>>>>>> BR
+**     Date/Time   : 2016-09-02, 21:34, # CodeGen: 286
 **     Abstract    :
 **
 **     Settings    :
@@ -79,19 +75,31 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
-#include "LEVER_DIR1.h"
-#include "ExtIntLdd2.h"
 #include "LEVER_DIR2.h"
+#include "ExtIntLdd2.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
 #include "I2C0.h"
 #include "IntI2cLdd1.h"
-#include "PUSH_BUTTON_SEND.h"
-#include "ExtIntLdd4.h"
 #include "PUSH_BUTTON_REC.h"
 #include "ExtIntLdd5.h"
-#include "ESW3.h"
+#include "KSDK1.h"
+#include "PUSH_BUTTON_SEND.h"
+#include "ExtIntLdd4.h"
+#include "CS1.h"
+#include "AS1.h"
 #include "ASerialLdd1.h"
+#include "LCD_CTR.h"
+#include "BitIoLdd6.h"
+#include "LCD_EN.h"
+#include "BitIoLdd7.h"
+#include "WAIT1.h"
+#include "TU1.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
+#include "LED_MOTOR_MOVE.h"
+#include "BitIoLdd8.h"
 
 
 /*

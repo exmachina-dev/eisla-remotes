@@ -27,56 +27,24 @@ Module "T_500ms"   (component TimerUnit_LDD)
                 second call of Init the <Deinit> must be called first.
 
 Module "LED_STATUS_1" (component BitIO)
-   - LED_STATUS_1_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
-                and returned. If the direction is [output] then the last written value is returned (see <Safe mode> property 
-                for limitations). This method cannot be disabled if direction is [input].
-   - LED_STATUS_1_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a 
-                memory or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LED_STATUS_1_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_1_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
-   - LED_STATUS_1_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
-                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_2" (component BitIO)
-   - LED_STATUS_2_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
-                and returned. If the direction is [output] then the last written value is returned (see <Safe mode> property 
-                for limitations). This method cannot be disabled if direction is [input].
-   - LED_STATUS_2_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a 
-                memory or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LED_STATUS_2_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_2_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
-   - LED_STATUS_2_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
-                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_3" (component BitIO)
-   - LED_STATUS_3_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
-                and returned. If the direction is [output] then the last written value is returned (see <Safe mode> property 
-                for limitations). This method cannot be disabled if direction is [input].
-   - LED_STATUS_3_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a 
-                memory or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LED_STATUS_3_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_3_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
                 if the direction = _[output]_ or _[input/output]_.
 
 Module "LED_STATUS_4" (component BitIO)
-   - LED_STATUS_4_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
-                and returned. If the direction is [output] then the last written value is returned (see <Safe mode> property 
-                for limitations). This method cannot be disabled if direction is [input].
-   - LED_STATUS_4_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a 
-                memory or a register and this value will be written to the pin after switching to the output mode (using 
-                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
-                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
    - LED_STATUS_4_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
                 available only if the direction = _[output]_ or _[input/output]_.
    - LED_STATUS_4_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only 
@@ -85,8 +53,6 @@ Module "LED_STATUS_4" (component BitIO)
 Module "ENCODER"   (component GPIO_LDD)
    - ENCODER_Init -This method initializes the associated peripheral(s) and the component internal variables. The method is 
                 called automatically as a part of the application initialization code.
-   - ENCODER_GetEventMask -This method returns current events mask of the port.    Note: Event that are not generated (See the 
-                "Events" tab in the Component inspector) are not handled by this method.   Pair method to SetEventMask().
    - ENCODER_GetPortEventStatus -Returns a set of asserted flags. The flags are accumulated in the set. After calling this 
                 method the set is returned and cleared.   Note: Some type of "Port" device requires enabling "Interrupt 
                 service/event" property for a pin edge detect function.
@@ -99,11 +65,11 @@ Module "ENCODER"   (component GPIO_LDD)
 Module "ENCODER_PUSH" (component ExtInt)
    - ENCODER_PUSH_GetVal -Returns the actual value of the input pin of the component.
 
-Module "LEVER_DIR1" (component ExtInt)
-   - LEVER_DIR1_GetVal -Returns the actual value of the input pin of the component.
-
 Module "LEVER_DIR2" (component ExtInt)
    - LEVER_DIR2_GetVal -Returns the actual value of the input pin of the component.
+
+Module "LEVER_DIR1" (component ExtInt)
+   - LEVER_DIR1_GetVal -Returns the actual value of the input pin of the component.
 
 Module "T_100ms"   (component TimerUnit_LDD)
    - T_100ms_Init -Initializes the device. Allocates memory for the device data structure, allocates interrupt vectors and sets 
@@ -154,9 +120,6 @@ Module "I2C0"      (component InternalI2C)
                 of transmission must be tested by means of events (OnReceiveData, OnError or OnArbitLost). In case of 
                 successful transmission, received data is ready after OnReceiveData event is called.   When working as a SLAVE, 
                 this method reads a block of characters from the input slave buffer.
-   - I2C0_SendStop -If the "Automatic stop condition" property value is 'no', this method sends a valid stop condition to the 
-                serial data line of the I2C bus to terminate the communication on the bus after using send methods. This method 
-                is enabled only if "Automatic stop condition" property is set to 'no'.
    - I2C0_GetCharsInTxBuf -Returns number of characters in the output buffer. In SLAVE mode returns the number of characters in 
                 the internal slave output buffer. In MASTER mode returns number of characters to be sent from the user buffer 
                 (passed by SendBlock method).  This method is not supported in polling mode.
@@ -168,11 +131,115 @@ Module "I2C0"      (component InternalI2C)
                 not available for the SLAVE mode.
    - I2C0_GetMode -This method returns the actual operating mode of this component.
 
+Module "PUSH_BUTTON_REC" (component ExtInt)
+   - PUSH_BUTTON_REC_GetVal -Returns the actual value of the input pin of the component.
+
+Module "KSDK1"     (component KinetisSDK)
+
 Module "PUSH_BUTTON_SEND" (component ExtInt)
    - PUSH_BUTTON_SEND_GetVal -Returns the actual value of the input pin of the component.
 
-Module "PUSH_BUTTON_REC" (component ExtInt)
-   - PUSH_BUTTON_REC_GetVal -Returns the actual value of the input pin of the component.
+Module "CS1"       (component CriticalSection)
+   - CS1_CriticalVariable -Defines a variable if necessary. This is a macro.
+   - CS1_EnterCritical -Enters a critical section
+   - CS1_ExitCritical -Exits a critical section
+
+Module "AS1"       (component AsynchroSerial)
+   - AS1_RecvChar -If any data is received, this method returns one character, otherwise it returns an error code (it does not 
+                wait for data). This method is enabled only if the receiver property is enabled.  [Note:] Because the preferred 
+                method to handle error and break exception in the interrupt mode is to use events <OnError> and <OnBreak> the 
+                return value ERR_RXEMPTY has higher priority than other error codes. As a consequence the information about an 
+                exception in interrupt mode is returned only if there is a valid character ready to be read.
+   - AS1_SendChar -Sends one character to the channel. If the component is temporarily disabled (Disable method) SendChar 
+                method only stores data into an output buffer. In case of a zero output buffer size, only one character can be 
+                stored. Enabling the component (Enable method) starts the transmission of the stored data. This method is 
+                available only if the transmitter property is enabled.
+   - AS1_RecvBlock -If any data is received, this method returns the block of the data and its length (and incidental error), 
+                otherwise it returns an error code (it does not wait for data).  This method is available only if non-zero 
+                length of the input buffer is defined and the receiver property is enabled.  If less than requested number of 
+                characters is received only the available data is copied from the receive buffer to the user specified 
+                destination. The value ERR_EXEMPTY is returned and the value of variable pointed by the Rcv parameter is set to 
+                the number of received characters.
+   - AS1_SendBlock -Sends a block of characters to the channel.  This method is available only if non-zero length of the output 
+                buffer is defined and the transmitter property is enabled.
+   - AS1_ClearRxBuf -Clears the receive buffer.  This method is available only if non-zero length of the input buffer is 
+                defined and the receiver property is enabled.
+   - AS1_ClearTxBuf -Clears the transmit buffer.  This method is available only if non-zero length of the output buffer is 
+                defined and the receiver property is enabled.
+   - AS1_GetCharsInRxBuf -Returns the number of characters in the input buffer. This method is available only if the receiver 
+                property is enabled.
+   - AS1_GetCharsInTxBuf -Returns the number of characters in the output buffer. This method is available only if the 
+                transmitter property is enabled.
+   - AS1_SetBaudRateMode -This method changes the channel communication speed (baud rate). This method is enabled only if the 
+                user specifies a list of possible period settings at design time (see <Timing dialog box> - Runtime setting - 
+                from a list of values). Each of these settings constitutes a _/mode/_ and Processor Expert assigns them a 
+                _/mode identifier/_. The prescaler and compare values corresponding to each mode are calculated at design time. 
+                The user may switch modes at runtime by referring to a mode identifier. No run-time calculations are performed, 
+                all the calculations are performed at design time.
+
+Module "LCD_CTR"   (component BitIO)
+   - LCD_CTR_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 
+                only if the direction = _[output]_ or _[input/output]_.
+   - LCD_CTR_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
+                the direction = _[output]_ or _[input/output]_.
+
+Module "LCD_EN"    (component BitIO)
+   - LCD_EN_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is available 
+                only if the direction = _[output]_ or _[input/output]_.
+   - LCD_EN_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
+                the direction = _[output]_ or _[input/output]_.
+
+Module "WAIT1"     (component Wait)
+   - WAIT1_Wait10Cycles -Wait for 10 CPU cycles.
+   - WAIT1_Wait100Cycles -Wait for 100 CPU cycles.
+   - WAIT1_WaitCycles -Wait for a specified number of CPU cycles (16bit data type).
+   - WAIT1_WaitLongCycles -Wait for a specified number of CPU cycles (32bit data type).
+   - WAIT1_Waitms -Wait for a specified time in milliseconds.
+   - WAIT1_Waitus -Wait for a specified time in microseconds.
+   - WAIT1_Waitns -Wait for a specified time in nano seconds.
+   - WAIT1_WaitOSms -If an RTOS is enabled, this routine will use a non-blocking wait method. Otherwise it will do a 
+                busy/blocking wait.
+
+Module "TU1"       (component TimerUnit_LDD)
+   - TU1_Init -Initializes the device. Allocates memory for the device data structure, allocates interrupt vectors and sets 
+                interrupt priority, sets pin routing, sets timing, etc. If the property <"Enable in init. code"> is set to 
+                "yes" value then the device is also enabled (see the description of the <Enable> method). In this case the 
+                <Enable> method is not necessary and needn't to be generated. This method can be called only once. Before the 
+                second call of Init the <Deinit> must be called first.
+   - TU1_Enable -Enables the component - it starts the signal generation. Events may be generated (see SetEventMask). The 
+                method is not available if the counter can't be disabled/enabled by HW.
+   - TU1_Disable -Disables the component - it stops signal generation and events calling. The method is not available if the 
+                counter can't be disabled/enabled by HW.
+
+Module "IFsh1"     (component IntFLASH)
+   - IFsh1_DisableEvent -This method disables all the events except <OnSaveBuffer>, <OnRestoreBuffer> and <OnEraseError>. The 
+                method is available only if any event is enabled.
+   - IFsh1_EnableEvent -This method enables all the events except <OnSaveBuffer>, <OnRestoreBuffer> and <OnEraseError>. The 
+                method is available only if any event is enabled.
+   - IFsh1_SetByteFlash -Writes a byte to an address in FLASH. The operation of this method depends on the "Write method" 
+                property and state of the flash. Please see more details on general info page of the help.
+   - IFsh1_GetByteFlash -Gets byte from an address in FLASH.
+   - IFsh1_SetWordFlash -Writes a word to an address in FLASH. The operation of this method depends on the "Write method" 
+                property and state of the flash. Please see more details on general info page of the help.
+   - IFsh1_GetWordFlash -Gets a word from an address in FLASH.
+   - IFsh1_SetLongFlash -Writes a long word to an address in FLASH. The operation of this method depends on the "Write method" 
+                property and state of the flash. Please see more details on general info page of the help.
+   - IFsh1_GetLongFlash -Gets a long word from an address in FLASH.
+
+Module "LED_MOTOR_MOVE" (component BitIO)
+   - LED_MOTOR_MOVE_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read 
+                and returned. If the direction is [output] then the last written value is returned (see <Safe mode> property 
+                for limitations). This method cannot be disabled if direction is [input].
+   - LED_MOTOR_MOVE_PutVal -The specified output value is set. If the direction is [input], the component saves the value to a 
+                memory or a register and this value will be written to the pin after switching to the output mode (using 
+                [SetDir(TRUE)]; see <Safe mode> property for limitations). If the direction is [output], it writes the value to 
+                the pin. (Method is available only if the direction = _[output]_ or _[input/output]_).
+   - LED_MOTOR_MOVE_ClrVal -Clears (set to zero) the output value. It is equivalent to the [PutVal(FALSE)]. This method is 
+                available only if the direction = _[output]_ or _[input/output]_.
+   - LED_MOTOR_MOVE_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available 
+                only if the direction = _[output]_ or _[input/output]_.
+   - LED_MOTOR_MOVE_NegVal -Negates (inverts) the output value. It is equivalent to the [PutVal(!GetVal())]. This method is 
+                available only if the direction = _[output]_ or _[input/output]_.
 
 Module "ESW3"      (component AsynchroSerial)
    - ESW3_RecvChar -If any data is received, this method returns one character, otherwise it returns an error code (it does not 

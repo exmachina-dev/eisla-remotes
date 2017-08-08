@@ -47,9 +47,9 @@
 #include "ENCODER.h"
 #include "ENCODER_PUSH.h"
 #include "ExtIntLdd1.h"
-#include "LEVER_DIR1.h"
-#include "ExtIntLdd2.h"
 #include "LEVER_DIR2.h"
+#include "ExtIntLdd2.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd3.h"
 #include "T_100ms.h"
 #include "I2C0.h"
@@ -58,30 +58,24 @@
 #include "ExtIntLdd4.h"
 #include "PUSH_BUTTON_REC.h"
 #include "ExtIntLdd5.h"
-#include "ESW3.h"
+#include "AS1.h"
 #include "ASerialLdd1.h"
-
-#include "protocol.h"
+#include "LCD_CTR.h"
+#include "BitIoLdd6.h"
+#include "WAIT1.h"
+#include "LCD_EN.h"
+#include "BitIoLdd7.h"
+#include "TU1.h"
+#include "IFsh1.h"
+#include "IntFlashLdd1.h"
+#include "LED_MOTOR_MOVE.h"
+#include "BitIoLdd8.h"
+#include "KSDK1.h"
+#include "CS1.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif 
-
-/*
-** ===================================================================
-**     Event       :  Cpu_OnNMIINT (module Events)
-**
-**     Component   :  Cpu [MK20DX256MC7]
-*/
-/*!
-**     @brief
-**         This event is called when the Non maskable interrupt had
-**         occurred. This event is automatically enabled when the [NMI
-**         interrupt] property is set to 'Enabled'.
-*/
-/* ===================================================================*/
-void Cpu_OnNMIINT(void);
-
 
 /*
 ** ===================================================================
@@ -158,12 +152,12 @@ void ENCODER_PUSH_OnInterrupt(void);
 ** ===================================================================
 */
 
-void LEVER_DIR2_OnInterrupt(void);
+void LEVER_DIR1_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  LEVER_DIR2_OnInterrupt (module Events)
+**     Event       :  LEVER_DIR1_OnInterrupt (module Events)
 **
-**     Component   :  LEVER_DIR2 [ExtInt]
+**     Component   :  LEVER_DIR1 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
@@ -172,12 +166,12 @@ void LEVER_DIR2_OnInterrupt(void);
 ** ===================================================================
 */
 
-void LEVER_DIR1_OnInterrupt(void);
+void LEVER_DIR2_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  LEVER_DIR1_OnInterrupt (module Events)
+**     Event       :  LEVER_DIR2_OnInterrupt (module Events)
 **
-**     Component   :  LEVER_DIR1 [ExtInt]
+**     Component   :  LEVER_DIR2 [ExtInt]
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
@@ -356,6 +350,147 @@ void ESW3_OnFreeTxBuf(void);
 =======
 void I2C0_OnArbitLost(void);
 >>>>>>> BR
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnTxComplete (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event indicates that the transmitter is finished
+**         transmitting all data, preamble, and break characters and is
+**         idle. It can be used to determine when it is safe to switch
+**         a line driver (e.g. in RS-485 applications).
+**         The event is available only when both <Interrupt
+**         service/event> and <Transmitter> properties are enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnTxComplete(void);
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnError (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called when a channel error (not the error
+**         returned by a given method) occurs. The errors can be read
+**         using <GetError> method.
+**         The event is available only when the <Interrupt
+**         service/event> property is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnError(void);
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnRxChar (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called after a correct character is received.
+**         The event is available only when the <Interrupt
+**         service/event> property is enabled and either the <Receiver>
+**         property is enabled or the <SCI output mode> property (if
+**         supported) is set to Single-wire mode.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnRxChar(void);
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnRxCharExt (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called after a correct character is received.
+**         The last received character is passed as a parameter of the
+**         event function.
+**         Nevertheless, the last received character is placed in the
+**         external buffer of the component.
+**         This event is identical in function with the <OnRxChar>
+**         event with a parameter added. It is not recommended to use
+**         both <OnRxChar> and OnRxCharExt events at the same time.
+**         The event is available only when the <Interrupt
+**         service/event> property is enabled and either the <Receiver>
+**         property is enabled or the <SCI output mode> property (if
+**         supported) is set to Single-wire mode.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         Chr             - The last character correctly received.
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnRxCharExt(AS1_TComData Chr);
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnTxChar (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called after a character is transmitted.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnTxChar(void);
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnFullRxBuf (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called when the input buffer is full;
+**         i.e. after reception of the last character 
+**         that was successfully placed into input buffer.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnFullRxBuf(void);
+
+/*
+** ===================================================================
+**     Event       :  AS1_OnFreeTxBuf (module Events)
+**
+**     Component   :  AS1 [AsynchroSerial]
+**     Description :
+**         This event is called after the last character in output
+**         buffer is transmitted.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void AS1_OnFreeTxBuf(void);
+
+/*
+** ===================================================================
+**     Event       :  TU1_OnCounterRestart (module Events)
+**
+**     Component   :  TU1 [TimerUnit_LDD]
+*/
+/*!
+**     @brief
+**         Called if counter overflow/underflow or counter is
+**         reinitialized by modulo or compare register matching.
+**         OnCounterRestart event and Timer unit must be enabled. See
+**         [SetEventMask] and [GetEventMask] methods. This event is
+**         available only if a [Interrupt] is enabled.
+**     @param
+**         UserDataPtr     - Pointer to the user or
+**                           RTOS specific data. The pointer passed as
+**                           the parameter of Init method.
+*/
+/* ===================================================================*/
+void TU1_OnCounterRestart(LDD_TUserData *UserDataPtr);
 
 /* END Events */
 

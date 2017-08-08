@@ -7,7 +7,7 @@
 **     Version     : Component 02.156, Driver 01.02, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 16:50, # CodeGen: 62
+**     Date/Time   : 2016-08-30, 15:33, # CodeGen: 269
 **     Abstract    :
 **         This component, "ExtInt_LDD", provide a low level API 
 **         for unified access of external interrupts handling
@@ -17,7 +17,7 @@
 **     Settings    :
 **          Component name                                 : ExtIntLdd3
 **          Pin                                            : PTC5/LLWU_P9/SPI0_SCK/LPTMR0_ALT2/I2S0_RXD0/CMP0_OUT
-**          Pin signal                                     : LEVER_DIR2
+**          Pin signal                                     : LEVER_DIR1
 **          Generate interrupt on                          : both edges
 **          Interrupt                                      : INT_PORTC
 **          Interrupt priority                             : medium priority
@@ -76,7 +76,7 @@
 
 /* MODULE ExtIntLdd3. */
 
-#include "LEVER_DIR2.h"
+#include "LEVER_DIR1.h"
 #include "ExtIntLdd3.h"
 /* {Default RTOS Adapter} No RTOS includes */
 

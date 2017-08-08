@@ -7,7 +7,7 @@
 **     Version     : Component 01.287, Driver 01.01, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 18:26, # CodeGen: 65
+**     Date/Time   : 2016-07-13, 10:15, # CodeGen: 121
 **     Abstract    :
 **          This component encapsulates the internal I2C communication 
 **          interface. The implementation of the interface is based 
@@ -36,10 +36,10 @@
 **            Buffers for SLAVE mode                       : Disabled
 **          MASTER mode                                    : Enabled
 **            Polling trials                               : 2000
-**            Automatic stop condition                     : no
+**            Automatic stop condition                     : yes
 **            Initialization                               : 
 **              Address mode                               : 7-bit addressing
-**              Target slave address init                  : 0x70
+**              Target slave address init                  : 0x20
 **          SLAVE mode                                     : Disabled
 **          Data and Clock                                 : 
 **            SDA pin                                      : ADC0_SE9/ADC1_SE9/TSI0_CH6/PTB1/I2C0_SDA/FTM1_CH1/FTM1_QD_PHB
@@ -47,11 +47,11 @@
 **            SCL pin                                      : ADC0_SE8/ADC1_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/FTM1_CH0/FTM1_QD_PHA
 **            SCL pin signal                               : 
 **            High drive select                            : Enabled
-**          Internal frequency (multiplier factor)         : 47.988736 MHz
-**          Bits 0-2 of Frequency divider register         : 000
-**          Bits 3-5 of Frequency divider register         : 010
-**          SCL frequency                                  : 999.765 kHz
-**          SDA Hold                                       : 0.188 us
+**          Internal frequency (multiplier factor)         : 23.994368 MHz
+**          Bits 0-2 of Frequency divider register         : 111
+**          Bits 3-5 of Frequency divider register         : 011
+**          SCL frequency                                  : 99.977 kHz
+**          SDA Hold                                       : 1.375 us
 **          Noise (glitch) filter                          : 0
 **          Low timeout                                    : Disabled
 **          Wake-up                                        : Disabled
@@ -67,7 +67,6 @@
 **         RecvChar        - byte I2C0_RecvChar(byte *Chr);
 **         SendBlock       - byte I2C0_SendBlock(void* Ptr, word Siz, word *Snt);
 **         RecvBlock       - byte I2C0_RecvBlock(void* Ptr, word Siz, word *Rcv);
-**         SendStop        - byte I2C0_SendStop(void);
 **         GetCharsInTxBuf - word I2C0_GetCharsInTxBuf(void);
 **         GetCharsInRxBuf - word I2C0_GetCharsInRxBuf(void);
 **         SelectSlave     - byte I2C0_SelectSlave(byte Slv);
@@ -372,28 +371,6 @@ byte I2C0_SendBlock(void *Ptr,word Siz,word *Snt);
 ** ===================================================================
 */
 byte I2C0_RecvBlock(void* Ptr,word Siz,word *Rcv);
-
-/*
-** ===================================================================
-**     Method      :  I2C0_SendStop (component InternalI2C)
-**     Description :
-**         If the "Automatic stop condition" property value is 'no',
-**         this method sends a valid stop condition to the serial data
-**         line of the I2C bus to terminate the communication on the
-**         bus after using send methods. This method is enabled only if
-**         "Automatic stop condition" property is set to 'no'.
-**     Parameters  : None
-**     Returns     :
-**         ---             - Error code, possible codes:
-**                           ERR_OK - OK
-**                           ERR_SPEED - This device does not work in
-**                           the active speed mode
-**                           ERR_DISABLED - Device is disabled
-**                           ERR_BUSOFF - Clock timeout elapsed - bus is
-**                           busy
-** ===================================================================
-*/
-byte I2C0_SendStop(void);
 
 /*
 ** ===================================================================

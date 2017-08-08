@@ -7,7 +7,7 @@
 **     Version     : Component 01.287, Driver 01.01, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 18:26, # CodeGen: 65
+**     Date/Time   : 2016-07-13, 10:15, # CodeGen: 121
 **     Abstract    :
 **          This component encapsulates the internal I2C communication 
 **          interface. The implementation of the interface is based 
@@ -36,10 +36,10 @@
 **            Buffers for SLAVE mode                       : Disabled
 **          MASTER mode                                    : Enabled
 **            Polling trials                               : 2000
-**            Automatic stop condition                     : no
+**            Automatic stop condition                     : yes
 **            Initialization                               : 
 **              Address mode                               : 7-bit addressing
-**              Target slave address init                  : 0x70
+**              Target slave address init                  : 0x20
 **          SLAVE mode                                     : Disabled
 **          Data and Clock                                 : 
 **            SDA pin                                      : ADC0_SE9/ADC1_SE9/TSI0_CH6/PTB1/I2C0_SDA/FTM1_CH1/FTM1_QD_PHB
@@ -47,11 +47,11 @@
 **            SCL pin                                      : ADC0_SE8/ADC1_SE8/TSI0_CH0/PTB0/LLWU_P5/I2C0_SCL/FTM1_CH0/FTM1_QD_PHA
 **            SCL pin signal                               : 
 **            High drive select                            : Enabled
-**          Internal frequency (multiplier factor)         : 47.988736 MHz
-**          Bits 0-2 of Frequency divider register         : 000
-**          Bits 3-5 of Frequency divider register         : 010
-**          SCL frequency                                  : 999.765 kHz
-**          SDA Hold                                       : 0.188 us
+**          Internal frequency (multiplier factor)         : 23.994368 MHz
+**          Bits 0-2 of Frequency divider register         : 111
+**          Bits 3-5 of Frequency divider register         : 011
+**          SCL frequency                                  : 99.977 kHz
+**          SDA Hold                                       : 1.375 us
 **          Noise (glitch) filter                          : 0
 **          Low timeout                                    : Disabled
 **          Wake-up                                        : Disabled
@@ -67,7 +67,6 @@
 **         RecvChar        - byte I2C0_RecvChar(byte *Chr);
 **         SendBlock       - byte I2C0_SendBlock(void* Ptr, word Siz, word *Snt);
 **         RecvBlock       - byte I2C0_RecvBlock(void* Ptr, word Siz, word *Rcv);
-**         SendStop        - byte I2C0_SendStop(void);
 **         GetCharsInTxBuf - word I2C0_GetCharsInTxBuf(void);
 **         GetCharsInRxBuf - word I2C0_GetCharsInRxBuf(void);
 **         SelectSlave     - byte I2C0_SelectSlave(byte Slv);
@@ -136,35 +135,15 @@
 
 #include "Events.h"
 #include "I2C0.h"
-#include "I2C_PDD.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif 
 
-/* SerFlag bits */
-#define OVERRUN_ERR      0x01U         /* Overrun error flag bit */
-#define WAIT_RX_CHAR     0x02U         /* Wait for received char. flag bit (Master)  */
-#define CHAR_IN_TX       0x04U         /* Char is in TX buffer (Master)    */
-#define CHAR_IN_RX       0x08U         /* Char is in RX buffer     */
-#define FULL_TX          0x10U         /* Full transmit buffer     */
-#define IN_PROGRES       0x20U         /* Communication is in progress (Master) */
-#define FULL_RX          0x40U         /* Full receive buffer      */
-#define MSxSL            0x80U         /* Master x Slave flag bit  */
-
 LDD_TDeviceData *IntI2cLdd1_DeviceDataPtr; /* Device data pointer */
 static word OutLenM;                   /* Length of output bufer's content */
 word I2C0_SndRcvTemp;                  /* Temporary variable for SendChar (RecvChar) when they call SendBlock (RecvBlock) */
 static byte ChrTemp;                   /* Temporary variable for SendChar method */
-static byte I2C0_SerFlag;              /* Flags for serial communication */
-                                       /* Bits: 0 - OverRun error */
-                                       /*       1 - Wait for received char. flag bit (Master) */
-                                       /*       2 - Char is in TX buffer (Master) */
-                                       /*       3 - Char in RX buffer */
-                                       /*       4 - Full TX buffer */
-                                       /*       5 - Running int from TX */
-                                       /*       6 - Full RX buffer */
-                                       /*       7 - Master x Slave */
 
 /*
 ** ===================================================================
@@ -332,13 +311,12 @@ byte I2C0_SendBlock(void *Ptr,word Siz,word *Snt)
     return ERR_OK;                     /* If zero then OK */
   }
   EnterCritical();                     /* Enter the critical section */
-  Error = IntI2cLdd1_MasterSendBlock(IntI2cLdd1_DeviceDataPtr, (LDD_TData *)Ptr, (LDD_I2C_TSize)Siz, LDD_I2C_NO_SEND_STOP); /* Send one data byte */
+  Error = IntI2cLdd1_MasterSendBlock(IntI2cLdd1_DeviceDataPtr, (LDD_TData *)Ptr, (LDD_I2C_TSize)Siz, LDD_I2C_SEND_STOP); /* Send one data byte */
   if (Error == ERR_BUSY) {
     ExitCritical();                    /* Exit the critical section */
     return ERR_BUSOFF;
   }
   OutLenM = Siz;                       /* Set length of output bufer's content */
-  I2C0_SerFlag |= IN_PROGRES;          /* Set master busy flag */
   ExitCritical();                      /* Exit the critical section */
   *Snt = Siz;                          /* Dummy number of really sent chars */
   return ERR_OK;                       /* OK */
@@ -413,41 +391,9 @@ byte I2C0_RecvBlock(void* Ptr,word Siz,word *Rcv)
     ExitCritical();                    /* Exit the critical section */
     return ERR_BUSOFF;
   }
-  I2C0_SerFlag |= IN_PROGRES;          /* Set master busy flag */
   ExitCritical();                      /* Exit the critical section */
   *Rcv = Siz;                          /* Dummy number of really received chars */
   return ERR_OK;                       /* OK */
-}
-
-/*
-** ===================================================================
-**     Method      :  I2C0_SendStop (component InternalI2C)
-**     Description :
-**         If the "Automatic stop condition" property value is 'no',
-**         this method sends a valid stop condition to the serial data
-**         line of the I2C bus to terminate the communication on the
-**         bus after using send methods. This method is enabled only if
-**         "Automatic stop condition" property is set to 'no'.
-**     Parameters  : None
-**     Returns     :
-**         ---             - Error code, possible codes:
-**                           ERR_OK - OK
-**                           ERR_SPEED - This device does not work in
-**                           the active speed mode
-**                           ERR_DISABLED - Device is disabled
-**                           ERR_BUSOFF - Clock timeout elapsed - bus is
-**                           busy
-** ===================================================================
-*/
-byte I2C0_SendStop(void)
-{
-  (void)I2C0_SerFlag;                  /* Suppress unused variable warning if needed */
-  if ((I2C0_SerFlag & IN_PROGRES) != 0U) { /* Is the bus busy */
-    return ERR_BUSOFF;                 /* If yes then error */
-  }
-  I2C_PDD_SetMasterMode(I2C0_BASE_PTR, I2C_PDD_SLAVE_MODE); /* Switch device to slave mode (stop signal sent) */
-  I2C_PDD_SetTransmitMode(I2C0_BASE_PTR, I2C_PDD_RX_DIRECTION); /* Switch to Rx mode */
-  return ERR_OK;                       /* Return without error */
 }
 
 /*
@@ -566,7 +512,6 @@ void I2C0_Init(void)
 void IntI2cLdd1_OnMasterBlockSent(LDD_TUserData *UserDataPtr)
 {
   (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
-  I2C0_SerFlag &= (byte)~(IN_PROGRES);
   I2C0_OnTransmitData();               /* Invoke user event */
 }
 
@@ -585,7 +530,6 @@ void IntI2cLdd1_OnMasterBlockSent(LDD_TUserData *UserDataPtr)
 void IntI2cLdd1_OnMasterBlockReceived(LDD_TUserData *UserDataPtr)
 {
   (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
-  I2C0_SerFlag &= (byte)~(IN_PROGRES);
   I2C0_OnReceiveData();                /* Invoke user event */
 }
 

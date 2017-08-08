@@ -7,7 +7,7 @@
 **     Version     : Component 01.016, Driver 01.07, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-03, 18:26, # CodeGen: 65
+**     Date/Time   : 2016-07-13, 10:15, # CodeGen: 121
 **     Abstract    :
 **          This component encapsulates the internal I2C communication
 **          interface. The implementation of the interface is based
@@ -36,7 +36,7 @@
 **            MASTER mode                                  : Enabled
 **              Initialization                             : 
 **                Address mode                             : 7-bit addressing
-**                Target slave address init                : 112
+**                Target slave address init                : 32
 **            SLAVE mode                                   : Disabled
 **            Pins                                         : 
 **              SDA pin                                    : 
@@ -47,13 +47,13 @@
 **                SCL pin signal                           : 
 **              High drive select                          : Enabled
 **              Input Glitch filter                        : 0
-**            Internal frequency (multiplier factor)       : 47.988736 MHz
-**            Bits 0-2 of Frequency divider register       : 000
-**            Bits 3-5 of Frequency divider register       : 010
-**            SCL frequency                                : 999.765 kHz
-**            SDA Hold                                     : 0.188 us
-**            SCL start Hold                               : 0.375 us
-**            SCL stop Hold                                : 0.521 us
+**            Internal frequency (multiplier factor)       : 23.994368 MHz
+**            Bits 0-2 of Frequency divider register       : 111
+**            Bits 3-5 of Frequency divider register       : 011
+**            SCL frequency                                : 99.977 kHz
+**            SDA Hold                                     : 1.375 us
+**            SCL start Hold                               : 4.918 us
+**            SCL stop Hold                                : 5.043 us
 **            Control acknowledge bit                      : Disabled
 **            Low timeout                                  : Disabled
 **          Initialization                                 : 
@@ -334,7 +334,7 @@ LDD_TDeviceData* IntI2cLdd1_Init(LDD_TUserData *UserDataPtr)
   /* {Default RTOS Adapter} Set interrupt vector: IVT is static, ISR parameter is passed by the global variable */
   INT_I2C0__DEFAULT_RTOS_ISRPARAM = DeviceDataPrv;
   DeviceDataPrv->SerFlag = ADDR_7;     /* Reset all flags start with 7-bit address mode */
-  DeviceDataPrv->SlaveAddr = 0xE0U;    /* Set variable for slave address */
+  DeviceDataPrv->SlaveAddr = 0x40U;    /* Set variable for slave address */
   DeviceDataPrv->SendStop = LDD_I2C_SEND_STOP; /* Set variable for sending stop condition (for master mode) */
   DeviceDataPrv->InpByteMNum = 0x00U;  /* Set zero number of input bufer's content */
   DeviceDataPrv->InpLenM = 0x00U;      /* Set zero counter of data of reception */
@@ -373,8 +373,8 @@ LDD_TDeviceData* IntI2cLdd1_Init(LDD_TUserData *UserDataPtr)
   I2C0_FLT = I2C_FLT_FLT(0x00);        /* Set glitch filter register */
   /* I2C0_SMB: FACK=0,ALERTEN=0,SIICAEN=0,TCKSEL=0,SLTF=1,SHTF1=0,SHTF2=0,SHTF2IE=0 */
   I2C0_SMB = I2C_SMB_SLTF_MASK;
-  /* I2C0_F: MULT=0,ICR=0x10 */
-  I2C0_F = (I2C_F_MULT(0x00) | I2C_F_ICR(0x10)); /* Set prescaler bits */
+  /* I2C0_F: MULT=1,ICR=0x1F */
+  I2C0_F = (I2C_F_MULT(0x01) | I2C_F_ICR(0x1F)); /* Set prescaler bits */
   I2C_PDD_EnableDevice(I2C0_BASE_PTR, PDD_ENABLE); /* Enable device */
   I2C_PDD_EnableInterrupt(I2C0_BASE_PTR); /* Enable interrupt */
   /* Registration of the device structure */

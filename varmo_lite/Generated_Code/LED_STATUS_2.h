@@ -7,7 +7,7 @@
 **     Version     : Component 02.086, Driver 01.00, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-06-02, 18:30, # CodeGen: 60
+**     Date/Time   : 2016-08-31, 23:03, # CodeGen: 280
 **     Abstract    :
 **         This component "BitIO" implements an one-bit input/output.
 **         It uses one bit/pin of a port.
@@ -26,11 +26,8 @@
 **          Safe mode                                      : yes
 **          Optimization for                               : speed
 **     Contents    :
-**         GetVal - bool LED_STATUS_2_GetVal(void);
-**         PutVal - void LED_STATUS_2_PutVal(bool Val);
 **         ClrVal - void LED_STATUS_2_ClrVal(void);
 **         SetVal - void LED_STATUS_2_SetVal(void);
-**         NegVal - void LED_STATUS_2_NegVal(void);
 **
 **     Copyright : 1997 - 2015 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -102,40 +99,6 @@ extern "C" {
 
 /*
 ** ===================================================================
-**     Method      :  LED_STATUS_2_GetVal (component BitIO)
-**     Description :
-**         This method returns an input value.
-**           a) direction = Input  : reads the input value from the
-**                                   pin and returns it
-**           b) direction = Output : returns the last written value
-**         Note: This component is set to work in Output direction only.
-**     Parameters  : None
-**     Returns     :
-**         ---             - Input value. Possible values:
-**                           FALSE - logical "0" (Low level)
-**                           TRUE - logical "1" (High level)
-
-** ===================================================================
-*/
-#define LED_STATUS_2_GetVal() (BitIoLdd3_GetVal(BitIoLdd3_DeviceData))
-
-/*
-** ===================================================================
-**     Method      :  LED_STATUS_2_PutVal (component BitIO)
-**     Description :
-**         This method writes the new output value.
-**     Parameters  :
-**         NAME       - DESCRIPTION
-**         Val             - Output value. Possible values:
-**                           FALSE - logical "0" (Low level)
-**                           TRUE - logical "1" (High level)
-**     Returns     : Nothing
-** ===================================================================
-*/
-#define LED_STATUS_2_PutVal(Val) (BitIoLdd3_PutVal(BitIoLdd3_DeviceData, (Val)))
-
-/*
-** ===================================================================
 **     Method      :  LED_STATUS_2_ClrVal (component BitIO)
 **     Description :
 **         This method clears (sets to zero) the output value.
@@ -155,17 +118,6 @@ extern "C" {
 ** ===================================================================
 */
 #define LED_STATUS_2_SetVal() (BitIoLdd3_SetVal(BitIoLdd3_DeviceData))
-
-/*
-** ===================================================================
-**     Method      :  LED_STATUS_2_NegVal (component BitIO)
-**     Description :
-**         This method negates (inverts) the output value.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-#define LED_STATUS_2_NegVal() (BitIoLdd3_NegVal(BitIoLdd3_DeviceData))
 
 /* END LED_STATUS_2. */
 

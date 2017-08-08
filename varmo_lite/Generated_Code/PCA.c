@@ -497,42 +497,6 @@ void PCA_Init(void)
   IntI2cLdd1_DeviceDataPtr = IntI2cLdd1_Init(NULL); /* Calling init method of the inherited component */
 }
 
-/*
-** ===================================================================
-**     Method      :  PCA_IntI2cLdd1_OnMasterBlockSent (component InternalI2C)
-**
-**     Description :
-**         This event is called when I2C in master mode finishes the 
-**         transmission of the data successfully. This event is not 
-**         available for the SLAVE mode and if MasterSendBlock is 
-**         disabled.
-**         This method is internal. It is used by Processor Expert only.
-** ===================================================================
-*/
-void IntI2cLdd1_OnMasterBlockSent(LDD_TUserData *UserDataPtr)
-{
-  (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
-  PCA_OnTransmitData();                /* Invoke user event */
-}
-
-/*
-** ===================================================================
-**     Method      :  PCA_IntI2cLdd1_OnMasterBlockReceived (component InternalI2C)
-**
-**     Description :
-**         This event is called when I2C is in master mode and finishes 
-**         the reception of the data successfully. This event is not 
-**         available for the SLAVE mode and if MasterReceiveBlock is 
-**         disabled.
-**         This method is internal. It is used by Processor Expert only.
-** ===================================================================
-*/
-void IntI2cLdd1_OnMasterBlockReceived(LDD_TUserData *UserDataPtr)
-{
-  (void)UserDataPtr;                   /* Parameter is not used, suppress unused argument warning */
-  PCA_OnReceiveData();                 /* Invoke user event */
-}
-
 
 /* END PCA. */
 

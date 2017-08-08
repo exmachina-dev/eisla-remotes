@@ -7,7 +7,7 @@
 **     Version     : Component 01.128, Driver 01.08, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-31, 19:27, # CodeGen: 46
+**     Date/Time   : 2016-09-07, 15:35, # CodeGen: 299
 **     Abstract    :
 **         The HAL GPIO component will provide a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -48,7 +48,6 @@
 **              OnPortEvent                                : Enabled
 **     Contents    :
 **         Init               - LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr);
-**         GetEventMask       - LDD_TEventMask ENCODER_GetEventMask(LDD_TDeviceData *DeviceDataPtr);
 **         GetPortEventStatus - ENCODER_TPortValue ENCODER_GetPortEventStatus(LDD_TDeviceData *DeviceDataPtr);
 **         SetFieldValue      - void ENCODER_SetFieldValue(LDD_TDeviceData *DeviceDataPtr, LDD_GPIO_TBitField...
 **         GetFieldValue      - ENCODER_TFieldValue ENCODER_GetFieldValue(LDD_TDeviceData *DeviceDataPtr,...
@@ -133,7 +132,6 @@ extern "C" {
 
 /* Methods configuration constants - generated for all enabled component's methods */
 #define ENCODER_Init_METHOD_ENABLED    /*!< Init method of the component ENCODER is enabled (generated) */
-#define ENCODER_GetEventMask_METHOD_ENABLED /*!< GetEventMask method of the component ENCODER is enabled (generated) */
 #define ENCODER_GetPortEventStatus_METHOD_ENABLED /*!< GetPortEventStatus method of the component ENCODER is enabled (generated) */
 #define ENCODER_SetFieldValue_METHOD_ENABLED /*!< SetFieldValue method of the component ENCODER is enabled (generated) */
 #define ENCODER_GetFieldValue_METHOD_ENABLED /*!< GetFieldValue method of the component ENCODER is enabled (generated) */
@@ -194,26 +192,6 @@ typedef ENCODER_TPortValue ENCODER_TFieldValue;
 */
 /* ===================================================================*/
 LDD_TDeviceData* ENCODER_Init(LDD_TUserData *UserDataPtr);
-
-/*
-** ===================================================================
-**     Method      :  ENCODER_GetEventMask (component GPIO_LDD)
-*/
-/*!
-**     @brief
-**         This method returns current events mask of the port. 
-**         Note: Event that are not generated (See the "Events" tab in
-**         the Component inspector) are not handled by this method.
-**         Pair method to SetEventMask().
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by [Init] method.
-**     @return
-**                         - Current EventMask. The component event masks
-**                           are defined in the PE_Types.h file.
-*/
-/* ===================================================================*/
-LDD_TEventMask ENCODER_GetEventMask(LDD_TDeviceData *DeviceDataPtr);
 
 /*
 ** ===================================================================

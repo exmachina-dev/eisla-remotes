@@ -7,7 +7,7 @@
 **     Version     : Component 01.033, Driver 01.03, CPU db: 3.00.000
 **     Repository  : Kinetis
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2016-05-30, 22:56, # CodeGen: 28
+**     Date/Time   : 2016-08-31, 23:03, # CodeGen: 280
 **     Abstract    :
 **         The HAL BitIO component provides a low level API for unified
 **         access to general purpose digital input/output pins across
@@ -27,8 +27,6 @@
 **          Safe mode                                      : yes
 **     Contents    :
 **         Init   - LDD_TDeviceData* BitIoLdd4_Init(LDD_TUserData *UserDataPtr);
-**         GetVal - bool BitIoLdd4_GetVal(LDD_TDeviceData *DeviceDataPtr);
-**         PutVal - void BitIoLdd4_PutVal(LDD_TDeviceData *DeviceDataPtr, bool Val);
 **         ClrVal - void BitIoLdd4_ClrVal(LDD_TDeviceData *DeviceDataPtr);
 **         SetVal - void BitIoLdd4_SetVal(LDD_TDeviceData *DeviceDataPtr);
 **
@@ -109,8 +107,6 @@ extern "C" {
 
 /* Methods configuration constants - generated for all enabled component's methods */
 #define BitIoLdd4_Init_METHOD_ENABLED  /*!< Init method of the component BitIoLdd4 is enabled (generated) */
-#define BitIoLdd4_GetVal_METHOD_ENABLED /*!< GetVal method of the component BitIoLdd4 is enabled (generated) */
-#define BitIoLdd4_PutVal_METHOD_ENABLED /*!< PutVal method of the component BitIoLdd4 is enabled (generated) */
 #define BitIoLdd4_ClrVal_METHOD_ENABLED /*!< ClrVal method of the component BitIoLdd4 is enabled (generated) */
 #define BitIoLdd4_SetVal_METHOD_ENABLED /*!< SetVal method of the component BitIoLdd4 is enabled (generated) */
 
@@ -144,54 +140,6 @@ extern "C" {
 */
 /* ===================================================================*/
 LDD_TDeviceData* BitIoLdd4_Init(LDD_TUserData *UserDataPtr);
-
-/*
-** ===================================================================
-**     Method      :  BitIoLdd4_GetVal (component BitIO_LDD)
-*/
-/*!
-**     @brief
-**         Returns the input/output value. If the direction is [input]
-**         then the input value of the pin is read and returned. If the
-**         direction is [output] then the last written value is read
-**         and returned (see <Safe mode> property for limitations).
-**         This method cannot be disabled if direction is [input].
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by <Init> method.
-**     @return
-**                         - Input or output value. Possible values:
-**                           <false> - logical "0" (Low level)
-**                           <true> - logical "1" (High level)
-*/
-/* ===================================================================*/
-bool BitIoLdd4_GetVal(LDD_TDeviceData *DeviceDataPtr);
-
-/*
-** ===================================================================
-**     Method      :  BitIoLdd4_PutVal (component BitIO_LDD)
-*/
-/*!
-**     @brief
-**         The specified output value is set. If the direction is <b>
-**         input</b>, the component saves the value to a memory or a
-**         register and this value will be written to the pin after
-**         switching to the output mode (using <tt>SetDir(TRUE)</tt>;
-**         see <a href="BitIOProperties.html#SafeMode">Safe mode</a>
-**         property for limitations). If the direction is <b>output</b>,
-**         it writes the value to the pin. (Method is available only if
-**         the direction = <u><tt>output</tt></u> or <u><tt>
-**         input/output</tt></u>).
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by <Init> method.
-**     @param
-**         Val             - Output value. Possible values:
-**                           <false> - logical "0" (Low level)
-**                           <true> - logical "1" (High level)
-*/
-/* ===================================================================*/
-void BitIoLdd4_PutVal(LDD_TDeviceData *DeviceDataPtr, bool Val);
 
 /*
 ** ===================================================================

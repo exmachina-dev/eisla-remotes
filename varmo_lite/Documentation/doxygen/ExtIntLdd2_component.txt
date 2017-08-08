@@ -395,7 +395,7 @@ registers of the peripheral(s) configured by the component.
 \code
 **          Component name                                 : ExtIntLdd2
 **          Pin                                            : PTC4/LLWU_P8/SPI0_PCS0/UART1_TX/FTM0_CH3/CMP1_OUT
-**          Pin signal                                     : DIR_1
+**          Pin signal                                     : DIR_2
 **          Generate interrupt on                          : both edges
 **          Interrupt                                      : INT_PORTC
 **          Interrupt priority                             : medium priority
